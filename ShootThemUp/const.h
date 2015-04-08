@@ -19,7 +19,7 @@ const int DEFAULT_BULLET_DAMAGE = 10;
 
 //level
 const int DEFAULT_LEVEL_NUMBER = 1;
-const int DEFAULT_LEVEL_ENEMY_NUMBER = 2;
+const int DEFAULT_LEVEL_ENEMY_NUMBER = 1;
 const int DEFAULT_LEVEL_INITIAL_ENEMY_OFFSET = 50;
 
 //graphic element

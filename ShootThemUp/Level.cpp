@@ -49,12 +49,9 @@ Level::~Level(){
         delete p;
     }
     
-    if(_ally !=  nullptr){
-        delete _ally;
-    }
-    if(_boss !=  nullptr){
-        delete _boss;
-    }
+    delete _ally;
+    
+    delete _boss;
     
 }
 
@@ -65,7 +62,7 @@ Level::~Level(){
  */
 bool Level::isFinish() const{
     
-    return _ally->isOver();
+    return _tabEnemies.size() <= 0 && _boss == nullptr;
     
 }
 
@@ -90,94 +87,102 @@ void Level::checkCollisions(){
     
     bool collision = false;
     
-    //collision between ally and bullets
-    int a = 0;
-    for (auto bullet : _tabBullets) {
-        if(_ally->collisions(bullet)){
-            cout << "Vous avez pris une balle !" << endl;
-            _ally->setHealth(_ally->getHealth() - bullet->getDamage());
-            collision = true;
-            
-            if(_ally->isDead()){
-                cout << "Vous etes mort" << endl;
-            }
-            
-            _tabBullets.erase(_tabBullets.begin() + a);
-            delete bullet;
-        }
-        a++;
-    }
-    
-    //collision between boss and bullets
-    int b = 0;
-    for (auto bullet : _tabBullets) {
-        if(_boss->collisions(bullet)){
-            cout << "Un boss à pris une balle !" << endl;
-            _boss->setHealth(_boss->getHealth() - bullet->getDamage());
-            collision = true;
-            
-            if(_boss->isDead()){
-                cout << "Vous avez tué le boss" << endl;
-                delete _boss;
-            }
-            
-            _tabBullets.erase(_tabBullets.begin() + b);
-            delete bullet;
-        }
-        b++;
-    }
-    
-    //collision between enemies and bullets
-    int i = 0;
-    int j = 0;
-    for (auto enemy : _tabEnemies) {
-        for(auto bullet : _tabBullets){
-            if(enemy->collisions(bullet)){
-                cout << "Un ennemi a pris une balle !" << endl;
-                enemy->setHealth(enemy->getHealth() - bullet->getDamage());
+    if(_ally != nullptr && _tabBullets.size() > 0){
+        //collision between ally and bullets
+        int a = 0;
+        for (auto bullet : _tabBullets) {
+            if(_ally->collisions(bullet)){
+                cout << "Vous avez pris une balle !" << endl;
+                _ally->setHealth(_ally->getHealth() - bullet->getDamage());
                 collision = true;
                 
-                _tabBullets.erase(_tabBullets.begin() + i);
-                delete bullet;
-                
-                _ally->setPoint(_levelNumber*2);
-                
-                if(enemy->isDead()){
-                    cout << "Vous avez tué un ennemi" << endl;
-                    _tabEnemies.erase(_tabEnemies.begin() + j);
-                    delete enemy;
+                if(_ally->isDead()){
+                    cout << "Vous etes mort" << endl;
                 }
+                
+                _tabBullets.erase(_tabBullets.begin() + a);
+                delete bullet;
             }
-            i++;
+            a++;
         }
-        j++;
     }
     
-    //collision between ally and enemies
-    int k = 0;
-    for (auto enemy : _tabEnemies) {
-        if(_ally->collisions(enemy)){
+    if(_boss != nullptr && _tabBullets.size() > 0){
+        //collision between boss and bullets
+        int b = 0;
+        for (auto bullet : _tabBullets) {
+            if(_boss->collisions(bullet)){
+                cout << "Un boss à pris une balle !" << endl;
+                _boss->setHealth(_boss->getHealth() - bullet->getDamage());
+                collision = true;
+                
+                if(_boss->isDead()){
+                    cout << "Vous avez tué le boss" << endl;
+                    _boss = nullptr;
+                }
+                
+                _tabBullets.erase(_tabBullets.begin() + b);
+                delete bullet;
+            }
+            b++;
+        }
+    }
+    
+    if(_tabBullets.size() > 0 && _tabEnemies.size() > 0){
+        //collision between enemies and bullets
+        int i = 0;
+        int j = 0;
+        for (auto enemy : _tabEnemies) {
+            for(auto bullet : _tabBullets){
+                if(enemy->collisions(bullet)){
+                    cout << "Un ennemi a pris une balle !" << endl;
+                    enemy->setHealth(enemy->getHealth() - bullet->getDamage());
+                    collision = true;
+                    
+                    _tabBullets.erase(_tabBullets.begin() + i);
+                    delete bullet;
+                    
+                    _ally->setPoint(_levelNumber*2);
+                    
+                    if(enemy->isDead()){
+                        cout << "Vous avez tué un ennemi" << endl;
+                        _tabEnemies.erase(_tabEnemies.begin() + j);
+                        delete enemy;
+                    }
+                }
+                i++;
+            }
+            j++;
+        }
+    }
+    
+    if(_ally != nullptr && _tabEnemies.size() > 0){
+        //collision between ally and enemies
+        int k = 0;
+        for (auto enemy : _tabEnemies) {
+            if(_ally->collisions(enemy)){
+                
+                _ally->setHealth(_ally->getHealth() - (_ally->getHealth() / 4));
+                
+                _tabEnemies.erase(_tabEnemies.begin() + k);
+                delete enemy;
+            }
+            k++;
+        }
+    }
+    
+    if(_ally != nullptr && _boss != nullptr){
+        //collision between ally and boss
+        if(_ally->collisions(_boss)){
             
             _ally->setHealth(_ally->getHealth() - (_ally->getHealth() / 4));
-            
-            _tabEnemies.erase(_tabEnemies.begin() + k);
-            delete enemy;
-        }
-        k++;
-    }
-    
-    //collision between ally and boss
-    
-    if(_ally->collisions(_boss)){
-        
-        _ally->setHealth(_ally->getHealth() - (_ally->getHealth() / 4));
-        _boss->setHealth(_boss->getHealth() - (_boss->getHealth() / 4));
-        if(_boss->isDead()){
-            cout << "Vous avez tué un ennemi" << endl;
-            delete _boss;
+            _boss->setHealth(_boss->getHealth() - (_boss->getHealth() / 4));
+            if(_boss->isDead()){
+                cout << "Vous avez tué un ennemi" << endl;
+                _boss = nullptr;
+            }
         }
     }
-    
     
     if(!collision){
         cout << "Aucune collision pour le moment" << endl;
@@ -238,10 +243,8 @@ void Level::EnemiesShoot() const{
 }
 
 void Level::addBoss(){
-    if(_boss == nullptr){
-        _boss = new Boss(100, 100, 200);
-        _boss->setLevel(this);
-    }
+    _boss = new Boss(0, 100, 200);
+    _boss->setLevel(this);
 }
 
 //----------GETTERS----------

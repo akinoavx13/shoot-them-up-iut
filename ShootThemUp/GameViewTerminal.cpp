@@ -21,9 +21,7 @@ GameViewTerminal::GameViewTerminal(): _gameModel(nullptr){
  * destructor
  */
 GameViewTerminal::~GameViewTerminal(){
-    if(_menu != nullptr){
-        delete _menu;
-    }
+    delete _menu;
 }
 
 //----------METHODS----------
@@ -65,7 +63,7 @@ void GameViewTerminal::draw() const{
                 _menu->setMenu(false);
                 break;
             default:
-                
+                cout << "Mauvais choix" << endl;
                 break;
         }
     }
@@ -86,6 +84,21 @@ void GameViewTerminal::draw() const{
             cout << "\tPortée du tir : " << DEFAULT_SHIP_OFFSET_SHOOT << endl << endl;
             
             cout << _gameModel->getLevel()->getAlly()->toString() << endl;
+            
+            if(_gameModel->getLevel()->getEnemiesNumber() > 0){
+                cout << _gameModel->getLevel()->toString() << endl;
+            }
+            if(_gameModel->getLevel()->getEnemiesNumber() == 1){
+                _gameModel->getLevel()->addBoss();
+            }
+            else if(_gameModel->getLevel()->getEnemiesNumber() <= 0 && _gameModel->getLevel()->getBoss() != nullptr){
+                cout << _gameModel->getLevel()->getBoss()->toString() << endl;
+
+                if(_gameModel->getLevel()->getBoss() != nullptr){
+                    _menu->setLevel(false);
+                    _menu->setShop(true);
+                }
+            }
             
             char choice;
             float posX;
@@ -113,18 +126,6 @@ void GameViewTerminal::draw() const{
                     
                 default:
                     break;
-            }
-            
-            if(_gameModel->getLevel()->getEnemiesNumber() > 0){
-                cout << _gameModel->getLevel()->toString() << endl;
-            }
-            else{
-                _gameModel->getLevel()->addBoss();
-                cout << _gameModel->getLevel()->getBoss()->toString() << endl;
-            }
-            if(_gameModel->getLevel()->getBoss() != nullptr &&  _gameModel->getLevel()->getBoss()->isDead()){
-                _menu->setLevel(false);
-                _menu->setShop(true);
             }
         }
         if(_menu->getShop()){

@@ -10,6 +10,7 @@
 #define __ShootThemUp__Boss__
 
 #include <stdio.h>
+#include <iostream>
 
 #include "Enemy.h"
 #include "Ship.h"

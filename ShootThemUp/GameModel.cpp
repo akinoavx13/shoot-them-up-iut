@@ -22,9 +22,8 @@ GameModel::GameModel():_WIDTH(MODEL_WIDTH), _HEIGHT(MODEL_HEIGHT), _numberTour(0
  * destructor
  */
 GameModel::~GameModel(){
-    if(_level != nullptr){
-        delete _level;
-    }
+    delete _level;
+    
 }
 
 //----------METHODS----------
@@ -36,6 +35,7 @@ void GameModel::updateCore(){
     _numberTour++;
     
     clearScreen();
+    
     /*
     if(_level->getEnemiesNumber() > 0){
         //enemies shoot every 2 turns
@@ -56,9 +56,9 @@ void GameModel::updateCore(){
         }
 
     }
-    
+    */
     getLevel()->checkCollisions();
-    
+    /*
     //check if ally is dead
     if(getLevel()->getAlly()->isDead()){
         //and game is not finished
