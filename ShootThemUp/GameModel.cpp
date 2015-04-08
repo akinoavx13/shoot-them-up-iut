@@ -14,7 +14,7 @@ using namespace std;
  * default constructor
  * params : Model width, Model height, number tour
  */
-GameModel::GameModel():_WIDTH(MODEL_WIDTH), _HEIGHT(MODEL_HEIGHT), _numberTour(0){
+GameModel::GameModel():_WIDTH(MODEL_WIDTH), _HEIGHT(MODEL_HEIGHT), _numberTour(1){
     _level = new Level();
 }
 
@@ -32,42 +32,87 @@ GameModel::~GameModel(){
  * used to change value of variables
  */
 void GameModel::updateCore(){
-    _numberTour++;
+    if(_menu->getIntro()){
+        _menu->setIntro(false);
+        _menu->setMenu(true);
+    }
     
-    clearScreen();
-    
-    /*
-    if(_level->getEnemiesNumber() > 0){
-        //enemies shoot every 2 turns
-        if(_numberTour % 2 == 0){
-            getLevel()->EnemiesShoot();
+    if(_menu->getGame()){
+        
+        _numberTour++;
+        clearScreen();
+        
+        if(getLevel()->getAlly()->isOver()){
+            _menu->setEnding(true);
+            _menu->setGame(false);
+            _menu->setLevel(false);
+            _menu->setShop(false);
         }
         
-        //enemies move every 4 turns
-        if(_numberTour % 4 == 0){
-            getLevel()->moveEnemies();
+        if(_menu->getLevel()){
+            
+            getLevel()->checkCollisions();
+            
+            //check if ally is dead
+            if(getLevel()->getAlly()->isDead()){
+                //and game is not finished
+                if(!getLevel()->getAlly()->isOver()){
+                    getLevel()->getAlly()->setHealth(DEFAULT_SHIP_LIFE);
+                    getLevel()->getAlly()->setNumberOfLife(getLevel()->getAlly()->getNumberOfLife() - 1);
+                }
+            }
+            if(getLevel()->getAlly()->isOver()){
+                _menu->setGame(false);
+                _menu->getEnding();
+            }
+            
+            if(getLevel()->getEnemiesNumber() == 1){
+                getLevel()->addBoss();
+                getLevel()->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + getLevel()->getLevelNumber() * 30);
+            }
+            
+            if(getLevel()->getEnemiesNumber() <= 0){
+                if(getLevel()->getBoss() == nullptr){
+                    _menu->setLevel(false);
+                    _menu->setShop(true);
+                }
+                if(_level->getBoss() != nullptr &&  !_level->getBoss()->isDead()){
+                    //boss shoot every 4 turns
+                    if(_numberTour % 2 == 0){
+                        _level->getBoss()->shoot();
+                    }
+                }
+            }
+            else{
+                //enemies shoot every 2 turns
+                if(_numberTour % 2 == 0){
+                    getLevel()->EnemiesShoot();
+                }
+                
+                //enemies move every 4 turns
+                if(_numberTour % 4 == 0){
+                    getLevel()->moveEnemies();
+                }
+            }
+
+        }
+        
+        if (_menu->getShop()) {
+            _level->setLevelNumber(_level->getLevelNumber() + 1);
+            _level->setNbEnemies(_level->getNbEnemies() + 2);
+            _level->addEnemies();
+            for (auto enemy : getLevel()->getEnemies()) {
+                enemy->setHealth(enemy->getHealth() + getLevel()->getLevelNumber() * 10);
+            }
         }
     }
     
-    if(_level->getBoss() != nullptr &&  !_level->getBoss()->isDead()){
-        //boss shoot every 4 turns
-        if(_numberTour % 2 == 0){
-            _level->getBoss()->shoot();
-        }
-
+    
+    
+    if(_menu->getEnding()){
+        _menu->setEnding(false);
+        _menu->setMenu(true);
     }
-    */
-    getLevel()->checkCollisions();
-    /*
-    //check if ally is dead
-    if(getLevel()->getAlly()->isDead()){
-        //and game is not finished
-        if(!getLevel()->getAlly()->isOver()){
-            getLevel()->getAlly()->setHealth(DEFAULT_SHIP_LIFE);
-            getLevel()->getAlly()->setNumberOfLife(getLevel()->getAlly()->getNumberOfLife() - 1);
-        }
-    }
-     */
 }
 
 /*

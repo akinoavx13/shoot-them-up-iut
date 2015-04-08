@@ -49,7 +49,7 @@ string Ally::toString() const{
     string str = "Notre vaisseau";
     str += "\n";
 
-    str += "\tNombre de points : ";
+    str += "\Score : ";
     str += to_string(_score) + "\n";
     
     str += "\tNombre de vie : ";

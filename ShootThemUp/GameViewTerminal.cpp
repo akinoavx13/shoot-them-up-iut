@@ -33,9 +33,6 @@ GameViewTerminal::~GameViewTerminal(){
 void GameViewTerminal::draw() const{
     if(_menu->getIntro()) {
         _menu->showIntro();
-        
-        _menu->setIntro(false);
-        _menu->setMenu(true);
     }
     
     if(_menu->getMenu()){
@@ -69,15 +66,9 @@ void GameViewTerminal::draw() const{
     }
     
     if(_menu->getGame()) {
-        if(_gameModel->getLevel()->isFinish()){
-            _menu->setMenu(true);
-            _menu->setGame(false);
-            _menu->setLevel(false);
-            _menu->setShop(false);
-        }
-        
         if(_menu->getLevel()) {
             cout << "Informations sur le niveau" << endl;
+            cout << "\tNiveau : " << _gameModel->getLevel()->getLevelNumber() << endl;
             cout << "\tTour n° : " << _gameModel->getNumberTour() << endl;
             cout << "\tNombre d'ennemis : " << _gameModel->getLevel()->getEnemiesNumber() << endl;
             cout << "\tVos dégats : " << MAIN_SHOOT_DAMAGE << endl;
@@ -88,15 +79,10 @@ void GameViewTerminal::draw() const{
             if(_gameModel->getLevel()->getEnemiesNumber() > 0){
                 cout << _gameModel->getLevel()->toString() << endl;
             }
-            if(_gameModel->getLevel()->getEnemiesNumber() == 1){
-                _gameModel->getLevel()->addBoss();
-            }
-            else if(_gameModel->getLevel()->getEnemiesNumber() <= 0 && _gameModel->getLevel()->getBoss() != nullptr){
-                cout << _gameModel->getLevel()->getBoss()->toString() << endl;
 
+            if(_gameModel->getLevel()->getEnemiesNumber() <= 0){
                 if(_gameModel->getLevel()->getBoss() != nullptr){
-                    _menu->setLevel(false);
-                    _menu->setShop(true);
+                    cout << _gameModel->getLevel()->getBoss()->toString() << endl;
                 }
             }
             
@@ -125,6 +111,7 @@ void GameViewTerminal::draw() const{
                     break;
                     
                 default:
+                    cout << "Mauvais choix" << endl;
                     break;
             }
         }
@@ -142,7 +129,7 @@ void GameViewTerminal::draw() const{
     }
     
     if(_menu->getEnding()){
-        cout << "La partie est fini fdp" << endl;
+        cout << "La partie est fini" << endl;
     }
 }
 

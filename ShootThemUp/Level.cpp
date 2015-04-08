@@ -15,19 +15,7 @@ using namespace std;
  */
 Level::Level() : _levelNumber(DEFAULT_LEVEL_NUMBER), _nbEnemies(DEFAULT_LEVEL_ENEMY_NUMBER){
     
-    int x = 0;
-    int y = 100;
-    
-    for(int i = 0; i<_nbEnemies; i++){
-        x += DEFAULT_LEVEL_INITIAL_ENEMY_OFFSET;
-        if(x >= MODEL_WIDTH){
-            y += DEFAULT_LEVEL_INITIAL_ENEMY_OFFSET;
-        }
-        
-        Enemy* enemy = new Enemy(x, y, 100);
-        enemy->setLevel(this);
-        _tabEnemies.push_back(enemy);
-    }
+    addEnemies();
     
     _ally = new Ally();
     _ally->setLevel(this);
@@ -227,7 +215,6 @@ void Level::moveEnemies() const{
         x = rand() % 501;
         enemy->move(x, y);
     }
-    
 }
 
 /*
@@ -247,6 +234,22 @@ void Level::addBoss(){
     _boss->setLevel(this);
 }
 
+void Level::addEnemies(){
+    int x = 0;
+    int y = 100;
+    for(int i = 0; i<_nbEnemies; i++){
+        x += DEFAULT_LEVEL_INITIAL_ENEMY_OFFSET;
+        if(x >= MODEL_WIDTH){
+            y += DEFAULT_LEVEL_INITIAL_ENEMY_OFFSET;
+        }
+        
+        Enemy* enemy = new Enemy(x, y, 100);
+        enemy->setLevel(this);
+        _tabEnemies.push_back(enemy);
+    }
+
+}
+
 //----------GETTERS----------
 /*
  * returns : ally
@@ -259,6 +262,9 @@ Ally* Level::getAlly() const{
 Boss* Level::getBoss() const{
     return _boss;
 }
+vector<Enemy*> Level::getEnemies() const{
+    return _tabEnemies;
+}
 
 /*
  * returns : enemies who are still in live
@@ -268,9 +274,21 @@ int Level::getEnemiesNumber() const{
     return (int)_tabEnemies.size();
 }
 
+int Level::getNbEnemies() const{
+    return _nbEnemies;
+}
 
+int Level::getLevelNumber() const{
+    return _levelNumber;
+}
 
+void Level::setNbEnemies(int nbEnemies){
+    _nbEnemies = nbEnemies;
+}
 
+void Level::setLevelNumber(int levelNumber){
+    _levelNumber = levelNumber;
+}
 
 
 

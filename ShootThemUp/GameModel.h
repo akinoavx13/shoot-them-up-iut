@@ -28,7 +28,7 @@ private:
     Menu* _menu;
     Level* _level;
     int _numberTour;
-
+    
 public:
 
     //CONSTRUCTOR

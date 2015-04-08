@@ -47,11 +47,18 @@ public:
     void moveEnemies() const;
     void EnemiesShoot() const;
     void addBoss();
+    void addEnemies();
     
     //GETTERS
     Ally* getAlly() const;
     Boss* getBoss() const;
+    std::vector<Enemy*> getEnemies() const;
     int getEnemiesNumber() const;
+    int getNbEnemies()const;
+    int getLevelNumber() const;
+    
+    void setNbEnemies(int nbEnemies);
+    void setLevelNumber(int levelNumber);
     
 };
 
