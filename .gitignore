@@ -1,5 +1,11 @@
-# Object file
-*.o
+#xcode
+*.dylib
+*.framework
+*.xcodeproj
+ShootThemUpTests/*
+ShootThemUp/*.plist
+ShootThemUp/*.lproj
+*.save
 
-# Ada Library Information
-*.ali
+#mac
+.DS_Store
