@@ -21,6 +21,21 @@ Bullet::Bullet():_damage(DEFAULT_BULLET_DAMAGE){}
  */
 Bullet::Bullet(const float x, const float y, const int damage) : GraphicElement(x, y), _damage(damage){}
 
+Bullet* Bullet::FireBall(const float x, const float y){
+    Bullet* bullet = new Bullet(x, y, DEFAULT_FIREBALL_DAMAGE);
+    return bullet;
+}
+
+Bullet* Bullet::TinyLaser(const float x, const float y){
+    Bullet* bullet = new Bullet(x, y, DEFAULT_TINYLASER_DAMAGE);
+    return bullet;
+}
+
+Bullet* Bullet::Laser(const float x, const float y){
+    Bullet* bullet = new Bullet(x, y, DEFAULT_TINYLASER_DAMAGE);
+    return bullet;
+}
+
 /*
  * destructor
  * info : virtual

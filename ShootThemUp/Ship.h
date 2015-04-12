@@ -25,7 +25,9 @@ protected:
 
     int _health;
     Bullet* _mainShoot;
+    int _bulletType;
     Level* _level;
+    int _damage;
 
 public:
 
@@ -44,10 +46,14 @@ public:
 
     //GETTERS
     int getHealth() const;
+    int getBulletType() const;
+    int getDamage() const;
     
     //SETTERS
     void setLevel(Level* level);
     void setHealth(int health);
+    void setBulletType(int bulletType);
+    void setDamage(int damage);
 
 };
 

@@ -22,6 +22,25 @@ Enemy::Enemy(){}
  */
 Enemy::Enemy(const float x, const float y, const int health):Ship(x, y, health){}
 
+
+Enemy* Enemy::Tiny(const float x, const float y){
+    Enemy* enemy = new Enemy(x, y, DEFAULT_TINY_LIFE);
+    enemy->_damage = DEFAULT_TINY_DAMAGE;
+    return enemy;
+}
+
+Enemy* Enemy::Submarine(const float x, const float y){
+    Enemy* enemy = new Enemy(x, y, DEFAULT_SUBMARINE_LIFE);
+    enemy->_damage = DEFAULT_SUBMARINE_DAMAGE;
+    return enemy;
+}
+
+Enemy* Enemy::Mighty(const float x, const float y){
+    Enemy* enemy = new Enemy(x, y, DEFAULT_MIGHTY_LIFE);
+    enemy->_damage = DEFAULT_MIGHTY_DAMAGE;
+    return enemy;
+}
+
 /*
  * destructor
  * info : virtual
@@ -47,13 +66,9 @@ string Enemy::toString() const{
     return str;
 }
 
-/*
- * an enemy can shoot
- * info : override
- */
 void Enemy::shoot(){
     
-    _mainShoot = new Bullet(_x, _y - DEFAULT_SHIP_OFFSET_SHOOT, MAIN_SHOOT_DAMAGE);
+    _mainShoot = new Bullet(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT, _damage);
     _level->addBullet(_mainShoot);
     
 }

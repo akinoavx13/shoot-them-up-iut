@@ -130,7 +130,7 @@ void Level::checkCollisions(){
                     _tabBullets.erase(_tabBullets.begin() + i);
                     delete bullet;
                     
-                    _ally->setPoint(_levelNumber*2);
+                    _ally->setScore(_levelNumber*2);
                     
                     if(enemy->isDead()){
                         cout << "Vous avez tué un ennemi" << endl;
@@ -212,7 +212,7 @@ void Level::moveEnemies() const{
     srand((unsigned int)time(NULL));
     
     for (auto enemy : _tabEnemies) {
-        x = rand() % 501;
+        x = rand() % MODEL_WIDTH + 1;
         enemy->move(x, y);
     }
 }
@@ -237,15 +237,31 @@ void Level::addBoss(){
 void Level::addEnemies(){
     int x = 0;
     int y = 100;
+    
+    srand((unsigned int)time(NULL));
+    
     for(int i = 0; i<_nbEnemies; i++){
         x += DEFAULT_LEVEL_INITIAL_ENEMY_OFFSET;
         if(x >= MODEL_WIDTH){
             y += DEFAULT_LEVEL_INITIAL_ENEMY_OFFSET;
         }
+        int type = rand()%_nbEnemies;
         
-        Enemy* enemy = new Enemy(x, y, 100);
-        enemy->setLevel(this);
-        _tabEnemies.push_back(enemy);
+        if(type == 0){
+            Enemy* enemy = Enemy::Mighty(x, y);
+            enemy->setLevel(this);
+            _tabEnemies.push_back(enemy);
+        }
+        else if (type == 1){
+            Enemy* enemy = Enemy::Submarine(x, y);
+            enemy->setLevel(this);
+            _tabEnemies.push_back(enemy);
+        }
+        else if (type == 2){
+            Enemy* enemy = Enemy::Tiny(x, y);
+            enemy->setLevel(this);
+            _tabEnemies.push_back(enemy);
+        }
     }
 
 }

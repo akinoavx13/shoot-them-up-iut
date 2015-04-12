@@ -77,9 +77,18 @@ void GameModel::updateCore(){
                     _menu->setShop(true);
                 }
                 if(_level->getBoss() != nullptr &&  !_level->getBoss()->isDead()){
-                    //boss shoot every 4 turns
+                    //boss shoot every 2 turns
                     if(_numberTour % 2 == 0){
                         _level->getBoss()->shoot();
+                    }
+                    
+                    //boss shoot every 4 turns
+                    if(_numberTour % 3 == 0){
+                        int x;
+                        int y = 100;
+                        x = rand() % MODEL_WIDTH + 1;
+                        srand((unsigned int)time(NULL));
+                        _level->getBoss()->move(x, y);
                     }
                 }
             }
@@ -103,11 +112,10 @@ void GameModel::updateCore(){
             _level->addEnemies();
             for (auto enemy : getLevel()->getEnemies()) {
                 enemy->setHealth(enemy->getHealth() + getLevel()->getLevelNumber() * 10);
+                enemy->setDamage(enemy->getDamage() + getLevel()->getLevelNumber() * 7);
             }
         }
     }
-    
-    
     
     if(_menu->getEnding()){
         _menu->setEnding(false);

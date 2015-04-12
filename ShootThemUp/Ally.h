@@ -36,12 +36,13 @@ public:
     
     //GETTERS
     int getNumberOfLife() const;
+    int getScore() const;
 
     //SETTERS
     void setHealth(int health);
     void setNumberOfLife(int numberOfLive);
     
-    void setPoint(int expPoint);
+    void setScore(int expPoint);
 
 };
 

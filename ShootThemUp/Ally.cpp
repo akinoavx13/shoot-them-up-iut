@@ -49,11 +49,42 @@ string Ally::toString() const{
     string str = "Notre vaisseau";
     str += "\n";
 
-    str += "\Score : ";
+    str += "\tScore : ";
     str += to_string(_score) + "\n";
     
     str += "\tNombre de vie : ";
     str += to_string(_numbersOfLife);
+    str += "\n";
+    
+    str += "\tType de missile : ";
+    if(_bulletType == 0){
+        str += "standard";
+    }
+    else if(_bulletType == 1){
+        str += "boule de feu";
+    }
+    else if(_bulletType == 2){
+        str += "petit laser";
+    }
+    else if(_bulletType == 3){
+        str += "laser";
+    }
+    str += "\n";
+    
+    str += "\tDégat : ";
+    if(_bulletType == 0){
+        str += to_string(MAIN_SHOOT_DAMAGE);
+    }
+    else if(_bulletType == 1){
+        str += to_string(DEFAULT_FIREBALL_DAMAGE);
+    }
+    else if(_bulletType == 2){
+        str += to_string(DEFAULT_TINYLASER_DAMAGE);
+    }
+    else if(_bulletType == 3){
+        str += to_string(DEFAULT_LASER_DAMAGE);
+    }
+    
     str += "\n";
 
     str += Ship::toString();
@@ -67,6 +98,10 @@ string Ally::toString() const{
  */
 int Ally::getNumberOfLife() const{
     return _numbersOfLife;
+}
+
+int Ally::getScore() const{
+    return _score;
 }
 
 //----------SETTERS----------
@@ -84,7 +119,7 @@ void Ally::setNumberOfLife(int numberOfLive){
     _numbersOfLife = numberOfLive;
 }
 
-void Ally::setPoint(int expPoint){
+void Ally::setScore(int expPoint){
     _score += DEFAULT_POINT + expPoint;
 }
 

@@ -14,13 +14,14 @@ using namespace std;
 /*
  * default constructor
  */
-Ship::Ship():_health(DEFAULT_SHIP_LIFE), _mainShoot(nullptr), _level(nullptr){}
+Ship::Ship():_health(DEFAULT_SHIP_LIFE), _mainShoot(nullptr), _level(nullptr), _damage(MAIN_SHOOT_DAMAGE), _bulletType(0){}
 
 /*
  * constructor
  * params : x, y and health of a ship
  */
-Ship::Ship(const float x, const float y, const int health):GraphicElement(x, y), _health(health), _mainShoot(nullptr){}
+Ship::Ship(const float x, const float y, const int health):GraphicElement(x, y), _health(health), _mainShoot(nullptr), _bulletType(0), _level(nullptr), _damage(MAIN_SHOOT_DAMAGE){}
+
 
 /*
  * destructor
@@ -37,8 +38,18 @@ Ship::~Ship(){
  */
 void Ship::shoot(){
     
-    _mainShoot = new Bullet(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT, MAIN_SHOOT_DAMAGE);
-    _level->addBullet(_mainShoot);
+    if(_bulletType == 0){
+        _mainShoot = Bullet::FireBall(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT);
+        _level->addBullet(_mainShoot);
+    }
+    else if(_bulletType == 1){
+        _mainShoot = Bullet::TinyLaser(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT);
+        _level->addBullet(_mainShoot);
+    }
+    else if(_bulletType == 2){
+        _mainShoot = Bullet::Laser(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT);
+        _level->addBullet(_mainShoot);
+    }
     
 }
 
@@ -91,6 +102,15 @@ int Ship::getHealth() const{
     return _health;
 }
 
+int Ship::getBulletType() const{
+    return _bulletType;
+}
+
+int Ship::getDamage() const{
+    return _damage;
+}
+
+
 //----------SETTERS----------
 /*
  * set the level
@@ -104,4 +124,12 @@ void Ship::setLevel(Level* level){
  */
 void Ship::setHealth(int health){
     _health = health;
+}
+
+void Ship::setBulletType(int bulletType){
+    _bulletType = bulletType;
+}
+
+void Ship::setDamage(int damage){
+    _damage = damage;
 }

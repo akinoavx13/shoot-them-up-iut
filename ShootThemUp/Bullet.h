@@ -26,6 +26,9 @@ public:
     //CONSTRUCTOR
     Bullet();
     Bullet(const float x, const float y, const int damage);
+    static Bullet* FireBall(const float x, const float y);
+    static Bullet* TinyLaser(const float x, const float y);
+    static Bullet* Laser(const float x, const float y);
     
     //DESTRUCTOR
     virtual ~Bullet();
