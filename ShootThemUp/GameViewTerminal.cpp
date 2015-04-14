@@ -45,19 +45,33 @@ void GameViewTerminal::draw() const{
         cin >> choice;
         switch (choice) {
             case '1':
+                _menu->setIntro(false);
                 _menu->setGame(true);
                 _menu->setLevel(true);
+                _menu->setShop(false);
                 _menu->setMenu(false);
+                _menu->setScore(false);
+                _menu->setEnding(false);
                 break;
             
             case '2':
-                _menu->setScore(true);
+                _menu->setIntro(false);
+                _menu->setGame(false);
+                _menu->setLevel(false);
+                _menu->setShop(false);
                 _menu->setMenu(false);
+                _menu->setScore(true);
+                _menu->setEnding(false);
                 break;
                 
             case '3':
-                _menu->setEnding(true);
+                _menu->setIntro(false);
+                _menu->setGame(false);
+                _menu->setLevel(false);
+                _menu->setShop(false);
                 _menu->setMenu(false);
+                _menu->setScore(false);
+                _menu->setEnding(true);
                 break;
             default:
                 cout << "Mauvais choix" << endl;
@@ -195,8 +209,13 @@ void GameViewTerminal::draw() const{
                     
                 case '6':
                     cout << "Au revoir" << endl;
-                    _menu->setShop(false);
+                    _menu->setIntro(false);
+                    _menu->setGame(true);
                     _menu->setLevel(true);
+                    _menu->setShop(false);
+                    _menu->setMenu(false);
+                    _menu->setScore(false);
+                    _menu->setEnding(false);
                     break;
                     
                 default:
@@ -204,8 +223,13 @@ void GameViewTerminal::draw() const{
                     break;
             }
             cout << "Au revoir" << endl;
-            _menu->setShop(false);
+            _menu->setIntro(false);
+            _menu->setGame(true);
             _menu->setLevel(true);
+            _menu->setShop(false);
+            _menu->setMenu(false);
+            _menu->setScore(false);
+            _menu->setEnding(false);
         }
     }
     
@@ -213,8 +237,13 @@ void GameViewTerminal::draw() const{
         cout << "Liste des scores" << endl;
         _menu->showScores(MAC_SCORE_FILE_MAXIME);
         
-        _menu->setScore(false);
+        _menu->setIntro(false);
+        _menu->setGame(false);
+        _menu->setLevel(false);
+        _menu->setShop(false);
         _menu->setMenu(true);
+        _menu->setScore(false);
+        _menu->setEnding(false);
     }
     if(_menu->getEnding()){
         int score = _gameModel->getLevel()->getAlly()->getScore();

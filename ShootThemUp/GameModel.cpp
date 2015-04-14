@@ -34,20 +34,18 @@ GameModel::~GameModel(){
 void GameModel::updateCore(){
     if(_menu->getIntro()){
         _menu->setIntro(false);
+        _menu->setGame(false);
+        _menu->setLevel(false);
+        _menu->setShop(false);
         _menu->setMenu(true);
+        _menu->setScore(false);
+        _menu->setEnding(false);
     }
     
     if(_menu->getGame()){
         
         _numberTour++;
         clearScreen();
-        
-        if(getLevel()->getAlly()->isOver()){
-            _menu->setEnding(true);
-            _menu->setGame(false);
-            _menu->setLevel(false);
-            _menu->setShop(false);
-        }
         
         if(_menu->getLevel()){
             
@@ -62,8 +60,13 @@ void GameModel::updateCore(){
                 }
             }
             if(getLevel()->getAlly()->isOver()){
+                _menu->setIntro(false);
                 _menu->setGame(false);
-                _menu->getEnding();
+                _menu->setLevel(false);
+                _menu->setShop(false);
+                _menu->setMenu(false);
+                _menu->setScore(false);
+                _menu->setEnding(true);
             }
             
             if(getLevel()->getEnemiesNumber() == 1){
@@ -73,8 +76,13 @@ void GameModel::updateCore(){
             
             if(getLevel()->getEnemiesNumber() <= 0){
                 if(getLevel()->getBoss() == nullptr){
+                    _menu->setIntro(false);
+                    _menu->setGame(false);
                     _menu->setLevel(false);
                     _menu->setShop(true);
+                    _menu->setMenu(false);
+                    _menu->setScore(false);
+                    _menu->setEnding(false);
                 }
                 if(_level->getBoss() != nullptr &&  !_level->getBoss()->isDead()){
                     //boss shoot every 2 turns
@@ -118,8 +126,13 @@ void GameModel::updateCore(){
     }
     
     if(_menu->getEnding()){
-        _menu->setEnding(false);
+        _menu->setIntro(false);
+        _menu->setGame(false);
+        _menu->setLevel(false);
+        _menu->setShop(false);
         _menu->setMenu(true);
+        _menu->setScore(false);
+        _menu->setEnding(false);
     }
 }
 
