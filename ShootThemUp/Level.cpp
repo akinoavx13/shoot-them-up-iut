@@ -179,7 +179,9 @@ void Level::checkCollisions(){
     //uniquement pour le model, sinon pour la vue, c'est que la fonction qui verifie si la balle et encore dans la fenetre
     for(auto bullet : _tabBullets){
         _tabBullets.erase(_tabBullets.begin() - 1);
-        delete bullet;
+        if(_tabBullets.size() > 0){
+            delete bullet;
+        }
     }
 
     //pour détruire la balle quand elle est hors du cadre, utilisé pour la vue
