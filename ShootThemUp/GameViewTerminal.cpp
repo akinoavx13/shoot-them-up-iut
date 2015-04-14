@@ -209,7 +209,21 @@ void GameViewTerminal::draw() const{
         }
     }
     
+    if(_menu->getScore()){
+        cout << "Liste des scores" << endl;
+        _menu->showScores(MAC_SCORE_FILE_NICOLAS);
+        
+        _menu->setScore(false);
+        _menu->setMenu(true);
+    }
     if(_menu->getEnding()){
+        int score = _gameModel->getLevel()->getAlly()->getScore();
+        cout << "Quel est votre nom ? " ;
+        string name ;
+        cin >> name;
+        
+        _menu->saveScore(score, name, MAC_SCORE_FILE_NICOLAS);
+
         cout << "La partie est fini" << endl;
     }
 }

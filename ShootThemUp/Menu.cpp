@@ -7,7 +7,8 @@
 //
 
 #include "Menu.h"
-
+#include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -111,4 +112,74 @@ void Menu::showIntro() const{
     cout << "*                                                                *" << endl;
     cout << "==================================================================" << endl;
     
+}
+
+void Menu::saveScore(int value, string player, string file){
+    fstream f;
+    
+    f.open(file, ios::out);
+    
+    if(!f.fail()) {
+        f << player;
+        f << value;
+        f << "\n" ;
+        
+        f.close();
+    }
+    else {
+        cout << "Oups, the file can't be opened ..." << endl;
+    }
+}
+
+void Menu::showScores(string file){
+    fstream f;
+    
+    vector<Player> players;
+    
+    f.open(file, ios::in);
+    
+    if(!f.fail()){
+        while(!f.eof()){
+            string name;
+            int score;
+            
+            f >> name;
+            f >> score;
+            
+            Player p(name, score);
+            
+            bool exist = false;
+            
+            for(auto test : players){
+                if(test.alreadyExist(p)){
+                    test.bestScore(score);
+                    exist=true;
+                }
+            }
+            
+            if(!exist) {
+                players.push_back(p);
+            }
+        }
+        
+        for(int i = 0; i <players.size(); i++){
+            for(int j = i; j <players.size(); j ++){
+                if(players[i].getScore() < players[j].getScore()){
+                    Player temp = players[i];
+                    players[i] = players[j];
+                    players[j] = temp;
+                }
+            }
+        }
+        
+        int i = 1;
+        for(auto p : players){
+            cout << "Position " << i << endl;
+            cout << p.toString() << endl;
+            i++;
+        }
+    }
+    else {
+        cout << "Oups, the file can't be opened ..." << endl;
+    }
 }

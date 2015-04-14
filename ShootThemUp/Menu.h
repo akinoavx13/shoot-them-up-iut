@@ -11,6 +11,9 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <string>
+
+#include "Player.h"
 
 class Menu {
 private:
@@ -48,6 +51,9 @@ public:
     void setEnding(bool ending);
     
     void showIntro() const;
+    void saveScore(int value, std::string player, std::string file);
+    
+    void showScores(std::string file);
     
 };
 

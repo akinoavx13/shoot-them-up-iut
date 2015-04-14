@@ -9,6 +9,7 @@
 #ifndef __CONST_H__
 #define __CONST_H__
 
+#include <string>
 
 //windows
 const int MODEL_WIDTH = 500;
@@ -71,5 +72,9 @@ const int DEFAULT_RESTRAURE_LIFE_PRICE = 300;
 
 //ADD LIFE
 const int DEFAULT_ADD_LIFE_PRICE = 400;
+
+//SCORE
+const std::string LINUX_SCORE_FILE = "score.txt" ;
+const std::string MAC_SCORE_FILE_NICOLAS = "/Users/nicolas/Desktop/ShootThemUp/ShootThemUp/score.txt";
 
 #endif
