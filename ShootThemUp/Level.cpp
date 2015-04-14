@@ -77,7 +77,7 @@ void Level::checkCollisions(){
     
     if(_ally != nullptr && _tabBullets.size() > 0){
         //collision between ally and bullets
-        int a = -1;
+        int a = 0;
         for (auto bullet : _tabBullets) {
             if(_ally->collisions(bullet)){
                 cout << "Vous avez pris une balle !" << endl;
@@ -97,7 +97,7 @@ void Level::checkCollisions(){
     
     if(_boss != nullptr && _tabBullets.size() > 0){
         //collision between boss and bullets
-        int b = -1;
+        int b = 0;
         for (auto bullet : _tabBullets) {
             if(_boss->collisions(bullet)){
                 cout << "Un boss à pris une balle !" << endl;
@@ -118,9 +118,9 @@ void Level::checkCollisions(){
     
     if(_tabBullets.size() > 0 && _tabEnemies.size() > 0){
         //collision between enemies and bullets
-        int j = -1;
+        int j = 0;
         for (auto enemy : _tabEnemies) {
-            int i = -1;
+            int i = 0;
             for(auto bullet : _tabBullets){
                 if(enemy->collisions(bullet)){
                     cout << "Un ennemi a pris une balle !" << endl;
@@ -133,7 +133,6 @@ void Level::checkCollisions(){
                     _ally->setScore(_levelNumber*2);
                     
                     if(enemy->isDead()){
-                        cout << "Vous avez tué un ennemi" << endl;
                         _tabEnemies.erase(_tabEnemies.begin() + j);
                         delete enemy;
                     }
@@ -146,12 +145,14 @@ void Level::checkCollisions(){
     
     if(_ally != nullptr && _tabEnemies.size() > 0){
         //collision between ally and enemies
-        int k = -1;
+        int k = 0;
         for (auto enemy : _tabEnemies) {
             if(_ally->collisions(enemy)){
                 
                 _ally->setHealth(_ally->getHealth() - (_ally->getHealth() / 4));
                 
+                cout << "Vous avez tué un ennemi" << endl;
+
                 _tabEnemies.erase(_tabEnemies.begin() + k);
                 delete enemy;
             }
@@ -178,7 +179,7 @@ void Level::checkCollisions(){
     
     //uniquement pour le model, sinon pour la vue, c'est que la fonction qui verifie si la balle et encore dans la fenetre
     for(auto bullet : _tabBullets){
-        _tabBullets.erase(_tabBullets.begin() - 1);
+        _tabBullets.erase(_tabBullets.begin());
         if(_tabBullets.size() > 0){
             delete bullet;
         }
