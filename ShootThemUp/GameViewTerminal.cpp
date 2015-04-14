@@ -211,7 +211,7 @@ void GameViewTerminal::draw() const{
     
     if(_menu->getScore()){
         cout << "Liste des scores" << endl;
-        _menu->showScores(MAC_SCORE_FILE_NICOLAS);
+        _menu->showScores(MAC_SCORE_FILE_MAXIME);
         
         _menu->setScore(false);
         _menu->setMenu(true);
@@ -222,7 +222,7 @@ void GameViewTerminal::draw() const{
         string name ;
         cin >> name;
         
-        _menu->saveScore(score, name, MAC_SCORE_FILE_NICOLAS);
+        _menu->saveScore(score, name, MAC_SCORE_FILE_MAXIME);
 
         cout << "La partie est fini" << endl;
     }

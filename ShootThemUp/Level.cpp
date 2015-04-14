@@ -77,7 +77,7 @@ void Level::checkCollisions(){
     
     if(_ally != nullptr && _tabBullets.size() > 0){
         //collision between ally and bullets
-        int a = 0;
+        int a = -1;
         for (auto bullet : _tabBullets) {
             if(_ally->collisions(bullet)){
                 cout << "Vous avez pris une balle !" << endl;
@@ -97,7 +97,7 @@ void Level::checkCollisions(){
     
     if(_boss != nullptr && _tabBullets.size() > 0){
         //collision between boss and bullets
-        int b = 0;
+        int b = -1;
         for (auto bullet : _tabBullets) {
             if(_boss->collisions(bullet)){
                 cout << "Un boss à pris une balle !" << endl;
@@ -118,9 +118,9 @@ void Level::checkCollisions(){
     
     if(_tabBullets.size() > 0 && _tabEnemies.size() > 0){
         //collision between enemies and bullets
-        int i = 0;
-        int j = 0;
+        int j = -1;
         for (auto enemy : _tabEnemies) {
+            int i = -1;
             for(auto bullet : _tabBullets){
                 if(enemy->collisions(bullet)){
                     cout << "Un ennemi a pris une balle !" << endl;
@@ -146,7 +146,7 @@ void Level::checkCollisions(){
     
     if(_ally != nullptr && _tabEnemies.size() > 0){
         //collision between ally and enemies
-        int k = 0;
+        int k = -1;
         for (auto enemy : _tabEnemies) {
             if(_ally->collisions(enemy)){
                 
@@ -178,11 +178,10 @@ void Level::checkCollisions(){
     
     //uniquement pour le model, sinon pour la vue, c'est que la fonction qui verifie si la balle et encore dans la fenetre
     for(auto bullet : _tabBullets){
+        _tabBullets.erase(_tabBullets.begin() - 1);
         delete bullet;
     }
-    _tabBullets.clear();
-    
-    
+
     //pour détruire la balle quand elle est hors du cadre, utilisé pour la vue
     /*
      for(auto bullet : _tabBullets){

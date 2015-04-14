@@ -68,7 +68,7 @@ string Enemy::toString() const{
 
 void Enemy::shoot(){
     
-    _mainShoot = new Bullet(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT, _damage);
+    _mainShoot = new Bullet(_x, _y - DEFAULT_SHIP_OFFSET_SHOOT, _damage);
     _level->addBullet(_mainShoot);
     
 }

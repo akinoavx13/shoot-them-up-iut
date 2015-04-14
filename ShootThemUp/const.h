@@ -76,5 +76,6 @@ const int DEFAULT_ADD_LIFE_PRICE = 400;
 //SCORE
 const std::string LINUX_SCORE_FILE = "score.txt" ;
 const std::string MAC_SCORE_FILE_NICOLAS = "/Users/nicolas/Desktop/ShootThemUp/ShootThemUp/score.txt";
+const std::string MAC_SCORE_FILE_MAXIME = "/Users/Maxime/Desktop/Shump/ShootThemUp/ShootThemUp/score.txt";
 
 #endif

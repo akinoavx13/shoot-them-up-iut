@@ -38,15 +38,20 @@ Ship::~Ship(){
  */
 void Ship::shoot(){
     
+    
     if(_bulletType == 0){
-        _mainShoot = Bullet::FireBall(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT);
+        _mainShoot = new Bullet(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT, MAIN_SHOOT_DAMAGE);
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 1){
-        _mainShoot = Bullet::TinyLaser(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT);
+        _mainShoot = Bullet::FireBall(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT);
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 2){
+        _mainShoot = Bullet::TinyLaser(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT);
+        _level->addBullet(_mainShoot);
+    }
+    else if(_bulletType == 3){
         _mainShoot = Bullet::Laser(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT);
         _level->addBullet(_mainShoot);
     }
