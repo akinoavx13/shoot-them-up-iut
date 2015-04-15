@@ -39,7 +39,6 @@ public:
     int getScore() const;
 
     //SETTERS
-    void setHealth(int health);
     void setNumberOfLife(int numberOfLive);
     
     void setScore(int expPoint);

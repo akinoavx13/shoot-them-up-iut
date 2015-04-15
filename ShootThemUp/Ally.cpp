@@ -108,9 +108,6 @@ int Ally::getScore() const{
 /*
  * set the health of ally
  */
-void Ally::setHealth(int health){
-    _health = health;
-}
 
 /*
  * set number of life

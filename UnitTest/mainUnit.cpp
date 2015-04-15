@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(dead){
     BOOST_CHECK(a.isOver() == true);
 }
 
-//check if the player haven't life points
+//check if the player haven't health points
 BOOST_AUTO_TEST_CASE(loseLife){
     Ally a;
     a.setHealth(0);
@@ -186,7 +186,7 @@ BOOST_AUTO_TEST_CASE(bestScore){
     Menu m;
     std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
     Player p("Nicolas", 10000);
-    int value;
+    int value = 0;
     for(auto test : it){
         if(test.alreadyExist(p)){
             test.bestScore(p.getScore());
@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_CASE(notBestScore){
     Menu m;
     std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
     Player p("Nicolas", 4);
-    int value;
+    int value = 0;
     for(auto test : it){
         if(test.alreadyExist(p)){
             test.bestScore(p.getScore());
