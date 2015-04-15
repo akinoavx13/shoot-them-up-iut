@@ -10,11 +10,15 @@
 #define BOOST_TEST_MODULE
 
 #include <boost/test/unit_test.hpp>
+#include <vector>
 
 #include "../ShootThemUp/Ally.h"
 #include "../ShootThemUp/Level.h"
 #include "../ShootThemUp/Enemy.h"
 #include "../ShootThemUp/Boss.h"
+#include "../ShootThemUp/Player.h"
+#include "../ShootThemUp/Menu.h"
+
 
 /*******************************
     Unit Test for the Ally
@@ -81,6 +85,29 @@ BOOST_AUTO_TEST_CASE(scored){
     Unit Test for the Level
 ********************************/
 
+//check if the level is finish when all enemies and the boss are dead
+BOOST_AUTO_TEST_CASE(endingLevel){
+    Level l;
+    std::vector<Enemy*> enemies = l.getEnemies();
+    Boss* b = new Boss();
+
+    for(auto e : enemies){
+        e->setHealth(0);
+    }
+
+    l.addBoss();
+    b=l.getBoss();
+    b->setHealth(0);
+
+    std::cout << enemies.size() << std::endl;
+
+    std::cout << b->toString() << std::endl;
+
+    //on voit qu'il y a un problème avec ka suppression
+
+    //BOOST_CHECK(l.isFinish() == true );
+}
+
 /*******************************
     Unit Test for the Ship
 ********************************/
@@ -123,3 +150,63 @@ BOOST_AUTO_TEST_CASE(moveAllyExceptArea){
 /*******************************
     Unit Test for the Player
 ********************************/
+//check if Nicolas exist : we know that yes
+BOOST_AUTO_TEST_CASE(playerExist){
+    Menu m;
+    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
+    Player p("Nicolas", 100);
+    bool find = false;
+    for(auto test : it){
+        if(test.alreadyExist(p)){
+            find = true;
+            break;
+        }
+    }
+
+    BOOST_CHECK(find == true);
+}
+
+//check if Jacqui exist : we know that no
+BOOST_AUTO_TEST_CASE(playerNotExist){
+    Menu m;
+    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
+    Player p("Jacqui", 100);
+    bool find = false;
+    for(auto test : it){
+        if(test.alreadyExist(p)){
+            find = true;
+            break;
+        }
+    }
+    BOOST_CHECK(find == false);
+}
+
+//In the file, Nicolas best score if around 50, so now, it maybe 10000
+BOOST_AUTO_TEST_CASE(bestScore){
+    Menu m;
+    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
+    Player p("Nicolas", 10000);
+    int value;
+    for(auto test : it){
+        if(test.alreadyExist(p)){
+            test.bestScore(p.getScore());
+            value=test.getScore();
+        }
+    }
+    BOOST_CHECK(value == 10000);
+}
+
+//In the file, Nicolas best score if around 50, so now, it maybe superior than 4
+BOOST_AUTO_TEST_CASE(notBestScore){
+    Menu m;
+    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
+    Player p("Nicolas", 4);
+    int value;
+    for(auto test : it){
+        if(test.alreadyExist(p)){
+            test.bestScore(p.getScore());
+            value=test.getScore();
+        }
+    }
+    BOOST_CHECK(value > 4);
+}

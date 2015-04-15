@@ -17,15 +17,16 @@
 
 class Boss : public Enemy{
 private:
-    
+
 public:
     Boss();
+    Boss(const Boss &b);
     Boss(const float x, const float y, const int health);
-    
+
     ~Boss();
-    
+
     std::string toString() const override;
-    
+
 };
 
 #endif /* defined(__ShootThemUp__Boss__) */

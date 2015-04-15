@@ -7,6 +7,7 @@
 //
 
 #include "GameViewTerminal.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -235,7 +236,14 @@ void GameViewTerminal::draw() const{
 
     if(_menu->getScore()){
         cout << "Liste des scores" << endl;
-        _menu->showScores(LINUX_SCORE_FILE);
+        std::vector<Player> players = _menu->showScores(LINUX_SCORE_FILE);
+
+        int i = 1;
+        for(auto p : players){
+            cout << "Position " << i << endl;
+            cout << p.toString() << endl;
+            i++;
+        }
 
         _menu->setIntro(false);
         _menu->setGame(false);

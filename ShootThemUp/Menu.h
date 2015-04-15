@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "Player.h"
 
@@ -24,37 +25,37 @@ private:
     bool _menu;
     bool _score;
     bool _ending;
-    
+
 public:
     Menu();
     ~Menu();
-    
+
     bool getIntro() const;
     void setIntro(bool intro);
 
     bool getGame() const;
     void setGame(bool shop);
-    
+
     bool getLevel() const;
     void setLevel(bool level);
-    
+
     bool getShop() const;
     void setShop(bool shop);
-    
+
     bool getMenu() const;
     void setMenu(bool menu);
 
     bool getScore() const;
     void setScore(bool score);
-    
+
     bool getEnding() const;
     void setEnding(bool ending);
-    
+
     void showIntro() const;
     void saveScore(int value, std::string player, std::string file);
-    
-    void showScores(std::string file);
-    
+
+    std::vector<Player> showScores(std::string file);
+
 };
 
 #endif /* defined(__ShootThemUp__Menu__) */
