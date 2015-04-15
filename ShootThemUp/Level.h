@@ -48,6 +48,7 @@ public:
     void EnemiesShoot() const;
     void addBoss();
     void addEnemies();
+    void deleteAllEnemy();
     
     //GETTERS
     Ally* getAlly() const;
@@ -59,6 +60,7 @@ public:
     
     void setNbEnemies(int nbEnemies);
     void setLevelNumber(int levelNumber);
+    
     
 };
 

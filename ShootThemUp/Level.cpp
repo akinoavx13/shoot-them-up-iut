@@ -179,11 +179,9 @@ void Level::checkCollisions(){
     
     //uniquement pour le model, sinon pour la vue, c'est que la fonction qui verifie si la balle et encore dans la fenetre
     for(auto bullet : _tabBullets){
-        _tabBullets.erase(_tabBullets.begin());
-        if(_tabBullets.size() > 0){
-            delete bullet;
-        }
+        delete bullet;
     }
+    _tabBullets.clear();
 
     //pour détruire la balle quand elle est hors du cadre, utilisé pour la vue
     /*
@@ -265,7 +263,16 @@ void Level::addEnemies(){
             _tabEnemies.push_back(enemy);
         }
     }
+}
 
+void Level::deleteAllEnemy(){
+    
+    for (auto enemy : _tabEnemies) {
+        delete enemy;
+    }
+    
+    _tabEnemies.clear();
+    
 }
 
 //----------GETTERS----------
@@ -307,8 +314,6 @@ void Level::setNbEnemies(int nbEnemies){
 void Level::setLevelNumber(int levelNumber){
     _levelNumber = levelNumber;
 }
-
-
 
 
 
