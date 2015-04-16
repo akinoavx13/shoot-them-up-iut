@@ -34,7 +34,7 @@ public:
     //CONSTRUCTOR
     Ship();
     Ship(const float x, const float y, const int health);
-    
+
     //DESTRUCTOR
     virtual ~Ship() = 0;
 
@@ -48,7 +48,7 @@ public:
     int getHealth() const;
     int getBulletType() const;
     int getDamage() const;
-    
+
     //SETTERS
     void setLevel(Level* level);
     void setHealth(int health);

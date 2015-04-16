@@ -18,6 +18,7 @@
 #include "../ShootThemUp/Boss.h"
 #include "../ShootThemUp/Player.h"
 #include "../ShootThemUp/Menu.h"
+#include "../ShootThemUp/Bullet.h"
 
 
 /*******************************
@@ -81,17 +82,118 @@ BOOST_AUTO_TEST_CASE(scored){
     Unit Test for the Enemy
 ********************************/
 
+BOOST_AUTO_TEST_CASE(colisionEnemyAndBullet){
+    Enemy* e = new Enemy(50,40,40);
+    Bullet* b = new Bullet(50,50, 20);
+
+    BOOST_CHECK(e->collisions(b) == true);
+}
+
+BOOST_AUTO_TEST_CASE(notcColisionAllyAndEnemy){
+    Enemy* e = new Enemy(50,40,40);
+    Ally* a = new Ally(146,50,20);
+
+    BOOST_CHECK(a->collisions(e) == false);
+}
 /*******************************
     Unit Test for the Level
 ********************************/
 
+/***************
+BOOST_AUTO_TEST_CASE(colisionAllyAndAllBullets){
+    Ally* a = new Ally();
+    int defaultLife=a->getHealth();
+std::cout << "vie initial " << a->getHealth() << std::endl;
+    Level* l = new Level();
+    Enemy* e = new Enemy();
+std::cout << "WEEEEEEEEEEEEEEEESH" << std::endl;
+    e->shoot();
+    e->shoot();
+    e->move(a->getX(), a->getY());
+    e->shoot();
+    e->move(148, 234);
+
+    l->checkCollisions();
+std::cout << "vie finale " << a->getHealth() << std::endl;
+
+    BOOST_CHECK(defaultLife != a->getHealth());
+}*/
+
 //check if the level is finish when all enemies and the boss are dead
 BOOST_AUTO_TEST_CASE(endingLevel){
     Level* l = new Level();
-    
+
     l->deleteAllEnemy();
-    
+
     BOOST_CHECK(l->isFinish() == true );
+}
+
+BOOST_AUTO_TEST_CASE(newsBullets){
+    Bullet* b1 = new Bullet();
+    Bullet* b2 = new Bullet();
+    Bullet* b3 = new Bullet();
+
+    Level* l = new Level();
+
+    l->addBullet(b1);
+    l->addBullet(b2);
+    l->addBullet(b3);
+
+    BOOST_CHECK(l->getNumberOfBullets() == 3 );
+}
+
+BOOST_AUTO_TEST_CASE(bossNotExist){
+    Level* l = new Level();
+
+    BOOST_CHECK(l->getBoss() ==nullptr );
+}
+
+BOOST_AUTO_TEST_CASE(bossExist){
+    Level* l = new Level();
+    l->addBoss();
+
+    BOOST_CHECK(l->getBoss() != nullptr );
+}
+
+BOOST_AUTO_TEST_CASE(newsEnemies){
+    Level* l = new Level();
+
+    l->addEnemies();
+
+    BOOST_CHECK(l->getNumberOfEnemies() >0 );
+}
+/**************
+BOOST_AUTO_TEST_CASE(moveEnemies){
+    Level* l = new Level();
+
+    bool move = true;
+
+    std::vector<Enemy*> enemies = l->getEnemies();
+
+    l->moveEnemies();
+
+    std::vector<Enemy*> enemiesMoving = l->getEnemies();
+
+    for(int i = 0; i<enemies.size() && i<enemiesMoving.size(); i++){
+        std::cout << enemies[i]->getX() << std::endl;
+        std::cout << enemiesMoving[i]->getX() << std::endl << std::endl;
+        if(enemies[i]->getX() == enemiesMoving[i]->getX()
+            //&& enemies[i]->getY() == enemiesMoving[i]->getY() //car dansmoveEnemies on chositi de ne changement que x
+           ){
+            move=false;
+            break;
+        }
+    }
+
+    BOOST_CHECK(move == true);
+}
+*/
+BOOST_AUTO_TEST_CASE(enemiesShoot){
+    Level* l = new Level();
+
+    l->EnemiesShoot();
+
+    BOOST_CHECK(l->getNumberOfBullets() > 0);
 }
 
 /*******************************
@@ -129,9 +231,50 @@ BOOST_AUTO_TEST_CASE(moveAllyExceptArea){
 
     BOOST_CHECK(a.getX()==50 && a.getY()==0);
 }
+
+BOOST_AUTO_TEST_CASE(setDamageToAlly){
+    Ally a;
+    a.setDamage(50);
+
+    BOOST_CHECK(a.getDamage()==50);
+}
+
+/***************
+BOOST_AUTO_TEST_CASE(shootBullet){
+    Ally* a = new Ally();
+    Enemy *e = new Enemy();
+    Level* l = new Level();
+
+    int nbBalle = l->getNumberOfBullets();
+
+    a->shoot();
+    nbBalle++;
+    e->shoot();
+    nbBalle++;
+
+    BOOST_CHECK(nbBalle == l->getNumberOfBullets());
+}
+*/
+
 /*******************************
     Unit Test for the Menu
 ********************************/
+//
+BOOST_AUTO_TEST_CASE(showScoresCorrectly){
+    Menu* m;
+    std::vector<Player> p = m->showScores(LINUX_SCORE_FILE);
+
+    bool good = true;
+
+    for(int i = 0; i<p.size(); i++){
+        if(p[i].getName()=="" || !p[i].getScore()){
+            good = false;
+            break;
+        }
+    }
+
+    BOOST_CHECK(good == true);
+}
 
 /*******************************
     Unit Test for the Player
@@ -139,7 +282,7 @@ BOOST_AUTO_TEST_CASE(moveAllyExceptArea){
 //check if Nicolas exist : we know that yes
 BOOST_AUTO_TEST_CASE(playerExist){
     Menu m;
-    std::vector<Player> it = m.showScores(MAC_SCORE_FILE_MAXIME);
+    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
     Player p("Nicolas", 100);
     bool find = false;
     for(auto test : it){
@@ -155,7 +298,7 @@ BOOST_AUTO_TEST_CASE(playerExist){
 //check if Jacqui exist : we know that no
 BOOST_AUTO_TEST_CASE(playerNotExist){
     Menu m;
-    std::vector<Player> it = m.showScores(MAC_SCORE_FILE_MAXIME);
+    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
     Player p("Jacqui", 100);
     bool find = false;
     for(auto test : it){
@@ -170,7 +313,7 @@ BOOST_AUTO_TEST_CASE(playerNotExist){
 //In the file, Nicolas best score if around 50, so now, it maybe 10000
 BOOST_AUTO_TEST_CASE(bestScore){
     Menu m;
-    std::vector<Player> it = m.showScores(MAC_SCORE_FILE_MAXIME);
+    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
     Player p("Nicolas", 10000);
     int value = 0;
     for(auto test : it){
@@ -185,7 +328,7 @@ BOOST_AUTO_TEST_CASE(bestScore){
 //In the file, Nicolas best score if around 50, so now, it maybe superior than 4
 BOOST_AUTO_TEST_CASE(notBestScore){
     Menu m;
-    std::vector<Player> it = m.showScores(MAC_SCORE_FILE_MAXIME);
+    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
     Player p("Nicolas", 4);
     int value = 0;
     for(auto test : it){

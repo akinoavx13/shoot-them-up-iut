@@ -37,8 +37,6 @@ Ship::~Ship(){
  * shoot. Create a new bullet and add it in the bullet's vector in level
  */
 void Ship::shoot(){
-    
-    
     if(_bulletType == 0){
         _mainShoot = new Bullet(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT, MAIN_SHOOT_DAMAGE);
         _level->addBullet(_mainShoot);
@@ -55,7 +53,6 @@ void Ship::shoot(){
         _mainShoot = Bullet::Laser(_x, _y + DEFAULT_SHIP_OFFSET_SHOOT);
         _level->addBullet(_mainShoot);
     }
-    
 }
 
 /*
@@ -63,13 +60,13 @@ void Ship::shoot(){
  * info : constant, virtual, override
  */
 string Ship::toString() const{
-    
+
     string str;
-    
+
     str = "\tPoints de vie : " + to_string(_health) + "\n";
 
     str += GraphicElement::toString();
-    
+
     return str;
 }
 
@@ -78,7 +75,7 @@ string Ship::toString() const{
  * info : constant
  */
 bool Ship::collisions(GraphicElement* graphicElement)const{
-    
+
     if(
        (_x >= graphicElement->getX() && _x <= graphicElement->getX() + graphicElement->getWidth() && _y >= graphicElement->getY() && _y <= graphicElement->getY() + graphicElement->getHeight()) ||
        (_x + _width >= graphicElement->getX() && _x + _width <= graphicElement->getX() + graphicElement->getWidth() && _y >= graphicElement->getY() && _y <= graphicElement->getY() + graphicElement->getHeight()) ||
@@ -88,7 +85,7 @@ bool Ship::collisions(GraphicElement* graphicElement)const{
         return true;
     }
     return false;
-    
+
 }
 
 /*

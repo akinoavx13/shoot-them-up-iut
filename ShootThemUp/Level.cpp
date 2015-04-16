@@ -14,12 +14,12 @@ using namespace std;
  * default constructor
  */
 Level::Level() : _levelNumber(DEFAULT_LEVEL_NUMBER), _nbEnemies(DEFAULT_LEVEL_ENEMY_NUMBER){
-    
+
     addEnemies();
-    
+
     _ally = new Ally();
     _ally->setLevel(this);
-    
+
     _boss = nullptr;
 }
 
@@ -28,19 +28,19 @@ Level::Level() : _levelNumber(DEFAULT_LEVEL_NUMBER), _nbEnemies(DEFAULT_LEVEL_EN
  * info : virtual
  */
 Level::~Level(){
-    
+
     for (auto p : _tabEnemies) {
         delete p;
     }
-    
+
     for (auto p : _tabBullets) {
         delete p;
     }
-    
+
     delete _ally;
-    
+
     delete _boss;
-    
+
 }
 
 //----------METHODS----------
@@ -49,9 +49,9 @@ Level::~Level(){
  * info : constant
  */
 bool Level::isFinish() const{
-    
+
     return _tabEnemies.size() <= 0 && _boss == nullptr;
-    
+
 }
 
 /*
@@ -60,11 +60,11 @@ bool Level::isFinish() const{
  */
 string Level::toString() const{
     string str;
-    
+
     for(auto p : _tabEnemies){
         str += p->toString();
     }
-    
+
     return str;
 }
 
@@ -72,9 +72,9 @@ string Level::toString() const{
  * check for all graphic element in the level if there are collision between them
  */
 void Level::checkCollisions(){
-    
+
     bool collision = false;
-    
+
     if(_ally != nullptr && _tabBullets.size() > 0){
         //collision between ally and bullets
         int a = 0;
@@ -83,18 +83,18 @@ void Level::checkCollisions(){
                 cout << "Vous avez pris une balle !" << endl;
                 _ally->setHealth(_ally->getHealth() - bullet->getDamage());
                 collision = true;
-                
+
                 if(_ally->isDead()){
                     cout << "Vous etes mort" << endl;
                 }
-                
+
                 _tabBullets.erase(_tabBullets.begin() + a);
                 delete bullet;
             }
             a++;
         }
     }
-    
+
     if(_boss != nullptr && _tabBullets.size() > 0){
         //collision between boss and bullets
         int b = 0;
@@ -103,19 +103,19 @@ void Level::checkCollisions(){
                 cout << "Un boss à pris une balle !" << endl;
                 _boss->setHealth(_boss->getHealth() - bullet->getDamage());
                 collision = true;
-                
+
                 if(_boss->isDead()){
                     cout << "Vous avez tué le boss" << endl;
                     _boss = nullptr;
                 }
-                
+
                 _tabBullets.erase(_tabBullets.begin() + b);
                 delete bullet;
             }
             b++;
         }
     }
-    
+
     if(_tabBullets.size() > 0 && _tabEnemies.size() > 0){
         //collision between enemies and bullets
         int j = 0;
@@ -126,12 +126,12 @@ void Level::checkCollisions(){
                     cout << "Un ennemi a pris une balle !" << endl;
                     enemy->setHealth(enemy->getHealth() - bullet->getDamage());
                     collision = true;
-                    
+
                     _tabBullets.erase(_tabBullets.begin() + i);
                     delete bullet;
-                    
+
                     _ally->setScore(_levelNumber*2);
-                    
+
                     if(enemy->isDead()){
                         _tabEnemies.erase(_tabEnemies.begin() + j);
                         delete enemy;
@@ -142,15 +142,15 @@ void Level::checkCollisions(){
             j++;
         }
     }
-    
+
     if(_ally != nullptr && _tabEnemies.size() > 0){
         //collision between ally and enemies
         int k = 0;
         for (auto enemy : _tabEnemies) {
             if(_ally->collisions(enemy)){
-                
+
                 _ally->setHealth(_ally->getHealth() - (_ally->getHealth() / 4));
-                
+
                 cout << "Vous avez tué un ennemi" << endl;
 
                 _tabEnemies.erase(_tabEnemies.begin() + k);
@@ -159,11 +159,11 @@ void Level::checkCollisions(){
             k++;
         }
     }
-    
+
     if(_ally != nullptr && _boss != nullptr){
         //collision between ally and boss
         if(_ally->collisions(_boss)){
-            
+
             _ally->setHealth(_ally->getHealth() - (_ally->getHealth() / 4));
             _boss->setHealth(_boss->getHealth() - (_boss->getHealth() / 4));
             if(_boss->isDead()){
@@ -172,11 +172,11 @@ void Level::checkCollisions(){
             }
         }
     }
-    
+
     if(!collision){
         cout << "Aucune collision pour le moment" << endl;
     }
-    
+
     //uniquement pour le model, sinon pour la vue, c'est que la fonction qui verifie si la balle et encore dans la fenetre
     for(auto bullet : _tabBullets){
         delete bullet;
@@ -208,9 +208,9 @@ void Level::addBullet(Bullet* bullet){
 void Level::moveEnemies() const{
     int x;
     int y = 100;
-    
+
     srand((unsigned int)time(NULL));
-    
+
     for (auto enemy : _tabEnemies) {
         x = rand() % MODEL_WIDTH + 1;
         enemy->move(x, y);
@@ -222,11 +222,11 @@ void Level::moveEnemies() const{
  * info : constant
  */
 void Level::EnemiesShoot() const{
-    
+
     for (auto enemy : _tabEnemies) {
         enemy->shoot();
     }
-    
+
 }
 
 void Level::addBoss(){
@@ -237,16 +237,16 @@ void Level::addBoss(){
 void Level::addEnemies(){
     int x = 0;
     int y = 100;
-    
+
     srand((unsigned int)time(NULL));
-    
+
     for(int i = 0; i<_nbEnemies; i++){
         x += DEFAULT_LEVEL_INITIAL_ENEMY_OFFSET;
         if(x >= MODEL_WIDTH){
             y += DEFAULT_LEVEL_INITIAL_ENEMY_OFFSET;
         }
         int type = rand()%_nbEnemies;
-        
+
         if(type == 0){
             Enemy* enemy = Enemy::Mighty(x, y);
             enemy->setLevel(this);
@@ -266,13 +266,13 @@ void Level::addEnemies(){
 }
 
 void Level::deleteAllEnemy(){
-    
+
     for (auto enemy : _tabEnemies) {
         delete enemy;
     }
-    
+
     _tabEnemies.clear();
-    
+
 }
 
 //----------GETTERS----------
@@ -315,7 +315,13 @@ void Level::setLevelNumber(int levelNumber){
     _levelNumber = levelNumber;
 }
 
+int Level::getNumberOfBullets() const{
+    return _tabBullets.size();
+}
 
+int Level::getNumberOfEnemies() const{
+    return _tabEnemies.size();
+}
 
 
 

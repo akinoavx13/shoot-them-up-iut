@@ -16,19 +16,19 @@ class Player {
     private :
         std::string _name;
         int _score;
-    
+
     public:
         Player(std::string name, int score);
         Player(const Player &p);
         ~Player();
-    
-        Player getPlayer() const;
+
         int getScore() const;
-    
+        std::string getName() const;
+
         bool alreadyExist(Player test) const;
-    
+
         void bestScore(int test);
-    
+
         std::string toString() const;
 };
 

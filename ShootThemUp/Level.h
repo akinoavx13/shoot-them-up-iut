@@ -19,26 +19,26 @@
 #include "Boss.h"
 
 class Level{
-    
+
 private:
-    
+
     int _levelNumber;
     int _nbEnemies;
-    
+
     std::vector<Enemy *> _tabEnemies;
     std::vector<Bullet*> _tabBullets;
-    
+
     Boss* _boss;
     Ally* _ally;
-    
+
 public:
-    
+
     //CONSTRUCTOR
     Level();
-    
+
     //DESTRUCTOR
     virtual ~Level();
-    
+
     //METHODS
     bool isFinish() const;
     std::string toString() const;
@@ -49,7 +49,7 @@ public:
     void addBoss();
     void addEnemies();
     void deleteAllEnemy();
-    
+
     //GETTERS
     Ally* getAlly() const;
     Boss* getBoss() const;
@@ -57,11 +57,13 @@ public:
     int getEnemiesNumber() const;
     int getNbEnemies()const;
     int getLevelNumber() const;
-    
+    int getNumberOfBullets() const;
+    int getNumberOfEnemies() const;
+
     void setNbEnemies(int nbEnemies);
     void setLevelNumber(int levelNumber);
-    
-    
+
+
 };
 
 #endif // LEVEL_H_INCLUDED

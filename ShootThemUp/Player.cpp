@@ -19,8 +19,8 @@ Player::Player(const Player &p){
 
 Player::~Player(){}
 
-Player Player::getPlayer() const{
-    return *this;
+string Player::getName() const{
+    return _name;
 }
 
 int Player::getScore() const{
@@ -41,6 +41,6 @@ string Player::toString() const{
     string str = "***********\n" ;
     str += "Name  = " + _name + "\n";
     str += "Score = " + to_string(_score) + "\n\n";
-    
+
     return str;
 }

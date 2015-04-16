@@ -12,8 +12,6 @@ using namespace std;
 
 Boss::Boss(){}
 
-Boss::Boss(const Boss &b) : Enemy(b._x, b._y, b._health) {}
-
 Boss::Boss(const float x, const float y, const int health):Enemy(x, y, health){}
 
 Boss::~Boss(){

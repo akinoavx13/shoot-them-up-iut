@@ -48,7 +48,7 @@ Enemy* Enemy::Mighty(const float x, const float y){
 Enemy::~Enemy(){
 
     cout << "Enemy delete" << endl;
-    
+
 }
 
 //----------METHODS----------
@@ -58,17 +58,15 @@ Enemy::~Enemy(){
  */
 string Enemy::toString() const{
     string str = "Un ennemi";
-    
+
     str += "\n";
     str += Ship::toString();
     str += "\n";
-    
+
     return str;
 }
 
 void Enemy::shoot(){
-    
     _mainShoot = new Bullet(_x, _y - DEFAULT_SHIP_OFFSET_SHOOT, _damage);
     _level->addBullet(_mainShoot);
-    
 }
