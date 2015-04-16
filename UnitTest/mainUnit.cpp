@@ -67,11 +67,10 @@ BOOST_AUTO_TEST_CASE(incrementLife){
 //check if at the level 4, the player have 20+4*2 points
 BOOST_AUTO_TEST_CASE(scored){
     Level l;
-    Ally a;
     l.setLevelNumber(4);
-    a.setScore(l.getLevelNumber()*2);
+    l.getAlly()->setScore(l.getLevelNumber()*2);
 
-    BOOST_CHECK(a.getScore() == 28);
+    BOOST_CHECK(l.getAlly()->getScore() == 28);
 }
 
 /*******************************
@@ -99,25 +98,22 @@ BOOST_AUTO_TEST_CASE(notcColisionAllyAndEnemy){
     Unit Test for the Level
 ********************************/
 
-/***************
 BOOST_AUTO_TEST_CASE(colisionAllyAndAllBullets){
-    Ally* a = new Ally();
-    int defaultLife=a->getHealth();
-std::cout << "vie initial " << a->getHealth() << std::endl;
     Level* l = new Level();
-    Enemy* e = new Enemy();
-std::cout << "WEEEEEEEEEEEEEEEESH" << std::endl;
-    e->shoot();
-    e->shoot();
-    e->move(a->getX(), a->getY());
-    e->shoot();
-    e->move(148, 234);
+    
+    l->getAlly()->move(50, 0);
+    
+    l->getEnemies()[0]->move(50, 100);
+    l->getEnemies()[1]->move(100, 100);
+    l->getEnemies()[2]->move(150, 100);
+    
+    l->EnemiesShoot();
 
     l->checkCollisions();
-std::cout << "vie finale " << a->getHealth() << std::endl;
-
-    BOOST_CHECK(defaultLife != a->getHealth());
-}*/
+    
+    //because enemies can be tiny, submarine or mighty
+    BOOST_CHECK(l->getAlly()->getHealth() == 80 || l->getAlly()->getHealth() == 60 || l->getAlly()->getHealth() == 50);
+}
 
 //check if the level is finish when all enemies and the boss are dead
 BOOST_AUTO_TEST_CASE(endingLevel){
@@ -160,40 +156,27 @@ BOOST_AUTO_TEST_CASE(newsEnemies){
 
     l->addEnemies();
 
-    BOOST_CHECK(l->getNumberOfEnemies() >0 );
+    BOOST_CHECK(l->getNumberOfEnemies() > DEFAULT_LEVEL_ENEMY_NUMBER);
 }
-/**************
+
 BOOST_AUTO_TEST_CASE(moveEnemies){
     Level* l = new Level();
-
-    bool move = true;
-
-    std::vector<Enemy*> enemies = l->getEnemies();
+    
+    l->getEnemies()[0]->move(50, 50);
+    l->getEnemies()[1]->move(100, 100);
+    l->getEnemies()[2]->move(150, 150);
 
     l->moveEnemies();
 
-    std::vector<Enemy*> enemiesMoving = l->getEnemies();
-
-    for(int i = 0; i<enemies.size() && i<enemiesMoving.size(); i++){
-        std::cout << enemies[i]->getX() << std::endl;
-        std::cout << enemiesMoving[i]->getX() << std::endl << std::endl;
-        if(enemies[i]->getX() == enemiesMoving[i]->getX()
-            //&& enemies[i]->getY() == enemiesMoving[i]->getY() //car dansmoveEnemies on chositi de ne changement que x
-           ){
-            move=false;
-            break;
-        }
-    }
-
-    BOOST_CHECK(move == true);
+    BOOST_CHECK(l->getEnemies()[0]->getX() != 50 && l->getEnemies()[0]->getX() != 50 && l->getEnemies()[1]->getX() != 100 && l->getEnemies()[1]->getX() != 100 && l->getEnemies()[2]->getX() != 150 && l->getEnemies()[2]->getX() != 150);
 }
-*/
+
 BOOST_AUTO_TEST_CASE(enemiesShoot){
     Level* l = new Level();
 
     l->EnemiesShoot();
-
-    BOOST_CHECK(l->getNumberOfBullets() > 0);
+    
+    BOOST_CHECK(l->getNumberOfBullets() == DEFAULT_LEVEL_ENEMY_NUMBER);
 }
 
 /*******************************
@@ -204,7 +187,7 @@ BOOST_AUTO_TEST_CASE(moveAlly){
     Ally a;
     a.move(45, 67);
 
-    BOOST_CHECK(a.getX()==45 && a.getY()==67);
+    BOOST_CHECK(a.getX() == 45 && a.getY() == 67);
 }
 
 //change Enemy position
@@ -212,7 +195,7 @@ BOOST_AUTO_TEST_CASE(moveEnemy){
     Enemy e;
     e.move(45, 67);
 
-    BOOST_CHECK(e.getX()==45 && e.getY()==67);
+    BOOST_CHECK(e.getX() == 45 && e.getY() == 67);
 }
 
 //change boss position
@@ -220,7 +203,7 @@ BOOST_AUTO_TEST_CASE(moveBoss){
     Boss b;
     b.move(45, 67);
 
-    BOOST_CHECK(b.getX()==45 && b.getY()==67);
+    BOOST_CHECK(b.getX() == 45 && b.getY() == 67);
 }
 
 //check if we can't move a GraphicElement (hear the ally) except the game area
@@ -229,32 +212,24 @@ BOOST_AUTO_TEST_CASE(moveAllyExceptArea){
     a.move(50, 0);
     a.move(-45, -67);
 
-    BOOST_CHECK(a.getX()==50 && a.getY()==0);
+    BOOST_CHECK(a.getX() == 50 && a.getY() == 0);
 }
 
 BOOST_AUTO_TEST_CASE(setDamageToAlly){
     Ally a;
     a.setDamage(50);
 
-    BOOST_CHECK(a.getDamage()==50);
+    BOOST_CHECK(a.getDamage() == 50);
 }
 
-/***************
 BOOST_AUTO_TEST_CASE(shootBullet){
-    Ally* a = new Ally();
-    Enemy *e = new Enemy();
     Level* l = new Level();
 
-    int nbBalle = l->getNumberOfBullets();
-
-    a->shoot();
-    nbBalle++;
-    e->shoot();
-    nbBalle++;
-
-    BOOST_CHECK(nbBalle == l->getNumberOfBullets());
+    l->EnemiesShoot();
+    l->getAlly()->shoot();
+    
+    BOOST_CHECK(l->getNumberOfBullets() == DEFAULT_LEVEL_ENEMY_NUMBER + 1);
 }
-*/
 
 /*******************************
     Unit Test for the Menu
@@ -282,7 +257,7 @@ BOOST_AUTO_TEST_CASE(showScoresCorrectly){
 //check if Nicolas exist : we know that yes
 BOOST_AUTO_TEST_CASE(playerExist){
     Menu m;
-    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
+    std::vector<Player> it = m.showScores(MAC_SCORE_FILE_MAXIME);
     Player p("Nicolas", 100);
     bool find = false;
     for(auto test : it){
@@ -298,7 +273,7 @@ BOOST_AUTO_TEST_CASE(playerExist){
 //check if Jacqui exist : we know that no
 BOOST_AUTO_TEST_CASE(playerNotExist){
     Menu m;
-    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
+    std::vector<Player> it = m.showScores(MAC_SCORE_FILE_MAXIME);
     Player p("Jacqui", 100);
     bool find = false;
     for(auto test : it){
@@ -313,7 +288,7 @@ BOOST_AUTO_TEST_CASE(playerNotExist){
 //In the file, Nicolas best score if around 50, so now, it maybe 10000
 BOOST_AUTO_TEST_CASE(bestScore){
     Menu m;
-    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
+    std::vector<Player> it = m.showScores(MAC_SCORE_FILE_MAXIME);
     Player p("Nicolas", 10000);
     int value = 0;
     for(auto test : it){
@@ -328,7 +303,7 @@ BOOST_AUTO_TEST_CASE(bestScore){
 //In the file, Nicolas best score if around 50, so now, it maybe superior than 4
 BOOST_AUTO_TEST_CASE(notBestScore){
     Menu m;
-    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
+    std::vector<Player> it = m.showScores(MAC_SCORE_FILE_MAXIME);
     Player p("Nicolas", 4);
     int value = 0;
     for(auto test : it){
