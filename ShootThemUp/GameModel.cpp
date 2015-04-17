@@ -23,7 +23,7 @@ GameModel::GameModel():_WIDTH(MODEL_WIDTH), _HEIGHT(MODEL_HEIGHT), _numberTour(1
  */
 GameModel::~GameModel(){
     delete _level;
-    
+
 }
 
 //----------METHODS----------
@@ -41,16 +41,16 @@ void GameModel::updateCore(){
         _menu->setScore(false);
         _menu->setEnding(false);
     }
-    
+
     if(_menu->getGame()){
-        
+
         _numberTour++;
         clearScreen();
-        
+
         if(_menu->getLevel()){
-            
+
             getLevel()->checkCollisions();
-            
+
             //check if ally is dead
             if(getLevel()->getAlly()->isDead()){
                 //and game is not finished
@@ -67,13 +67,14 @@ void GameModel::updateCore(){
                 _menu->setMenu(false);
                 _menu->setScore(false);
                 _menu->setEnding(true);
+                _menu->setSaveScore(true);
             }
-            
+
             if(getLevel()->getEnemiesNumber() == 1){
                 getLevel()->addBoss();
                 getLevel()->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + getLevel()->getLevelNumber() * 30);
             }
-            
+
             if(getLevel()->getEnemiesNumber() <= 0){
                 if(getLevel()->getBoss() == nullptr){
                     _menu->setIntro(false);
@@ -89,7 +90,7 @@ void GameModel::updateCore(){
                     if(_numberTour % 2 == 0){
                         _level->getBoss()->shoot();
                     }
-                    
+
                     //boss shoot every 4 turns
                     if(_numberTour % 3 == 0){
                         int x;
@@ -105,7 +106,7 @@ void GameModel::updateCore(){
                 if(_numberTour % 2 == 0){
                     getLevel()->EnemiesShoot();
                 }
-                
+
                 //enemies move every 4 turns
                 if(_numberTour % 4 == 0){
                     getLevel()->moveEnemies();
@@ -113,7 +114,7 @@ void GameModel::updateCore(){
             }
 
         }
-        
+
         if (_menu->getShop()) {
             _level->setLevelNumber(_level->getLevelNumber() + 1);
             _level->setNbEnemies(_level->getNbEnemies() + 2);
@@ -124,7 +125,7 @@ void GameModel::updateCore(){
             }
         }
     }
-    
+
     if(_menu->getEnding()){
         _menu->setIntro(false);
         _menu->setGame(false);

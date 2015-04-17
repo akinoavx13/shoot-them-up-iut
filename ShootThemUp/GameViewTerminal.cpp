@@ -254,13 +254,15 @@ void GameViewTerminal::draw() const{
         _menu->setEnding(false);
     }
     if(_menu->getEnding()){
-        int score = _gameModel->getLevel()->getAlly()->getScore();
-        cout << "Quel est votre nom ? " ;
-        string name ;
-        cin >> name;
+        if(_menu->getSaveScore()){
+            int score = _gameModel->getLevel()->getAlly()->getScore();
+            cout << "Quel est votre nom ? " ;
+            string name ;
+            cin >> name;
 
-        _menu->saveScore(score, name, LINUX_SCORE_FILE);
-
+            _menu->saveScore(score, name, LINUX_SCORE_FILE);
+            _menu->setSaveScore(false);
+        }
         cout << "La partie est fini" << endl;
     }
 }

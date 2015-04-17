@@ -24,6 +24,7 @@ private:
     bool _shop;
     bool _menu;
     bool _score;
+    bool _saveScore;
     bool _ending;
 
 public:
@@ -47,6 +48,9 @@ public:
 
     bool getScore() const;
     void setScore(bool score);
+
+    bool getSaveScore() const;
+    void setSaveScore(bool saveScore);
 
     bool getEnding() const;
     void setEnding(bool ending);

@@ -12,7 +12,7 @@
 
 using namespace std;
 
-Menu::Menu() : _intro(true), _game(false), _level(false), _shop(false), _menu(false), _score(false) {}
+Menu::Menu() : _intro(true), _game(false), _level(false), _shop(false), _menu(false), _score(false), _saveScore(false) {}
 
 Menu::~Menu(){}
 
@@ -39,6 +39,10 @@ bool Menu::getMenu() const{
 
 bool Menu::getScore() const{
     return _score;
+}
+
+bool Menu::getSaveScore() const{
+    return _saveScore;
 }
 
 bool Menu::getEnding() const{
@@ -68,6 +72,10 @@ void Menu::setMenu(bool menu){
 
 void Menu::setScore(bool score){
     _score = score;
+}
+
+void Menu::setSaveScore(bool saveScore){
+    _saveScore = saveScore;
 }
 
 void Menu::setEnding(bool ending){

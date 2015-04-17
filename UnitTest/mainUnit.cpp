@@ -81,36 +81,41 @@ BOOST_AUTO_TEST_CASE(scored){
     Unit Test for the Enemy
 ********************************/
 
-BOOST_AUTO_TEST_CASE(colisionEnemyAndBullet){
+//check there is collision between an enemy and bullet if there are the same position
+BOOST_AUTO_TEST_CASE(collisionEnemyAndBullet){
     Enemy* e = new Enemy(50,40,40);
     Bullet* b = new Bullet(50,50, 20);
 
     BOOST_CHECK(e->collisions(b) == true);
 }
 
+//check there isn't collision between ally and an enemy if there aren't the same position
 BOOST_AUTO_TEST_CASE(notcColisionAllyAndEnemy){
     Enemy* e = new Enemy(50,40,40);
     Ally* a = new Ally(146,50,20);
 
     BOOST_CHECK(a->collisions(e) == false);
 }
+
 /*******************************
     Unit Test for the Level
 ********************************/
 
+//check if the ally is attack by enemies
 BOOST_AUTO_TEST_CASE(colisionAllyAndAllBullets){
     Level* l = new Level();
-    
+
     l->getAlly()->move(50, 0);
-    
+
+    //there are 3 enemies at the beginning
     l->getEnemies()[0]->move(50, 100);
     l->getEnemies()[1]->move(100, 100);
     l->getEnemies()[2]->move(150, 100);
-    
+
     l->EnemiesShoot();
 
     l->checkCollisions();
-    
+
     //because enemies can be tiny, submarine or mighty
     BOOST_CHECK(l->getAlly()->getHealth() == 80 || l->getAlly()->getHealth() == 60 || l->getAlly()->getHealth() == 50);
 }
@@ -119,11 +124,20 @@ BOOST_AUTO_TEST_CASE(colisionAllyAndAllBullets){
 BOOST_AUTO_TEST_CASE(endingLevel){
     Level* l = new Level();
 
+    //if we kill all enemies, we delete all
     l->deleteAllEnemy();
+    //we add a boss
+    l->addBoss();
+
+    //we create a bullet with boss position and health : it's more easy to test because he will kill in one case
+    Bullet* b1 = new Bullet(l->getBoss()->getX(), l->getBoss()->getY(), l->getBoss()->getHealth());
+    l->addBullet(b1);
+    l->checkCollisions();
 
     BOOST_CHECK(l->isFinish() == true );
 }
 
+//check if bullets will add
 BOOST_AUTO_TEST_CASE(newsBullets){
     Bullet* b1 = new Bullet();
     Bullet* b2 = new Bullet();
@@ -138,12 +152,14 @@ BOOST_AUTO_TEST_CASE(newsBullets){
     BOOST_CHECK(l->getNumberOfBullets() == 3 );
 }
 
+//check if at the beginning the boss don't exist
 BOOST_AUTO_TEST_CASE(bossNotExist){
     Level* l = new Level();
 
     BOOST_CHECK(l->getBoss() ==nullptr );
 }
 
+//check if we add boss, he exist
 BOOST_AUTO_TEST_CASE(bossExist){
     Level* l = new Level();
     l->addBoss();
@@ -151,6 +167,7 @@ BOOST_AUTO_TEST_CASE(bossExist){
     BOOST_CHECK(l->getBoss() != nullptr );
 }
 
+//check if the numbers of enemies is the same that the constancy at the beginning
 BOOST_AUTO_TEST_CASE(newsEnemies){
     Level* l = new Level();
 
@@ -159,23 +176,27 @@ BOOST_AUTO_TEST_CASE(newsEnemies){
     BOOST_CHECK(l->getNumberOfEnemies() > DEFAULT_LEVEL_ENEMY_NUMBER);
 }
 
+//check if the enemies position change
 BOOST_AUTO_TEST_CASE(moveEnemies){
     Level* l = new Level();
-    
+
     l->getEnemies()[0]->move(50, 50);
     l->getEnemies()[1]->move(100, 100);
     l->getEnemies()[2]->move(150, 150);
 
     l->moveEnemies();
 
-    BOOST_CHECK(l->getEnemies()[0]->getX() != 50 && l->getEnemies()[0]->getX() != 50 && l->getEnemies()[1]->getX() != 100 && l->getEnemies()[1]->getX() != 100 && l->getEnemies()[2]->getX() != 150 && l->getEnemies()[2]->getX() != 150);
+    BOOST_CHECK(l->getEnemies()[0]->getX() != 50  && l->getEnemies()[0]->getX() != 50 &&
+                l->getEnemies()[1]->getX() != 100 && l->getEnemies()[1]->getX() != 100 &&
+                l->getEnemies()[2]->getX() != 150 && l->getEnemies()[2]->getX() != 150);
 }
 
+//all enemies shoot, so check if the number of bullets is the same that the number of enemies
 BOOST_AUTO_TEST_CASE(enemiesShoot){
     Level* l = new Level();
 
     l->EnemiesShoot();
-    
+
     BOOST_CHECK(l->getNumberOfBullets() == DEFAULT_LEVEL_ENEMY_NUMBER);
 }
 
@@ -215,6 +236,7 @@ BOOST_AUTO_TEST_CASE(moveAllyExceptArea){
     BOOST_CHECK(a.getX() == 50 && a.getY() == 0);
 }
 
+//setter of ship damage
 BOOST_AUTO_TEST_CASE(setDamageToAlly){
     Ally a;
     a.setDamage(50);
@@ -222,19 +244,20 @@ BOOST_AUTO_TEST_CASE(setDamageToAlly){
     BOOST_CHECK(a.getDamage() == 50);
 }
 
+//the same test that before, with the ally
 BOOST_AUTO_TEST_CASE(shootBullet){
     Level* l = new Level();
 
     l->EnemiesShoot();
     l->getAlly()->shoot();
-    
+
     BOOST_CHECK(l->getNumberOfBullets() == DEFAULT_LEVEL_ENEMY_NUMBER + 1);
 }
 
 /*******************************
     Unit Test for the Menu
 ********************************/
-//
+//check if the file y correct : it must have string and int value
 BOOST_AUTO_TEST_CASE(showScoresCorrectly){
     Menu* m;
     std::vector<Player> p = m->showScores(LINUX_SCORE_FILE);
@@ -257,7 +280,7 @@ BOOST_AUTO_TEST_CASE(showScoresCorrectly){
 //check if Nicolas exist : we know that yes
 BOOST_AUTO_TEST_CASE(playerExist){
     Menu m;
-    std::vector<Player> it = m.showScores(MAC_SCORE_FILE_MAXIME);
+    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
     Player p("Nicolas", 100);
     bool find = false;
     for(auto test : it){
@@ -273,7 +296,7 @@ BOOST_AUTO_TEST_CASE(playerExist){
 //check if Jacqui exist : we know that no
 BOOST_AUTO_TEST_CASE(playerNotExist){
     Menu m;
-    std::vector<Player> it = m.showScores(MAC_SCORE_FILE_MAXIME);
+    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
     Player p("Jacqui", 100);
     bool find = false;
     for(auto test : it){
@@ -288,7 +311,7 @@ BOOST_AUTO_TEST_CASE(playerNotExist){
 //In the file, Nicolas best score if around 50, so now, it maybe 10000
 BOOST_AUTO_TEST_CASE(bestScore){
     Menu m;
-    std::vector<Player> it = m.showScores(MAC_SCORE_FILE_MAXIME);
+    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
     Player p("Nicolas", 10000);
     int value = 0;
     for(auto test : it){
@@ -303,7 +326,7 @@ BOOST_AUTO_TEST_CASE(bestScore){
 //In the file, Nicolas best score if around 50, so now, it maybe superior than 4
 BOOST_AUTO_TEST_CASE(notBestScore){
     Menu m;
-    std::vector<Player> it = m.showScores(MAC_SCORE_FILE_MAXIME);
+    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
     Player p("Nicolas", 4);
     int value = 0;
     for(auto test : it){
