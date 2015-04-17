@@ -7,15 +7,13 @@
 //
 
 #include "Player.h"
+#include <iostream>
 
 using namespace std;
 
 Player::Player(string name, int score) : _name(name), _score(score) {}
 
-Player::Player(const Player &p){
-    _name=p._name;
-    _score=p._score;
-}
+Player::Player(Player* &p) : _name(p->_name), _score(p->_score) {}
 
 Player::~Player(){}
 
@@ -27,8 +25,8 @@ int Player::getScore() const{
     return _score;
 }
 
-bool Player::alreadyExist(Player test) const{
-    return _name==test._name;
+bool Player::alreadyExist(Player* &test) const{
+    return _name==test->_name;
 }
 
 void Player::bestScore(int test){

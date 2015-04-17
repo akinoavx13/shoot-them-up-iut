@@ -14,8 +14,8 @@ using namespace std;
  * default constructor
  * params : Model width, Model height, number tour
  */
-GameModel::GameModel():_WIDTH(MODEL_WIDTH), _HEIGHT(MODEL_HEIGHT), _numberTour(1){
-    _level = new Level();
+GameModel::GameModel():_WIDTH(MODEL_WIDTH), _HEIGHT(MODEL_HEIGHT), _numberTour(1), _level(nullptr){
+    //_level = new Level();
 }
 
 /*
@@ -37,11 +37,16 @@ void GameModel::updateCore(){
         _menu->setGame(false);
         _menu->setLevel(false);
         _menu->setShop(false);
-        _menu->setMenu(true);
+        _menu->setMenu(true); //go to the menu
         _menu->setScore(false);
+        _menu->setSaveScore(false);
         _menu->setEnding(false);
     }
+    if(_menu->getMenu()){
+            _level = new Level();
+            _numberTour=0;
 
+    }
     if(_menu->getGame()){
 
         _numberTour++;
@@ -66,8 +71,8 @@ void GameModel::updateCore(){
                 _menu->setShop(false);
                 _menu->setMenu(false);
                 _menu->setScore(false);
-                _menu->setEnding(true);
-                _menu->setSaveScore(true);
+                _menu->setEnding(false);
+                _menu->setSaveScore(true); //go to save score because ally is dead
             }
 
             if(getLevel()->getEnemiesNumber() == 1){
@@ -80,7 +85,7 @@ void GameModel::updateCore(){
                     _menu->setIntro(false);
                     _menu->setGame(false);
                     _menu->setLevel(false);
-                    _menu->setShop(true);
+                    _menu->setShop(true); //go to shop because level is finish
                     _menu->setMenu(false);
                     _menu->setScore(false);
                     _menu->setEnding(false);
@@ -126,6 +131,10 @@ void GameModel::updateCore(){
         }
     }
 
+    if(_menu->getSaveScore()){
+        delete _level;
+    }
+
     if(_menu->getEnding()){
         _menu->setIntro(false);
         _menu->setGame(false);
@@ -133,8 +142,8 @@ void GameModel::updateCore(){
         _menu->setShop(false);
         _menu->setMenu(true);
         _menu->setScore(false);
-        _menu->setEnding(false);
-    }
+        _menu->setSaveScore(false);
+    } //all is false and we quit the game
 }
 
 /*
@@ -142,9 +151,14 @@ void GameModel::updateCore(){
  * info : constant
  */
 void GameModel::clearScreen() const{
+    #ifdef __linux
+        system("clear");
+    #else
     for (int i = 0; i < 10; i++) {
         cout << endl;
     }
+    #endif
+
 }
 
 //----------GETTERS----------

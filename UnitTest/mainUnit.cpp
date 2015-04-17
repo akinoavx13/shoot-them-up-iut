@@ -260,12 +260,12 @@ BOOST_AUTO_TEST_CASE(shootBullet){
 //check if the file y correct : it must have string and int value
 BOOST_AUTO_TEST_CASE(showScoresCorrectly){
     Menu* m;
-    std::vector<Player> p = m->showScores(LINUX_SCORE_FILE);
+    std::vector<Player*> p = m->showScores(YOU_FILE);
 
     bool good = true;
 
     for(int i = 0; i<p.size(); i++){
-        if(p[i].getName()=="" || !p[i].getScore()){
+        if(p[i]->getName()=="" || !p[i]->getScore()){
             good = false;
             break;
         }
@@ -280,11 +280,11 @@ BOOST_AUTO_TEST_CASE(showScoresCorrectly){
 //check if Nicolas exist : we know that yes
 BOOST_AUTO_TEST_CASE(playerExist){
     Menu m;
-    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
-    Player p("Nicolas", 100);
+    std::vector<Player*> it = m.showScores(YOU_FILE);
+    Player* p = new Player("Nicolas", 100);
     bool find = false;
     for(auto test : it){
-        if(test.alreadyExist(p)){
+        if(test->alreadyExist(p)){
             find = true;
             break;
         }
@@ -296,11 +296,11 @@ BOOST_AUTO_TEST_CASE(playerExist){
 //check if Jacqui exist : we know that no
 BOOST_AUTO_TEST_CASE(playerNotExist){
     Menu m;
-    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
-    Player p("Jacqui", 100);
+    std::vector<Player*> it = m.showScores(YOU_FILE);
+    Player* p = new Player("Jacqui", 100);
     bool find = false;
     for(auto test : it){
-        if(test.alreadyExist(p)){
+        if(test->alreadyExist(p)){
             find = true;
             break;
         }
@@ -311,13 +311,13 @@ BOOST_AUTO_TEST_CASE(playerNotExist){
 //In the file, Nicolas best score if around 50, so now, it maybe 10000
 BOOST_AUTO_TEST_CASE(bestScore){
     Menu m;
-    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
-    Player p("Nicolas", 10000);
+    std::vector<Player*> it = m.showScores(YOU_FILE);
+    Player *p = new Player("Nicolas", 10000);
     int value = 0;
     for(auto test : it){
-        if(test.alreadyExist(p)){
-            test.bestScore(p.getScore());
-            value=test.getScore();
+        if(test->alreadyExist(p)){
+            test->bestScore(p->getScore());
+            value=test->getScore();
         }
     }
     BOOST_CHECK(value == 10000);
@@ -326,13 +326,13 @@ BOOST_AUTO_TEST_CASE(bestScore){
 //In the file, Nicolas best score if around 50, so now, it maybe superior than 4
 BOOST_AUTO_TEST_CASE(notBestScore){
     Menu m;
-    std::vector<Player> it = m.showScores(LINUX_SCORE_FILE);
-    Player p("Nicolas", 4);
+    std::vector<Player*> it = m.showScores(YOU_FILE);
+    Player *p = new Player("Nicolas", 4);
     int value = 0;
     for(auto test : it){
-        if(test.alreadyExist(p)){
-            test.bestScore(p.getScore());
-            value=test.getScore();
+        if(test->alreadyExist(p)){
+            test->bestScore(p->getScore());
+            value=test->getScore();
         }
     }
     BOOST_CHECK(value > 4);

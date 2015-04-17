@@ -12,7 +12,7 @@
 
 using namespace std;
 
-Menu::Menu() : _intro(true), _game(false), _level(false), _shop(false), _menu(false), _score(false), _saveScore(false) {}
+Menu::Menu() : _intro(true), _game(false), _level(false), _shop(false), _menu(false), _score(false), _saveScore(false), _ending(false) {}
 
 Menu::~Menu(){}
 
@@ -125,7 +125,7 @@ void Menu::showIntro() const{
 void Menu::saveScore(int value, string player, string file){
     fstream f;
 
-    f.open(file, ios::out);
+    f.open(file,ios::out|ios::app);
 
     if(!f.fail()) {
         f << player;
@@ -139,41 +139,42 @@ void Menu::saveScore(int value, string player, string file){
     }
 }
 
-vector<Player> Menu::showScores(string file){
+vector<Player*> Menu::showScores(string file){
     fstream f;
 
-    vector<Player> players;
+    vector<Player*> players;
 
     f.open(file, ios::in);
 
     if(!f.fail()){
         while(!f.eof()){
             string name;
+            string space;
             int score;
 
             f >> name;
             f >> score;
 
-            Player p(name, score);
+            Player* p = new Player(name, score);
 
             bool exist = false;
 
             for(auto test : players){
-                if(test.alreadyExist(p)){
-                    test.bestScore(score);
+                if(test->alreadyExist(p)){
+                    test->bestScore(p->getScore());
                     exist=true;
                 }
             }
 
-            if(!exist) {
+            if(!exist && name.length()>0) {
                 players.push_back(p);
             }
         }
 
         for(int i = 0; i <players.size(); i++){
             for(int j = i; j <players.size(); j ++){
-                if(players[i].getScore() < players[j].getScore()){
-                    Player temp = players[i];
+                if(players[i]->getScore() < players[j]->getScore()){
+                    Player* temp = new Player(players[i]);
                     players[i] = players[j];
                     players[j] = temp;
                 }

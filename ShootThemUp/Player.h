@@ -19,13 +19,13 @@ class Player {
 
     public:
         Player(std::string name, int score);
-        Player(const Player &p);
+        Player(Player* &p);
         ~Player();
 
         int getScore() const;
         std::string getName() const;
 
-        bool alreadyExist(Player test) const;
+        bool alreadyExist(Player* &test) const;
 
         void bestScore(int test);
 

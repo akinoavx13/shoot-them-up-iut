@@ -58,7 +58,7 @@ public:
     void showIntro() const;
     void saveScore(int value, std::string player, std::string file);
 
-    std::vector<Player> showScores(std::string file);
+    std::vector<Player*> showScores(std::string file);
 
 };
 
