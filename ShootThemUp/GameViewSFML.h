@@ -12,15 +12,16 @@
 #include "SFML/Graphics.hpp"
 #include "GameModel.h"
 #include "Menu.h"
+#include "GraphicLibrary.h"
 
 class GameViewSFML{
 private:
     sf::RenderWindow * _window;
+
     GameModel* _gameModel;
     Menu* _menu;
 
-    void showIntroSFML() const;
-
+    GraphicLibrary* _graphicLibrary;
 
 public:
     //CONSTRUCTOR

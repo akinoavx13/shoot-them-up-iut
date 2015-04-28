@@ -15,11 +15,13 @@ GameViewSFML::GameViewSFML(){
     _menu = new Menu();
     _window = new RenderWindow(VideoMode(MODEL_HEIGHT, MODEL_WIDTH), "Shmup");
     _gameModel = nullptr;
+    _graphicLibrary = new GraphicLibrary();
 }
 
 GameViewSFML::~GameViewSFML(){
     delete _menu;
     delete _window;
+    delete _graphicLibrary;
 }
 
 void GameViewSFML::setModel(GameModel* gameModel){
@@ -34,7 +36,7 @@ void GameViewSFML::draw() const{
     _window->Clear();
     if(_menu->getIntro())
     {
-        showIntroSFML();
+
     }
 
     else if(_menu->getMenu())
