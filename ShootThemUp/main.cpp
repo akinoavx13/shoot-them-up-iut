@@ -12,25 +12,27 @@
 
 #include "GameModel.h"
 #include "GameViewTerminal.h"
+#include "GameViewSFML.h"
 
 using namespace std;
 
 int main(){
 
     GameModel* gameModel = new GameModel();
-    GameViewTerminal* gameViewTermial = new GameViewTerminal();
+    //GameViewTerminal* gameView = new GameViewTerminal();
+    GameViewSFML* gameView = new GameViewSFML();
 
-    gameViewTermial->setModel(gameModel);
-    gameViewTermial->setModelMenu();
-    
+    gameView->setModel(gameModel);
+    gameView->setModelMenu();
+
     //boucle principale du jeu
-    while (!gameViewTermial->treatEvent()) {
-        gameViewTermial->draw();
+    while (gameView->treatEvent()) {
+        gameView->draw();
         gameModel->updateCore();
     }
-    
+
     delete gameModel;
-    delete gameViewTermial;
+    delete gameView;
 
     return EXIT_SUCCESS;
 }

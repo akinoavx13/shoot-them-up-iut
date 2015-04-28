@@ -37,7 +37,7 @@ void GameViewTerminal::draw() const
 {
     if(_menu->getIntro())
     {
-        _menu->showIntro();
+        _menu->showIntroTerminal();
     }
 
     else if(_menu->getMenu())
@@ -316,7 +316,7 @@ void GameViewTerminal::setModel(GameModel *gameModel)
 
 bool GameViewTerminal::treatEvent()
 {
-    return _menu->getEnding();
+    return !_menu->getEnding();
 }
 
 void GameViewTerminal::setModelMenu()

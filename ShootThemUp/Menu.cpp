@@ -82,7 +82,7 @@ void Menu::setEnding(bool ending){
     _ending = ending;
 }
 
-void Menu::showIntro() const{
+void Menu::showIntroTerminal() const{
 
     cout << "==================================================================" << endl;
     cout << "*                                                                *" << endl;

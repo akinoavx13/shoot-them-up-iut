@@ -55,7 +55,7 @@ public:
     bool getEnding() const;
     void setEnding(bool ending);
 
-    void showIntro() const;
+    void showIntroTerminal() const;
     void saveScore(int value, std::string player, std::string file);
 
     std::vector<Player*> showScores(std::string file);

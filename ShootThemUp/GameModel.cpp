@@ -14,9 +14,7 @@ using namespace std;
  * default constructor
  * params : Model width, Model height, number tour
  */
-GameModel::GameModel():_WIDTH(MODEL_WIDTH), _HEIGHT(MODEL_HEIGHT), _numberTour(1), _level(nullptr){
-    //_level = new Level();
-}
+GameModel::GameModel():_WIDTH(MODEL_WIDTH), _HEIGHT(MODEL_HEIGHT), _numberTour(1), _level(nullptr) {}
 
 /*
  * destructor
