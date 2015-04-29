@@ -15,3 +15,7 @@ ShootThemUp/*.lproj
 
 #codeBlocks
 *.cbp
+/bin
+/obj
+*.depend
+*.layout
