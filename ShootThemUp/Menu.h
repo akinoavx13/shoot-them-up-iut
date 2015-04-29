@@ -64,6 +64,7 @@ public:
 
     float getTime() const;
     void setTime(float time);
+    void resetTime();
 
 };
 

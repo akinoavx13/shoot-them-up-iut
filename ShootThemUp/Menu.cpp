@@ -195,3 +195,7 @@ void Menu::setTime(float time){
 float Menu::getTime() const{
     return _time;
 }
+
+void Menu::resetTime(){
+    _time=0;
+}

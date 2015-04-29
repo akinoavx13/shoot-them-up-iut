@@ -17,7 +17,6 @@ GameViewSFML::GameViewSFML(){
     _gameModel = nullptr;
     _graphicLibrary = new GraphicLibrary();
     _graphicLibrary->loadLibrary();
-    _tmp=0;
 }
 
 GameViewSFML::~GameViewSFML(){
@@ -36,6 +35,7 @@ void GameViewSFML::setModelMenu(){
 
 void GameViewSFML::draw() const{
     _window->Clear();
+
     if(_menu->getIntro())
     {
         Clock time;
@@ -56,6 +56,7 @@ void GameViewSFML::draw() const{
         {
             _menu->setIntro(false);
             _menu->setMenu(true);
+            _menu->resetTime();
         }
         else{
             _menu->setTime(time.GetElapsedTime());
@@ -65,6 +66,8 @@ void GameViewSFML::draw() const{
 
     else if(_menu->getMenu())
     {
+                std::cout << "\t" << _menu->getTime() << std::endl;
+
         Image backgroundImage;
         Sprite backgroundSprite;
 
@@ -125,8 +128,4 @@ bool GameViewSFML::treatEvent(){
         }
     }
     return result;
-}
-
-void GameViewSFML::setTime(float time){
-    _tmp+=time;
 }

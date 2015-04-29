@@ -21,8 +21,6 @@ private:
     GameModel* _gameModel;
     Menu* _menu;
 
-    float _tmp;
-
     GraphicLibrary* _graphicLibrary;
 
 public:
@@ -39,11 +37,7 @@ public:
     void setModel(GameModel* gameModel);
     void setModelMenu();
 
-    bool getTime();
-
     bool treatEvent();
-
-    void setTime(float time);
 
 };
 
