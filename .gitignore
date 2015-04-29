@@ -9,3 +9,9 @@ ShootThemUp/*.lproj
 
 #mac
 .DS_Store
+
+#other
+/Sprite
+
+#codeBlocks
+*.cbp
