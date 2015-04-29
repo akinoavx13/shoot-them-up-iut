@@ -16,6 +16,7 @@ GameViewSFML::GameViewSFML(){
     _window = new RenderWindow(VideoMode(MODEL_HEIGHT, MODEL_WIDTH), "Shmup");
     _gameModel = nullptr;
     _graphicLibrary = new GraphicLibrary();
+    _graphicLibrary->loadLibrary();
 }
 
 GameViewSFML::~GameViewSFML(){
