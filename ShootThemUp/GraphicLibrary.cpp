@@ -21,7 +21,7 @@ GraphicLibrary::~GraphicLibrary(){
 void GraphicLibrary::loadLibrary(){
     Image img0;
     Sprite sp0;
-    if(img0.LoadFromFile("sprites/background.png")){
+    if(img0.LoadFromFile("ShootThemUp/sprites/background.png")){
         _imagesList.push_back(img0);
         sp0.SetImage(img0);
         _spritesList.push_back(sp0);
