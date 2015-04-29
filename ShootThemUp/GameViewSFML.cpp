@@ -71,10 +71,6 @@ void GameViewSFML::draw() const{
     _window->Display();
 }
 
-void GameViewSFML::showIntroSFML() const{
-
-}
-
 bool GameViewSFML::treatEvent(){
     bool result = true;
     if (_window->IsOpened())

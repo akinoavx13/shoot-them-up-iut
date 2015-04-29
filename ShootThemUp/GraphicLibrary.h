@@ -9,7 +9,7 @@
 #ifndef GRAPHICLIBRARY_H_INCLUDED
 #define GRAPHICLIBRARY_H_INCLUDED
 
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include <vector>
 
 class GraphicLibrary{
