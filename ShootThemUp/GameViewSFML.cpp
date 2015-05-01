@@ -15,7 +15,7 @@ using namespace sf;
 GameViewSFML::GameViewSFML(){
     _menu = new Menu();
     _window = new RenderWindow(VideoMode(MODEL_HEIGHT, MODEL_WIDTH), "Shmup");
-    _window->SetFramerateLimit(20);
+    _window->SetFramerateLimit(15);
     _gameModel = nullptr;
     _graphicLibrary = new GraphicLibrary();
     _graphicLibrary->loadLibrary();
@@ -60,6 +60,7 @@ void GameViewSFML::draw() const{
 
         Picture * button3 = new Picture(_graphicLibrary->getImage(2), 100,300,80,20);
         _window->Draw(button3->getSprite());
+
 
     }
 
@@ -119,6 +120,11 @@ void GameViewSFML::draw() const{
                 _window->Draw(bba->getSprite());
             }
 
+
+            for(int i = 0; i<_gameModel->getLevel()->getAlly()->getNumberOfLife(); i++){
+                Picture * life = new Picture(_graphicLibrary->getImage(17), i*25,5,20,20);
+                _window->Draw(life->getSprite());
+            }
         }
         if(_menu->getShop())
         {
@@ -180,8 +186,6 @@ bool GameViewSFML::treatEvent(){
                         std::cout << "nice 3" << std::endl;
                     }
                 }
-
-
             }
 
             else if(_menu->getGame())
@@ -197,6 +201,7 @@ bool GameViewSFML::treatEvent(){
                         else if(Event.Key.Code == Key::Right){
                             x+=5;
                         }
+
                         if(Event.Key.Code == Key::Up){
                             y-=5;
                         }

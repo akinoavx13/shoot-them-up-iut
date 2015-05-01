@@ -14,13 +14,13 @@ using namespace std;
 /*
  * default constructor
  */
-Ally::Ally() : _numbersOfLife(DEFAULT_NUMBER_OF_LIFE), _score(DEFAULT_SCORE) {}
+Ally::Ally() : Ship(MODEL_WIDTH/2, MODEL_HEIGHT-ALLY_PICTURE_HEIGHT-10, DEFAULT_SHIP_LIFE,ALLY_PICTURE_WIDTH/3, ALLY_PICTURE_HEIGHT, DEFAULT_SHIP_FIRERATE), _numbersOfLife(DEFAULT_NUMBER_OF_LIFE), _score(DEFAULT_SCORE) {}
 
 /*
  * contructor
  * params : x, y and health of ally
  */
-Ally::Ally(const float x, const float y, const int health):Ship(x, y, health), _numbersOfLife(DEFAULT_NUMBER_OF_LIFE), _score(DEFAULT_SCORE) {}
+//Ally::Ally(const float x, const float y, const int health):Ship(x, y, health,ALLY_PICTURE_HEIGHT, ALLY_PICTURE_WIDTH/3), _numbersOfLife(DEFAULT_NUMBER_OF_LIFE), _score(DEFAULT_SCORE) {}
 
 /*
  * destructor
@@ -38,7 +38,7 @@ Ally::~Ally(){
  * info : constant
  */
 bool Ally::isOver() const{
-    return _numbersOfLife == 0;
+    return _numbersOfLife <= 0;
 }
 
 /*
@@ -51,11 +51,11 @@ string Ally::toString() const{
 
     str += "\tScore : ";
     str += to_string(_score) + "\n";
-    
+
     str += "\tNombre de vie : ";
     str += to_string(_numbersOfLife);
     str += "\n";
-    
+
     str += "\tType de missile : ";
     if(_bulletType == 0){
         str += "standard";
@@ -70,7 +70,7 @@ string Ally::toString() const{
         str += "laser";
     }
     str += "\n";
-    
+
     str += "\tDégat : ";
     if(_bulletType == 0){
         str += to_string(MAIN_SHOOT_DAMAGE);
@@ -84,7 +84,7 @@ string Ally::toString() const{
     else if(_bulletType == 3){
         str += to_string(DEFAULT_LASER_DAMAGE);
     }
-    
+
     str += "\n";
 
     str += Ship::toString();

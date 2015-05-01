@@ -20,27 +20,22 @@ Enemy::Enemy(){}
  * constructor
  * params : x, y ans health of enemy
  */
-Enemy::Enemy(const float x, const float y, const int health):Ship(x, y, health), _type(0) {}
-
-Enemy::Enemy(const float x, const float y, const int health, const int type):Ship(x, y, health), _type(type) {}
+Enemy::Enemy(const float x, const float y, const int health, const int type, int width, int height):Ship(x, y, health, width, height, DEFAULT_SHIP_FIRERATE), _type(type) {}
 
 Enemy* Enemy::Tiny(const float x, const float y){
-    //_type = 1;
-    Enemy* enemy = new Enemy(x, y, DEFAULT_TINY_LIFE, 1);
+    Enemy* enemy = new Enemy(x, y, DEFAULT_TINY_LIFE, 1, TINY_PICTURE_WIDTH/3, TINY_PICTURE_HEIGHT);
     enemy->_damage = DEFAULT_TINY_DAMAGE;
     return enemy;
 }
 
 Enemy* Enemy::Submarine(const float x, const float y){
-    //_type = 2;
-    Enemy* enemy = new Enemy(x, y, DEFAULT_SUBMARINE_LIFE, 2);
+    Enemy* enemy = new Enemy(x, y, DEFAULT_SUBMARINE_LIFE, 2, SUBMARINE_PICTURE_WIDTH/2, SUBMARINE_PICTURE_HEIGHT);
     enemy->_damage = DEFAULT_SUBMARINE_DAMAGE;
     return enemy;
 }
 
 Enemy* Enemy::Mighty(const float x, const float y){
-    //_type = 3;
-    Enemy* enemy = new Enemy(x, y, DEFAULT_MIGHTY_LIFE, 3);
+    Enemy* enemy = new Enemy(x, y, DEFAULT_MIGHTY_LIFE, 3, MIGHTY_PICTURE_WIDTH/3, MIGHTY_PICTURE_HEIGHT);
     enemy->_damage = DEFAULT_MIGHTY_DAMAGE;
     return enemy;
 }
@@ -71,7 +66,7 @@ string Enemy::toString() const{
 }
 
 void Enemy::shoot(){
-    _mainShoot = new Bullet(_x, _y - DEFAULT_SHIP_OFFSET_SHOOT, _damage);
+    _mainShoot = new Bullet(_x+(_width/2)-(FIREBALL_PICTURE_HEIGHT/2), _y +_height+5, _damage, _width, _height,BULLET_DEFAULT_SPEEDX,BULLET_DEFAULT_SPEEDY);
     _level->addBullet(_mainShoot);
 }
 

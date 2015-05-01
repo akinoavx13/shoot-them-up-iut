@@ -10,9 +10,9 @@
 
 using namespace std;
 
-Boss::Boss(){}
+Boss::Boss() {}
 
-Boss::Boss(const float x, const float y, const int health):Enemy(x, y, health){}
+Boss::Boss(const float x, const float y, const int health):Enemy(x, y, health, 0, BOSS_PICTURE_WIDTH, BOOS_PICTURE_HEIGHT) {}
 
 Boss::~Boss(){
 

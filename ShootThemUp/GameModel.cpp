@@ -41,7 +41,7 @@ void GameModel::updateCore(){
         clearScreen();
 
         if(_menu->getLevel()){
-
+            getLevel()->moveBullets();
             getLevel()->checkCollisions();
 
             //check if ally is dead

@@ -23,8 +23,7 @@ public:
 
     //CONSTRUCTOR
     Enemy();
-    Enemy(const float x, const float y, const int health);
-    Enemy(const float x, const float y, const int health, const int type);
+    Enemy(const float x, const float y, const int health, const int type, const int width, const int height);
     static Enemy* Tiny(const float x, const float y);
     static Enemy* Submarine(const float x, const float y);
     static Enemy* Mighty(const float x, const float y);
