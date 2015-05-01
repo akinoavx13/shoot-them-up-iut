@@ -27,8 +27,6 @@ private:
     bool _saveScore;
     bool _ending;
 
-    float _time;
-
 public:
     Menu();
     ~Menu();
@@ -61,10 +59,6 @@ public:
     void saveScore(int value, std::string player, std::string file);
 
     std::vector<Player*> showScores(std::string file);
-
-    float getTime() const;
-    void setTime(float time);
-    void resetTime();
 
 };
 

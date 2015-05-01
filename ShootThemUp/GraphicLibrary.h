@@ -14,8 +14,7 @@
 
 class GraphicLibrary{
 private:
-    std::vector<sf::Sprite> _spritesList;
-    std::vector<sf::Image> _imagesList;
+    std::vector<sf::Image *> _imagesList;
 
 public:
     GraphicLibrary();
@@ -23,8 +22,7 @@ public:
 
     void loadLibrary();
 
-    sf::Sprite getSprite(int i) const;
-    sf::Image getImage(int i) const;
+    sf::Image * getImage(int i) const;
 
 };
 

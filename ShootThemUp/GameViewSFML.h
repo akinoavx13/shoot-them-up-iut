@@ -21,6 +21,8 @@ private:
     GameModel* _gameModel;
     Menu* _menu;
 
+    sf::Clock time;
+
     GraphicLibrary* _graphicLibrary;
 
 public:

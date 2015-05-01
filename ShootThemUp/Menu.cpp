@@ -187,15 +187,3 @@ vector<Player*> Menu::showScores(string file){
     return players;
 
 }
-
-void Menu::setTime(float time){
-    _time+=time;
-}
-
-float Menu::getTime() const{
-    return _time;
-}
-
-void Menu::resetTime(){
-    _time=0;
-}
