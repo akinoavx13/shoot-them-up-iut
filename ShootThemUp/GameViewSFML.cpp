@@ -15,6 +15,7 @@ using namespace sf;
 GameViewSFML::GameViewSFML(){
     _menu = new Menu();
     _window = new RenderWindow(VideoMode(MODEL_HEIGHT, MODEL_WIDTH), "Shmup");
+    _window->SetFramerateLimit(60);
     _gameModel = nullptr;
     _graphicLibrary = new GraphicLibrary();
     _graphicLibrary->loadLibrary();
