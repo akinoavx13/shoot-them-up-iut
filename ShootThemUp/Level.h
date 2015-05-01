@@ -54,6 +54,7 @@ public:
     Ally* getAlly() const;
     Boss* getBoss() const;
     std::vector<Enemy*> getEnemies() const;
+    std::vector<Bullet*> getBullets() const;
     int getEnemiesNumber() const;
     int getNbEnemies()const;
     int getLevelNumber() const;

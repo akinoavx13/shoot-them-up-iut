@@ -30,16 +30,6 @@ GameModel::~GameModel(){
  * used to change value of variables
  */
 void GameModel::updateCore(){
-    /*if(_menu->getIntro()){
-        _menu->setIntro(false);
-        _menu->setGame(false);
-        _menu->setLevel(false);
-        _menu->setShop(false);
-        _menu->setMenu(true); //go to the menu
-        _menu->setScore(false);
-        _menu->setSaveScore(false);
-        _menu->setEnding(false);
-    }*/
     if(_menu->getMenu()){
             _level = new Level();
             _numberTour=0;

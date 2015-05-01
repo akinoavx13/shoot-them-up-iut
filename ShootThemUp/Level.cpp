@@ -291,6 +291,10 @@ vector<Enemy*> Level::getEnemies() const{
     return _tabEnemies;
 }
 
+vector<Bullet*> Level::getBullets() const{
+    return _tabBullets;
+}
+
 /*
  * returns : enemies who are still in live
  * info : constant

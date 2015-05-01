@@ -80,4 +80,25 @@ const std::string MAC_SCORE_FILE_MAXIME = "/Users/Maxime/Desktop/Shump/ShootThem
 
 const std::string YOU_FILE = LINUX_SCORE_FILE; //please, change hear the constancy to execute the code
 
+/**
+    FOR THE VIEW
+**/
+
+//ALLY
+const int ALLY_PICTURE_HEIGHT = 65;
+const int ALLY_PICTURE_WIDTH = 195;
+
+//ENNEMY
+const int SUBMARINE_PICTURE_HEIGHT = 197;
+const int SUBMARINE_PICTURE_WIDTH = 82;
+
+const int TINY_PICTURE_HEIGHT = 32;
+const int TINY_PICTURE_WIDTH = 96;
+
+const int MIGHTY_PICTURE_HEIGHT = 65;
+const int MIGHTY_PICTURE_WIDTH = 195;
+
+//BOSS
+const int BOOS_PICTURE_HEIGHT = 98;
+const int BOSS_PICTURE_WIDTH = 294;
 #endif

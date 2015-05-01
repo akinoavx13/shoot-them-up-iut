@@ -41,7 +41,7 @@ Bullet* Bullet::Laser(const float x, const float y){
  * info : virtual
  */
 Bullet::~Bullet(){
-    
+
     cout << "Bullet delete" << endl;
 
 }
@@ -52,12 +52,12 @@ Bullet::~Bullet(){
  */
 string Bullet::toString() const{
     string str = "Une balle";
-    
+
     str += "\n";
     str += GraphicElement::toString();
     str += "Dommage : " + to_string(_damage) + "\n";
     str += "\n";
-    
+
     return str;
 }
 

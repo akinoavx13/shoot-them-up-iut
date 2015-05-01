@@ -15,7 +15,7 @@ using namespace sf;
 GameViewSFML::GameViewSFML(){
     _menu = new Menu();
     _window = new RenderWindow(VideoMode(MODEL_HEIGHT, MODEL_WIDTH), "Shmup");
-    _window->SetFramerateLimit(60);
+    _window->SetFramerateLimit(20);
     _gameModel = nullptr;
     _graphicLibrary = new GraphicLibrary();
     _graphicLibrary->loadLibrary();
@@ -73,17 +73,30 @@ void GameViewSFML::draw() const{
             int xp = _gameModel->getLevel()->getAlly()->getX();
             int yp = _gameModel->getLevel()->getAlly()->getY();
 
-            int k = _gameModel->getNumberTour()%3;
+            int k3 = _gameModel->getNumberTour()%3;
+            int k2 = _gameModel->getNumberTour()%2;
 
-            Picture * p = new Picture(_graphicLibrary->getImage(17), xp,yp,195,65,0+65*k,0,65+65*k,65);
-            _window->Draw(p->getSprite());
+            Picture * ally = new Picture(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,0+(ALLY_PICTURE_WIDTH/3)*k3,0,(ALLY_PICTURE_WIDTH/3)+(ALLY_PICTURE_WIDTH/3)*k3,ALLY_PICTURE_HEIGHT);
+            _window->Draw(ally->getSprite());
 
             if(_gameModel->getLevel()->getEnemiesNumber() > 0)
             {
                 for(auto e : _gameModel->getLevel()->getEnemies()){
+
                     int xe = e->getX();
                     int ye = e->getY();
-                    Picture * en = new Picture(_graphicLibrary->getImage(10), xe,ye,96,32,0+32*k,0,32+32*k,32);
+                    std::cout << e->getType() << std::endl;
+
+                    Picture * en;
+                    if(e->getType()==1){
+                        en = new Picture(_graphicLibrary->getImage(10), xe,ye,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT,0+(TINY_PICTURE_WIDTH/3)*k3,0,(TINY_PICTURE_WIDTH/3)+(TINY_PICTURE_WIDTH/3)*k3,TINY_PICTURE_HEIGHT);
+                    }
+                    else if(e->getType()==2){
+                        en = new Picture(_graphicLibrary->getImage(11), xe,ye,SUBMARINE_PICTURE_WIDTH,SUBMARINE_PICTURE_HEIGHT,0+(SUBMARINE_PICTURE_WIDTH/2)*k2,0,(SUBMARINE_PICTURE_WIDTH/2)+(SUBMARINE_PICTURE_WIDTH/2)*k2,SUBMARINE_PICTURE_HEIGHT);
+                    }
+                    else if(e->getType()==3){
+                        en = new Picture(_graphicLibrary->getImage(21), xe,ye,MIGHTY_PICTURE_WIDTH,MIGHTY_PICTURE_HEIGHT,0+(MIGHTY_PICTURE_WIDTH/3)*k3,0,(MIGHTY_PICTURE_WIDTH/3)+(MIGHTY_PICTURE_WIDTH/3)*k3,MIGHTY_PICTURE_HEIGHT);
+                    }
                     _window->Draw(en->getSprite());
                 }
             }
@@ -94,12 +107,17 @@ void GameViewSFML::draw() const{
                 {
                     int xb = _gameModel->getLevel()->getBoss()->getX();
                     int yb = _gameModel->getLevel()->getBoss()->getY();
-                    Picture * b = new Picture(_graphicLibrary->getImage(1), xb,yb,294,98, 0+98*k,0,98+98*k,98);
+                    Picture * b = new Picture(_graphicLibrary->getImage(1), xb,yb,294,98, 0+98*k3,0,98+98*k3,98);
                     _window->Draw(b->getSprite());
                 }
             }
 
-            //for(auto b : _gameModel->getLevel()->get)
+            for(auto b : _gameModel->getLevel()->getBullets()){
+                int xba = b->getX();
+                int yba = b->getY();
+                Picture * bba = new Picture(_graphicLibrary->getImage(12), xba,yba,32,32);
+                _window->Draw(bba->getSprite());
+            }
 
         }
         if(_menu->getShop())
