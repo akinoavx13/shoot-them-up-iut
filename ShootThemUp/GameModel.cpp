@@ -81,7 +81,7 @@ void GameModel::updateCore(){
                 if(_level->getBoss() != nullptr &&  !_level->getBoss()->isDead()){
                     //boss shoot every 2 turns
                     if(_numberTour % 2 == 0){
-                        _level->getBoss()->shoot();
+                        //_level->getBoss()->shoot();
                     }
 
                     //boss shoot every 4 turns
@@ -96,13 +96,13 @@ void GameModel::updateCore(){
             }
             else{
                 //enemies shoot every 2 turns
-                if(_numberTour % 2 == 0){
-                    getLevel()->EnemiesShoot();
+                if(_numberTour % 15 == 0){
+                    //getLevel()->EnemiesShoot();
                 }
 
                 //enemies move every 4 turns
                 if(_numberTour % 4 == 0){
-                    getLevel()->moveEnemies();
+                    //getLevel()->moveEnemies();
                 }
             }
 
