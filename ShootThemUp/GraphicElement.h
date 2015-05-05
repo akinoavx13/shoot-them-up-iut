@@ -41,6 +41,8 @@ public:
     virtual void move(const float x, const float y);
     virtual std::string toString() const;
 
+    bool collisions(GraphicElement* graphicElement) const;
+
     //GETTERS
     float getX() const;
     float getY() const;

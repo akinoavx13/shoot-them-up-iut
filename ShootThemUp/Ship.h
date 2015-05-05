@@ -42,7 +42,7 @@ public:
     //METHODS
     virtual void shoot();
     virtual std::string toString() const override;
-    bool collisions(GraphicElement* graphicElement) const;
+
     bool isDead();
 
     //GETTERS

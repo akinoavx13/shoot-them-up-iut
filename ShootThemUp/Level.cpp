@@ -173,6 +173,18 @@ void Level::checkCollisions(){
         }
     }
 
+
+    if(_tabBullets.size() > 0){
+        for(int i = 0; i < _tabBullets.size() ; i++){
+            for(int j = 0; j < _tabBullets.size() ; j++){
+                if(i!=j && _tabBullets[i]->collisions(_tabBullets[j])){
+                    cout << "Collision entre les balles" << endl;
+                }
+            }
+        }
+    }
+
+
     if(!collision){
         cout << "Aucune collision pour le moment" << endl;
     }
@@ -224,6 +236,22 @@ void Level::moveEnemies() const{
         if(canMove)
             enemy->move(x, y);
     }
+    /*
+    for(int i = 0 ; i<_tabEnemies.size(); i++){
+        x = rand() % MODEL_WIDTH + 1;
+        Enemy* test = new Enemy(x, _tabEnemies[i]->getY(), _tabEnemies[i]->getWidth(), _tabEnemies[i]->getHeight(),0,0);
+        for(int j = 0; j<_tabEnemies.size(); j++){
+            if(i!=j){
+                if(!test->collisions(_tabEnemies[j])){
+                    _tabEnemies[i]->move(x, y);
+                    break;
+                }
+
+            }
+        }
+        delete test;
+    }
+    */
 }
 
 /*
