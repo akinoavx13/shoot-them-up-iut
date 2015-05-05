@@ -186,9 +186,10 @@ void Level::checkCollisions(){
 
     //pour détruire la balle quand elle est hors du cadre, utilisé pour la vue
 
+    int z = 0;
      for(auto bullet : _tabBullets){
-        if((bullet->getX() >= MODEL_WIDTH && bullet->getX() <= 0) || (bullet->getY() >= MODEL_HEIGHT && bullet->getY()<= 0)){
-            delete bullet;
+        if((bullet->getX()+bullet->getWidth() >= MODEL_WIDTH) || (bullet->getX() <= 0) || (bullet->getY()+bullet->getHeight() >= MODEL_HEIGHT) ||(bullet->getY()<= 0)){
+            cout << "balle en dehors du cadre" << endl;
         }
      }
 }

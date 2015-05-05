@@ -38,7 +38,7 @@ public:
     virtual ~GraphicElement() = 0;
 
     //METHODS
-    void move(const float x, const float y);
+    virtual void move(const float x, const float y);
     virtual std::string toString() const;
 
     //GETTERS
