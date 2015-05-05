@@ -9,3 +9,13 @@ ShootThemUp/*.lproj
 
 #mac
 .DS_Store
+
+#other
+/Sprite
+
+#codeBlocks
+*.cbp
+/bin
+/obj
+*.depend
+*.layout
