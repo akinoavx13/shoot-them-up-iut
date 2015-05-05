@@ -20,7 +20,6 @@
 class Level;
 
 class Ship : public GraphicElement{
-
 protected:
 
     int _health;
@@ -29,11 +28,13 @@ protected:
     Level* _level;
     int _damage;
 
+    float _fireRate;
+
 public:
 
     //CONSTRUCTOR
     Ship();
-    Ship(const float x, const float y, const int health);
+    Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate);
 
     //DESTRUCTOR
     virtual ~Ship() = 0;
@@ -48,6 +49,7 @@ public:
     int getHealth() const;
     int getBulletType() const;
     int getDamage() const;
+    float getFireRate() const;
 
     //SETTERS
     void setLevel(Level* level);

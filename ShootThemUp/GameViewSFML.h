@@ -9,7 +9,7 @@
 #ifndef GAMEVIEWSFML_H_INCLUDED
 #define GAMEVIEWSFML_H_INCLUDED
 
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include "GameModel.h"
 #include "Menu.h"
 #include "GraphicLibrary.h"
@@ -20,6 +20,8 @@ private:
 
     GameModel* _gameModel;
     Menu* _menu;
+
+    sf::Clock time;
 
     GraphicLibrary* _graphicLibrary;
 

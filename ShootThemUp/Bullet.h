@@ -16,29 +16,27 @@
 #include "const.h"
 
 class Bullet : public GraphicElement {
-    
+
 private:
-    
     int _damage;
 
 public:
-    
     //CONSTRUCTOR
     Bullet();
-    Bullet(const float x, const float y, const int damage);
+    Bullet(const float x, const float y, const int damage, const int width, const int height, const int speedX, const int speedY);
     static Bullet* FireBall(const float x, const float y);
     static Bullet* TinyLaser(const float x, const float y);
     static Bullet* Laser(const float x, const float y);
-    
+
     //DESTRUCTOR
     virtual ~Bullet();
-    
+
     //METHODS
     virtual std::string toString() const override;
-    
+
     //GETTERS
     int getDamage() const;
-        
+
 };
 
 #endif // BULLET_H_INCLUDED

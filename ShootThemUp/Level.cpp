@@ -178,19 +178,19 @@ void Level::checkCollisions(){
     }
 
     //uniquement pour le model, sinon pour la vue, c'est que la fonction qui verifie si la balle et encore dans la fenetre
-    for(auto bullet : _tabBullets){
+    /*for(auto bullet : _tabBullets){
         delete bullet;
     }
     _tabBullets.clear();
+    */
 
     //pour détruire la balle quand elle est hors du cadre, utilisé pour la vue
-    /*
+
      for(auto bullet : _tabBullets){
-     if((bullet->getX() >= MODEL_WIDTH && bullet->getX() <= 0) || (bullet->getY() >= MODEL_HEIGHT && bullet->getX()<= 0)){
-     delete bullet;
+        if((bullet->getX() >= MODEL_WIDTH && bullet->getX() <= 0) || (bullet->getY() >= MODEL_HEIGHT && bullet->getY()<= 0)){
+            delete bullet;
+        }
      }
-     }
-     */
 }
 
 /*
@@ -213,7 +213,15 @@ void Level::moveEnemies() const{
 
     for (auto enemy : _tabEnemies) {
         x = rand() % MODEL_WIDTH + 1;
-        enemy->move(x, y);
+        bool canMove = true;
+        for(auto help : _tabEnemies){
+            if(x>=help->getX() && x<=(help->getX() + help->getWidth())){
+                canMove=false;
+                continue;
+            }
+        }
+        if(canMove)
+            enemy->move(x, y);
     }
 }
 
@@ -291,6 +299,10 @@ vector<Enemy*> Level::getEnemies() const{
     return _tabEnemies;
 }
 
+vector<Bullet*> Level::getBullets() const{
+    return _tabBullets;
+}
+
 /*
  * returns : enemies who are still in live
  * info : constant
@@ -323,7 +335,11 @@ int Level::getNumberOfEnemies() const{
     return _tabEnemies.size();
 }
 
-
+void Level::moveBullets(){
+    for(auto b : _tabBullets){
+        b->move(b->getX()+b->getSpeedX(), b->getY()+b->getSpeedY());
+    }
+}
 
 
 

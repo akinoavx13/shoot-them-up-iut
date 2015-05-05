@@ -38,6 +38,14 @@ void GameViewTerminal::draw() const
     if(_menu->getIntro())
     {
         _menu->showIntroTerminal();
+        _menu->setIntro(false);
+        _menu->setGame(false);
+        _menu->setLevel(false);
+        _menu->setShop(false);
+        _menu->setMenu(true); //go to the menu
+        _menu->setScore(false);
+        _menu->setSaveScore(false);
+        _menu->setEnding(false);
     }
 
     else if(_menu->getMenu())

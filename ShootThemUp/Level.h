@@ -50,10 +50,13 @@ public:
     void addEnemies();
     void deleteAllEnemy();
 
+    void moveBullets();
+
     //GETTERS
     Ally* getAlly() const;
     Boss* getBoss() const;
     std::vector<Enemy*> getEnemies() const;
+    std::vector<Bullet*> getBullets() const;
     int getEnemiesNumber() const;
     int getNbEnemies()const;
     int getLevelNumber() const;
@@ -62,7 +65,6 @@ public:
 
     void setNbEnemies(int nbEnemies);
     void setLevelNumber(int levelNumber);
-
 
 };
 

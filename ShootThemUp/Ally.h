@@ -17,30 +17,30 @@
 
 class Ally : public Ship{
 private:
-    
+
     int _numbersOfLife;
     int _score;
-    
+
 public:
 
     //CONSTRUCTOR
     Ally();
     Ally(const float x, const float y, const int health);
-    
+
     //DESTRUCTOR
     virtual ~Ally();
 
     //METHODS
     bool isOver() const;
     std::string toString() const override;
-    
+
     //GETTERS
     int getNumberOfLife() const;
     int getScore() const;
 
     //SETTERS
     void setNumberOfLife(int numberOfLive);
-    
+
     void setScore(int expPoint);
 
 };

@@ -33,7 +33,8 @@ const int DEFAULT_GRAPHIC_ELEMENT_HEIGHT = 10;
 
 //ship
 const int DEFAULT_SHIP_LIFE = 100;
-const int DEFAULT_SHIP_OFFSET_SHOOT = 100;
+const int DEFAULT_SHIP_OFFSET_SHOOT = 20;
+const int DEFAULT_SHIP_FIRERATE = 1.5;
 
 //shoot
 const int MAIN_SHOOT_DAMAGE = 20;
@@ -79,5 +80,56 @@ const std::string MAC_SCORE_FILE_NICOLAS = "/Users/nicolas/Desktop/ShootThemUp/S
 const std::string MAC_SCORE_FILE_MAXIME = "/Users/Maxime/Desktop/Shump/ShootThemUp/ShootThemUp/score.txt";
 
 const std::string YOU_FILE = LINUX_SCORE_FILE; //please, change hear the constancy to execute the code
+
+/**
+    FOR THE VIEW
+**/
+
+//ALLY
+const int ALLY_PICTURE_HEIGHT = 65;
+const int ALLY_PICTURE_WIDTH = 195;
+
+const int ALLY_DEFAULT_SPEEDX = 0;
+const int ALLY_DEFAULT_SPEEDY = -6;
+
+//ENNEMY
+const int SUBMARINE_PICTURE_HEIGHT = 197;
+const int SUBMARINE_PICTURE_WIDTH = 82;
+
+const int TINY_PICTURE_HEIGHT = 32;
+const int TINY_PICTURE_WIDTH = 96;
+
+const int MIGHTY_PICTURE_HEIGHT = 65;
+const int MIGHTY_PICTURE_WIDTH = 195;
+
+const int ENEMY_DEFAULT_SPEEDX = 5;
+const int ENEMY_DEFAULT_SPEEDY = 5;
+
+//BOSS
+const int BOOS_PICTURE_HEIGHT = 98;
+const int BOSS_PICTURE_WIDTH = 294;
+
+const int BOSS_DEFAULT_SPEEDX = 7;
+const int BOSS_DEFAULT_SPEEDY = 7;
+
+//BULLETS
+const int DUBBLE_LASER_PICTURE_HEIGHT = 32;
+const int DUBBLE_LASER_PICTURE_WIDTH = 32;
+
+const int FIREBALL_PICTURE_HEIGHT = 32;
+const int FIREBALL_PICTURE_WIDTH = 32;
+
+const int BIG_LASER_PICTURE_HEIGHT = 32;
+const int BIG_LASER_PICTURE_WIDTH = 32;
+
+const int LITTLE_LASER_PICTURE_HEIGHT = 32;
+const int LITTLE_LASER_PICTURE_WIDTH = 32;
+
+const int STANDARD_LASER_PICTURE_HEIGHT = 32;
+const int STANDARD_LASER_PICTURE_WIDTH = 32;
+
+const int BULLET_DEFAULT_SPEEDX = 0;
+const int BULLET_DEFAULT_SPEEDY = 9;
+
 
 #endif
