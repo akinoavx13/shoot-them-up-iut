@@ -37,6 +37,8 @@ public:
     //GETTERS
     int getDamage() const;
 
+    void move(const float x, const float y) override;
+
 };
 
 #endif // BULLET_H_INCLUDED

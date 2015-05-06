@@ -71,22 +71,26 @@ void GameViewSFML::draw() const{
             Picture * bg = new Picture(_graphicLibrary->getImage(0), 0,0,MODEL_HEIGHT,MODEL_WIDTH);
             _window->Draw(bg->getSprite());
 
-            int xp = _gameModel->getLevel()->getAlly()->getX();
-            int yp = _gameModel->getLevel()->getAlly()->getY();
-
             int k3 = _gameModel->getNumberTour()%3;
             int k2 = _gameModel->getNumberTour()%2;
 
-            Picture * ally = new Picture(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,0+(ALLY_PICTURE_WIDTH/3)*k3,0,(ALLY_PICTURE_WIDTH/3)+(ALLY_PICTURE_WIDTH/3)*k3,ALLY_PICTURE_HEIGHT);
-            _window->Draw(ally->getSprite());
+            if(_gameModel->getLevel()->getAlly()!=nullptr){
+                int xp = _gameModel->getLevel()->getAlly()->getX();
+                int yp = _gameModel->getLevel()->getAlly()->getY();
+                Picture * ally = new Picture(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,0+(ALLY_PICTURE_WIDTH/3)*k3,0,(ALLY_PICTURE_WIDTH/3)+(ALLY_PICTURE_WIDTH/3)*k3,ALLY_PICTURE_HEIGHT);
+                _window->Draw(ally->getSprite());
 
+                for(int i = 0; i<_gameModel->getLevel()->getAlly()->getNumberOfLife(); i++){
+                    Picture * life = new Picture(_graphicLibrary->getImage(17), i*25,5,20,20);
+                    _window->Draw(life->getSprite());
+                }
+            }
             if(_gameModel->getLevel()->getEnemiesNumber() > 0)
             {
                 for(auto e : _gameModel->getLevel()->getEnemies()){
 
                     int xe = e->getX();
                     int ye = e->getY();
-                    std::cout << e->getType() << std::endl;
 
                     Picture * en;
                     if(e->getType()==1){
@@ -113,17 +117,13 @@ void GameViewSFML::draw() const{
                 }
             }
 
-            for(auto b : _gameModel->getLevel()->getBullets()){
-                int xba = b->getX();
-                int yba = b->getY();
-                Picture * bba = new Picture(_graphicLibrary->getImage(12), xba,yba,32,32);
-                _window->Draw(bba->getSprite());
-            }
-
-
-            for(int i = 0; i<_gameModel->getLevel()->getAlly()->getNumberOfLife(); i++){
-                Picture * life = new Picture(_graphicLibrary->getImage(17), i*25,5,20,20);
-                _window->Draw(life->getSprite());
+            if(_gameModel->getLevel()->getNumberOfBullets() > 0){
+                for(auto b : _gameModel->getLevel()->getBullets()){
+                    int xba = b->getX();
+                    int yba = b->getY();
+                    Picture * bba = new Picture(_graphicLibrary->getImage(12), xba,yba,32,32);
+                    _window->Draw(bba->getSprite());
+                }
             }
         }
         if(_menu->getShop())
@@ -215,8 +215,10 @@ bool GameViewSFML::treatEvent(){
                         }
                     }
                 }
-                if(_menu->getShop())
+                else if(_menu->getShop())
                 {
+                    _menu->setLevel(true);
+                    _menu->setShop(false);
 
                 }
             }
@@ -227,7 +229,7 @@ bool GameViewSFML::treatEvent(){
             }
             else if(_menu->getSaveScore())
             {
-
+                _menu->setMenu(true);
             }
             else if(_menu->getEnding())
             {

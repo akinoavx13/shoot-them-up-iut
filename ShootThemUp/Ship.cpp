@@ -69,23 +69,7 @@ string Ship::toString() const{
     return str;
 }
 
-/*
- * returns : true if there is a collision between ship and a graphic element
- * info : constant
- */
-bool Ship::collisions(GraphicElement* graphicElement)const{
 
-    if(
-       (_x >= graphicElement->getX() && _x <= graphicElement->getX() + graphicElement->getWidth() && _y >= graphicElement->getY() && _y <= graphicElement->getY() + graphicElement->getHeight()) ||
-       (_x + _width >= graphicElement->getX() && _x + _width <= graphicElement->getX() + graphicElement->getWidth() && _y >= graphicElement->getY() && _y <= graphicElement->getY() + graphicElement->getHeight()) ||
-       (_x >= graphicElement->getX() && _x <= graphicElement->getX() + graphicElement->getWidth() && _y + _height >= graphicElement->getY() && _y + _height <= graphicElement->getY() + graphicElement->getHeight()) ||
-       (_x + _width >= graphicElement->getX() && _x + _width <= graphicElement->getX() + graphicElement->getWidth() && _y + _height >= graphicElement->getY() && _y + _height <= graphicElement->getY() + graphicElement->getHeight())
-    ){
-        return true;
-    }
-    return false;
-
-}
 
 /*
  * returns : true if health <= 0
