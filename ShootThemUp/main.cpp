@@ -19,8 +19,8 @@ using namespace std;
 int main(){
 
     GameModel* gameModel = new GameModel();
-    //GameViewTerminal* gameView = new GameViewTerminal();
-    GameViewSFML* gameView = new GameViewSFML();
+    GameViewTerminal* gameView = new GameViewTerminal();
+    //GameViewSFML* gameView = new GameViewSFML();
 
     gameView->setModel(gameModel);
     gameView->setModelMenu();

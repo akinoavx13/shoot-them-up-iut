@@ -110,7 +110,7 @@ void GameViewTerminal::draw() const
             cout << "\tNiveau : " << _gameModel->getLevel()->getLevelNumber() << endl;
             cout << "\tTour n° : " << _gameModel->getNumberTour() << endl;
             cout << "\tNombre d'ennemis : " << _gameModel->getLevel()->getEnemiesNumber() << endl;
-            cout << "\tPortée du tir : " << DEFAULT_SHIP_OFFSET_SHOOT << endl << endl;
+            cout << "\tPortée du tir : " << SHIP_OFFSET_SHOOT << endl << endl;
 
             cout << _gameModel->getLevel()->getAlly()->toString() << endl;
 
@@ -169,20 +169,20 @@ void GameViewTerminal::draw() const
         {
             cout << "Bienvenue dans le shop" << endl;
             cout << "Vous pouvez acheter des missiles si vous les souhaitez : " << endl;
-            cout << "\t1)Acheter le missile boule de feu : " << DEFAULT_FIREBALL_DAMAGE << " dommages." << endl;
-            cout << "\t\tPrix : " << DEFAULT_FIREBALL_PRICE << " $" << endl;
+            cout << "\t1)Acheter le missile boule de feu : " << FIREBALL_DAMAGE << " dommages." << endl;
+            cout << "\t\tPrix : " << FIREBALL_PRICE << " $" << endl;
 
-            cout << "\t2)Acheter le missile petit laser : " << DEFAULT_TINYLASER_DAMAGE << " dommages." << endl;
-            cout << "\t\tPrix : " << DEFAULT_TINYLASER_PRICE << " $" << endl;
+            cout << "\t2)Acheter le missile petit laser : " << TINYLASER_DAMAGE << " dommages." << endl;
+            cout << "\t\tPrix : " << TINYLASER_PRICE << " $" << endl;
 
-            cout << "\t3)Acheter le missile laser : " << DEFAULT_LASER_DAMAGE << " dommages." << endl;
-            cout << "\t\tPrix : " << DEFAULT_LASER_PRICE << " $" << endl;
+            cout << "\t3)Acheter le missile laser : " << LASER_DAMAGE << " dommages." << endl;
+            cout << "\t\tPrix : " << LASER_PRICE << " $" << endl;
 
             cout << "\t4)Restaurer sa vie"<< endl;
-            cout << "\t\tPrix : " << DEFAULT_RESTRAURE_LIFE_PRICE << " $" << endl;
+            cout << "\t\tPrix : " << RESTRAURE_LIFE_PRICE << " $" << endl;
 
             cout << "\t5)Acheter une vie suplémentaire" << endl;
-            cout << "\t\tPrix : " << DEFAULT_ADD_LIFE_PRICE << " $" << endl;
+            cout << "\t\tPrix : " << ADD_LIFE_PRICE << " $" << endl;
 
             cout << "\t6)Ne rien acheter" << endl;
             char choice;
@@ -191,68 +191,68 @@ void GameViewTerminal::draw() const
             {
 
             case '1':
-                if(_gameModel->getLevel()->getAlly()->getScore() > DEFAULT_FIREBALL_PRICE)
+                if(_gameModel->getLevel()->getAlly()->getScore() > FIREBALL_PRICE)
                 {
                     _gameModel->getLevel()->getAlly()->setBulletType(1);
-                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore() - DEFAULT_FIREBALL_PRICE);
+                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore() - FIREBALL_PRICE);
                     cout << "Boule de feu achetée." << endl;
                 }
                 else
                 {
-                    cout << "Vous possédez " << _gameModel->getLevel()->getAlly()->getScore() << " $. Il faut " << DEFAULT_FIREBALL_PRICE << " $ pour l'acheter. Revient quand tu auras les sous"<< endl;
+                    cout << "Vous possédez " << _gameModel->getLevel()->getAlly()->getScore() << " $. Il faut " << FIREBALL_PRICE << " $ pour l'acheter. Revient quand tu auras les sous"<< endl;
                 }
                 break;
 
             case '2':
-                if(_gameModel->getLevel()->getAlly()->getScore() > DEFAULT_TINYLASER_PRICE)
+                if(_gameModel->getLevel()->getAlly()->getScore() > TINYLASER_PRICE)
                 {
                     _gameModel->getLevel()->getAlly()->setBulletType(2);
-                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore() - DEFAULT_TINYLASER_PRICE);
+                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore() - TINYLASER_PRICE);
                     cout << "Petit laser acheté." << endl;
 
                 }
                 else
                 {
-                    cout << "Vous possédez " << _gameModel->getLevel()->getAlly()->getScore() << " $. Il faut " << DEFAULT_TINYLASER_PRICE << " $ pour l'acheter. Revient quand tu auras les sous"<< endl;
+                    cout << "Vous possédez " << _gameModel->getLevel()->getAlly()->getScore() << " $. Il faut " << TINYLASER_PRICE << " $ pour l'acheter. Revient quand tu auras les sous"<< endl;
                 }
                 break;
 
             case '3':
-                if(_gameModel->getLevel()->getAlly()->getScore() > DEFAULT_LASER_PRICE)
+                if(_gameModel->getLevel()->getAlly()->getScore() > LASER_PRICE)
                 {
                     _gameModel->getLevel()->getAlly()->setBulletType(3);
-                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore() - DEFAULT_LASER_PRICE);
+                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore() - LASER_PRICE);
                     cout << "Laser achetée." << endl;
                 }
                 else
                 {
-                    cout << "Vous possédez " << _gameModel->getLevel()->getAlly()->getScore() << " $. Il faut " << DEFAULT_LASER_PRICE << " $ pour l'acheter. Revient quand tu auras les sous"<< endl;
+                    cout << "Vous possédez " << _gameModel->getLevel()->getAlly()->getScore() << " $. Il faut " << LASER_PRICE << " $ pour l'acheter. Revient quand tu auras les sous"<< endl;
                 }
                 break;
 
             case '4':
-                if(_gameModel->getLevel()->getAlly()->getScore() > DEFAULT_RESTRAURE_LIFE_PRICE)
+                if(_gameModel->getLevel()->getAlly()->getScore() > RESTRAURE_LIFE_PRICE)
                 {
-                    _gameModel->getLevel()->getAlly()->setHealth(DEFAULT_SHIP_LIFE);
-                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore() - DEFAULT_RESTRAURE_LIFE_PRICE);
+                    _gameModel->getLevel()->getAlly()->setHealth(ALLY_LIFE);
+                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore() - RESTRAURE_LIFE_PRICE);
                     cout << "Vie restaurée." << endl;
                 }
                 else
                 {
-                    cout << "Vous possédez " << _gameModel->getLevel()->getAlly()->getScore() << " $. Il faut " << DEFAULT_RESTRAURE_LIFE_PRICE << " $ pour l'acheter. Revient quand tu auras les sous"<< endl;
+                    cout << "Vous possédez " << _gameModel->getLevel()->getAlly()->getScore() << " $. Il faut " << RESTRAURE_LIFE_PRICE << " $ pour l'acheter. Revient quand tu auras les sous"<< endl;
                 }
                 break;
 
             case '5':
-                if(_gameModel->getLevel()->getAlly()->getScore() > DEFAULT_ADD_LIFE_PRICE)
+                if(_gameModel->getLevel()->getAlly()->getScore() > ADD_LIFE_PRICE)
                 {
                     _gameModel->getLevel()->getAlly()->setNumberOfLife(_gameModel->getLevel()->getAlly()->getNumberOfLife() + 1);
-                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore() - DEFAULT_ADD_LIFE_PRICE);
+                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore() - ADD_LIFE_PRICE);
                     cout << "1 vie ajoutée." << endl;
                 }
                 else
                 {
-                    cout << "Vous possédez " << _gameModel->getLevel()->getAlly()->getScore() << " $. Il faut " << DEFAULT_ADD_LIFE_PRICE << " $ pour l'acheter. Revient quand tu auras les sous"<< endl;
+                    cout << "Vous possédez " << _gameModel->getLevel()->getAlly()->getScore() << " $. Il faut " << ADD_LIFE_PRICE << " $ pour l'acheter. Revient quand tu auras les sous"<< endl;
                 }
                 break;
 

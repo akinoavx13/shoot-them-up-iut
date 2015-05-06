@@ -14,7 +14,7 @@ using namespace std;
  * default constructor
  * params : Model width, Model height, number tour
  */
-GameModel::GameModel():_WIDTH(MODEL_WIDTH), _HEIGHT(MODEL_HEIGHT), _numberTour(1){
+GameModel::GameModel():_numberTour(1){
     #ifdef __linux__
         _level = nullptr;
     #else
@@ -63,7 +63,7 @@ void GameModel::updateCore(){
             if(getLevel()->getAlly()->isDead()){
                 //and game is not finished
                 if(!getLevel()->getAlly()->isOver()){
-                    getLevel()->getAlly()->setHealth(DEFAULT_SHIP_LIFE);
+                    getLevel()->getAlly()->setHealth(ALLY_LIFE);
                     getLevel()->getAlly()->setNumberOfLife(getLevel()->getAlly()->getNumberOfLife() - 1);
                 }
             }
@@ -112,7 +112,7 @@ void GameModel::updateCore(){
                     if(_numberTour % 3 == 0){
                         int x;
                         int y = 100;
-                        x = rand() % MODEL_WIDTH + 1;
+                        x = rand() % SCREEN_WIDTH + 1;
                         srand((unsigned int)time(NULL));
                         _level->getBoss()->move(x, y);
                     }

@@ -24,9 +24,6 @@ class GameModel{
 
 private:
 
-    const int _WIDTH;
-    const int _HEIGHT;
-
     Menu* _menu;
     Level* _level;
     int _numberTour;

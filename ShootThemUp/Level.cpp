@@ -13,7 +13,7 @@ using namespace std;
 /*
  * default constructor
  */
-Level::Level() : _levelNumber(DEFAULT_LEVEL_NUMBER), _nbEnemies(DEFAULT_LEVEL_ENEMY_NUMBER){
+Level::Level() : _levelNumber(LEVEL_NUMBER), _nbEnemies(LEVEL_ENEMY_NUMBER){
 
     addEnemies();
 
@@ -238,7 +238,7 @@ void Level::checkCollisions(){
     //pour détruire la balle quand elle est hors du cadre, utilisé pour la vue
 
      for(auto bullet : _tabBullets){
-        if((bullet->getX()+bullet->getWidth() >= MODEL_WIDTH) || (bullet->getX() <= 0) || (bullet->getY()+bullet->getHeight() >= MODEL_HEIGHT) ||(bullet->getY()<= 0)){
+        if((bullet->getX()+bullet->getWidth() >= SCREEN_WIDTH) || (bullet->getX() <= 0) || (bullet->getY()+bullet->getHeight() >= SCREEN_HEIGHT) ||(bullet->getY()<= 0)){
             //cout << "balle en dehors du cadre" << endl;
         }
      }
@@ -290,9 +290,9 @@ void Level::addEnemies(){
     srand((unsigned int)time(NULL));
 
     for(int i = 0; i<_nbEnemies; i++){
-        x += DEFAULT_LEVEL_INITIAL_ENEMY_OFFSET;
-        if(x >= MODEL_WIDTH){
-            y += DEFAULT_LEVEL_INITIAL_ENEMY_OFFSET;
+        x += LEVEL_INITIAL_ENEMY_OFFSET;
+        if(x >= SCREEN_WIDTH){
+            y += LEVEL_INITIAL_ENEMY_OFFSET;
         }
         int type = rand()%_nbEnemies;
 

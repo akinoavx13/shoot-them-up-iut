@@ -9,7 +9,7 @@
 #ifndef PICTURE_H_INCLUDED
 #define PICTURE_H_INCLUDED
 
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 
 class Picture{
 private:

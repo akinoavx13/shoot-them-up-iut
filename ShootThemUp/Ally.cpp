@@ -14,7 +14,7 @@ using namespace std;
 /*
  * default constructor
  */
-Ally::Ally() : Ship(MODEL_WIDTH/2, MODEL_HEIGHT-ALLY_PICTURE_HEIGHT-10, DEFAULT_SHIP_LIFE,ALLY_PICTURE_WIDTH/3, ALLY_PICTURE_HEIGHT, ALLY_SHIP_FIRERATE, ALLY_DEFAULT_SPEEDX, ALLY_DEFAULT_SPEEDY), _numbersOfLife(DEFAULT_NUMBER_OF_LIFE), _score(DEFAULT_SCORE) {}
+Ally::Ally() : Ship(SCREEN_WIDTH/2, SCREEN_HEIGHT-ALLY_PICTURE_HEIGHT-10, ALLY_LIFE,ALLY_PICTURE_WIDTH/3, ALLY_PICTURE_HEIGHT, ALLY_FIRERATE, ALLY_SPEEDX, ALLY_SPEEDY), _numbersOfLife(ALLY_NUMBER_OF_LIFE), _score(DEFAULT_SCORE) {}
 
 /*
  * contructor
@@ -79,25 +79,25 @@ string Ally::toString() const{
     str += "\tDégat : ";
     if(_bulletType == 0){
     #ifdef __linux__
-        str += to_string(MAIN_SHOOT_DAMAGE);
+        str += to_string(STANDARD_DAMAGE);
     #endif
 
     }
     else if(_bulletType == 1){
     #ifdef __linux__
-        str += to_string(DEFAULT_FIREBALL_DAMAGE);
+        str += to_string(FIREBALL_DAMAGE);
     #endif
 
     }
     else if(_bulletType == 2){
     #ifdef __linux__
-        str += to_string(DEFAULT_TINYLASER_DAMAGE);
+        str += to_string(TINYLASER_DAMAGE);
     #endif
 
     }
     else if(_bulletType == 3){
     #ifdef __linux__
-        str += to_string(DEFAULT_LASER_DAMAGE);
+        str += to_string(LASER_DAMAGE);
     #endif
 
     }
@@ -136,18 +136,3 @@ void Ally::setNumberOfLife(int numberOfLive){
 void Ally::setScore(int expPoint){
     _score += DEFAULT_POINT + expPoint;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

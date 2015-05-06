@@ -13,7 +13,7 @@ using namespace std;
 /*
  * default constructor
  */
-Bullet::Bullet():_damage(DEFAULT_BULLET_DAMAGE){}
+Bullet::Bullet():_damage(STANDARD_DAMAGE){}
 
 /*
  * constructor
@@ -22,17 +22,17 @@ Bullet::Bullet():_damage(DEFAULT_BULLET_DAMAGE){}
 Bullet::Bullet(const float x, const float y, const int damage, const int width, const int height, const int speedX, const int speedY) : GraphicElement(x, y, width, height, speedX, speedY), _damage(damage){}
 
 Bullet* Bullet::FireBall(const float x, const float y){
-    Bullet* bullet = new Bullet(x, y, DEFAULT_FIREBALL_DAMAGE, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT,BULLET_DEFAULT_SPEEDX,BULLET_DEFAULT_SPEEDY);
+    Bullet* bullet = new Bullet(x, y, FIREBALL_DAMAGE, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT,BULLET_SPEEDX,BULLET_SPEEDY);
     return bullet;
 }
 
 Bullet* Bullet::TinyLaser(const float x, const float y){
-    Bullet* bullet = new Bullet(x, y, DEFAULT_TINYLASER_DAMAGE, LITTLE_LASER_PICTURE_WIDTH, LITTLE_LASER_PICTURE_HEIGHT,BULLET_DEFAULT_SPEEDX,BULLET_DEFAULT_SPEEDY);
+    Bullet* bullet = new Bullet(x, y, TINYLASER_DAMAGE, TINYLASER_PICTURE_WIDTH, TINYLASER_PICTURE_HEIGHT,BULLET_SPEEDX,BULLET_SPEEDY);
     return bullet;
 }
 
 Bullet* Bullet::Laser(const float x, const float y){
-    Bullet* bullet = new Bullet(x, y, DEFAULT_TINYLASER_DAMAGE, BIG_LASER_PICTURE_WIDTH, BIG_LASER_PICTURE_HEIGHT,BULLET_DEFAULT_SPEEDX,BULLET_DEFAULT_SPEEDY);
+    Bullet* bullet = new Bullet(x, y, LASER_DAMAGE, LASER_PICTURE_WIDTH, LASER_PICTURE_HEIGHT,BULLET_SPEEDX,BULLET_SPEEDY);
     return bullet;
 }
 

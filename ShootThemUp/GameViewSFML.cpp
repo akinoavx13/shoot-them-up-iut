@@ -14,8 +14,8 @@ using namespace sf;
 
 GameViewSFML::GameViewSFML(){
     _menu = new Menu();
-    _window = new RenderWindow(VideoMode(MODEL_HEIGHT, MODEL_WIDTH), "Shmup");
-    _window->SetFramerateLimit(25);
+    _window = new RenderWindow(VideoMode(SCREEN_HEIGHT, SCREEN_WIDTH), "Shmup");
+    _window->SetFramerateLimit(SCREEN_FPS);
     #ifdef __linux__
     _gameModel = nullptr;
     #else
@@ -44,7 +44,7 @@ void GameViewSFML::draw() const{
     _window->Clear();
     if(_menu->getIntro())
     {
-        Picture bg(_graphicLibrary->getImage(22), 0,0,MODEL_HEIGHT,MODEL_WIDTH);
+        Picture bg(_graphicLibrary->getImage(22), 0,0,SCREEN_HEIGHT,SCREEN_WIDTH);
         _window->Draw(bg.getSprite());
 
         if(time.GetElapsedTime()>=1)
@@ -72,7 +72,7 @@ void GameViewSFML::draw() const{
     {
         if(_menu->getLevel())
         {
-            Picture bg(_graphicLibrary->getImage(0), 0,0,MODEL_HEIGHT,MODEL_WIDTH);
+            Picture bg(_graphicLibrary->getImage(0), 0,0,SCREEN_HEIGHT,SCREEN_WIDTH);
             _window->Draw(bg.getSprite());
 
             int k3 = _gameModel->getNumberTour()%3;

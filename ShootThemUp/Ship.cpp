@@ -15,7 +15,7 @@ using namespace std;
 /*
  * default constructor
  */
-Ship::Ship():_health(DEFAULT_SHIP_LIFE), _damage(MAIN_SHOOT_DAMAGE), _bulletType(0), _fireRate(ENEMY_FIRERATE) {
+Ship::Ship():_health(ALLY_LIFE), _damage(STANDARD_DAMAGE), _bulletType(0), _fireRate(ENEMY_FIRERATE) {
     
     #ifdef __linux__
         _mainShoot = nullptr;
@@ -30,7 +30,7 @@ Ship::Ship():_health(DEFAULT_SHIP_LIFE), _damage(MAIN_SHOOT_DAMAGE), _bulletType
  * constructor
  * params : x, y and health of a ship
  */
-Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate):GraphicElement(x, y, width, height, ENEMY_DEFAULT_SPEEDX, ENEMY_DEFAULT_SPEEDY), _health(health), _bulletType(0), _damage(MAIN_SHOOT_DAMAGE), _fireRate(ENEMY_FIRERATE) {
+Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate):GraphicElement(x, y, width, height, ENEMY_SPEEDX, ENEMY_SPEEDY), _health(health), _bulletType(0), _damage(STANDARD_DAMAGE), _fireRate(ENEMY_FIRERATE) {
 
     #ifdef __linux__
         _mainShoot = nullptr;
@@ -42,7 +42,7 @@ Ship::Ship(const float x, const float y, const int health, const int width, cons
     
 }
 
-Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate, const int speedX, const int speedY):GraphicElement(x, y, width, height, speedX, speedY), _health(health), _bulletType(0), _damage(MAIN_SHOOT_DAMAGE), _fireRate(ENEMY_FIRERATE) {
+Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate, const int speedX, const int speedY):GraphicElement(x, y, width, height, speedX, speedY), _health(health), _bulletType(0), _damage(STANDARD_DAMAGE), _fireRate(ENEMY_FIRERATE) {
     
     #ifdef __linux__
         _mainShoot = nullptr;
@@ -70,7 +70,7 @@ Ship::~Ship(){
  */
 void Ship::shoot(){
     if(_bulletType == 0){
-        _mainShoot = new Bullet(_x+(_width/2)-(FIREBALL_PICTURE_WIDTH/2), _y-FIREBALL_PICTURE_HEIGHT-5, MAIN_SHOOT_DAMAGE, STANDARD_LASER_PICTURE_WIDTH, STANDARD_LASER_PICTURE_HEIGHT, ALLY_DEFAULT_SPEEDX, ALLY_DEFAULT_SPEEDY);
+        _mainShoot = new Bullet(_x+(_width/2)-(FIREBALL_PICTURE_WIDTH/2), _y-FIREBALL_PICTURE_HEIGHT-5, MAIN_SHOOT_DAMAGE, LASER_PICTURE_WIDTH, LASER_PICTURE_HEIGHT, ALLY_SPEEDX, ALLY_SPEEDY);
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 1){
@@ -78,11 +78,11 @@ void Ship::shoot(){
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 2){
-        _mainShoot = Bullet::TinyLaser(_x+(_width/2)+(TINY_PICTURE_WIDTH/2), _y-TINY_PICTURE_HEIGHT-5);
+        _mainShoot = Bullet::TinyLaser(_x+(_width/2)+(TINYLASER_PICTURE_WIDTH/2), _y-TINYLASER_PICTURE_HEIGHT-5);
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 3){
-        _mainShoot = Bullet::Laser(_x+(_width/2)+(LITTLE_LASER_PICTURE_WIDTH/2), _y-LITTLE_LASER_PICTURE_HEIGHT-5);
+        _mainShoot = Bullet::Laser(_x+(_width/2)+(LASER_PICTURE_WIDTH/2), _y-LASER_PICTURE_HEIGHT-5);
         _level->addBullet(_mainShoot);
     }
 }
@@ -103,13 +103,13 @@ string Ship::toString() const{
 }
 
 void Ship::move(const float x, const float y){
-    if (x >= 0 && x+_width < MODEL_WIDTH) {
+    if (x >= 0 && x+_width < SCREEN_WIDTH) {
         _x = x;
     }else{
         //cout << "X n'est pas compris entre 0 et " << MODEL_WIDTH << ". X vaut : " << x << endl;
     }
 
-    if (y >= 0 && y+_height < MODEL_HEIGHT) {
+    if (y >= 0 && y+_height < SCREEN_HEIGHT) {
         _y = y;
     }else{
         //cout << "Y n'est pas compris entre 0 et " << MODEL_HEIGHT << ". Y vaut : " << y << endl;
