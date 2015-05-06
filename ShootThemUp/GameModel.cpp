@@ -101,14 +101,15 @@ void GameModel::updateCore(){
             }
             else{
                 //enemies shoot every 2 turns
-                if(_numberTour % 10 == 0){
-                    getLevel()->EnemiesShoot();
-                }
+                    if(shoot.GetElapsedTime() >= 2){
+                        getLevel()->EnemiesShoot();
+                        shoot.Reset();
+                    }
+
 
                 //enemies move every 4 turns
-                if(_numberTour % 4 == 0){
                     getLevel()->moveEnemies();
-                }
+
             }
 
         }

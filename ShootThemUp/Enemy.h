@@ -34,6 +34,8 @@ public:
     //METHODS
     virtual std::string toString() const override;
     void shoot() override;
+    void move(const float x, const float y) override;
+
 
     //GETTER
     int getType() const;

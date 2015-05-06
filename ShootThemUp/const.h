@@ -34,7 +34,8 @@ const int DEFAULT_GRAPHIC_ELEMENT_HEIGHT = 10;
 //ship
 const int DEFAULT_SHIP_LIFE = 100;
 const int DEFAULT_SHIP_OFFSET_SHOOT = 20;
-const int DEFAULT_SHIP_FIRERATE = 1.5;
+const int ALLY_SHIP_FIRERATE = 1;
+const int ENEMY_FIRERATE = 2;
 
 //shoot
 const int MAIN_SHOOT_DAMAGE = 20;
@@ -89,8 +90,8 @@ const std::string YOU_FILE = LINUX_SCORE_FILE; //please, change hear the constan
 const int ALLY_PICTURE_HEIGHT = 49;
 const int ALLY_PICTURE_WIDTH = 183;
 
-const int ALLY_DEFAULT_SPEEDX = 0;
-const int ALLY_DEFAULT_SPEEDY = -6;
+const int ALLY_DEFAULT_SPEEDX = 7;
+const int ALLY_DEFAULT_SPEEDY = 7;
 
 //ENNEMY
 const int SUBMARINE_PICTURE_HEIGHT = 197;
@@ -102,8 +103,8 @@ const int TINY_PICTURE_WIDTH = 96;
 const int MIGHTY_PICTURE_HEIGHT = 45;
 const int MIGHTY_PICTURE_WIDTH = 180;
 
-const int ENEMY_DEFAULT_SPEEDX = 5;
-const int ENEMY_DEFAULT_SPEEDY = 5;
+const int ENEMY_DEFAULT_SPEEDX = 1;
+const int ENEMY_DEFAULT_SPEEDY = 1;
 
 //BOSS
 const int BOOS_PICTURE_HEIGHT = 74;

@@ -32,10 +32,17 @@ Level::~Level(){
     for (auto p : _tabEnemies) {
         delete p;
     }
+    _tabEnemies.clear();
 
     for (auto p : _tabBullets) {
         delete p;
     }
+    _tabBullets.clear();
+
+    for (auto enemy : _tabEnemies) {
+        delete enemy;
+    }
+    _tabEnemies.clear();
 
     delete _ally;
 
@@ -80,12 +87,12 @@ void Level::checkCollisions(){
         int a = 0;
         for (auto bullet : _tabBullets) {
             if(_ally->collisions(bullet)){
-                cout << "Vous avez pris une balle !" << endl;
+                //cout << "Vous avez pris une balle !" << endl;
                 _ally->setHealth(_ally->getHealth() - bullet->getDamage());
                 collision = true;
 
                 if(_ally->isDead()){
-                    cout << "Vous etes mort" << endl;
+                    //cout << "Vous etes mort" << endl;
                 }
 
                 _tabBullets.erase(_tabBullets.begin() + a);
@@ -100,12 +107,12 @@ void Level::checkCollisions(){
         int b = 0;
         for (auto bullet : _tabBullets) {
             if(_boss->collisions(bullet)){
-                cout << "Un boss à pris une balle !" << endl;
+                //cout << "Un boss à pris une balle !" << endl;
                 _boss->setHealth(_boss->getHealth() - bullet->getDamage());
                 collision = true;
 
                 if(_boss->isDead()){
-                    cout << "Vous avez tué le boss" << endl;
+                    //cout << "Vous avez tué le boss" << endl;
                     _boss = nullptr;
                 }
 
@@ -123,7 +130,7 @@ void Level::checkCollisions(){
             int i = 0;
             for(auto bullet : _tabBullets){
                 if(enemy->collisions(bullet)){
-                    cout << "Un ennemi a pris une balle !" << endl;
+                    //cout << "Un ennemi a pris une balle !" << endl;
                     enemy->setHealth(enemy->getHealth() - bullet->getDamage());
                     collision = true;
 
@@ -151,7 +158,7 @@ void Level::checkCollisions(){
 
                 _ally->setHealth(_ally->getHealth() - (_ally->getHealth() / 4));
 
-                cout << "Vous avez tué un ennemi" << endl;
+                //cout << "Vous avez tué un ennemi" << endl;
 
                 _tabEnemies.erase(_tabEnemies.begin() + k);
                 delete enemy;
@@ -167,7 +174,7 @@ void Level::checkCollisions(){
             _ally->setHealth(_ally->getHealth() - (_ally->getHealth() / 4));
             _boss->setHealth(_boss->getHealth() - (_boss->getHealth() / 4));
             if(_boss->isDead()){
-                cout << "Vous avez tué un ennemi" << endl;
+                //cout << "Vous avez tué un ennemi" << endl;
                 _boss = nullptr;
             }
         }
@@ -178,7 +185,7 @@ void Level::checkCollisions(){
         for(int i = 0; i < _tabBullets.size() ; i++){
             for(int j = 0; j < _tabBullets.size() ; j++){
                 if(i!=j && _tabBullets[i]->collisions(_tabBullets[j])){
-                    cout << "Collision entre les balles" << endl;
+                    //cout << "Collision entre les balles" << endl;
                 }
             }
         }
@@ -186,7 +193,7 @@ void Level::checkCollisions(){
 
 
     if(!collision){
-        cout << "Aucune collision pour le moment" << endl;
+        //cout << "Aucune collision pour le moment" << endl;
     }
 
     //uniquement pour le model, sinon pour la vue, c'est que la fonction qui verifie si la balle et encore dans la fenetre
@@ -201,7 +208,7 @@ void Level::checkCollisions(){
     int z = 0;
      for(auto bullet : _tabBullets){
         if((bullet->getX()+bullet->getWidth() >= MODEL_WIDTH) || (bullet->getX() <= 0) || (bullet->getY()+bullet->getHeight() >= MODEL_HEIGHT) ||(bullet->getY()<= 0)){
-            cout << "balle en dehors du cadre" << endl;
+            //cout << "balle en dehors du cadre" << endl;
         }
      }
 }
@@ -219,39 +226,13 @@ void Level::addBullet(Bullet* bullet){
  * info : constant
  */
 void Level::moveEnemies() const{
-    int x;
-    int y = 100;
 
-    srand((unsigned int)time(NULL));
+    for(auto enemy : _tabEnemies){
 
-    for (auto enemy : _tabEnemies) {
-        x = rand() % MODEL_WIDTH + 1;
-        bool canMove = true;
-        for(auto help : _tabEnemies){
-            if(x>=help->getX() && x<=(help->getX() + help->getWidth())){
-                canMove=false;
-                continue;
-            }
-        }
-        if(canMove)
-            enemy->move(x, y);
+        enemy->move(enemy->getX(), enemy->getY() + enemy->getSpeedY());
+
     }
-    /*
-    for(int i = 0 ; i<_tabEnemies.size(); i++){
-        x = rand() % MODEL_WIDTH + 1;
-        Enemy* test = new Enemy(x, _tabEnemies[i]->getY(), _tabEnemies[i]->getWidth(), _tabEnemies[i]->getHeight(),0,0);
-        for(int j = 0; j<_tabEnemies.size(); j++){
-            if(i!=j){
-                if(!test->collisions(_tabEnemies[j])){
-                    _tabEnemies[i]->move(x, y);
-                    break;
-                }
 
-            }
-        }
-        delete test;
-    }
-    */
 }
 
 /*
@@ -273,7 +254,7 @@ void Level::addBoss(){
 
 void Level::addEnemies(){
     int x = 0;
-    int y = 100;
+    int y = -100;
 
     srand((unsigned int)time(NULL));
 

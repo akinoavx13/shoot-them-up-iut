@@ -9,6 +9,8 @@
 #ifndef __ShootThemUp__GameModel__
 #define __ShootThemUp__GameModel__
 
+#include <SFML/Graphics.hpp>
+
 #include <stdio.h>
 #include <iostream>
 #include <string>
@@ -28,25 +30,26 @@ private:
     Menu* _menu;
     Level* _level;
     int _numberTour;
-    
+    sf::Clock shoot;
+
 public:
 
     //CONSTRUCTOR
     GameModel();
-    
+
     //DESTRUCTOR
     ~GameModel();
-    
+
     //METHODS
     void updateCore();
     void clearScreen() const;
-    
+
     //GETTERS
     Level* getLevel() const;
     int getNumberTour() const;
-    
+
     void setMenu(Menu* menu);
-    
+
 };
 
 #endif /* defined(__ShootThemUp__GameModel__) */

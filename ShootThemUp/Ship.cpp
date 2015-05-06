@@ -8,19 +8,23 @@
 
 #include "Ship.h"
 #include "Level.h"
+#include "const.h"
 
 using namespace std;
 
 /*
  * default constructor
  */
-Ship::Ship():_health(DEFAULT_SHIP_LIFE), _mainShoot(nullptr), _level(nullptr), _damage(MAIN_SHOOT_DAMAGE), _bulletType(0), _fireRate(DEFAULT_SHIP_FIRERATE) {}
+Ship::Ship():_health(DEFAULT_SHIP_LIFE), _mainShoot(nullptr), _level(nullptr), _damage(MAIN_SHOOT_DAMAGE), _bulletType(0), _fireRate(ENEMY_FIRERATE) {}
 
 /*
  * constructor
  * params : x, y and health of a ship
  */
-Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate):GraphicElement(x, y, width, height, ENEMY_DEFAULT_SPEEDX, ENEMY_DEFAULT_SPEEDY), _health(health), _mainShoot(nullptr), _bulletType(0), _level(nullptr), _damage(MAIN_SHOOT_DAMAGE), _fireRate(DEFAULT_SHIP_FIRERATE) {}
+Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate):GraphicElement(x, y, width, height, ENEMY_DEFAULT_SPEEDX, ENEMY_DEFAULT_SPEEDY), _health(health), _mainShoot(nullptr), _bulletType(0), _level(nullptr), _damage(MAIN_SHOOT_DAMAGE), _fireRate(ENEMY_FIRERATE) {}
+
+Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate, const int speedX, const int speedY):GraphicElement(x, y, width, height, speedX, speedY), _health(health), _mainShoot(nullptr), _bulletType(0), _level(nullptr), _damage(MAIN_SHOOT_DAMAGE), _fireRate(ENEMY_FIRERATE) {}
+
 
 /*
  * destructor
@@ -69,6 +73,19 @@ string Ship::toString() const{
     return str;
 }
 
+void Ship::move(const float x, const float y){
+    if (x >= 0 && x+_width < MODEL_WIDTH) {
+        _x = x;
+    }else{
+        //cout << "X n'est pas compris entre 0 et " << MODEL_WIDTH << ". X vaut : " << x << endl;
+    }
+
+    if (y >= 0 && y+_height < MODEL_HEIGHT) {
+        _y = y;
+    }else{
+        //cout << "Y n'est pas compris entre 0 et " << MODEL_HEIGHT << ". Y vaut : " << y << endl;
+    }
+}
 
 
 /*

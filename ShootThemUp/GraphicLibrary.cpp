@@ -19,6 +19,7 @@ GraphicLibrary::~GraphicLibrary(){
     {
         delete img;
     }
+    _imagesList.clear();
 }
 
 void GraphicLibrary::loadLibrary(){

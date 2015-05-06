@@ -42,7 +42,7 @@ Bullet* Bullet::Laser(const float x, const float y){
  */
 Bullet::~Bullet(){
 
-    cout << "Bullet delete" << endl;
+    //cout << "Bullet delete" << endl;
 
 }
 
