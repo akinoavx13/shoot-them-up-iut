@@ -102,6 +102,7 @@ void GameViewSFML::draw() const{
                     if(e->getType()==1){
                         Picture en(_graphicLibrary->getImage(10), xe,ye,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT,0+(TINY_PICTURE_WIDTH/3)*k3,0,(TINY_PICTURE_WIDTH/3)+(TINY_PICTURE_WIDTH/3)*k3,TINY_PICTURE_HEIGHT);
                         _window->Draw(en.getSprite());
+                        
                     }
                     else if(e->getType()==2){
                         Picture en(_graphicLibrary->getImage(11), xe,ye,SUBMARINE_PICTURE_WIDTH,SUBMARINE_PICTURE_HEIGHT,0+(SUBMARINE_PICTURE_WIDTH/2)*k2,0,(SUBMARINE_PICTURE_WIDTH/2)+(SUBMARINE_PICTURE_WIDTH/2)*k2,SUBMARINE_PICTURE_HEIGHT);
@@ -211,29 +212,31 @@ bool GameViewSFML::treatEvent(){
 
                     if(input.IsKeyDown(Key::Left))
                     {
-                        x-=_gameModel->getLevel()->getAlly()->getSpeedX();
+                        x-=_gameModel->getLevel()->getAlly()->getSpeedX() * _window->GetFrameTime();
+                        _gameModel->getLevel()->getAlly()->move(x, y);
                     }
 
                     if(input.IsKeyDown(Key::Right))
                     {
-                        x+=_gameModel->getLevel()->getAlly()->getSpeedX();
+                        x+=_gameModel->getLevel()->getAlly()->getSpeedX() * _window->GetFrameTime();
+                        _gameModel->getLevel()->getAlly()->move(x, y);
                     }
 
                     if(input.IsKeyDown(Key::Up))
                     {
-                        y-=_gameModel->getLevel()->getAlly()->getSpeedY();
+                        y-=_gameModel->getLevel()->getAlly()->getSpeedY() * _window->GetFrameTime();
+                        _gameModel->getLevel()->getAlly()->move(x, y);
                     }
 
                     if(input.IsKeyDown(Key::Down))
                     {
-                        y+=_gameModel->getLevel()->getAlly()->getSpeedY();
+                        y+=_gameModel->getLevel()->getAlly()->getSpeedY() * _window->GetFrameTime();
+                        _gameModel->getLevel()->getAlly()->move(x, y);
                     }
-
-                    _gameModel->getLevel()->getAlly()->move(x, y);
 
                     if(input.IsKeyDown(Key::Space))
                     {
-                        if(shoot.GetElapsedTime() >= 1){
+                        if(shoot.GetElapsedTime() >= _gameModel->getLevel()->getAlly()->getFireRate()){
                             _gameModel->getLevel()->getAlly()->shoot();
                             shoot.Reset();
                         }

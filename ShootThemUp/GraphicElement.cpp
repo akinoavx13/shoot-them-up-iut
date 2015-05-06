@@ -9,6 +9,7 @@
 #include "GraphicElement.h"
 
 using namespace std;
+using namespace sf;
 
 /*
  * default contructor

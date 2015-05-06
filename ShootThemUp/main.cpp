@@ -27,8 +27,9 @@ int main(){
 
     //boucle principale du jeu
     while (gameView->treatEvent()) {
-        gameView->draw();
         gameModel->updateCore();
+        gameView->draw();
+
     }
 
     delete gameModel;

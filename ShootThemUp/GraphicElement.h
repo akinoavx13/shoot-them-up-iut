@@ -9,6 +9,7 @@
 #ifndef __ShootThemUp__GraphicElement__
 #define __ShootThemUp__GraphicElement__
 
+#include <SFML/Graphics.hpp>
 #include <stdio.h>
 #include <string>
 #include <iostream>
@@ -40,7 +41,6 @@ public:
     //METHODS
     virtual void move(const float x, const float y);
     virtual std::string toString() const;
-
     bool collisions(GraphicElement* graphicElement) const;
 
     //GETTERS

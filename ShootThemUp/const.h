@@ -18,7 +18,7 @@
  */
 const int SCREEN_WIDTH = 500;
 const int SCREEN_HEIGHT = 500;
-const int SCREEN_FPS = 60;
+const int SCREEN_FPS = 50;
 
 //##############################################################################################
 
@@ -51,8 +51,8 @@ const int ALLY_LIFE = 100;
 const int ALLY_FIRERATE = 1;
 const int ALLY_PICTURE_HEIGHT = 49;
 const int ALLY_PICTURE_WIDTH = 183;
-const int ALLY_SPEEDX = 2;
-const int ALLY_SPEEDY = 2;
+const float ALLY_SPEEDX = 100;
+const float ALLY_SPEEDY = 100;
 const int ALLY_NUMBER_OF_LIFE = 3;
 
 
@@ -62,8 +62,8 @@ const int ALLY_NUMBER_OF_LIFE = 3;
  * ENEMY
  */
 const int ENEMY_FIRERATE = 2;
-const int ENEMY_SPEEDX = 1;
-const int ENEMY_SPEEDY = 1;
+const float ENEMY_SPEEDX = 1;
+const float ENEMY_SPEEDY = 1;
 
 //##############################################################################################
 
@@ -103,24 +103,24 @@ const int SUBMARINE_PICTURE_WIDTH = 82;
 const int BOSS_LIFE = 300;
 const int BOSS_PICTURE_HEIGHT = 74;
 const int BOSS_PICTURE_WIDTH = 279;
-const int BOSS_DEFAULT_SPEEDX = 7;
-const int BOSS_DEFAULT_SPEEDY = 7;
+const float BOSS_DEFAULT_SPEEDX = 7;
+const float BOSS_DEFAULT_SPEEDY = 7;
 
 //##############################################################################################
 
 /*
  * ALLY BULLET
  */
-const int ALLY_BULLET_SPEEDX = 0;
-const int ALLY_BULLET_SPEEDY = -8;
+const float ALLY_BULLET_SPEEDX = 0;
+const float ALLY_BULLET_SPEEDY = -8;
 
 //##############################################################################################
 
 /*
  * ENEMY BULLET
  */
-const int ENEMY_BULLET_SPEEDX = 0;
-const int ENEMY_BULLET_SPEEDY = 8;
+const float ENEMY_BULLET_SPEEDX = 0;
+const float ENEMY_BULLET_SPEEDY = 8;
 
 //##############################################################################################
 

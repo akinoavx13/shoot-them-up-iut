@@ -120,7 +120,7 @@ void GameModel::updateCore(){
             }
             else{
                 //enemies shoot every 2 turns
-                    if(shoot.GetElapsedTime() >= 2){
+                    if(shoot.GetElapsedTime() >= ENEMY_FIRERATE){
                         getLevel()->EnemiesShoot();
                         shoot.Reset();
                     }
