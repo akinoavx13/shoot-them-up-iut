@@ -35,14 +35,15 @@ public:
     //CONSTRUCTOR
     Ship();
     Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate);
-
+    Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate, const int speedX, const int speedY);
     //DESTRUCTOR
     virtual ~Ship() = 0;
 
     //METHODS
     virtual void shoot();
     virtual std::string toString() const override;
-    bool collisions(GraphicElement* graphicElement) const;
+    virtual void move(const float x, const float y) override;
+
     bool isDead();
 
     //GETTERS

@@ -31,11 +31,16 @@ GameModel::~GameModel(){
  */
 void GameModel::updateCore(){
     if(_menu->getMenu()){
+        if(_level!=nullptr){
             _level = new Level();
-            _numberTour=0;
+        }
+        if(_level==nullptr){
+            _level = new Level();
+        }
+        _numberTour=0;
 
     }
-    if(_menu->getGame()){
+    else if(_menu->getGame()){
 
         _numberTour++;
         clearScreen();
@@ -78,10 +83,10 @@ void GameModel::updateCore(){
                     _menu->setScore(false);
                     _menu->setEnding(false);
                 }
-                if(_level->getBoss() != nullptr &&  !_level->getBoss()->isDead()){
+                else if(_level->getBoss() != nullptr &&  !_level->getBoss()->isDead()){
                     //boss shoot every 2 turns
                     if(_numberTour % 2 == 0){
-                        _level->getBoss()->shoot();
+                        //_level->getBoss()->shoot();
                     }
 
                     //boss shoot every 4 turns
@@ -96,19 +101,21 @@ void GameModel::updateCore(){
             }
             else{
                 //enemies shoot every 2 turns
-                if(_numberTour % 2 == 0){
-                    getLevel()->EnemiesShoot();
-                }
+                    if(shoot.GetElapsedTime() >= 2){
+                        getLevel()->EnemiesShoot();
+                        shoot.Reset();
+                    }
+
 
                 //enemies move every 4 turns
-                if(_numberTour % 4 == 0){
                     getLevel()->moveEnemies();
-                }
+
             }
 
         }
 
-        if (_menu->getShop()) {
+        else if (_menu->getShop()) {
+
             _level->setLevelNumber(_level->getLevelNumber() + 1);
             _level->setNbEnemies(_level->getNbEnemies() + 2);
             _level->addEnemies();
@@ -119,11 +126,11 @@ void GameModel::updateCore(){
         }
     }
 
-    if(_menu->getSaveScore()){
-        delete _level;
+    else if(_menu->getSaveScore()){
+
     }
 
-    if(_menu->getEnding()){
+    else if(_menu->getEnding()){
         _menu->setIntro(false);
         _menu->setGame(false);
         _menu->setLevel(false);

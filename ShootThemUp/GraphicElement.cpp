@@ -36,14 +36,44 @@ void GraphicElement::move(const float x, const float y){
     if (x >= 0 && x+_width < MODEL_WIDTH) {
         _x = x;
     }else{
-        cout << "X n'est pas compris entre 0 et " << MODEL_WIDTH << ". X vaut : " << x << endl;
+        //cout << "X n'est pas compris entre 0 et " << MODEL_WIDTH << ". X vaut : " << x << endl;
     }
 
     if (y >= 0 && y+_height < MODEL_HEIGHT) {
         _y = y;
     }else{
-        cout << "Y n'est pas compris entre 0 et " << MODEL_HEIGHT << ". Y vaut : " << y << endl;
+        //cout << "Y n'est pas compris entre 0 et " << MODEL_HEIGHT << ". Y vaut : " << y << endl;
     }
+}
+
+
+/*
+ * returns : true if there is a collision between ship and a graphic element
+ * info : constant
+ */
+bool GraphicElement::collisions(GraphicElement* graphicElement)const{
+    int aLeft = _x;
+    int aTop = _y;
+    int aRight = _x+_width;
+    int aBottom = _y+_height;
+
+    int bLeft = graphicElement->getX();
+    int bTop = graphicElement->getY();
+    int bRight = graphicElement->getX() + graphicElement->getWidth();
+    int bBottom = graphicElement->getY() + graphicElement->getHeight();
+
+    if(
+        (aLeft >= bLeft && aLeft <= bRight && aTop >= bTop && aTop <= bBottom) ||
+        (aRight >= bLeft && aRight <= bRight && aTop >= bTop && aTop <= bBottom) ||
+        (aLeft >= bLeft && aLeft <= bRight && aBottom >= bTop && aBottom <= bBottom) ||
+        (aRight >= bLeft && aRight <= bRight && aBottom >= bTop && aBottom <= bBottom) ||
+        (aRight >= bRight && aLeft <= bLeft && ((bTop <= aTop && bBottom >= aTop) || (bTop <=aBottom && bBottom>=aBottom))) ||
+        (aTop <= bTop && aBottom >=bTop && ( (aRight>=bRight && aLeft<= bRight) || (aLeft<=bLeft && aRight>= bLeft) ) )
+    ){
+        return true;
+    }
+    return false;
+
 }
 
 /*

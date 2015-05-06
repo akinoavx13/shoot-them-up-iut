@@ -42,7 +42,7 @@ Bullet* Bullet::Laser(const float x, const float y){
  */
 Bullet::~Bullet(){
 
-    cout << "Bullet delete" << endl;
+    //cout << "Bullet delete" << endl;
 
 }
 
@@ -68,4 +68,9 @@ string Bullet::toString() const{
  */
 int Bullet::getDamage() const{
     return _damage;
+}
+
+void Bullet::move(const float x, const float y){
+    _y = y;
+    _x = x;
 }

@@ -20,7 +20,7 @@ Enemy::Enemy(){}
  * constructor
  * params : x, y ans health of enemy
  */
-Enemy::Enemy(const float x, const float y, const int health, const int type, int width, int height):Ship(x, y, health, width, height, DEFAULT_SHIP_FIRERATE), _type(type) {}
+Enemy::Enemy(const float x, const float y, const int health, const int type, int width, int height):Ship(x, y, health, width, height, ENEMY_FIRERATE, ENEMY_DEFAULT_SPEEDX, ENEMY_DEFAULT_SPEEDY), _type(type) {}
 
 Enemy* Enemy::Tiny(const float x, const float y){
     Enemy* enemy = new Enemy(x, y, DEFAULT_TINY_LIFE, 1, TINY_PICTURE_WIDTH/3, TINY_PICTURE_HEIGHT);
@@ -66,8 +66,22 @@ string Enemy::toString() const{
 }
 
 void Enemy::shoot(){
-    _mainShoot = new Bullet(_x+(_width/2)-(FIREBALL_PICTURE_HEIGHT/2), _y +_height+5, _damage, _width, _height,BULLET_DEFAULT_SPEEDX,BULLET_DEFAULT_SPEEDY);
+    _mainShoot = new Bullet(_x+(_width/2)-(FIREBALL_PICTURE_HEIGHT/2), _y +_height+5, MAIN_SHOOT_DAMAGE, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT, BULLET_DEFAULT_SPEEDX,BULLET_DEFAULT_SPEEDY);
     _level->addBullet(_mainShoot);
+}
+
+void Enemy::move(const float x, const float y){
+    if (x >= 0 && x+_width < MODEL_WIDTH) {
+        _x = x;
+    }else{
+        //cout << "X n'est pas compris entre 0 et " << MODEL_WIDTH << ". X vaut : " << x << endl;
+    }
+
+    if (y >= -200 && y+_height < MODEL_HEIGHT) {
+        _y = y;
+    }else{
+        //cout << "Y n'est pas compris entre 0 et " << MODEL_HEIGHT << ". Y vaut : " << y << endl;
+    }
 }
 
 int Enemy::getType() const{

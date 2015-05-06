@@ -22,6 +22,7 @@ private:
     Menu* _menu;
 
     sf::Clock time;
+    sf::Clock shoot;
 
     GraphicLibrary* _graphicLibrary;
 
