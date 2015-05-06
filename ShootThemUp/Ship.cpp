@@ -70,7 +70,7 @@ Ship::~Ship(){
  */
 void Ship::shoot(){
     if(_bulletType == 0){
-        _mainShoot = new Bullet(_x+(_width/2)-(FIREBALL_PICTURE_WIDTH/2), _y-FIREBALL_PICTURE_HEIGHT-5, MAIN_SHOOT_DAMAGE, LASER_PICTURE_WIDTH, LASER_PICTURE_HEIGHT, ALLY_SPEEDX, ALLY_SPEEDY);
+        _mainShoot = new Bullet(_x+(_width/2)-(FIREBALL_PICTURE_WIDTH/2), _y-FIREBALL_PICTURE_HEIGHT-5, STANDARD_DAMAGE, LASER_PICTURE_WIDTH, LASER_PICTURE_HEIGHT, ALLY_SPEEDX, ALLY_SPEEDY);
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 1){
