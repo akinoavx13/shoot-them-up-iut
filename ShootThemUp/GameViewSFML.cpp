@@ -16,7 +16,11 @@ GameViewSFML::GameViewSFML(){
     _menu = new Menu();
     _window = new RenderWindow(VideoMode(MODEL_HEIGHT, MODEL_WIDTH), "Shmup");
     _window->SetFramerateLimit(25);
+    #ifdef __linux__
     _gameModel = nullptr;
+    #else
+    _gameModel = 0;
+    #endif
     _graphicLibrary = new GraphicLibrary();
     _graphicLibrary->loadLibrary();
     time.Reset();
@@ -73,8 +77,11 @@ void GameViewSFML::draw() const{
 
             int k3 = _gameModel->getNumberTour()%3;
             int k2 = _gameModel->getNumberTour()%2;
-
+            #ifdef __linux__
             if(_gameModel->getLevel()->getAlly()!=nullptr){
+            #else
+            if(_gameModel->getLevel()->getAlly()!=0){
+            #endif
                 int xp = _gameModel->getLevel()->getAlly()->getX();
                 int yp = _gameModel->getLevel()->getAlly()->getY();
                 Picture ally(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,0+(ALLY_PICTURE_WIDTH/3)*k3,0,(ALLY_PICTURE_WIDTH/3)+(ALLY_PICTURE_WIDTH/3)*k3,ALLY_PICTURE_HEIGHT);
@@ -109,7 +116,11 @@ void GameViewSFML::draw() const{
 
             if(_gameModel->getLevel()->getEnemiesNumber() <= 0)
             {
+                #ifdef __linux__
                 if(_gameModel->getLevel()->getBoss() != nullptr)
+                #else
+                if(_gameModel->getLevel()->getBoss() != 0)
+                #endif
                 {
                     int xb = _gameModel->getLevel()->getBoss()->getX();
                     int yb = _gameModel->getLevel()->getBoss()->getY();
@@ -151,7 +162,6 @@ void GameViewSFML::draw() const{
 bool GameViewSFML::treatEvent(){
     bool result = true;
     const Input& input = _window->GetInput();
-    int elapsedTime = _window->GetFrameTime();;
     if (_window->IsOpened())
     {
         Event Event;

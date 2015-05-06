@@ -15,15 +15,44 @@ using namespace std;
 /*
  * default constructor
  */
-Ship::Ship():_health(DEFAULT_SHIP_LIFE), _mainShoot(nullptr), _level(nullptr), _damage(MAIN_SHOOT_DAMAGE), _bulletType(0), _fireRate(ENEMY_FIRERATE) {}
+Ship::Ship():_health(DEFAULT_SHIP_LIFE), _damage(MAIN_SHOOT_DAMAGE), _bulletType(0), _fireRate(ENEMY_FIRERATE) {
+    
+    #ifdef __linux__
+        _mainShoot = nullptr;
+        _level = nullptr;
+    #else
+        _mainShoot = 0;
+        _level = 0;
+    #endif
+}
 
 /*
  * constructor
  * params : x, y and health of a ship
  */
-Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate):GraphicElement(x, y, width, height, ENEMY_DEFAULT_SPEEDX, ENEMY_DEFAULT_SPEEDY), _health(health), _mainShoot(nullptr), _bulletType(0), _level(nullptr), _damage(MAIN_SHOOT_DAMAGE), _fireRate(ENEMY_FIRERATE) {}
+Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate):GraphicElement(x, y, width, height, ENEMY_DEFAULT_SPEEDX, ENEMY_DEFAULT_SPEEDY), _health(health), _bulletType(0), _damage(MAIN_SHOOT_DAMAGE), _fireRate(ENEMY_FIRERATE) {
 
-Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate, const int speedX, const int speedY):GraphicElement(x, y, width, height, speedX, speedY), _health(health), _mainShoot(nullptr), _bulletType(0), _level(nullptr), _damage(MAIN_SHOOT_DAMAGE), _fireRate(ENEMY_FIRERATE) {}
+    #ifdef __linux__
+        _mainShoot = nullptr;
+        _level = nullptr;
+    #else
+        _mainShoot = 0;
+        _level = 0;
+    #endif
+    
+}
+
+Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate, const int speedX, const int speedY):GraphicElement(x, y, width, height, speedX, speedY), _health(health), _bulletType(0), _damage(MAIN_SHOOT_DAMAGE), _fireRate(ENEMY_FIRERATE) {
+    
+    #ifdef __linux__
+        _mainShoot = nullptr;
+        _level = nullptr;
+    #else
+        _mainShoot = 0;
+        _level = 0;
+    #endif
+    
+}
 
 
 /*
@@ -65,11 +94,11 @@ void Ship::shoot(){
 string Ship::toString() const{
 
     string str;
-
-    str = "\tPoints de vie : " + to_string(_health) + "\n";
-    str = "\tCadence de tire : " + to_string(_fireRate) + "\n";
-    str += GraphicElement::toString();
-
+    #ifdef __linux__
+        str = "\tPoints de vie : " + to_string(_health) + "\n";
+        str = "\tCadence de tire : " + to_string(_fireRate) + "\n";
+        str += GraphicElement::toString();
+    #endif
     return str;
 }
 

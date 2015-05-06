@@ -50,10 +50,15 @@ string Ally::toString() const{
     str += "\n";
 
     str += "\tScore : ";
+    #ifdef __linux__
     str += to_string(_score) + "\n";
+    #endif
 
     str += "\tNombre de vie : ";
+    #ifdef __linux__
     str += to_string(_numbersOfLife);
+    #endif
+
     str += "\n";
 
     str += "\tType de missile : ";
@@ -73,16 +78,28 @@ string Ally::toString() const{
 
     str += "\tDégat : ";
     if(_bulletType == 0){
+    #ifdef __linux__
         str += to_string(MAIN_SHOOT_DAMAGE);
+    #endif
+
     }
     else if(_bulletType == 1){
+    #ifdef __linux__
         str += to_string(DEFAULT_FIREBALL_DAMAGE);
+    #endif
+
     }
     else if(_bulletType == 2){
+    #ifdef __linux__
         str += to_string(DEFAULT_TINYLASER_DAMAGE);
+    #endif
+
     }
     else if(_bulletType == 3){
+    #ifdef __linux__
         str += to_string(DEFAULT_LASER_DAMAGE);
+    #endif
+
     }
 
     str += "\n";

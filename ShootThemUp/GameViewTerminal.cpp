@@ -14,8 +14,13 @@ using namespace std;
 /*
  * default constructor
  */
-GameViewTerminal::GameViewTerminal(): _gameModel(nullptr)
+GameViewTerminal::GameViewTerminal()
 {
+    #ifdef __linux__
+    _gameModel = nullptr;
+    #else
+    _gameModel = 0;
+    #endif
     _menu = new Menu();
 }
 
@@ -116,7 +121,11 @@ void GameViewTerminal::draw() const
 
             if(_gameModel->getLevel()->getEnemiesNumber() <= 0)
             {
+                #ifdef __linux__
                 if(_gameModel->getLevel()->getBoss() != nullptr)
+                #else
+                if(_gameModel->getLevel()->getBoss() != 0)
+                #endif
                 {
                     cout << _gameModel->getLevel()->getBoss()->toString() << endl;
                 }

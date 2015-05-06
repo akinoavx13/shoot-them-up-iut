@@ -83,12 +83,13 @@ bool GraphicElement::collisions(GraphicElement* graphicElement)const{
 string GraphicElement::toString() const{
     string str;
 
+    #ifdef __linux__
     str += "\tPosition X : " + to_string(_x) + "\n";
     str += "\tPosition Y : " + to_string(_y) + "\n";
     str += "\tTaille :\n";
     str += "\t\tLargeur : " + to_string(_width) + "\n";
     str += "\t\tHauteur : " + to_string(_height) + "\n";
-
+    #endif
     return str;
 }
 

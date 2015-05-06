@@ -124,8 +124,12 @@ void Menu::showIntroTerminal() const{
 
 void Menu::saveScore(int value, string player, string file){
     fstream f;
-
-    f.open(file,ios::out|ios::app);
+    
+    #ifdef __linux__
+        f.open(file,ios::out|ios::app);
+    #else
+        f.open(file.c_str(),ios::out|ios::app);
+    #endif
 
     if(!f.fail()) {
         f << player;
@@ -144,8 +148,11 @@ vector<Player*> Menu::showScores(string file){
 
     vector<Player*> players;
 
-    f.open(file, ios::in);
-
+    #ifdef __linux__
+        f.open(file, ios::in);
+    #else
+        f.open(file.c_str(), ios::in);
+    #endif
     if(!f.fail()){
         while(!f.eof()){
             string name;

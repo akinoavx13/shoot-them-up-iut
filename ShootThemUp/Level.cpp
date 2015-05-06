@@ -20,7 +20,11 @@ Level::Level() : _levelNumber(DEFAULT_LEVEL_NUMBER), _nbEnemies(DEFAULT_LEVEL_EN
     _ally = new Ally();
     _ally->setLevel(this);
 
+    #ifdef __linux__
     _boss = nullptr;
+    #else
+    _boss = 0;
+    #endif
 }
 
 /*
@@ -57,8 +61,11 @@ Level::~Level(){
  */
 bool Level::isFinish() const{
 
+    #ifdef __linux__
     return _tabEnemies.size() <= 0 && _boss == nullptr;
-
+    #else
+    return _tabEnemies.size() <= 0 && _boss == 0;
+    #endif
 }
 
 /*
@@ -82,7 +89,11 @@ void Level::checkCollisions(){
 
     bool collision = false;
 
+    #ifdef __linux__
     if(_ally != nullptr && _tabBullets.size() > 0){
+    #else
+    if(_ally != 0 && _tabBullets.size() > 0){
+    #endif
         //collision between ally and bullets
         int a = 0;
         for (auto bullet : _tabBullets) {
@@ -102,7 +113,11 @@ void Level::checkCollisions(){
         }
     }
 
+    #ifdef __linux__
     if(_boss != nullptr && _tabBullets.size() > 0){
+    #else
+    if(_boss != 0 && _tabBullets.size() > 0){
+    #endif
         //collision between boss and bullets
         int b = 0;
         for (auto bullet : _tabBullets) {
@@ -113,7 +128,11 @@ void Level::checkCollisions(){
 
                 if(_boss->isDead()){
                     //cout << "Vous avez tué le boss" << endl;
+                    #ifdef __linux__
                     _boss = nullptr;
+                    #else
+                    _boss = 0;
+                    #endif
                 }
 
                 _tabBullets.erase(_tabBullets.begin() + b);
@@ -150,7 +169,11 @@ void Level::checkCollisions(){
         }
     }
 
-    if(_ally != nullptr && _tabEnemies.size() > 0){
+        #ifdef __linux__
+        if(_ally != nullptr && _tabEnemies.size() > 0){
+        #else
+        if(_ally != 0 && _tabEnemies.size() > 0){
+        #endif
         //collision between ally and enemies
         int k = 0;
         for (auto enemy : _tabEnemies) {
@@ -167,7 +190,11 @@ void Level::checkCollisions(){
         }
     }
 
-    if(_ally != nullptr && _boss != nullptr){
+        #ifdef __linux__
+        if(_ally != nullptr && _boss != nullptr){
+        #else
+        if(_ally != 0 && _boss != 0){
+        #endif
         //collision between ally and boss
         if(_ally->collisions(_boss)){
 
@@ -175,7 +202,12 @@ void Level::checkCollisions(){
             _boss->setHealth(_boss->getHealth() - (_boss->getHealth() / 4));
             if(_boss->isDead()){
                 //cout << "Vous avez tué un ennemi" << endl;
+                #ifdef __linux__
                 _boss = nullptr;
+                #else
+                _boss = 0;
+                #endif
+                
             }
         }
     }
@@ -205,7 +237,6 @@ void Level::checkCollisions(){
 
     //pour détruire la balle quand elle est hors du cadre, utilisé pour la vue
 
-    int z = 0;
      for(auto bullet : _tabBullets){
         if((bullet->getX()+bullet->getWidth() >= MODEL_WIDTH) || (bullet->getX() <= 0) || (bullet->getY()+bullet->getHeight() >= MODEL_HEIGHT) ||(bullet->getY()<= 0)){
             //cout << "balle en dehors du cadre" << endl;
@@ -338,11 +369,11 @@ void Level::setLevelNumber(int levelNumber){
 }
 
 int Level::getNumberOfBullets() const{
-    return _tabBullets.size();
+    return (int)_tabBullets.size();
 }
 
 int Level::getNumberOfEnemies() const{
-    return _tabEnemies.size();
+    return (int)_tabEnemies.size();
 }
 
 void Level::moveBullets(){

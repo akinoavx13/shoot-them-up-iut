@@ -14,7 +14,14 @@ using namespace std;
  * default constructor
  * params : Model width, Model height, number tour
  */
-GameModel::GameModel():_WIDTH(MODEL_WIDTH), _HEIGHT(MODEL_HEIGHT), _numberTour(1), _level(nullptr) {}
+GameModel::GameModel():_WIDTH(MODEL_WIDTH), _HEIGHT(MODEL_HEIGHT), _numberTour(1){
+    #ifdef __linux__
+        _level = nullptr;
+    #else
+        _level = 0;
+    #endif
+
+}
 
 /*
  * destructor
@@ -31,12 +38,15 @@ GameModel::~GameModel(){
  */
 void GameModel::updateCore(){
     if(_menu->getMenu()){
-        if(_level!=nullptr){
-            _level = new Level();
-        }
+        #ifdef __linux__
         if(_level==nullptr){
             _level = new Level();
         }
+        #else
+        if(_level == 0){
+            _level = new Level();
+        }
+        #endif
         _numberTour=0;
 
     }
@@ -74,7 +84,11 @@ void GameModel::updateCore(){
             }
 
             if(getLevel()->getEnemiesNumber() <= 0){
+                #ifdef __linux__
                 if(getLevel()->getBoss() == nullptr){
+                #else
+                if(getLevel()->getBoss() == 0){
+                #endif
                     _menu->setIntro(false);
                     _menu->setGame(false);
                     _menu->setLevel(false);
@@ -83,7 +97,12 @@ void GameModel::updateCore(){
                     _menu->setScore(false);
                     _menu->setEnding(false);
                 }
+                #ifdef __linux__
                 else if(_level->getBoss() != nullptr &&  !_level->getBoss()->isDead()){
+                #else
+                else if(_level->getBoss() != 0 &&  !_level->getBoss()->isDead()){
+                #endif
+
                     //boss shoot every 2 turns
                     if(_numberTour % 2 == 0){
                         //_level->getBoss()->shoot();
@@ -146,7 +165,7 @@ void GameModel::updateCore(){
  * info : constant
  */
 void GameModel::clearScreen() const{
-    #ifdef __linux
+    #ifdef __linux__
         system("clear");
     #else
     for (int i = 0; i < 10; i++) {

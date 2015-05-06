@@ -38,7 +38,8 @@ void Player::bestScore(int test){
 string Player::toString() const{
     string str = "***********\n" ;
     str += "Name  = " + _name + "\n";
+    #ifdef __linux__
     str += "Score = " + to_string(_score) + "\n\n";
-
+    #endif
     return str;
 }

@@ -55,7 +55,9 @@ string Bullet::toString() const{
 
     str += "\n";
     str += GraphicElement::toString();
+    #ifdef __linux__
     str += "Dommage : " + to_string(_damage) + "\n";
+    #endif
     str += "\n";
 
     return str;
