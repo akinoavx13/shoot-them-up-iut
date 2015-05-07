@@ -66,8 +66,10 @@ string Enemy::toString() const{
 }
 
 void Enemy::shoot(){
-    _mainShoot = new Bullet(_x+(_width/2)-(FIREBALL_PICTURE_HEIGHT/2), _y +_height+5, STANDARD_DAMAGE, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT, ENEMY_BULLET_SPEEDX,ENEMY_BULLET_SPEEDY);
-    _level->addBullet(_mainShoot);
+    if((_x + _width <= SCREEN_WIDTH) && (_x>= 0) && (_y+_height <= SCREEN_HEIGHT) && (_y>= 0)){
+        _mainShoot = new Bullet(_x+(_width/2)-(FIREBALL_PICTURE_HEIGHT/2), _y +_height+5, STANDARD_DAMAGE, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT, ENEMY_BULLET_SPEEDX,ENEMY_BULLET_SPEEDY);
+        _level->addBullet(_mainShoot);
+    }
 }
 
 void Enemy::move(const float x, const float y){

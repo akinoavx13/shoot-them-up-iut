@@ -125,7 +125,7 @@ void GameViewSFML::draw() const{
                 {
                     int xb = _gameModel->getLevel()->getBoss()->getX();
                     int yb = _gameModel->getLevel()->getBoss()->getY();
-                    Picture b(_graphicLibrary->getImage(1), xb,yb,294,98, 0+98*k3,0,98+98*k3,98);
+                    Picture b(_graphicLibrary->getImage(1), xb,yb,BOSS_PICTURE_WIDTH, BOSS_PICTURE_HEIGHT, 0+(BOSS_PICTURE_WIDTH/3)*k3,0,(BOSS_PICTURE_WIDTH/3)+(BOSS_PICTURE_WIDTH/3)*k3,BOSS_PICTURE_HEIGHT);
                     _window->Draw(b.getSprite());
                 }
             }
