@@ -7,6 +7,7 @@
 //
 
 #include "Level.h"
+#include "const.h"
 
 using namespace std;
 
@@ -299,7 +300,7 @@ void Level::EnemiesShoot() const{
 }
 
 void Level::addBoss(){
-    _boss = new Boss(0, 100, 200);
+    _boss = new Boss(100, 100, 200, BOSS_FIRERATE);
     _boss->setLevel(this);
 }
 

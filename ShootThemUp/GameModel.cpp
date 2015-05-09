@@ -104,18 +104,13 @@ void GameModel::updateCore(){
                 #endif
 
                     //boss shoot every 2 turns
-                    if(_numberTour % 2 == 0){
-                        //_level->getBoss()->shoot();
-                    }
-
-                    //boss shoot every 4 turns
-                    if(_numberTour % 3 == 0){
-                        int x;
-                        int y = 100;
-                        x = rand() % SCREEN_WIDTH + 1;
-                        srand((unsigned int)time(NULL));
-                        _level->getBoss()->move(x, y);
-                    }
+                    
+                    cout << _level->getBoss()->getFireRate() << endl;
+                    
+                    if(shoot.GetElapsedTime() >= _level->getBoss()->getFireRate()){
+                        _level->getBoss()->shoot();
+                        shoot.Reset();
+                    }                    
                 }
             }
             else{

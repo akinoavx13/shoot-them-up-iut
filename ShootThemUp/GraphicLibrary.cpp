@@ -244,7 +244,7 @@ void GraphicLibrary::loadLibrary(){
     #ifdef __linux__
     if(img24->LoadFromFile("ShootThemUp/sprites/highScores.png")){
     #else
-    if(img24->LoadFromFile(" highScores.png")){
+    if(img24->LoadFromFile("highScores.png")){
     #endif
         _imagesList.push_back(img24);
     }

@@ -30,7 +30,7 @@ Ship::Ship():_health(ALLY_LIFE), _damage(STANDARD_DAMAGE), _bulletType(0), _fire
  * constructor
  * params : x, y and health of a ship
  */
-Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate):GraphicElement(x, y, width, height, ENEMY_SPEEDX, ENEMY_SPEEDY), _health(health), _bulletType(0), _damage(STANDARD_DAMAGE), _fireRate(ENEMY_FIRERATE) {
+Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate):GraphicElement(x, y, width, height, ENEMY_SPEEDX, ENEMY_SPEEDY), _health(health), _bulletType(0), _damage(STANDARD_DAMAGE), _fireRate(fireRate) {
 
     #ifdef __linux__
         _mainShoot = nullptr;
@@ -42,7 +42,7 @@ Ship::Ship(const float x, const float y, const int health, const int width, cons
     
 }
 
-Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate, const int speedX, const int speedY):GraphicElement(x, y, width, height, speedX, speedY), _health(health), _bulletType(0), _damage(STANDARD_DAMAGE), _fireRate(ENEMY_FIRERATE) {
+Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate, const int speedX, const int speedY):GraphicElement(x, y, width, height, speedX, speedY), _health(health), _bulletType(0), _damage(STANDARD_DAMAGE), _fireRate(fireRate) {
     
     #ifdef __linux__
         _mainShoot = nullptr;

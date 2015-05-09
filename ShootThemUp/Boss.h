@@ -20,7 +20,7 @@ private:
 
 public:
     Boss();
-    Boss(const float x, const float y, const int health);
+    Boss(const float x, const float y, const int health, const float firerate);
 
     ~Boss();
 
