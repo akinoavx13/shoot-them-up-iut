@@ -108,6 +108,7 @@ void Level::checkCollisions(){
 
                 _tabBullets.erase(_tabBullets.begin() + a);
                 delete bullet;
+                a--;
             }
             a++;
         }
@@ -137,6 +138,7 @@ void Level::checkCollisions(){
 
                 _tabBullets.erase(_tabBullets.begin() + b);
                 delete bullet;
+                b--;
             }
             b++;
         }
@@ -155,13 +157,15 @@ void Level::checkCollisions(){
 
                     _tabBullets.erase(_tabBullets.begin() + i);
                     delete bullet;
-
+                    
                     _ally->setScore(_levelNumber*2);
 
                     if(enemy->isDead()){
                         _tabEnemies.erase(_tabEnemies.begin() + j);
                         delete enemy;
+                        j--;
                     }
+                    i--;
                 }
                 i++;
             }
@@ -185,6 +189,7 @@ void Level::checkCollisions(){
 
                 _tabEnemies.erase(_tabEnemies.begin() + k);
                 delete enemy;
+                k--;
             }
             k++;
         }
@@ -212,17 +217,26 @@ void Level::checkCollisions(){
         }
     }
 
-
+    /*
     if(_tabBullets.size() > 0){
-        for(int i = 0; i < _tabBullets.size() ; i++){
-            for(int j = 0; j < _tabBullets.size() ; j++){
+        for(int i = 0; i < _tabBullets.size(); i++){
+            for(int j = 0; j < _tabBullets.size(); j++){
                 if(i!=j && _tabBullets[i]->collisions(_tabBullets[j])){
-                    //cout << "Collision entre les balles" << endl;
+                    cout << "Collision entre les balles" << endl;
+                    
+                    _tabBullets.erase(_tabBullets.begin() + i);
+                    _tabBullets.erase(_tabBullets.begin() + j);
+                    
+                    delete _tabBullets[i];
+                    delete _tabBullets[j];
+                    i--;
+                    
+                    
                 }
             }
         }
     }
-
+    */
 
     if(!collision){
         //cout << "Aucune collision pour le moment" << endl;
@@ -237,11 +251,17 @@ void Level::checkCollisions(){
 
     //pour détruire la balle quand elle est hors du cadre, utilisé pour la vue
 
-     for(auto bullet : _tabBullets){
+    /* for(auto bullet : _tabBullets){
+        int i = 0;
         if((bullet->getX()+bullet->getWidth() >= SCREEN_WIDTH) || (bullet->getX() <= 0) || (bullet->getY()+bullet->getHeight() >= SCREEN_HEIGHT) ||(bullet->getY()<= 0)){
             //cout << "balle en dehors du cadre" << endl;
+            
+            _tabBullets.erase(_tabBullets.begin() + i);
+            delete bullet;
+            i--;
         }
-     }
+        i++;
+     }*/
 }
 
 /*
