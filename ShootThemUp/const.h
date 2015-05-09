@@ -51,8 +51,8 @@ const int ALLY_LIFE = 100;
 const int ALLY_FIRERATE = 1;
 const int ALLY_PICTURE_HEIGHT = 49;
 const int ALLY_PICTURE_WIDTH = 183;
-const float ALLY_SPEEDX = 100;
-const float ALLY_SPEEDY = 100;
+const float ALLY_SPEEDX = 4;
+const float ALLY_SPEEDY = 4;
 const int ALLY_NUMBER_OF_LIFE = 3;
 
 

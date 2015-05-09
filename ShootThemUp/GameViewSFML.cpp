@@ -161,6 +161,7 @@ void GameViewSFML::draw() const{
 }
 
 bool GameViewSFML::treatEvent(){
+    
     bool result = true;
     const Input& input = _window->GetInput();
     if (_window->IsOpened())
@@ -173,95 +174,97 @@ bool GameViewSFML::treatEvent(){
                 _window->Close();
                 result = false;
             }
-
+            
             // Touche 'echap' appuyée
             if ((Event.Type == Event::KeyPressed) && (Event.Key.Code == Key::Escape)){
                 _window->Close();
                 result = false;
             }
-
-            if(_menu->getIntro())
-            {
-
-            }
-
-            else if(_menu->getMenu())
-            {
-                if(Event.Type == Event::MouseButtonPressed){
-                    if((Event.MouseButton.X>=100) & (Event.MouseButton.X<=200) & (Event.MouseButton.Y>=150) & (Event.MouseButton.Y<=170)){
-                        _menu->setGame(true);
-                        _menu->setLevel(true);
-                        _menu->setMenu(false);
-                    }
-                    else if((Event.MouseButton.X>=100) & (Event.MouseButton.X<=200) & (Event.MouseButton.Y>=190) & (Event.MouseButton.Y<=210)){
-                        result=false;
-                    }
-                    else if((Event.MouseButton.X>=100) & (Event.MouseButton.X<=200) & (Event.MouseButton.Y>=300) & (Event.MouseButton.Y<=320)){
-                        //std::cout << "nice 3" << std::endl;
-                    }
-                }
-            }
-
-            else if(_menu->getGame())
-            {
-                if(_menu->getLevel())
-                {
-
-                    int x = _gameModel->getLevel()->getAlly()->getX();
-                    int y = _gameModel->getLevel()->getAlly()->getY();
-
-                    if(input.IsKeyDown(Key::Left))
-                    {
-                        x-=_gameModel->getLevel()->getAlly()->getSpeedX() * _window->GetFrameTime();
-                        _gameModel->getLevel()->getAlly()->move(x, y);
-                    }
-
-                    if(input.IsKeyDown(Key::Right))
-                    {
-                        x+=_gameModel->getLevel()->getAlly()->getSpeedX() * _window->GetFrameTime();
-                        _gameModel->getLevel()->getAlly()->move(x, y);
-                    }
-
-                    if(input.IsKeyDown(Key::Up))
-                    {
-                        y-=_gameModel->getLevel()->getAlly()->getSpeedY() * _window->GetFrameTime();
-                        _gameModel->getLevel()->getAlly()->move(x, y);
-                    }
-
-                    if(input.IsKeyDown(Key::Down))
-                    {
-                        y+=_gameModel->getLevel()->getAlly()->getSpeedY() * _window->GetFrameTime();
-                        _gameModel->getLevel()->getAlly()->move(x, y);
-                    }
-
-                    if(input.IsKeyDown(Key::Space))
-                    {
-                        if(shoot.GetElapsedTime() >= _gameModel->getLevel()->getAlly()->getFireRate()){
-                            _gameModel->getLevel()->getAlly()->shoot();
-                            shoot.Reset();
-                        }
-                    }
-
-                }
-                else if(_menu->getShop())
-                {
+        }
+        
+        if(_menu->getIntro())
+        {
+            
+        }
+        else if(_menu->getScore())
+        {
+            
+        }
+        else if(_menu->getSaveScore())
+        {
+            _menu->setMenu(true);
+        }
+        else if(_menu->getEnding())
+        {
+            
+        }
+        
+        else if(_menu->getShop())
+        {
+            _menu->setLevel(true);
+            _menu->setShop(false);
+        }
+        
+        else if(_menu->getMenu())
+        {
+            if(input.IsMouseButtonDown(Mouse::Left)){
+                
+                int mouseX = input.GetMouseX();
+                int mouseY = input.GetMouseY();
+                
+                if(mouseX >= 100 && mouseX <= 200 && mouseY >= 150 && mouseY <= 170){
+                    _menu->setGame(true);
                     _menu->setLevel(true);
-                    _menu->setShop(false);
-
+                    _menu->setMenu(false);
+                }
+                else if(mouseX >= 100 && mouseX <= 200 && mouseY >= 190 && mouseY <= 210){
+                    result=false;
+                }
+                else if(mouseX >= 100 && mouseX <= 200 && mouseY >= 300 && mouseY <= 320){
+                    //std::cout << "nice 3" << std::endl;
                 }
             }
-
-            else if(_menu->getScore())
+        }
+        
+        else if(_menu->getGame())
+        {
+            if(_menu->getLevel())
             {
-
-            }
-            else if(_menu->getSaveScore())
-            {
-                _menu->setMenu(true);
-            }
-            else if(_menu->getEnding())
-            {
-
+                
+                int x = _gameModel->getLevel()->getAlly()->getX();
+                int y = _gameModel->getLevel()->getAlly()->getY();
+                
+                if(input.IsKeyDown(Key::Left))
+                {
+                    x -= _gameModel->getLevel()->getAlly()->getSpeedX();
+                    _gameModel->getLevel()->getAlly()->move(x, y);
+                }
+                
+                if(input.IsKeyDown(Key::Right))
+                {
+                    x += _gameModel->getLevel()->getAlly()->getSpeedX();
+                    _gameModel->getLevel()->getAlly()->move(x, y);
+                }
+                
+                if(input.IsKeyDown(Key::Up))
+                {
+                    y -= _gameModel->getLevel()->getAlly()->getSpeedY();
+                    _gameModel->getLevel()->getAlly()->move(x, y);
+                }
+                
+                if(input.IsKeyDown(Key::Down))
+                {
+                    y += _gameModel->getLevel()->getAlly()->getSpeedY();
+                    _gameModel->getLevel()->getAlly()->move(x, y);
+                }
+                
+                if(input.IsKeyDown(Key::Space))
+                {
+                    if(shoot.GetElapsedTime() >= _gameModel->getLevel()->getAlly()->getFireRate()){
+                        _gameModel->getLevel()->getAlly()->shoot();
+                        shoot.Reset();
+                    }
+                }
             }
         }
     }
