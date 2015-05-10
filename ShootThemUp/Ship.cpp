@@ -15,7 +15,7 @@ using namespace std;
 /*
  * default constructor
  */
-Ship::Ship():_health(ALLY_LIFE), _damage(STANDARD_DAMAGE), _bulletType(0), _fireRate(ENEMY_FIRERATE) {
+Ship::Ship():_health(ALLY_LIFE), _damage(STANDARD_DAMAGE), _bulletType(ALLY_BULLET_TYPE), _fireRate(ENEMY_FIRERATE) {
     
     #ifdef __linux__
         _mainShoot = nullptr;
@@ -30,7 +30,7 @@ Ship::Ship():_health(ALLY_LIFE), _damage(STANDARD_DAMAGE), _bulletType(0), _fire
  * constructor
  * params : x, y and health of a ship
  */
-Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate):GraphicElement(x, y, width, height, ENEMY_SPEEDX, ENEMY_SPEEDY), _health(health), _bulletType(0), _damage(STANDARD_DAMAGE), _fireRate(fireRate) {
+Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate):GraphicElement(x, y, width, height, ENEMY_SPEEDX, ENEMY_SPEEDY), _health(health), _bulletType(ALLY_BULLET_TYPE), _damage(STANDARD_DAMAGE), _fireRate(fireRate) {
 
     #ifdef __linux__
         _mainShoot = nullptr;
@@ -42,7 +42,7 @@ Ship::Ship(const float x, const float y, const int health, const int width, cons
     
 }
 
-Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate, const int speedX, const int speedY):GraphicElement(x, y, width, height, speedX, speedY), _health(health), _bulletType(0), _damage(STANDARD_DAMAGE), _fireRate(fireRate) {
+Ship::Ship(const float x, const float y, const int health, const int width, const int height, const float fireRate, const int speedX, const int speedY):GraphicElement(x, y, width, height, speedX, speedY), _health(health), _bulletType(ALLY_BULLET_TYPE), _damage(STANDARD_DAMAGE), _fireRate(fireRate) {
     
     #ifdef __linux__
         _mainShoot = nullptr;
@@ -70,19 +70,19 @@ Ship::~Ship(){
  */
 void Ship::shoot(){
     if(_bulletType == 0){
-        _mainShoot = new Bullet(_x+(_width/2)-(STANDARD_PICTURE_WIDTH/2), _y-STANDARD_PICTURE_HEIGHT-5, STANDARD_DAMAGE, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY);
+        _mainShoot = new Bullet(_x + _width / 2 - STANDARD_PICTURE_WIDTH / 2, _y - STANDARD_PICTURE_HEIGHT - 5, STANDARD_DAMAGE, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, 0);
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 1){
-        _mainShoot = Bullet::FireBall(_x+(_width/2)+(FIREBALL_PICTURE_WIDTH/2), _y-FIREBALL_PICTURE_HEIGHT-5);
+        _mainShoot = Bullet::FireBall(_x + _width / 2 - FIREBALL_PICTURE_WIDTH / 2, _y - FIREBALL_PICTURE_HEIGHT - 5);
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 2){
-        _mainShoot = Bullet::TinyLaser(_x+(_width/2)+(TINYLASER_PICTURE_WIDTH/2), _y-TINYLASER_PICTURE_HEIGHT-5);
+        _mainShoot = Bullet::TinyLaser(_x + _width / 2 - TINYLASER_PICTURE_WIDTH / 2, _y - TINYLASER_PICTURE_HEIGHT - 5);
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 3){
-        _mainShoot = Bullet::Laser(_x+(_width/2)+(LASER_PICTURE_WIDTH/2), _y-LASER_PICTURE_HEIGHT-5);
+        _mainShoot = Bullet::Laser(_x + _width / 2 - LASER_PICTURE_WIDTH / 2, _y - LASER_PICTURE_HEIGHT - 5);
         _level->addBullet(_mainShoot);
     }
 }

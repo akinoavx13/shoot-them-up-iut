@@ -248,6 +248,15 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img24);
     }
+    
+    Image * img25 = new Image();
+    #ifdef __linux__
+    if(img25->LoadFromFile("ShootThemUp/sprites/coeur.png")){
+    #else
+    if(img25->LoadFromFile("coeur.png")){
+    #endif
+        _imagesList.push_back(img25);
+    }
 }
 
 Image * GraphicLibrary::getImage(int i) const{

@@ -25,7 +25,7 @@ public:
     ~Boss();
 
     std::string toString() const override;
-
+    
 };
 
 #endif /* defined(__ShootThemUp__Boss__) */

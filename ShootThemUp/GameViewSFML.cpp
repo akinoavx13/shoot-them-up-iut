@@ -14,7 +14,7 @@ using namespace sf;
 
 GameViewSFML::GameViewSFML(){
     _menu = new Menu();
-    _window = new RenderWindow(VideoMode(SCREEN_HEIGHT, SCREEN_WIDTH), "Shmup");
+    _window = new RenderWindow(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Shmup");
     _window->SetFramerateLimit(SCREEN_FPS);
     #ifdef __linux__
     _gameModel = nullptr;
@@ -44,7 +44,8 @@ void GameViewSFML::draw() const{
     _window->Clear();
     if(_menu->getIntro())
     {
-        Picture bg(_graphicLibrary->getImage(22), 0,0,SCREEN_HEIGHT,SCREEN_WIDTH);
+
+        Picture bg(_graphicLibrary->getImage(22), 0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
         _window->Draw(bg.getSprite());
 
         if(time.GetElapsedTime()>=1)
@@ -72,7 +73,7 @@ void GameViewSFML::draw() const{
     {
         if(_menu->getLevel())
         {
-            Picture bg(_graphicLibrary->getImage(0), 0,0,SCREEN_HEIGHT,SCREEN_WIDTH);
+            Picture bg(_graphicLibrary->getImage(0), 0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
             _window->Draw(bg.getSprite());
 
             int k3 = _gameModel->getNumberTour()%3;
@@ -102,11 +103,11 @@ void GameViewSFML::draw() const{
                     Shape cadreVieEnemy;
                     cadreVieEnemy.AddPoint(xe, ye+e->getHeight(), Color(255, 255, 255), Color(255,255,255));
                     cadreVieEnemy.AddPoint(xe+e->getWidth(), ye+e->getHeight(), Color(255, 255, 255), Color(255,255,255));
-                    cadreVieEnemy.AddPoint(xe+e->getWidth(), ye+e->getHeight()+10, Color(255, 255, 255), Color(255,255,255));
-                    cadreVieEnemy.AddPoint(xe, ye+e->getHeight()+10, Color(255, 255, 255), Color(255,255,255));
+                    cadreVieEnemy.AddPoint(xe+e->getWidth(), ye+e->getHeight()+5, Color(255, 255, 255), Color(255,255,255));
+                    cadreVieEnemy.AddPoint(xe, ye+e->getHeight()+5, Color(255, 255, 255), Color(255,255,255));
                     cadreVieEnemy.EnableFill(false);
                     cadreVieEnemy.EnableOutline(true);
-                    cadreVieEnemy.SetOutlineWidth(3);
+                    cadreVieEnemy.SetOutlineWidth(1);
                     
                     _window->Draw(cadreVieEnemy);
                     
@@ -117,21 +118,20 @@ void GameViewSFML::draw() const{
                     
                     if(e->getType() == 1){
                         vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)TINY_LIFE) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
-                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)TINY_LIFE) * (float)e->getWidth()), ye+e->getHeight()+10, Color(240, 76, 36), Color(240, 76, 36));
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)TINY_LIFE) * (float)e->getWidth()), ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     }
                     else if(e->getType() == 2){
                         vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)SUBMARINE_LIFE) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
-                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)SUBMARINE_LIFE) * (float)e->getWidth()), ye+e->getHeight()+10, Color(240, 76, 36), Color(240, 76, 36));
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)SUBMARINE_LIFE) * (float)e->getWidth()), ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     }
                     else if(e->getType() == 3){
                         vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)MIGHTY_LIFE) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
-                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)MIGHTY_LIFE) * (float)e->getWidth()), ye+e->getHeight()+10, Color(240, 76, 36), Color(240, 76, 36));
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)MIGHTY_LIFE) * (float)e->getWidth()), ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     }
                     
-                    vieEnemy.AddPoint(xe, ye+e->getHeight()+10, Color(240, 76, 36), Color(240, 76, 36));
+                    vieEnemy.AddPoint(xe, ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     vieEnemy.EnableFill(true);
                     vieEnemy.EnableOutline(false);
-                    vieEnemy.SetOutlineWidth(0);
                     
                     _window->Draw(vieEnemy);
                     
@@ -139,14 +139,17 @@ void GameViewSFML::draw() const{
                 }
             }
 
+            
             if(_gameModel->getLevel()->getEnemiesNumber() <= 0)
             {
+                
                 #ifdef __linux__
                 if(_gameModel->getLevel()->getBoss() != nullptr)
                 #else
                 if(_gameModel->getLevel()->getBoss() != 0)
                 #endif
                 {
+             
                     int xb = _gameModel->getLevel()->getBoss()->getX();
                     int yb = _gameModel->getLevel()->getBoss()->getY();
                     Picture b(_graphicLibrary->getImage(1), xb,yb,BOSS_PICTURE_WIDTH, BOSS_PICTURE_HEIGHT, 0+(BOSS_PICTURE_WIDTH/3)*k3,0,(BOSS_PICTURE_WIDTH/3)+(BOSS_PICTURE_WIDTH/3)*k3,BOSS_PICTURE_HEIGHT);
@@ -155,26 +158,25 @@ void GameViewSFML::draw() const{
                     Shape cadreVieBoss;
                     cadreVieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(255, 255, 255), Color(255,255,255));
                     cadreVieBoss.AddPoint(xb+_gameModel->getLevel()->getBoss()->getWidth(), yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(255, 255, 255), Color(255,255,255));
-                    cadreVieBoss.AddPoint(xb+_gameModel->getLevel()->getBoss()->getWidth(), yb+_gameModel->getLevel()->getBoss()->getHeight()+10, Color(255, 255, 255), Color(255,255,255));
-                    cadreVieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight()+10, Color(255, 255, 255), Color(255,255,255));
+                    cadreVieBoss.AddPoint(xb+_gameModel->getLevel()->getBoss()->getWidth(), yb+_gameModel->getLevel()->getBoss()->getHeight()+5, Color(255, 255, 255), Color(255,255,255));
+                    cadreVieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight()+5, Color(255, 255, 255), Color(255,255,255));
                     cadreVieBoss.EnableFill(false);
                     cadreVieBoss.EnableOutline(true);
-                    cadreVieBoss.SetOutlineWidth(3);
+                    cadreVieBoss.SetOutlineWidth(1);
                     
                     _window->Draw(cadreVieBoss);
                     
-                    
                     Shape vieBoss;
                     vieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
+                    std::cout << (float)_gameModel->getLevel()->getBoss()->getHealth() << std::endl;
                     vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / (float)BOSS_LIFE) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
-                    vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / (float)BOSS_LIFE) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb+_gameModel->getLevel()->getBoss()->getHeight()+10, Color(240, 76, 36), Color(240, 76, 36));
-                    vieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight()+10, Color(240, 76, 36), Color(240, 76, 36));
+                    vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / (float)BOSS_LIFE) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb+_gameModel->getLevel()->getBoss()->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
+                    vieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     vieBoss.EnableFill(true);
                     vieBoss.EnableOutline(false);
-                    vieBoss.SetOutlineWidth(0);
                     
                     _window->Draw(vieBoss);
-                    
+                  
                 }
             }
 
@@ -182,8 +184,26 @@ void GameViewSFML::draw() const{
                 for(auto b : _gameModel->getLevel()->getBullets()){
                     int xba = b->getX();
                     int yba = b->getY();
-                    Picture bba(_graphicLibrary->getImage(12), xba,yba,b->getWidth(),b->getHeight());
-                    _window->Draw(bba.getSprite());
+                    
+                    if(b->getType() == 0){
+                        Picture bba(_graphicLibrary->getImage(12), xba,yba,b->getWidth(),b->getHeight());
+                        _window->Draw(bba.getSprite());
+                    }
+                    else if(b->getType() == 1){
+                        Picture bba(_graphicLibrary->getImage(5), xba,yba,b->getWidth(),b->getHeight());
+                        _window->Draw(bba.getSprite());
+
+                    }
+                    else if(b->getType() == 2){
+                        Picture bba(_graphicLibrary->getImage(18), xba,yba,b->getWidth(),b->getHeight());
+                        _window->Draw(bba.getSprite());
+
+                    }
+                    else if(b->getType() == 3){
+                        Picture bba(_graphicLibrary->getImage(23), xba,yba,b->getWidth(),b->getHeight());
+                        _window->Draw(bba.getSprite());
+                    }
+                    
                 }
             }
                 
@@ -194,14 +214,14 @@ void GameViewSFML::draw() const{
             cadreVie.AddPoint(100, 20, Color(255, 255, 255), Color(255,255,255));
             cadreVie.EnableFill(false);
             cadreVie.EnableOutline(true);
-            cadreVie.SetOutlineWidth(3);
+            cadreVie.SetOutlineWidth(2);
             
             _window->Draw(cadreVie);
             
             Shape vie;
             vie.AddPoint(100, 10, Color(240, 76, 36), Color(240, 76, 36));
-            vie.AddPoint(100 + _gameModel->getLevel()->getAlly()->getHealth(), 10, Color(240, 76, 36), Color(240, 76, 36));
-            vie.AddPoint(100 + _gameModel->getLevel()->getAlly()->getHealth()  , 20, Color(240, 76, 36), Color(240, 76, 36));
+            vie.AddPoint(100 + (((float)_gameModel->getLevel()->getAlly()->getHealth() / (float)ALLY_LIFE) * (float)100), 10, Color(240, 76, 36), Color(240, 76, 36));
+            vie.AddPoint(100 + (((float)_gameModel->getLevel()->getAlly()->getHealth() / (float)ALLY_LIFE) * (float)100), 20, Color(240, 76, 36), Color(240, 76, 36));
             vie.AddPoint(100, 20, Color(240, 76, 36), Color(240, 76, 36));
             vie.EnableFill(true);
             vie.EnableOutline(false);
@@ -210,9 +230,9 @@ void GameViewSFML::draw() const{
             _window->Draw(vie);
             
             #ifdef __linux__
-            if(_gameModel->getLevel()->getAlly()!=nullptr){
+            if(_gameModel->getLevel()->getAlly() != nullptr){
             #else
-            if(_gameModel->getLevel()->getAlly()!=0){
+            if(_gameModel->getLevel()->getAlly() != 0){
             #endif
                 int xp = _gameModel->getLevel()->getAlly()->getX();
                 int yp = _gameModel->getLevel()->getAlly()->getY();
@@ -220,7 +240,7 @@ void GameViewSFML::draw() const{
                 _window->Draw(ally.getSprite());
                 
                 for(int i = 0; i<_gameModel->getLevel()->getAlly()->getNumberOfLife(); i++){
-                    Picture life(_graphicLibrary->getImage(17), i*25,5,20,20);
+                    Picture life(_graphicLibrary->getImage(25), i*25,5,20,20);
                     _window->Draw(life.getSprite());
                 }
             }

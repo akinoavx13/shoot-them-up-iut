@@ -22,7 +22,7 @@ Picture::Picture(sf::Image * image){
     _sprite->Resize(_width, _height);
 }
 
-Picture::Picture(sf::Image * image, int x, int y){
+Picture::Picture(sf::Image * image, float x, float y){
     _x=x;
     _y=y;
     _width=50;
@@ -33,7 +33,7 @@ Picture::Picture(sf::Image * image, int x, int y){
     _sprite->Resize(_width, _height);
 }
 
-Picture::Picture(sf::Image * image, int x, int y, int width, int height){
+Picture::Picture(sf::Image * image, float x, float y, int width, int height){
     _x=x;
     _y=y;
     _width=width;
@@ -45,7 +45,7 @@ Picture::Picture(sf::Image * image, int x, int y, int width, int height){
     _sprite->Resize(_width, _height);
 }
 
-Picture::Picture(sf::Image * image, int x, int y, int width, int height, int x1, int y1, int x2, int y2){
+Picture::Picture(sf::Image * image, float x, float y, int width, int height, int x1, int y1, int x2, int y2){
     _x=x;
     _y=y;
     _width=width;
@@ -74,3 +74,5 @@ Picture::~Picture(){
 Sprite Picture::getSprite() const{
     return *_sprite;
 }
+
+

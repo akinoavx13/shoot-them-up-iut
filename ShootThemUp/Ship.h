@@ -27,7 +27,6 @@ protected:
     int _bulletType;
     Level* _level;
     int _damage;
-
     float _fireRate;
 
 public:

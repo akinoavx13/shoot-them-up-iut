@@ -14,17 +14,17 @@
 class Picture{
 private:
     sf::Sprite * _sprite;
-    int _x;
-    int _y;
+    float _x;
+    float _y;
     int _width;
     int _height;
 
 
 public:
     Picture(sf::Image * image);
-    Picture(sf::Image * image, int x, int y);
-    Picture(sf::Image * image, int x, int y, int width, int height);
-    Picture(sf::Image * image, int x, int y, int width, int height, int x1, int y1, int x2, int y2);
+    Picture(sf::Image * image, float x, float y);
+    Picture(sf::Image * image, float x, float y, int width, int height);
+    Picture(sf::Image * image, float x, float y, int width, int height, int x1, int y1, int x2, int y2);
     ~Picture();
 
     sf::Sprite getSprite() const;

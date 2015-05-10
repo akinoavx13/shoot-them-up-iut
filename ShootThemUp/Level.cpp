@@ -278,13 +278,9 @@ void Level::addBullet(Bullet* bullet){
  * info : constant
  */
 void Level::moveEnemies() const{
-
     for(auto enemy : _tabEnemies){
-
         enemy->move(enemy->getX(), enemy->getY() + enemy->getSpeedY());
-
     }
-
 }
 
 /*
@@ -300,34 +296,41 @@ void Level::EnemiesShoot() const{
 }
 
 void Level::addBoss(){
-    _boss = new Boss(100, 100, 200, BOSS_FIRERATE);
+    _boss = new Boss(SCREEN_WIDTH / 2 - BOSS_PICTURE_WIDTH / 2 * 3, -200, BOSS_LIFE, BOSS_FIRERATE);
     _boss->setLevel(this);
 }
 
 void Level::addEnemies(){
-    int x = 0;
-    int y = -100;
 
     srand((unsigned int)time(NULL));
 
-    for(int i = 0; i<_nbEnemies; i++){
-        x += LEVEL_INITIAL_ENEMY_OFFSET;
-        if(x >= SCREEN_WIDTH){
-            y += LEVEL_INITIAL_ENEMY_OFFSET;
-        }
-        int type = rand()%_nbEnemies;
+    
+    for(int i = 0; i < _nbEnemies; i++){
+        
+        int type = rand()%3;
 
         if(type == 0){
+            int x = rand()%(SCREEN_WIDTH - MIGHTY_PICTURE_WIDTH);
+            int y = i * - 100;
+            
             Enemy* enemy = Enemy::Mighty(x, y);
             enemy->setLevel(this);
             _tabEnemies.push_back(enemy);
+
         }
         else if (type == 1){
+            int x = rand()%(SCREEN_WIDTH - SUBMARINE_PICTURE_WIDTH);
+            int y = i * - 200;
+            
             Enemy* enemy = Enemy::Submarine(x, y);
             enemy->setLevel(this);
             _tabEnemies.push_back(enemy);
+
         }
         else if (type == 2){
+            int x = rand() % (SCREEN_WIDTH - TINY_PICTURE_WIDTH);
+            int y = i * - 100;
+            
             Enemy* enemy = Enemy::Tiny(x, y);
             enemy->setLevel(this);
             _tabEnemies.push_back(enemy);

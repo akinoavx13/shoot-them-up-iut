@@ -7,6 +7,7 @@
 //
 
 #include "GameModel.h"
+#include <math.h>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ using namespace std;
  * default constructor
  * params : Model width, Model height, number tour
  */
-GameModel::GameModel():_numberTour(1){
+GameModel::GameModel():_numberTour(1), _bossMoveIncrement(0){
     #ifdef __linux__
         _level = nullptr;
     #else
@@ -80,10 +81,12 @@ void GameModel::updateCore(){
 
             if(getLevel()->getEnemiesNumber() == 1){
                 getLevel()->addBoss();
-                getLevel()->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + getLevel()->getLevelNumber() * 30);
+                //ici on peut ajouter de la vie au boss
+                getLevel()->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + getLevel()->getLevelNumber());
             }
 
             if(getLevel()->getEnemiesNumber() <= 0){
+                
                 #ifdef __linux__
                 if(getLevel()->getBoss() == nullptr){
                 #else
@@ -97,6 +100,7 @@ void GameModel::updateCore(){
                     _menu->setScore(false);
                     _menu->setEnding(false);
                 }
+
                 #ifdef __linux__
                 else if(_level->getBoss() != nullptr &&  !_level->getBoss()->isDead()){
                 #else
@@ -104,38 +108,39 @@ void GameModel::updateCore(){
                 #endif
 
                     //boss shoot every 2 turns
-                    
-                    cout << _level->getBoss()->getFireRate() << endl;
-                    
+                                        
                     if(shoot.GetElapsedTime() >= _level->getBoss()->getFireRate()){
                         _level->getBoss()->shoot();
                         shoot.Reset();
-                    }                    
+                    }
+                    
+                    _bossMoveIncrement++;
+                    float xBoss = 50 * cos((float)_bossMoveIncrement * (3.14/180)) + SCREEN_WIDTH / 2 - BOSS_PICTURE_WIDTH / 6;
+                    float yBoss = 50 * sin((float)_bossMoveIncrement * (3.14/180)) + SCREEN_HEIGHT / 2 - BOSS_PICTURE_HEIGHT / 2 - 100;
+                    
+                    _level->getBoss()->move(xBoss, yBoss);
                 }
             }
             else{
                 //enemies shoot every 2 turns
-                    if(shoot.GetElapsedTime() >= ENEMY_FIRERATE){
-                        getLevel()->EnemiesShoot();
-                        shoot.Reset();
-                    }
-
-
+                if(shoot.GetElapsedTime() >= ENEMY_FIRERATE){
+                    _level->EnemiesShoot();
+                    shoot.Reset();
+                }
+                
                 //enemies move every 4 turns
-                    getLevel()->moveEnemies();
-
+                _level->moveEnemies();
             }
-
         }
 
         else if (_menu->getShop()) {
-
             _level->setLevelNumber(_level->getLevelNumber() + 1);
             _level->setNbEnemies(_level->getNbEnemies() + 2);
             _level->addEnemies();
             for (auto enemy : getLevel()->getEnemies()) {
-                enemy->setHealth(enemy->getHealth() + getLevel()->getLevelNumber() * 10);
-                enemy->setDamage(enemy->getDamage() + getLevel()->getLevelNumber() * 7);
+                //ici on peut ajouter de la vie au ennemis
+                enemy->setHealth(enemy->getHealth() + getLevel()->getLevelNumber());
+                enemy->setDamage(enemy->getDamage() + getLevel()->getLevelNumber());
             }
         }
     }

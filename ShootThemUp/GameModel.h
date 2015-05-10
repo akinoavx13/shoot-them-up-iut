@@ -28,6 +28,7 @@ private:
     Level* _level;
     int _numberTour;
     sf::Clock shoot;
+    int _bossMoveIncrement;
 
 public:
 

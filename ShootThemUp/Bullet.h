@@ -19,11 +19,12 @@ class Bullet : public GraphicElement {
 
 private:
     int _damage;
+    int _type;
 
 public:
     //CONSTRUCTOR
     Bullet();
-    Bullet(const float x, const float y, const int damage, const int width, const int height, const int speedX, const int speedY);
+    Bullet(const float x, const float y, const int damage, const int width, const int height, const int speedX, const int speedY, const int type);
     static Bullet* FireBall(const float x, const float y);
     static Bullet* TinyLaser(const float x, const float y);
     static Bullet* Laser(const float x, const float y);
@@ -38,6 +39,7 @@ public:
     int getDamage() const;
 
     void move(const float x, const float y) override;
+    int getType() const;
 
 };
 
