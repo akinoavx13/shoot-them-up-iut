@@ -92,6 +92,30 @@ void GameViewSFML::draw() const{
                     _window->Draw(life.getSprite());
                 }
             }
+                
+                Shape cadreVie;
+                cadreVie.AddPoint(100, 10, Color(255, 255, 255), Color(255,255,255));
+                cadreVie.AddPoint(200, 10, Color(255, 255, 255), Color(255,255,255));
+                cadreVie.AddPoint(200, 20, Color(255, 255, 255), Color(255,255,255));
+                cadreVie.AddPoint(100, 20, Color(255, 255, 255), Color(255,255,255));
+                cadreVie.EnableFill(false); // Remplissage activé
+                cadreVie.EnableOutline(true); // Bordures activées
+                cadreVie.SetOutlineWidth(3); // Bordures de taille 20 pixels
+                
+                _window->Draw(cadreVie);
+                
+                Shape vie;
+                vie.AddPoint(100, 10, Color(240, 76, 36), Color(240, 76, 36));
+                vie.AddPoint(100 + _gameModel->getLevel()->getAlly()->getHealth(), 10, Color(240, 76, 36), Color(240, 76, 36));
+                vie.AddPoint(100 + _gameModel->getLevel()->getAlly()->getHealth()  , 20, Color(240, 76, 36), Color(240, 76, 36));
+                vie.AddPoint(100, 20, Color(240, 76, 36), Color(240, 76, 36));
+                vie.EnableFill(true); // Remplissage activé
+                vie.EnableOutline(false); // Bordures activées
+                vie.SetOutlineWidth(0); // Bordures de taille 20 pixels
+                
+                _window->Draw(vie);
+
+                
             if(_gameModel->getLevel()->getEnemiesNumber() > 0)
             {
                 for(auto e : _gameModel->getLevel()->getEnemies()){
