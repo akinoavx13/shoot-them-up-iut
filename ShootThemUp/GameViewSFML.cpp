@@ -77,44 +77,6 @@ void GameViewSFML::draw() const{
 
             int k3 = _gameModel->getNumberTour()%3;
             int k2 = _gameModel->getNumberTour()%2;
-            #ifdef __linux__
-            if(_gameModel->getLevel()->getAlly()!=nullptr){
-            #else
-            if(_gameModel->getLevel()->getAlly()!=0){
-            #endif
-                int xp = _gameModel->getLevel()->getAlly()->getX();
-                int yp = _gameModel->getLevel()->getAlly()->getY();
-                Picture ally(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,0+(ALLY_PICTURE_WIDTH/3)*k3,0,(ALLY_PICTURE_WIDTH/3)+(ALLY_PICTURE_WIDTH/3)*k3,ALLY_PICTURE_HEIGHT);
-                _window->Draw(ally.getSprite());
-
-                for(int i = 0; i<_gameModel->getLevel()->getAlly()->getNumberOfLife(); i++){
-                    Picture life(_graphicLibrary->getImage(17), i*25,5,20,20);
-                    _window->Draw(life.getSprite());
-                }
-            }
-                
-                Shape cadreVie;
-                cadreVie.AddPoint(100, 10, Color(255, 255, 255), Color(255,255,255));
-                cadreVie.AddPoint(200, 10, Color(255, 255, 255), Color(255,255,255));
-                cadreVie.AddPoint(200, 20, Color(255, 255, 255), Color(255,255,255));
-                cadreVie.AddPoint(100, 20, Color(255, 255, 255), Color(255,255,255));
-                cadreVie.EnableFill(false); // Remplissage activé
-                cadreVie.EnableOutline(true); // Bordures activées
-                cadreVie.SetOutlineWidth(3); // Bordures de taille 20 pixels
-                
-                _window->Draw(cadreVie);
-                
-                Shape vie;
-                vie.AddPoint(100, 10, Color(240, 76, 36), Color(240, 76, 36));
-                vie.AddPoint(100 + _gameModel->getLevel()->getAlly()->getHealth(), 10, Color(240, 76, 36), Color(240, 76, 36));
-                vie.AddPoint(100 + _gameModel->getLevel()->getAlly()->getHealth()  , 20, Color(240, 76, 36), Color(240, 76, 36));
-                vie.AddPoint(100, 20, Color(240, 76, 36), Color(240, 76, 36));
-                vie.EnableFill(true); // Remplissage activé
-                vie.EnableOutline(false); // Bordures activées
-                vie.SetOutlineWidth(0); // Bordures de taille 20 pixels
-                
-                _window->Draw(vie);
-
                 
             if(_gameModel->getLevel()->getEnemiesNumber() > 0)
             {
@@ -136,6 +98,44 @@ void GameViewSFML::draw() const{
                         Picture en(_graphicLibrary->getImage(21), xe,ye,MIGHTY_PICTURE_WIDTH,MIGHTY_PICTURE_HEIGHT,0+(MIGHTY_PICTURE_WIDTH/3)*k3,0,(MIGHTY_PICTURE_WIDTH/3)+(MIGHTY_PICTURE_WIDTH/3)*k3,MIGHTY_PICTURE_HEIGHT);
                         _window->Draw(en.getSprite());
                     }
+                    
+                    Shape cadreVieEnemy;
+                    cadreVieEnemy.AddPoint(xe, ye+e->getHeight(), Color(255, 255, 255), Color(255,255,255));
+                    cadreVieEnemy.AddPoint(xe+e->getWidth(), ye+e->getHeight(), Color(255, 255, 255), Color(255,255,255));
+                    cadreVieEnemy.AddPoint(xe+e->getWidth(), ye+e->getHeight()+10, Color(255, 255, 255), Color(255,255,255));
+                    cadreVieEnemy.AddPoint(xe, ye+e->getHeight()+10, Color(255, 255, 255), Color(255,255,255));
+                    cadreVieEnemy.EnableFill(false);
+                    cadreVieEnemy.EnableOutline(true);
+                    cadreVieEnemy.SetOutlineWidth(3);
+                    
+                    _window->Draw(cadreVieEnemy);
+                    
+                    
+                    
+                    Shape vieEnemy;
+                    vieEnemy.AddPoint(xe, ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
+                    
+                    if(e->getType() == 1){
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)TINY_LIFE) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)TINY_LIFE) * (float)e->getWidth()), ye+e->getHeight()+10, Color(240, 76, 36), Color(240, 76, 36));
+                    }
+                    else if(e->getType() == 2){
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)SUBMARINE_LIFE) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)SUBMARINE_LIFE) * (float)e->getWidth()), ye+e->getHeight()+10, Color(240, 76, 36), Color(240, 76, 36));
+                    }
+                    else if(e->getType() == 3){
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)MIGHTY_LIFE) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)MIGHTY_LIFE) * (float)e->getWidth()), ye+e->getHeight()+10, Color(240, 76, 36), Color(240, 76, 36));
+                    }
+                    
+                    vieEnemy.AddPoint(xe, ye+e->getHeight()+10, Color(240, 76, 36), Color(240, 76, 36));
+                    vieEnemy.EnableFill(true);
+                    vieEnemy.EnableOutline(false);
+                    vieEnemy.SetOutlineWidth(0);
+                    
+                    _window->Draw(vieEnemy);
+                    
+                    
                 }
             }
 
@@ -151,6 +151,30 @@ void GameViewSFML::draw() const{
                     int yb = _gameModel->getLevel()->getBoss()->getY();
                     Picture b(_graphicLibrary->getImage(1), xb,yb,BOSS_PICTURE_WIDTH, BOSS_PICTURE_HEIGHT, 0+(BOSS_PICTURE_WIDTH/3)*k3,0,(BOSS_PICTURE_WIDTH/3)+(BOSS_PICTURE_WIDTH/3)*k3,BOSS_PICTURE_HEIGHT);
                     _window->Draw(b.getSprite());
+                    
+                    Shape cadreVieBoss;
+                    cadreVieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(255, 255, 255), Color(255,255,255));
+                    cadreVieBoss.AddPoint(xb+_gameModel->getLevel()->getBoss()->getWidth(), yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(255, 255, 255), Color(255,255,255));
+                    cadreVieBoss.AddPoint(xb+_gameModel->getLevel()->getBoss()->getWidth(), yb+_gameModel->getLevel()->getBoss()->getHeight()+10, Color(255, 255, 255), Color(255,255,255));
+                    cadreVieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight()+10, Color(255, 255, 255), Color(255,255,255));
+                    cadreVieBoss.EnableFill(false);
+                    cadreVieBoss.EnableOutline(true);
+                    cadreVieBoss.SetOutlineWidth(3);
+                    
+                    _window->Draw(cadreVieBoss);
+                    
+                    
+                    Shape vieBoss;
+                    vieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
+                    vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / (float)BOSS_LIFE) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
+                    vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / (float)BOSS_LIFE) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb+_gameModel->getLevel()->getBoss()->getHeight()+10, Color(240, 76, 36), Color(240, 76, 36));
+                    vieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight()+10, Color(240, 76, 36), Color(240, 76, 36));
+                    vieBoss.EnableFill(true);
+                    vieBoss.EnableOutline(false);
+                    vieBoss.SetOutlineWidth(0);
+                    
+                    _window->Draw(vieBoss);
+                    
                 }
             }
 
@@ -160,6 +184,44 @@ void GameViewSFML::draw() const{
                     int yba = b->getY();
                     Picture bba(_graphicLibrary->getImage(12), xba,yba,b->getWidth(),b->getHeight());
                     _window->Draw(bba.getSprite());
+                }
+            }
+                
+            Shape cadreVie;
+            cadreVie.AddPoint(100, 10, Color(255, 255, 255), Color(255,255,255));
+            cadreVie.AddPoint(200, 10, Color(255, 255, 255), Color(255,255,255));
+            cadreVie.AddPoint(200, 20, Color(255, 255, 255), Color(255,255,255));
+            cadreVie.AddPoint(100, 20, Color(255, 255, 255), Color(255,255,255));
+            cadreVie.EnableFill(false);
+            cadreVie.EnableOutline(true);
+            cadreVie.SetOutlineWidth(3);
+            
+            _window->Draw(cadreVie);
+            
+            Shape vie;
+            vie.AddPoint(100, 10, Color(240, 76, 36), Color(240, 76, 36));
+            vie.AddPoint(100 + _gameModel->getLevel()->getAlly()->getHealth(), 10, Color(240, 76, 36), Color(240, 76, 36));
+            vie.AddPoint(100 + _gameModel->getLevel()->getAlly()->getHealth()  , 20, Color(240, 76, 36), Color(240, 76, 36));
+            vie.AddPoint(100, 20, Color(240, 76, 36), Color(240, 76, 36));
+            vie.EnableFill(true);
+            vie.EnableOutline(false);
+            vie.SetOutlineWidth(0);
+            
+            _window->Draw(vie);
+            
+            #ifdef __linux__
+            if(_gameModel->getLevel()->getAlly()!=nullptr){
+            #else
+            if(_gameModel->getLevel()->getAlly()!=0){
+            #endif
+                int xp = _gameModel->getLevel()->getAlly()->getX();
+                int yp = _gameModel->getLevel()->getAlly()->getY();
+                Picture ally(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,0+(ALLY_PICTURE_WIDTH/3)*k3,0,(ALLY_PICTURE_WIDTH/3)+(ALLY_PICTURE_WIDTH/3)*k3,ALLY_PICTURE_HEIGHT);
+                _window->Draw(ally.getSprite());
+                
+                for(int i = 0; i<_gameModel->getLevel()->getAlly()->getNumberOfLife(); i++){
+                    Picture life(_graphicLibrary->getImage(17), i*25,5,20,20);
+                    _window->Draw(life.getSprite());
                 }
             }
         }
