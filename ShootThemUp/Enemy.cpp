@@ -74,6 +74,13 @@ void Enemy::shoot(){
     }
 }
 
+void Enemy::shoot(const float x, const float y){
+    if((_x + _width <= SCREEN_WIDTH) && (_x>= 0) && (_y+_height <= SCREEN_HEIGHT) && (_y>= 0)){
+        _mainShoot = new Bullet(x, y, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, 0);
+        _level->addBullet(_mainShoot);
+    }
+}
+
 void Enemy::move(const float x, const float y){
     if (x >= 0 && x+_width < SCREEN_WIDTH - _width) {
         _x = x;
