@@ -15,9 +15,8 @@ GraphicLibrary::GraphicLibrary(){
 }
 
 GraphicLibrary::~GraphicLibrary(){
-    for(auto img : _imagesList)
-    {
-        delete img;
+    for (int i = 0; i < _imagesList.size(); i++) {
+        delete _imagesList[i];
     }
     _imagesList.clear();
 }

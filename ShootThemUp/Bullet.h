@@ -24,7 +24,7 @@ private:
 public:
     //CONSTRUCTOR
     Bullet();
-    Bullet(const float x, const float y, const int damage, const int width, const int height, const int speedX, const int speedY, const int type);
+    Bullet(const float x, const float y, const int damage, const int width, const int height, const float speedX, const float speedY, const int type);
     static Bullet* FireBall(const float x, const float y);
     static Bullet* TinyLaser(const float x, const float y);
     static Bullet* Laser(const float x, const float y);

@@ -8,6 +8,7 @@
 
 #include "GameModel.h"
 #include <math.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -111,7 +112,17 @@ void GameModel::updateCore(){
                     //boss shoot every 2 turns
                     if(shoot.GetElapsedTime() >= _level->getBoss()->getFireRate())
                     {
-                        _level->getBoss()->shoot();
+                        
+                        for (int i = 0; i < 360; i+=18) {
+                            int max = std::max(_level->getBoss()->getHeight(), _level->getBoss()->getWidth());
+                            
+                            float xb = max * cos((float)i * (3.14/180)) + _level->getBoss()->getX() + _level->getBoss()->getWidth() / 2;
+                            float yb = max * sin((float)i * (3.14/180)) + _level->getBoss()->getY() + _level->getBoss()->getHeight() / 2;
+                            
+                            _level->getBoss()->shoot(xb, yb, 10*cos((float)i * (3.14/180)), 10*sin((float)i * (3.14/180)));
+                            
+                        }
+                        
                         shoot.Reset();
                     }
                             

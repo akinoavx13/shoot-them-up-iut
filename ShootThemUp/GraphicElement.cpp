@@ -20,7 +20,7 @@ GraphicElement::GraphicElement():_x(GRAPHIC_ELEMENT_X), _y(GRAPHIC_ELEMENT_Y), _
  * constructor to created a graphic element with x and y value
  * params : position x of graphic element, position y of graphic element
  */
-GraphicElement::GraphicElement(const float x, const float y, const int width, const int height, const int speedX, const int speedY):_x(x), _y(y), _speedX(speedX), _speedY(speedY), _width(width), _height(height){}
+GraphicElement::GraphicElement(const float x, const float y, const int width, const int height, const float speedX, const float speedY):_x(x), _y(y), _speedX(speedX), _speedY(speedY), _width(width), _height(height){}
 
 /*
  * destructor

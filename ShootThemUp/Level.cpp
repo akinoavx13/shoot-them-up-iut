@@ -34,20 +34,15 @@ Level::Level() : _levelNumber(LEVEL_NUMBER), _nbEnemies(LEVEL_ENEMY_NUMBER){
  */
 Level::~Level(){
 
-    for (auto p : _tabEnemies) {
-        delete p;
+    for (int i = 0; i < _tabEnemies.size(); i++) {
+        delete _tabEnemies[i];
     }
     _tabEnemies.clear();
 
-    for (auto p : _tabBullets) {
-        delete p;
+    for (int i = 0; i < _tabBullets.size(); i++) {
+        delete _tabBullets[i];
     }
     _tabBullets.clear();
-
-    for (auto enemy : _tabEnemies) {
-        delete enemy;
-    }
-    _tabEnemies.clear();
 
     delete _ally;
 
@@ -87,189 +82,84 @@ string Level::toString() const{
  * check for all graphic element in the level if there are collision between them
  */
 void Level::checkCollisions(){
-
-    bool collision = false;
-
-    #ifdef __linux__
-    if(_ally != nullptr && _tabBullets.size() > 0){
-    #else
-    if(_ally != 0 && _tabBullets.size() > 0){
-    #endif
-        //collision between ally and bullets
-        int a = 0;
-        for (auto bullet : _tabBullets) {
-            if(_ally->collisions(bullet)){
-                //cout << "Vous avez pris une balle !" << endl;
-                _ally->setHealth(_ally->getHealth() - bullet->getDamage());
-                collision = true;
-
-                if(_ally->isDead()){
-                    //cout << "Vous etes mort" << endl;
-                }
-
-                _tabBullets.erase(_tabBullets.begin() + a);
-                delete bullet;
-                a--;
-            }
-            a++;
-        }
-    }
-
-    #ifdef __linux__
-    if(_boss != nullptr && _tabBullets.size() > 0){
-    #else
-    if(_boss != 0 && _tabBullets.size() > 0){
-    #endif
-        //collision between boss and bullets
-        int b = 0;
-        for (auto bullet : _tabBullets) {
-#ifdef __linux__
-            if(_boss!=nullptr){
-#else
-            if(_boss != 0){
-#endif
-                if(_boss->collisions(bullet)){
-                
-
-                    //cout << "Un boss à pris une balle !" << endl;
-                    _boss->setHealth(_boss->getHealth() - bullet->getDamage());
-                    collision = true;
-
-                    if(_boss->isDead()){
-                        //cout << "Vous avez tué le boss" << endl;
-                        #ifdef __linux__
-                        _boss = nullptr;
-                        #else
-                        _boss = 0;
-                        #endif
-                        delete _boss;
-                    }
-                    _tabBullets.erase(_tabBullets.begin() + b);
-                    delete bullet;
-                    b--;
-                }
-            }
-            b++;
-        }
-    }
-
-    if(_tabBullets.size() > 0 && _tabEnemies.size() > 0){
-        //collision between enemies and bullets
-        int j = 0;
-        for (auto enemy : _tabEnemies) {
-            int i = 0;
-            for(auto bullet : _tabBullets){
-                if(enemy->collisions(bullet)){
-                    //cout << "Un ennemi a pris une balle !" << endl;
-                    enemy->setHealth(enemy->getHealth() - bullet->getDamage());
-                    collision = true;
-
-                    _tabBullets.erase(_tabBullets.begin() + i);
-                    delete bullet;
-                    
-                    _ally->setScore(_levelNumber*2);
-
-                    if(enemy->isDead()){
-                        _tabEnemies.erase(_tabEnemies.begin() + j);
-                        delete enemy;
-                        j--;
-                    }
-                    i--;
-                }
-                i++;
-            }
-            j++;
-        }
-    }
-
-        #ifdef __linux__
-        if(_ally != nullptr && _tabEnemies.size() > 0){
-        #else
-        if(_ally != 0 && _tabEnemies.size() > 0){
-        #endif
-        //collision between ally and enemies
-        int k = 0;
-        for (auto enemy : _tabEnemies) {
-            if(_ally->collisions(enemy)){
-
-                _ally->setHealth(_ally->getHealth() - (_ally->getHealth() / 4));
-
-                //cout << "Vous avez tué un ennemi" << endl;
-
-                _tabEnemies.erase(_tabEnemies.begin() + k);
-                delete enemy;
-                k--;
-            }
-            k++;
-        }
-    }
-
-        #ifdef __linux__
-        if(_ally != nullptr && _boss != nullptr){
-        #else
-        if(_ally != 0 && _boss != 0){
-        #endif
-        //collision between ally and boss
-        if(_ally->collisions(_boss)){
-
-            _ally->setHealth(_ally->getHealth() - (_ally->getHealth() / 4));
-            _boss->setHealth(_boss->getHealth() - (_boss->getHealth() / 4));
-            if(_boss->isDead()){
-                //cout << "Vous avez tué un ennemi" << endl;
-                #ifdef __linux__
-                _boss = nullptr;
-                #else
-                _boss = 0;
-                #endif
-                
-            }
-        }
-    }
-
-    /*
-    if(_tabBullets.size() > 0){
-        for(int i = 0; i < _tabBullets.size(); i++){
-            for(int j = 0; j < _tabBullets.size(); j++){
-                if(i!=j && _tabBullets[i]->collisions(_tabBullets[j])){
-                    cout << "Collision entre les balles" << endl;
-                    
-                    _tabBullets.erase(_tabBullets.begin() + i);
-                    _tabBullets.erase(_tabBullets.begin() + j);
-                    
-                    delete _tabBullets[i];
-                    delete _tabBullets[j];
-                    //i--;
-                    j=0;
-                }
-            }
-        }
-    }
-    */
-
-    if(!collision){
-        //cout << "Aucune collision pour le moment" << endl;
-    }
-
-    //uniquement pour le model, sinon pour la vue, c'est que la fonction qui verifie si la balle et encore dans la fenetre
-    /*for(auto bullet : _tabBullets){
-        delete bullet;
-    }
-    _tabBullets.clear();
-    */
-
-    //pour détruire la balle quand elle est hors du cadre, utilisé pour la vue
-
-    /* for(auto bullet : _tabBullets){
-        int i = 0;
-        if((bullet->getX()+bullet->getWidth() >= SCREEN_WIDTH) || (bullet->getX() <= 0) || (bullet->getY()+bullet->getHeight() >= SCREEN_HEIGHT) ||(bullet->getY()<= 0)){
-            //cout << "balle en dehors du cadre" << endl;
-            
+    
+    for (int i = 0; i < _tabBullets.size(); i++) {
+        if(_ally->collisions(_tabBullets[i])){
+            int allyLife = _ally->getHealth();
+            int bulletDamage = _tabBullets[i]->getDamage();
+            _ally->setHealth(allyLife - bulletDamage);
+            delete _tabBullets[i];
             _tabBullets.erase(_tabBullets.begin() + i);
-            delete bullet;
-            i--;
         }
-        i++;
-     }*/
+    }
+    
+    if(_boss != 0){
+        if(_ally->collisions(_boss)){
+            int allyLife = _ally->getHealth();
+            int bossLife = _boss->getHealth();
+            _ally->setHealth(allyLife - 10);
+            _boss->setHealth(bossLife - 10);
+            
+        }
+    }
+    
+    for (auto enemy : _tabEnemies) {
+        if (_ally->collisions(enemy)) {
+            int allyLife = _ally->getHealth();
+            int enemyLife = enemy->getHealth();
+            _ally->setHealth(allyLife - 10);
+            enemy->setHealth(enemyLife - 10);
+        }
+    }
+    
+    for (int i = 0; i < _tabEnemies.size(); i++) {
+        for (int j = 0; j < _tabBullets.size(); j++) {
+            if(_tabEnemies[i]->collisions(_tabBullets[j])){
+                int enemyLife = _tabEnemies[i]->getHealth();
+                int bulletDamage = _tabBullets[j]->getDamage();
+                _tabEnemies[i]->setHealth(enemyLife - bulletDamage);
+                delete _tabBullets[j];
+                _tabBullets.erase(_tabBullets.begin() + j);
+            }
+        }
+    }
+    
+    if(_boss != 0){
+        for (int i = 0; i < _tabBullets.size(); i++) {
+            if(_boss->collisions(_tabBullets[i])){
+                int bossLife = _boss->getHealth();
+                int bulletDamage = _tabBullets[i]->getDamage();
+                _boss->setHealth(bossLife - bulletDamage);
+                delete _tabBullets[i];
+                _tabBullets.erase(_tabBullets.begin() + i);
+            }
+        }
+    }
+
+    for (int i = 0; i < _tabBullets.size(); i++) {
+        float bulletX = _tabBullets[i]->getX();
+        float bulletY = _tabBullets[i]->getY();
+        int bulletWidth = _tabBullets[i]->getWidth();
+        int bulletHeight = _tabBullets[i]->getHeight();
+        
+        if(bulletX < 0 || bulletX + bulletWidth > SCREEN_WIDTH || bulletY < 0 || bulletY + bulletHeight > SCREEN_HEIGHT){
+            delete _tabBullets[i];
+            _tabBullets.erase(_tabBullets.begin() + i);
+        }
+    }
+    
+    for (int i = 0; i < _tabEnemies.size(); i++) {
+        if(_tabEnemies[i]->isDead()){
+            delete _tabEnemies[i];
+            _tabEnemies.erase(_tabEnemies.begin() + i);
+        }
+    }
+
+    if(_boss != 0 && _boss->isDead()){
+        _boss->move(_boss->getX(), -200);
+        _boss = 0;
+    }
+    
 }
 
 /*
@@ -297,6 +187,11 @@ void Level::moveEnemies() const{
 void Level::EnemiesShoot() const{
 
     for (auto enemy : _tabEnemies) {
+        float enemyX = enemy->getX();
+        float enemyY = enemy->getY();
+        int enemyWidth = enemy->getWidth();
+        int enemyHeight = enemy->getHeight();
+        if(enemyX > 0 && enemyX + enemyWidth < SCREEN_WIDTH && enemyY + enemyHeight > 0 && enemyY + enemyHeight < SCREEN_HEIGHT)
         enemy->shoot();
     }
 
@@ -347,8 +242,8 @@ void Level::addEnemies(){
 
 void Level::deleteAllEnemy(){
 
-    for (auto enemy : _tabEnemies) {
-        delete enemy;
+    for (int i = 0; i < _tabEnemies.size(); i++) {
+        delete _tabEnemies[i];
     }
 
     _tabEnemies.clear();
@@ -408,8 +303,17 @@ int Level::getNumberOfEnemies() const{
 }
 
 void Level::moveBullets(){
-    for(auto b : _tabBullets){
-        b->move(b->getX()+b->getSpeedX(), b->getY()+b->getSpeedY());
+    for(auto bullet : _tabBullets){
+        float bulletX = bullet->getX();
+        float bulletY = bullet->getY();
+        int bulletWidth = bullet->getWidth();
+        int bulletHeight = bullet->getHeight();
+        int bulletSpeedX = bullet->getSpeedX();
+        int bulletSpeedY = bullet->getSpeedY();
+        
+        if(bulletX > 0 && bulletX + bulletWidth < SCREEN_WIDTH && bulletY + bulletHeight > 0 && bulletY + bulletHeight < SCREEN_HEIGHT){
+            bullet->move(bulletX + bulletSpeedX, bulletY + bulletSpeedY);
+        }
     }
 }
 

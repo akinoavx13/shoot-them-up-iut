@@ -19,7 +19,7 @@ Bullet::Bullet():_damage(STANDARD_DAMAGE){}
  * constructor
  * params : x, y and damage of a bullet
  */
-Bullet::Bullet(const float x, const float y, const int damage, const int width, const int height, const int speedX, const int speedY, const int type) : GraphicElement(x, y, width, height, speedX, speedY), _damage(damage), _type(type){}
+Bullet::Bullet(const float x, const float y, const int damage, const int width, const int height, const float speedX, const float speedY, const int type) : GraphicElement(x, y, width, height, speedX, speedY), _damage(damage), _type(type){}
 
 Bullet* Bullet::FireBall(const float x, const float y){
     Bullet* bullet = new Bullet(x, y, FIREBALL_DAMAGE, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT,ALLY_BULLET_SPEEDX,ALLY_BULLET_SPEEDY, 1);

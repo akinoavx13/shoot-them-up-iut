@@ -29,7 +29,7 @@ GameViewSFML::GameViewSFML(){
     _graphicLibrary->loadLibrary();
     time.Reset();
     
-    if(!font.LoadFromFile("/Users/nicolas/Desktop/Projet_POO/Projet_POO/ShootThemUp/police.ttf")){
+    if(!font.LoadFromFile("police.ttf")){
         cout << "The font can't be load" << endl;
     }
         

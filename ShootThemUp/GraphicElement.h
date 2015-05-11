@@ -33,7 +33,7 @@ public:
 
     //CONSTRUCTOR
     GraphicElement();
-    GraphicElement(const float x, const float y, const int width, const int height, const int speedX, const int speedY);
+    GraphicElement(const float x, const float y, const int width, const int height, const float speedX, const float speedY);
 
     //DESTRUCTOR
     virtual ~GraphicElement() = 0;
