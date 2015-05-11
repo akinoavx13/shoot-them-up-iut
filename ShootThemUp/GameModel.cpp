@@ -8,7 +8,6 @@
 
 #include "GameModel.h"
 #include <math.h>
-#include "const.h"
 
 using namespace std;
 
@@ -87,8 +86,7 @@ void GameModel::updateCore(){
                 if(_level->getBoss() == 0)
                 #endif
                 {
-                    _menu->setShop(true); //go to shop because level is finish
-                    _menu->setLevel(false);
+                    _level->deleteAllEnemy();
                     
                     _level->setLevelNumber(_level->getLevelNumber() + 1);
                     _level->setNbEnemies(_level->getNbEnemies() + 2);
@@ -99,6 +97,9 @@ void GameModel::updateCore(){
                         enemy->setHealth(enemy->getHealth() + (_level->getLevelNumber() - 1) * 10);
                         enemy->setDamage(enemy->getDamage() + getLevel()->getLevelNumber());
                     }
+                    
+                    _menu->setShop(true); //go to shop because level is finish
+                    _menu->setLevel(false);
                 }
                     
                 #ifdef __linux__
@@ -110,21 +111,7 @@ void GameModel::updateCore(){
                     //boss shoot every 2 turns
                     if(shoot.GetElapsedTime() >= _level->getBoss()->getFireRate())
                     {
-                        float x = _level->getBoss()->getX() + _level->getBoss()->getWidth() / 2 - STANDARD_PICTURE_WIDTH / 2;
-                        float y = _level->getBoss()->getY() + _level->getBoss()->getHeight() + 10 + STANDARD_PICTURE_WIDTH;
-                        
-                        for (int i = 0; i < 1000; i+=100) {
-                            
-                            float xb = 50 * cos((float)i * (3.14/180)) + x;
-                            float yb = 50 * sin((float)i * (3.14/180)) + y;
-
-                            cout << "x : " << xb << endl;
-                            cout << "y : " << yb << endl;
-                            cout << "---------------" << endl;
-                            
-                            _level->getBoss()->shoot(xb, yb);
-                        }
-                        
+                        _level->getBoss()->shoot();
                         shoot.Reset();
                     }
                             

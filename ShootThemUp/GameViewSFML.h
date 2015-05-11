@@ -23,6 +23,8 @@ private:
 
     sf::Clock time;
     sf::Clock shoot;
+    
+    sf::Font font;
 
     GraphicLibrary* _graphicLibrary;
 

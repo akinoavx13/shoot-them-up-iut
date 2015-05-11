@@ -20,9 +20,9 @@ Enemy::Enemy(){}
  * constructor
  * params : x, y ans health of enemy
  */
-Enemy::Enemy(const float x, const float y, const int health, const int type, const int width, const int height):Ship(x, y, health, width, height, ENEMY_FIRERATE, ENEMY_SPEEDX, ENEMY_SPEEDY), _type(type) {}
+Enemy::Enemy(const float x, const float y, const int health, const int type, const int width, const int height):Ship(x, y, health, width, height, ENEMY_FIRERATE, ENEMY_SPEEDX, ENEMY_SPEEDY), _type(type) {cout << "Enemy" << endl;}
 
-Enemy::Enemy(const float x, const float y, const int health, const int type, const int width, const int height, const float firerate):Ship(x, y, health, width, height, firerate, ENEMY_SPEEDX, ENEMY_SPEEDY), _type(type) {}
+Enemy::Enemy(const float x, const float y, const int health, const int type, const int width, const int height, const float firerate):Ship(x, y, health, width, height, firerate, ENEMY_SPEEDX, ENEMY_SPEEDY), _type(type) {cout << "Enemy" << endl;}
 
 Enemy* Enemy::Tiny(const float x, const float y){
     Enemy* enemy = new Enemy(x, y, TINY_LIFE, 1, TINY_PICTURE_WIDTH/3, TINY_PICTURE_HEIGHT);
@@ -70,13 +70,6 @@ string Enemy::toString() const{
 void Enemy::shoot(){
     if((_x + _width <= SCREEN_WIDTH) && (_x>= 0) && (_y+_height <= SCREEN_HEIGHT) && (_y>= 0)){
         _mainShoot = new Bullet(_x + _width / 2 - STANDARD_PICTURE_HEIGHT / 2, _y + _height + 5, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, 0);
-        _level->addBullet(_mainShoot);
-    }
-}
-
-void Enemy::shoot(const float x, const float y){
-    if((_x + _width <= SCREEN_WIDTH) && (_x>= 0) && (_y+_height <= SCREEN_HEIGHT) && (_y>= 0)){
-        _mainShoot = new Bullet(x, y, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, 0);
         _level->addBullet(_mainShoot);
     }
 }

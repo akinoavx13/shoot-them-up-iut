@@ -174,7 +174,7 @@ const int ADD_LIFE_PRICE = 400;
 const int DEFAULT_SCORE = 0;
 const int DEFAULT_POINT = 20;
 const int LEVEL_NUMBER = 1;
-const int LEVEL_ENEMY_NUMBER = 1;
+const int LEVEL_ENEMY_NUMBER = 3;
 const int LEVEL_INITIAL_ENEMY_OFFSET = 50;
 
 //##############################################################################################

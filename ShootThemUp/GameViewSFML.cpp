@@ -28,6 +28,12 @@ GameViewSFML::GameViewSFML(){
     _graphicLibrary = new GraphicLibrary();
     _graphicLibrary->loadLibrary();
     time.Reset();
+    
+    if(!font.LoadFromFile("/Users/nicolas/Desktop/Projet_POO/Projet_POO/ShootThemUp/police.ttf")){
+        cout << "The font can't be load" << endl;
+    }
+        
+    
 }
 
 GameViewSFML::~GameViewSFML(){
@@ -258,7 +264,43 @@ void GameViewSFML::draw() const{
         
         if(_menu->getShop())
         {
+            Picture standard(_graphicLibrary->getImage((12)), 50 , 50, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT);
+            _window->Draw(standard.getSprite());
+            
+            Picture fireBall(_graphicLibrary->getImage((5)), 50, 100, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT);
+            _window->Draw(fireBall.getSprite());
+            
+            Picture littleLaser(_graphicLibrary->getImage((18)), 50, 150, 9, 20);
+            _window->Draw(littleLaser.getSprite());
+            
+            Picture doubleLaser(_graphicLibrary->getImage((4)), 50, 200, 17, 16);
+            _window->Draw(doubleLaser.getSprite());
+            
+            Picture bigLaser(_graphicLibrary->getImage((23)), 50, 250, 9, 30);
+            _window->Draw(bigLaser.getSprite());
+            
+            Picture life(_graphicLibrary->getImage((25)), 50, 300, 20, 20);
+            _window->Draw(life.getSprite());
+            
 
+            
+            Shape cadreFinLevel;
+            cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
+            cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
+            cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-20, Color(255, 255, 255), Color(255,255,255));
+            cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-20, Color(255, 255, 255), Color(255,255,255));
+            
+            cadreFinLevel.EnableFill(false);
+            cadreFinLevel.EnableOutline(true);
+            cadreFinLevel.SetOutlineWidth(2);
+            
+            _window->Draw(cadreFinLevel);
+            
+            String nextLevel("NEXT LEVEL", font , 20);
+            nextLevel.SetX(SCREEN_WIDTH/2-60);
+            nextLevel.SetY(SCREEN_HEIGHT-45);
+            nextLevel.SetColor(Color(255, 255, 255));
+            _window->Draw(nextLevel);
         }
     }
 
@@ -281,6 +323,11 @@ bool GameViewSFML::treatEvent(){
     
     bool result = true;
     const Input& input = _window->GetInput();
+    
+    int mouseX = input.GetMouseX();
+    int mouseY = input.GetMouseY();
+    
+    
     if (_window->IsOpened())
     {
         Event Event;
@@ -318,10 +365,6 @@ bool GameViewSFML::treatEvent(){
         else if(_menu->getMenu())
         {
             if(input.IsMouseButtonDown(Mouse::Left)){
-                
-                int mouseX = input.GetMouseX();
-                int mouseY = input.GetMouseY();
-                
                 if(mouseX >= 100 && mouseX <= 200 && mouseY >= 150 && mouseY <= 170){
                     cout << "Let's go" << endl;
                     _menu->setGame(true);
@@ -379,10 +422,12 @@ bool GameViewSFML::treatEvent(){
             }
             else if(_menu->getShop())
             {
-
-                if(_gameModel->getLevel()->getNbEnemies()>0){
-                    _menu->setLevel(true);
-                    _menu->setShop(false);
+                if(input.IsMouseButtonDown(Mouse::Left)){
+                    if((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20) && (_gameModel->getLevel()->getNbEnemies()>0))
+                    {
+                        _menu->setLevel(true);
+                        _menu->setShop(false);
+                    }
                 }
             }
         }
