@@ -38,117 +38,119 @@ GameModel::~GameModel(){
  * used to change value of variables
  */
 void GameModel::updateCore(){
-    if(_menu->getMenu()){
-        #ifdef __linux__
+    if(_menu->getMenu())
+    {
+#ifdef __linux__
         if(_level==nullptr){
             _level = new Level();
         }
-        #else
+#else
         if(_level == 0){
             _level = new Level();
         }
-        #endif
+#endif
         _numberTour=0;
-
+        
     }
-    else if(_menu->getGame()){
-
+    else if(_menu->getGame())
+    {
+        cout << "GAME" << endl;
         _numberTour++;
-        clearScreen();
-
-        if(_menu->getLevel()){
+        //clearScreen();
+        
+        if(_menu->getLevel())
+        {
+            cout << "LEVEL" << endl;
             getLevel()->moveBullets();
             getLevel()->checkCollisions();
-
+            
             //check if ally is dead
-            if(getLevel()->getAlly()->isDead()){
+            if(getLevel()->getAlly()->isDead() )
+            {
                 //and game is not finished
-                if(!getLevel()->getAlly()->isOver()){
+                if(!getLevel()->getAlly()->isOver())
+                {
                     getLevel()->getAlly()->setHealth(ALLY_LIFE);
                     getLevel()->getAlly()->setNumberOfLife(getLevel()->getAlly()->getNumberOfLife() - 1);
                 }
+                else{
+                    _menu->setGame(false);
+                    _menu->setLevel(false);
+                    _menu->setSaveScore(true); //go to save score because ally is dead
+                }
             }
-            if(getLevel()->getAlly()->isOver()){
-                _menu->setIntro(false);
-                _menu->setGame(false);
-                _menu->setLevel(false);
-                _menu->setShop(false);
-                _menu->setMenu(false);
-                _menu->setScore(false);
-                _menu->setEnding(false);
-                _menu->setSaveScore(true); //go to save score because ally is dead
-            }
-
-            if(getLevel()->getEnemiesNumber() == 1){
+            if(getLevel()->getEnemiesNumber() == 1)
+            {
                 getLevel()->addBoss();
                 //ici on peut ajouter de la vie au boss
                 getLevel()->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + getLevel()->getLevelNumber());
             }
-
-            if(getLevel()->getEnemiesNumber() <= 0){
+            
+            if(getLevel()->getEnemiesNumber() <= 0)
+            {
                 
                 #ifdef __linux__
-                if(getLevel()->getBoss() == nullptr){
+                if(getLevel()->getBoss() == nullptr)
                 #else
-                if(getLevel()->getBoss() == 0){
+                if(getLevel()->getBoss() == 0)
                 #endif
-                    _menu->setIntro(false);
-                    _menu->setGame(false);
+                {
+                    cout << "fin niveau" << endl;
                     _menu->setLevel(false);
                     _menu->setShop(true); //go to shop because level is finish
-                    _menu->setMenu(false);
-                    _menu->setScore(false);
-                    _menu->setEnding(false);
                 }
-
+                    
                 #ifdef __linux__
-                else if(_level->getBoss() != nullptr &&  !_level->getBoss()->isDead()){
+                else if(_level->getBoss() != nullptr &&  !_level->getBoss()->isDead())
                 #else
-                else if(_level->getBoss() != 0 &&  !_level->getBoss()->isDead()){
+                else if(_level->getBoss() != 0 &&  !_level->getBoss()->isDead())
                 #endif
-
+                {
                     //boss shoot every 2 turns
-                                        
-                    if(shoot.GetElapsedTime() >= _level->getBoss()->getFireRate()){
+                    if(shoot.GetElapsedTime() >= _level->getBoss()->getFireRate())
+                    {
                         _level->getBoss()->shoot();
                         shoot.Reset();
                     }
-                    
+                            
                     _bossMoveIncrement++;
                     float xBoss = 50 * cos((float)_bossMoveIncrement * (3.14/180)) + SCREEN_WIDTH / 2 - BOSS_PICTURE_WIDTH / 6;
                     float yBoss = 50 * sin((float)_bossMoveIncrement * (3.14/180)) + SCREEN_HEIGHT / 2 - BOSS_PICTURE_HEIGHT / 2 - 100;
-                    
                     _level->getBoss()->move(xBoss, yBoss);
                 }
             }
-            else{
+            else
+            {
                 //enemies shoot every 2 turns
-                if(shoot.GetElapsedTime() >= ENEMY_FIRERATE){
+                if(shoot.GetElapsedTime() >= ENEMY_FIRERATE)
+                {
                     _level->EnemiesShoot();
                     shoot.Reset();
                 }
-                
-                //enemies move every 4 turns
-                _level->moveEnemies();
             }
+            _level->moveEnemies();
+            
         }
-
-        else if (_menu->getShop()) {
+        else if (_menu->getShop())
+        {
+            cout << "SHOP" << endl;
             _level->setLevelNumber(_level->getLevelNumber() + 1);
             _level->setNbEnemies(_level->getNbEnemies() + 2);
             _level->addEnemies();
-            for (auto enemy : getLevel()->getEnemies()) {
+            for (auto enemy : getLevel()->getEnemies())
+            {
                 //ici on peut ajouter de la vie au ennemis
                 enemy->setHealth(enemy->getHealth() + getLevel()->getLevelNumber());
                 enemy->setDamage(enemy->getDamage() + getLevel()->getLevelNumber());
             }
+            cout << "ajout ok" << endl;
         }
     }
-
+    
     else if(_menu->getSaveScore()){
-
+        
     }
-
+    
     else if(_menu->getEnding()){
         _menu->setIntro(false);
         _menu->setGame(false);

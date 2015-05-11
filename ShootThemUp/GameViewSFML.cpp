@@ -12,6 +12,10 @@
 
 using namespace sf;
 
+
+#include <iostream>
+using namespace std;
+
 GameViewSFML::GameViewSFML(){
     _menu = new Menu();
     _window = new RenderWindow(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Shmup");
@@ -44,7 +48,7 @@ void GameViewSFML::draw() const{
     _window->Clear();
     if(_menu->getIntro())
     {
-
+        cout << "intro" << endl;
         Picture bg(_graphicLibrary->getImage(22), 0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
         _window->Draw(bg.getSprite());
 
@@ -57,6 +61,8 @@ void GameViewSFML::draw() const{
 
     else if(_menu->getMenu())
     {
+        cout << "menu" << endl;
+
         Picture button1(_graphicLibrary->getImage(15), 100,150,100,20);
         _window->Draw(button1.getSprite());
 
@@ -65,14 +71,16 @@ void GameViewSFML::draw() const{
 
         Picture button3(_graphicLibrary->getImage(2), 100,300,80,20);
         _window->Draw(button3.getSprite());
-
-
     }
 
     else if(_menu->getGame())
     {
+        cout << "game" << endl;
+
         if(_menu->getLevel())
         {
+            cout << "level" << endl;
+
             Picture bg(_graphicLibrary->getImage(0), 0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
             _window->Draw(bg.getSprite());
 
@@ -81,21 +89,23 @@ void GameViewSFML::draw() const{
                 
             if(_gameModel->getLevel()->getEnemiesNumber() > 0)
             {
-                for(auto e : _gameModel->getLevel()->getEnemies()){
-
+                for(auto e : _gameModel->getLevel()->getEnemies())
+                {
                     int xe = e->getX();
                     int ye = e->getY();
 
-                    if(e->getType()==1){
+                    if(e->getType()==1)
+                    {
                         Picture en(_graphicLibrary->getImage(10), xe,ye,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT,0+(TINY_PICTURE_WIDTH/3)*k3,0,(TINY_PICTURE_WIDTH/3)+(TINY_PICTURE_WIDTH/3)*k3,TINY_PICTURE_HEIGHT);
                         _window->Draw(en.getSprite());
-                        
                     }
-                    else if(e->getType()==2){
+                    else if(e->getType()==2)
+                    {
                         Picture en(_graphicLibrary->getImage(11), xe,ye,SUBMARINE_PICTURE_WIDTH,SUBMARINE_PICTURE_HEIGHT,0+(SUBMARINE_PICTURE_WIDTH/2)*k2,0,(SUBMARINE_PICTURE_WIDTH/2)+(SUBMARINE_PICTURE_WIDTH/2)*k2,SUBMARINE_PICTURE_HEIGHT);
                         _window->Draw(en.getSprite());
                     }
-                    else if(e->getType()==3){
+                    else if(e->getType()==3)
+                    {
                         Picture en(_graphicLibrary->getImage(21), xe,ye,MIGHTY_PICTURE_WIDTH,MIGHTY_PICTURE_HEIGHT,0+(MIGHTY_PICTURE_WIDTH/3)*k3,0,(MIGHTY_PICTURE_WIDTH/3)+(MIGHTY_PICTURE_WIDTH/3)*k3,MIGHTY_PICTURE_HEIGHT);
                         _window->Draw(en.getSprite());
                     }
@@ -116,15 +126,18 @@ void GameViewSFML::draw() const{
                     Shape vieEnemy;
                     vieEnemy.AddPoint(xe, ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
                     
-                    if(e->getType() == 1){
+                    if(e->getType() == 1)
+                    {
                         vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)TINY_LIFE) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
                         vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)TINY_LIFE) * (float)e->getWidth()), ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     }
-                    else if(e->getType() == 2){
+                    else if(e->getType() == 2)
+                    {
                         vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)SUBMARINE_LIFE) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
                         vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)SUBMARINE_LIFE) * (float)e->getWidth()), ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     }
-                    else if(e->getType() == 3){
+                    else if(e->getType() == 3)
+                    {
                         vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)MIGHTY_LIFE) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
                         vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)MIGHTY_LIFE) * (float)e->getWidth()), ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     }
@@ -134,8 +147,6 @@ void GameViewSFML::draw() const{
                     vieEnemy.EnableOutline(false);
                     
                     _window->Draw(vieEnemy);
-                    
-                    
                 }
             }
 
@@ -144,7 +155,7 @@ void GameViewSFML::draw() const{
             {
                 
                 #ifdef __linux__
-                if(_gameModel->getLevel()->getBoss() != nullptr)
+                //if(_gameModel->getLevel()->getBoss() != nullptr)
                 #else
                 if(_gameModel->getLevel()->getBoss() != 0)
                 #endif
@@ -168,7 +179,7 @@ void GameViewSFML::draw() const{
                     
                     Shape vieBoss;
                     vieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
-                    std::cout << (float)_gameModel->getLevel()->getBoss()->getHealth() << std::endl;
+                    //std::cout << (float)_gameModel->getLevel()->getBoss()->getHealth() << std::endl;
                     vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / (float)BOSS_LIFE) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
                     vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / (float)BOSS_LIFE) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb+_gameModel->getLevel()->getBoss()->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     vieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
@@ -180,30 +191,35 @@ void GameViewSFML::draw() const{
                 }
             }
 
-            if(_gameModel->getLevel()->getNumberOfBullets() > 0){
-                for(auto b : _gameModel->getLevel()->getBullets()){
+            if(_gameModel->getLevel()->getNumberOfBullets() > 0)
+            {
+                for(auto b : _gameModel->getLevel()->getBullets())
+                {
                     int xba = b->getX();
                     int yba = b->getY();
                     
-                    if(b->getType() == 0){
+                    if(b->getType() == 0)
+                    {
                         Picture bba(_graphicLibrary->getImage(12), xba,yba,b->getWidth(),b->getHeight());
                         _window->Draw(bba.getSprite());
                     }
-                    else if(b->getType() == 1){
+                    else if(b->getType() == 1)
+                    {
                         Picture bba(_graphicLibrary->getImage(5), xba,yba,b->getWidth(),b->getHeight());
                         _window->Draw(bba.getSprite());
 
                     }
-                    else if(b->getType() == 2){
+                    else if(b->getType() == 2)
+                    {
                         Picture bba(_graphicLibrary->getImage(18), xba,yba,b->getWidth(),b->getHeight());
                         _window->Draw(bba.getSprite());
 
                     }
-                    else if(b->getType() == 3){
+                    else if(b->getType() == 3)
+                    {
                         Picture bba(_graphicLibrary->getImage(23), xba,yba,b->getWidth(),b->getHeight());
                         _window->Draw(bba.getSprite());
                     }
-                    
                 }
             }
                 
@@ -230,7 +246,7 @@ void GameViewSFML::draw() const{
             _window->Draw(vie);
             
             #ifdef __linux__
-            if(_gameModel->getLevel()->getAlly() != nullptr){
+            //if(_gameModel->getLevel()->getAlly() != nullptr){
             #else
             if(_gameModel->getLevel()->getAlly() != 0){
             #endif
@@ -239,28 +255,33 @@ void GameViewSFML::draw() const{
                 Picture ally(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,0+(ALLY_PICTURE_WIDTH/3)*k3,0,(ALLY_PICTURE_WIDTH/3)+(ALLY_PICTURE_WIDTH/3)*k3,ALLY_PICTURE_HEIGHT);
                 _window->Draw(ally.getSprite());
                 
-                for(int i = 0; i<_gameModel->getLevel()->getAlly()->getNumberOfLife(); i++){
+                for(int i = 0; i<_gameModel->getLevel()->getAlly()->getNumberOfLife(); i++)
+                {
                     Picture life(_graphicLibrary->getImage(25), i*25,5,20,20);
                     _window->Draw(life.getSprite());
                 }
             }
         }
+        
         if(_menu->getShop())
         {
-
+            cout << "shop" << endl;
         }
     }
 
     else if(_menu->getScore())
     {
+        cout << "score" << endl;
 
     }
     else if(_menu->getSaveScore())
     {
+        cout << "savescore" << endl;
 
     }
     else if(_menu->getEnding())
     {
+        cout << "ending" << endl;
 
     }
     _window->Display();
@@ -307,8 +328,12 @@ bool GameViewSFML::treatEvent(){
         
         else if(_menu->getShop())
         {
-            _menu->setLevel(true);
-            _menu->setShop(false);
+            cout << "change" << endl;
+            if(_gameModel->getLevel()->getNbEnemies()>0){
+                cout << "go" << endl;
+                _menu->setLevel(true);
+                _menu->setShop(false);
+            }
         }
         
         else if(_menu->getMenu())

@@ -123,23 +123,31 @@ void Level::checkCollisions(){
         //collision between boss and bullets
         int b = 0;
         for (auto bullet : _tabBullets) {
-            if(_boss->collisions(bullet)){
-                //cout << "Un boss à pris une balle !" << endl;
-                _boss->setHealth(_boss->getHealth() - bullet->getDamage());
-                collision = true;
+#ifdef __linux__
+            if(_boss!=nullptr){
+#else
+            if(_boss != 0){
+#endif
+                if(_boss->collisions(bullet)){
+                
 
-                if(_boss->isDead()){
-                    //cout << "Vous avez tué le boss" << endl;
-                    #ifdef __linux__
-                    _boss = nullptr;
-                    #else
-                    _boss = 0;
-                    #endif
+                    //cout << "Un boss à pris une balle !" << endl;
+                    _boss->setHealth(_boss->getHealth() - bullet->getDamage());
+                    collision = true;
+
+                    if(_boss->isDead()){
+                        //cout << "Vous avez tué le boss" << endl;
+                        #ifdef __linux__
+                        _boss = nullptr;
+                        #else
+                        _boss = 0;
+                        #endif
+                        delete _boss;
+                    }
+                    _tabBullets.erase(_tabBullets.begin() + b);
+                    delete bullet;
+                    b--;
                 }
-
-                _tabBullets.erase(_tabBullets.begin() + b);
-                delete bullet;
-                b--;
             }
             b++;
         }
