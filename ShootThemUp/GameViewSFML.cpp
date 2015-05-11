@@ -325,17 +325,6 @@ bool GameViewSFML::treatEvent(){
         {
             
         }
-        
-        else if(_menu->getShop())
-        {
-            cout << "change" << endl;
-            if(_gameModel->getLevel()->getNbEnemies()>0){
-                cout << "go" << endl;
-                _menu->setLevel(true);
-                _menu->setShop(false);
-            }
-        }
-        
         else if(_menu->getMenu())
         {
             if(input.IsMouseButtonDown(Mouse::Left)){
@@ -395,6 +384,16 @@ bool GameViewSFML::treatEvent(){
                         _gameModel->getLevel()->getAlly()->shoot();
                         shoot.Reset();
                     }
+                }
+            }
+            else if(_menu->getShop())
+            {
+                cout << "change" << endl;
+                cout << "test : " << _gameModel->getLevel()->getNbEnemies() << endl;
+                if(_gameModel->getLevel()->getNbEnemies()>0){
+                    cout << "go" << endl;
+                    _menu->setLevel(true);
+                    _menu->setShop(false);
                 }
             }
         }

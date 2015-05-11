@@ -79,14 +79,7 @@ void GameModel::updateCore(){
                     _menu->setSaveScore(true); //go to save score because ally is dead
                 }
             }
-            if(getLevel()->getEnemiesNumber() == 1)
-            {
-                getLevel()->addBoss();
-                //ici on peut ajouter de la vie au boss
-                getLevel()->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + getLevel()->getLevelNumber());
-            }
-            
-            if(getLevel()->getEnemiesNumber() <= 0)
+            if(getLevel()->getEnemiesNumber() == 0)
             {
                 
                 #ifdef __linux__
@@ -96,8 +89,21 @@ void GameModel::updateCore(){
                 #endif
                 {
                     cout << "fin niveau" << endl;
-                    _menu->setLevel(false);
                     _menu->setShop(true); //go to shop because level is finish
+                    _menu->setLevel(false);
+                    
+                    
+                    cout << "SHOP" << endl;
+                    _level->setLevelNumber(_level->getLevelNumber() + 1);
+                    _level->setNbEnemies(_level->getNbEnemies() + 2);
+                    _level->addEnemies();
+                    for (auto enemy : getLevel()->getEnemies())
+                    {
+                        //ici on peut ajouter de la vie au ennemis
+                        enemy->setHealth(enemy->getHealth() + getLevel()->getLevelNumber());
+                        enemy->setDamage(enemy->getDamage() + getLevel()->getLevelNumber());
+                    }
+                    cout << "ajout ok" << endl;
                 }
                     
                 #ifdef __linux__
@@ -119,6 +125,12 @@ void GameModel::updateCore(){
                     _level->getBoss()->move(xBoss, yBoss);
                 }
             }
+            else if(getLevel()->getEnemiesNumber() == 1)
+            {
+                getLevel()->addBoss();
+                //ici on peut ajouter de la vie au boss
+                getLevel()->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + getLevel()->getLevelNumber());
+            }
             else
             {
                 //enemies shoot every 2 turns
@@ -131,6 +143,7 @@ void GameModel::updateCore(){
             _level->moveEnemies();
             
         }
+        
         else if (_menu->getShop())
         {
             cout << "SHOP" << endl;
@@ -151,7 +164,8 @@ void GameModel::updateCore(){
         
     }
     
-    else if(_menu->getEnding()){
+    else if(_menu->getEnding())
+    {
         _menu->setIntro(false);
         _menu->setGame(false);
         _menu->setLevel(false);

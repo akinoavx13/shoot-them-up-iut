@@ -238,9 +238,8 @@ void Level::checkCollisions(){
                     
                     delete _tabBullets[i];
                     delete _tabBullets[j];
-                    i--;
-                    
-                    
+                    //i--;
+                    j=0;
                 }
             }
         }
