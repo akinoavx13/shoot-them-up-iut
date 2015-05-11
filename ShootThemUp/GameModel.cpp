@@ -88,6 +88,8 @@ void GameModel::updateCore(){
                 #endif
                 {
                     _level->deleteAllEnemy();
+                    _level->deleteAllBullets();
+                    
                     
                     _level->setLevelNumber(_level->getLevelNumber() + 1);
                     _level->setNbEnemies(_level->getNbEnemies() + 2);
@@ -98,6 +100,8 @@ void GameModel::updateCore(){
                         enemy->setHealth(enemy->getHealth() + (_level->getLevelNumber() - 1) * 10);
                         enemy->setDamage(enemy->getDamage() + getLevel()->getLevelNumber());
                     }
+                    
+                    _level->getAlly()->move(SCREEN_WIDTH/2, SCREEN_HEIGHT-ALLY_PICTURE_HEIGHT-10);
                     
                     _menu->setShop(true); //go to shop because level is finish
                     _menu->setLevel(false);
@@ -154,15 +158,7 @@ void GameModel::updateCore(){
         
         else if (_menu->getShop())
         {
-            _level->setLevelNumber(_level->getLevelNumber() + 1);
-            _level->setNbEnemies(_level->getNbEnemies() + 2);
-            _level->addEnemies();
-            for (auto enemy : _level->getEnemies())
-            {
-                //ici on peut ajouter de la vie au ennemis
-                enemy->setHealth(enemy->getHealth() + _level->getLevelNumber());
-                enemy->setDamage(enemy->getDamage() + _level->getLevelNumber());
-            }
+
         }
     }
     

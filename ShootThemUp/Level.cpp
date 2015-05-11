@@ -208,7 +208,6 @@ void Level::addEnemies(){
 
     
     for(int i = 0; i < _nbEnemies; i++){
-        
         int type = rand()%3;
 
         if(type == 0){
@@ -248,6 +247,16 @@ void Level::deleteAllEnemy(){
 
     _tabEnemies.clear();
 
+}
+
+void Level::deleteAllBullets(){
+    
+    for (int i = 0; i < _tabBullets.size(); i++) {
+        delete _tabBullets[i];
+    }
+    
+    _tabBullets.clear();
+    
 }
 
 //----------GETTERS----------

@@ -49,6 +49,7 @@ public:
     void addBoss();
     void addEnemies();
     void deleteAllEnemy();
+    void deleteAllBullets();
 
     void moveBullets();
 

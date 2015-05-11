@@ -423,7 +423,7 @@ bool GameViewSFML::treatEvent(){
             else if(_menu->getShop())
             {
                 if(input.IsMouseButtonDown(Mouse::Left)){
-                    if((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20) && (_gameModel->getLevel()->getNbEnemies()>0))
+                    if((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20))
                     {
                         _menu->setLevel(true);
                         _menu->setShop(false);
