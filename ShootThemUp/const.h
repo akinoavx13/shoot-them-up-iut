@@ -103,8 +103,8 @@ const int SUBMARINE_PICTURE_WIDTH = 82;
 const int BOSS_LIFE = 200;
 const int BOSS_PICTURE_HEIGHT = 74;
 const int BOSS_PICTURE_WIDTH = 279;
-const float BOSS_DEFAULT_SPEEDX = 1;
-const float BOSS_DEFAULT_SPEEDY = 1;
+const float BOSS_DEFAULT_SPEEDX = 3;
+const float BOSS_DEFAULT_SPEEDY = 3;
 const float BOSS_FIRERATE = 1;
 
 //##############################################################################################
