@@ -48,7 +48,6 @@ void GameViewSFML::draw() const{
     _window->Clear();
     if(_menu->getIntro())
     {
-        cout << "intro" << endl;
         Picture bg(_graphicLibrary->getImage(22), 0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
         _window->Draw(bg.getSprite());
 
@@ -61,8 +60,6 @@ void GameViewSFML::draw() const{
 
     else if(_menu->getMenu())
     {
-        cout << "menu" << endl;
-
         Picture button1(_graphicLibrary->getImage(15), 100,150,100,20);
         _window->Draw(button1.getSprite());
 
@@ -75,12 +72,8 @@ void GameViewSFML::draw() const{
 
     else if(_menu->getGame())
     {
-        cout << "game" << endl;
-
         if(_menu->getLevel())
         {
-            cout << "level" << endl;
-
             Picture bg(_graphicLibrary->getImage(0), 0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
             _window->Draw(bg.getSprite());
 
@@ -265,23 +258,20 @@ void GameViewSFML::draw() const{
         
         if(_menu->getShop())
         {
-            cout << "shop" << endl;
+
         }
     }
 
     else if(_menu->getScore())
     {
-        cout << "score" << endl;
 
     }
     else if(_menu->getSaveScore())
     {
-        cout << "savescore" << endl;
 
     }
     else if(_menu->getEnding())
     {
-        cout << "ending" << endl;
 
     }
     _window->Display();
@@ -333,6 +323,7 @@ bool GameViewSFML::treatEvent(){
                 int mouseY = input.GetMouseY();
                 
                 if(mouseX >= 100 && mouseX <= 200 && mouseY >= 150 && mouseY <= 170){
+                    cout << "Let's go" << endl;
                     _menu->setGame(true);
                     _menu->setLevel(true);
                     _menu->setMenu(false);
@@ -341,7 +332,7 @@ bool GameViewSFML::treatEvent(){
                     result=false;
                 }
                 else if(mouseX >= 100 && mouseX <= 200 && mouseY >= 300 && mouseY <= 320){
-                    //std::cout << "nice 3" << std::endl;
+                    
                 }
             }
         }
@@ -388,10 +379,8 @@ bool GameViewSFML::treatEvent(){
             }
             else if(_menu->getShop())
             {
-                cout << "change" << endl;
-                cout << "test : " << _gameModel->getLevel()->getNbEnemies() << endl;
+
                 if(_gameModel->getLevel()->getNbEnemies()>0){
-                    cout << "go" << endl;
                     _menu->setLevel(true);
                     _menu->setShop(false);
                 }
