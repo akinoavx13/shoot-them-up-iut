@@ -61,17 +61,17 @@ void GameModel::updateCore(){
         if(_menu->getLevel())
         {
             cout << "LEVEL" << endl;
-            getLevel()->moveBullets();
-            getLevel()->checkCollisions();
+            _level->moveBullets();
+            _level->checkCollisions();
             
             //check if ally is dead
-            if(getLevel()->getAlly()->isDead() )
+            if(_level->getAlly()->isDead() )
             {
                 //and game is not finished
-                if(!getLevel()->getAlly()->isOver())
+                if(!_level->getAlly()->isOver())
                 {
-                    getLevel()->getAlly()->setHealth(ALLY_LIFE);
-                    getLevel()->getAlly()->setNumberOfLife(getLevel()->getAlly()->getNumberOfLife() - 1);
+                    _level->getAlly()->setHealth(ALLY_LIFE);
+                    _level->getAlly()->setNumberOfLife(getLevel()->getAlly()->getNumberOfLife() - 1);
                 }
                 else{
                     _menu->setGame(false);
@@ -79,13 +79,13 @@ void GameModel::updateCore(){
                     _menu->setSaveScore(true); //go to save score because ally is dead
                 }
             }
-            if(getLevel()->getEnemiesNumber() == 0)
+            if(_level->getEnemiesNumber() == 0)
             {
                 
                 #ifdef __linux__
-                if(getLevel()->getBoss() == nullptr)
+                if(_level->getBoss() == nullptr)
                 #else
-                if(getLevel()->getBoss() == 0)
+                if(_level->getBoss() == 0)
                 #endif
                 {
                     cout << "fin niveau" << endl;
@@ -97,10 +97,10 @@ void GameModel::updateCore(){
                     _level->setLevelNumber(_level->getLevelNumber() + 1);
                     _level->setNbEnemies(_level->getNbEnemies() + 2);
                     _level->addEnemies();
-                    for (auto enemy : getLevel()->getEnemies())
+                    for (auto enemy : _level->getEnemies())
                     {
                         //ici on peut ajouter de la vie au ennemis
-                        enemy->setHealth(enemy->getHealth() + getLevel()->getLevelNumber());
+                        enemy->setHealth(enemy->getHealth() + (_level->getLevelNumber() - 1) * 10);
                         enemy->setDamage(enemy->getDamage() + getLevel()->getLevelNumber());
                     }
                     cout << "ajout ok" << endl;
@@ -125,11 +125,11 @@ void GameModel::updateCore(){
                     _level->getBoss()->move(xBoss, yBoss);
                 }
             }
-            else if(getLevel()->getEnemiesNumber() == 1)
+            else if(_level->getEnemiesNumber() == 1)
             {
-                getLevel()->addBoss();
+                _level->addBoss();
                 //ici on peut ajouter de la vie au boss
-                getLevel()->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + getLevel()->getLevelNumber());
+                _level->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + (_level->getLevelNumber() - 1) * 30 );
             }
             else
             {
@@ -150,11 +150,11 @@ void GameModel::updateCore(){
             _level->setLevelNumber(_level->getLevelNumber() + 1);
             _level->setNbEnemies(_level->getNbEnemies() + 2);
             _level->addEnemies();
-            for (auto enemy : getLevel()->getEnemies())
+            for (auto enemy : _level->getEnemies())
             {
                 //ici on peut ajouter de la vie au ennemis
-                enemy->setHealth(enemy->getHealth() + getLevel()->getLevelNumber());
-                enemy->setDamage(enemy->getDamage() + getLevel()->getLevelNumber());
+                enemy->setHealth(enemy->getHealth() + _level->getLevelNumber());
+                enemy->setDamage(enemy->getDamage() + _level->getLevelNumber());
             }
             cout << "ajout ok" << endl;
         }

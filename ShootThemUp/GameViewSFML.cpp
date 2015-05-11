@@ -128,18 +128,18 @@ void GameViewSFML::draw() const{
                     
                     if(e->getType() == 1)
                     {
-                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)TINY_LIFE) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
-                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)TINY_LIFE) * (float)e->getWidth()), ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / ((float)TINY_LIFE + (_gameModel->getLevel()->getLevelNumber()- 1) * 10)) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / ((float)TINY_LIFE + (_gameModel->getLevel()->getLevelNumber()- 1) * 10)) * (float)e->getWidth()), ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     }
                     else if(e->getType() == 2)
                     {
-                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)SUBMARINE_LIFE) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
-                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)SUBMARINE_LIFE) * (float)e->getWidth()), ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / ((float)SUBMARINE_LIFE + (_gameModel->getLevel()->getLevelNumber() - 1) * 10)) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / ((float)SUBMARINE_LIFE + (_gameModel->getLevel()->getLevelNumber() - 1) * 10)) * (float)e->getWidth()), ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     }
                     else if(e->getType() == 3)
                     {
-                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)MIGHTY_LIFE) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
-                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / (float)MIGHTY_LIFE) * (float)e->getWidth()), ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / ((float)MIGHTY_LIFE + (_gameModel->getLevel()->getLevelNumber() - 1) * 10)) * (float)e->getWidth()), ye+e->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
+                        vieEnemy.AddPoint(xe + (((float)e->getHealth() / ((float)MIGHTY_LIFE + (_gameModel->getLevel()->getLevelNumber() - 1) * 10)) * (float)e->getWidth()), ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     }
                     
                     vieEnemy.AddPoint(xe, ye+e->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
@@ -180,8 +180,8 @@ void GameViewSFML::draw() const{
                     Shape vieBoss;
                     vieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
                     //std::cout << (float)_gameModel->getLevel()->getBoss()->getHealth() << std::endl;
-                    vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / (float)BOSS_LIFE) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
-                    vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / (float)BOSS_LIFE) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb+_gameModel->getLevel()->getBoss()->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
+                    vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / ((float)BOSS_LIFE + (_gameModel->getLevel()->getLevelNumber()-1) *30)) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb+_gameModel->getLevel()->getBoss()->getHeight(), Color(240, 76, 36), Color(240, 76, 36));
+                    vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / ((float)BOSS_LIFE + (_gameModel->getLevel()->getLevelNumber()-1) *30)) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb+_gameModel->getLevel()->getBoss()->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     vieBoss.AddPoint(xb, yb+_gameModel->getLevel()->getBoss()->getHeight()+5, Color(240, 76, 36), Color(240, 76, 36));
                     vieBoss.EnableFill(true);
                     vieBoss.EnableOutline(false);
