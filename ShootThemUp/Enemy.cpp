@@ -83,11 +83,10 @@ void Enemy::shoot(){
         _mainShoot = Bullet::Laser(_x + _width / 2 - LASER_PICTURE_WIDTH / 2, _y + LASER_PICTURE_HEIGHT + 5 + _height, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, _damage);
         _level->addBullet(_mainShoot);
     }
-    
-    /*
-        _mainShoot = new Bullet(_x + _width / 2 - STANDARD_PICTURE_HEIGHT / 2, _y + _height + 5, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, 0);
+    else if(_bulletType == 4){
+        _mainShoot = Bullet::DoubleTinyLaser(_x + _width / 2 - DOUBLE_TINY_LASER_PICTURE_WIDTH / 2, _y + DOUBLE_TINY_LASER_PICTURE_HEIGHT + 5 + _height, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, _damage);
         _level->addBullet(_mainShoot);
-    */
+    }
 }
 
 void Enemy::shoot(const float x, const float y, const float speedX, const float speedY){
@@ -105,6 +104,10 @@ void Enemy::shoot(const float x, const float y, const float speedX, const float 
     }
     else if(_bulletType == 3){
         _mainShoot = Bullet::Laser(x, y, speedX, speedY, _damage);
+        _level->addBullet(_mainShoot);
+    }
+    else if(_bulletType == 4){
+        _mainShoot = Bullet::DoubleTinyLaser(x, y, speedX, speedY, _damage);
         _level->addBullet(_mainShoot);
     }
 }

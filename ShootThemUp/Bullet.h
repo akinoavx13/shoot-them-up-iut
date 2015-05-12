@@ -28,6 +28,7 @@ public:
     static Bullet* FireBall(const float x, const float y, const float speedX, const float speedY, const float damage);
     static Bullet* TinyLaser(const float x, const float y, const float speedX, const float speedY, const float damage);
     static Bullet* Laser(const float x, const float y, const float speedX, const float speedY, const float damage);
+    static Bullet* DoubleTinyLaser(const float x, const float y, const float speedX, const float speedY, const float damage);
 
     //DESTRUCTOR
     virtual ~Bullet();

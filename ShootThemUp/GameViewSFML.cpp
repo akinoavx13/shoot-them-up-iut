@@ -233,6 +233,11 @@ void GameViewSFML::draw(){
                         Picture bba(_graphicLibrary->getImage(23), xba,yba,b->getWidth(),b->getHeight());
                         _window->Draw(bba.getSprite());
                     }
+                    else if(b->getType() == 4)
+                    {
+                        Picture bba(_graphicLibrary->getImage(4), xba,yba,b->getWidth(),b->getHeight());
+                        _window->Draw(bba.getSprite());
+                    }
                 }
             }
                 

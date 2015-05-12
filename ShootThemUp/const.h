@@ -166,6 +166,16 @@ const int LASER_PRICE = 700;
 //##############################################################################################
 
 /*
+ * DOUBLE TINY LASER BULLET
+ */
+const int DOUBLE_TINY_LASER_DAMAGE = 50;
+const int DOUBLE_TINY_LASER_PICTURE_HEIGHT = 16;
+const int DOUBLE_TINY_LASER_PICTURE_WIDTH = 17;
+const int DOUBLE_TINY_LASER_PRICE = 500;
+
+//##############################################################################################
+
+/*
  * OTHER
  */
 const int SHIP_OFFSET_SHOOT = 20;

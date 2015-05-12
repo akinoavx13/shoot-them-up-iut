@@ -36,6 +36,11 @@ Bullet* Bullet::Laser(const float x, const float y, const float speedX, const fl
     return bullet;
 }
 
+Bullet* Bullet::DoubleTinyLaser(const float x, const float y, const float speedX, const float speedY, const float damage){
+    Bullet* bullet = new Bullet(x, y, damage, DOUBLE_TINY_LASER_PICTURE_WIDTH, DOUBLE_TINY_LASER_PICTURE_HEIGHT,speedX,speedY, 4);
+    return bullet;
+}
+
 /*
  * destructor
  * info : virtual
