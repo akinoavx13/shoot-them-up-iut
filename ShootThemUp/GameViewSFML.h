@@ -27,6 +27,8 @@ private:
     sf::Font font;
 
     GraphicLibrary* _graphicLibrary;
+    float _yBackground;
+    float _yBackground2;
 
 public:
     //CONSTRUCTOR
@@ -36,7 +38,7 @@ public:
     ~GameViewSFML();
 
     //METHODS
-    void draw() const;
+    void draw();
 
     //SETTERS
     void setModel(GameModel* gameModel);

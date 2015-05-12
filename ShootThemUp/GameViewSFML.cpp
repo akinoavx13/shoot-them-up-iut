@@ -16,7 +16,7 @@ using namespace sf;
 #include <iostream>
 using namespace std;
 
-GameViewSFML::GameViewSFML(){
+GameViewSFML::GameViewSFML():_yBackground(0), _yBackground2(-SCREEN_HEIGHT + 2){
     _menu = new Menu();
     _window = new RenderWindow(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Shmup");
     _window->SetFramerateLimit(SCREEN_FPS);
@@ -32,7 +32,6 @@ GameViewSFML::GameViewSFML(){
     if(!font.LoadFromFile("police.ttf")){
         cout << "The font can't be load" << endl;
     }
-        
     
 }
 
@@ -50,13 +49,13 @@ void GameViewSFML::setModelMenu(){
     _gameModel->setMenu(_menu);
 }
 
-void GameViewSFML::draw() const{
+void GameViewSFML::draw(){
     _window->Clear();
     if(_menu->getIntro())
     {
         Picture bg(_graphicLibrary->getImage(22), 0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
         _window->Draw(bg.getSprite());
-
+        
         if(time.GetElapsedTime()>=1)
         {
             _menu->setIntro(false);
@@ -80,8 +79,22 @@ void GameViewSFML::draw() const{
     {
         if(_menu->getLevel())
         {
-            Picture bg(_graphicLibrary->getImage(0), 0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
+            Picture bg(_graphicLibrary->getImage(0), 0,_yBackground,SCREEN_WIDTH,SCREEN_HEIGHT);
+            Picture bg2(_graphicLibrary->getImage(0), 0,_yBackground2,SCREEN_WIDTH,SCREEN_HEIGHT);
+
             _window->Draw(bg.getSprite());
+            _window->Draw(bg2.getSprite());
+
+            if(_yBackground > SCREEN_HEIGHT - 5){
+                _yBackground = -SCREEN_HEIGHT + 2;
+            }
+            
+            if(_yBackground2 > SCREEN_HEIGHT - 5){
+                _yBackground2 = -SCREEN_HEIGHT + 2;
+            }
+
+            _yBackground += 0.5;
+            _yBackground2 += 0.5;
 
             int k3 = _gameModel->getNumberTour()%3;
             int k2 = _gameModel->getNumberTour()%2;
