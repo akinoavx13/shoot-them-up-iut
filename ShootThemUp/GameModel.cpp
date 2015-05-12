@@ -110,6 +110,9 @@ void GameModel::updateCore(){
                             enemy->setBulletType(2);
                         }
                         if(_level->getLevelNumber() >= 4){
+                            enemy->setBulletType(4);
+                        }
+                        if(_level->getLevelNumber() >= 5){
                             enemy->setBulletType(3);
                         }
                     }
@@ -165,6 +168,9 @@ void GameModel::updateCore(){
                         _level->getBoss()->setBulletType(2);
                     }
                     if(_level->getLevelNumber() >= 4){
+                        _level->getBoss()->setBulletType(4);
+                    }
+                    if(_level->getLevelNumber() >= 5){
                         _level->getBoss()->setBulletType(3);
                     }
 
