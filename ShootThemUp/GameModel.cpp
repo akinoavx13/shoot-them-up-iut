@@ -47,10 +47,12 @@ void GameModel::updateCore(){
         }
 #else
         if(_level == 0){
+            cout << "cour" << endl;
             _level = new Level();
         }
 #endif
         _numberTour=0;
+         _bossMoveIncrement = 0;
         
     }
     else if(_menu->getGame())
@@ -75,6 +77,7 @@ void GameModel::updateCore(){
                 else{
                     _menu->setGame(false);
                     _menu->setLevel(false);
+                     _menu->setShop(false);
                     _menu->setSaveScore(true); //go to save score because ally is dead
                 }
             }
@@ -163,7 +166,14 @@ void GameModel::updateCore(){
     }
     
     else if(_menu->getSaveScore()){
+#ifdef __linux__
+        _level=nullptr;
+#else
+        _level=0;
+#endif
         
+        _menu->setMenu(true);
+        _menu->setSaveScore(false);
     }
     
     else if(_menu->getEnding())
