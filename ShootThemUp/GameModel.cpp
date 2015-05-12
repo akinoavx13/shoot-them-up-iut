@@ -94,7 +94,7 @@ void GameModel::updateCore(){
                     _level->deleteAllBullets();
                     
                     
-                    _level->setLevelNumber(_level->getLevelNumber() + 4);
+                    _level->setLevelNumber(_level->getLevelNumber() + 1);
                     _level->setNbEnemies(_level->getNbEnemies() + 2);
                     _level->addEnemies();
                     for (auto enemy : _level->getEnemies())
