@@ -94,7 +94,7 @@ void GameModel::updateCore(){
                     _level->deleteAllBullets();
                     
                     
-                    _level->setLevelNumber(_level->getLevelNumber() + 1);
+                    _level->setLevelNumber(_level->getLevelNumber() + 4);
                     _level->setNbEnemies(_level->getNbEnemies() + 2);
                     _level->addEnemies();
                     for (auto enemy : _level->getEnemies())
@@ -157,6 +157,17 @@ void GameModel::updateCore(){
                     _level->addBoss();
                     //ici on peut ajouter de la vie au boss
                     _level->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + (_level->getLevelNumber() - 1) * 30 );
+                    _level->getBoss()->setDamage(_level->getBoss()->getDamage() + _level->getLevelNumber() * 2);
+                    if(_level->getLevelNumber() >= 2){
+                        _level->getBoss()->setBulletType(1);
+                    }
+                    if(_level->getLevelNumber() >= 3){
+                        _level->getBoss()->setBulletType(2);
+                    }
+                    if(_level->getLevelNumber() >= 4){
+                        _level->getBoss()->setBulletType(3);
+                    }
+
                 }
                 //enemies shoot every 2 turns
                 if(shoot.GetElapsedTime() >= ENEMY_FIRERATE)

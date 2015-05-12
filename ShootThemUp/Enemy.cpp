@@ -91,8 +91,20 @@ void Enemy::shoot(){
 }
 
 void Enemy::shoot(const float x, const float y, const float speedX, const float speedY){
-    if((_x + _width <= SCREEN_WIDTH) && (_x>= 0) && (_y+_height <= SCREEN_HEIGHT) && (_y>= 0)){
+    if(_bulletType == 0){
         _mainShoot = new Bullet(x, y, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, speedX, speedY, 0);
+        _level->addBullet(_mainShoot);
+    }
+    else if(_bulletType == 1){
+        _mainShoot = Bullet::FireBall(x, y, speedX, speedY, _damage);
+        _level->addBullet(_mainShoot);
+    }
+    else if(_bulletType == 2){
+        _mainShoot = Bullet::TinyLaser(x, y, speedX, speedY, _damage);
+        _level->addBullet(_mainShoot);
+    }
+    else if(_bulletType == 3){
+        _mainShoot = Bullet::Laser(x, y, speedX, speedY, _damage);
         _level->addBullet(_mainShoot);
     }
 }
