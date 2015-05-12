@@ -9,6 +9,7 @@
 #include "GameViewSFML.h"
 #include "const.h"
 #include "Picture.h"
+#include <sstream>
 
 using namespace sf;
 
@@ -167,7 +168,7 @@ void GameViewSFML::draw(){
             {
                 
                 #ifdef __linux__
-                //if(_gameModel->getLevel()->getBoss() != nullptr)
+                if(_gameModel->getLevel()->getBoss() != nullptr)
                 #else
                 if(_gameModel->getLevel()->getBoss() != 0)
                 #endif
@@ -257,8 +258,42 @@ void GameViewSFML::draw(){
             
             _window->Draw(vie);
             
+            String textScore("SCORE : ", font , 15);
+            textScore.SetX(SCREEN_WIDTH - 150);
+            textScore.SetY(5);
+            textScore.SetColor(Color(255, 255, 255));
+            _window->Draw(textScore);
+            
+            std::string valeur;
+            std::stringstream out;
+            out << _gameModel->getLevel()->getAlly()->getScore();
+            valeur = out.str();
+            
+            String valeurScore(valeur, font , 15);
+            valeurScore.SetX(SCREEN_WIDTH - 70);
+            valeurScore.SetY(5);
+            valeurScore.SetColor(Color(255, 255, 255));
+            _window->Draw(valeurScore);
+            
+            String textLevel("NIVEAU : ", font , 15);
+            textLevel.SetX(SCREEN_WIDTH - 150);
+            textLevel.SetY(20);
+            textLevel.SetColor(Color(255, 255, 255));
+            _window->Draw(textLevel);
+            
+            std::string valeurNiveau;
+            std::stringstream out2;
+            out2 << _gameModel->getLevel()->getLevelNumber();
+            valeurNiveau = out2.str();
+            
+            String valeurLevel(valeurNiveau, font , 15);
+            valeurLevel.SetX(SCREEN_WIDTH - 70);
+            valeurLevel.SetY(20);
+            valeurLevel.SetColor(Color(255, 255, 255));
+            _window->Draw(valeurLevel);
+            
             #ifdef __linux__
-            //if(_gameModel->getLevel()->getAlly() != nullptr){
+            if(_gameModel->getLevel()->getAlly() != nullptr){
             #else
             if(_gameModel->getLevel()->getAlly() != 0){
             #endif
@@ -367,7 +402,6 @@ bool GameViewSFML::treatEvent(){
         {
             if(input.IsMouseButtonDown(Mouse::Left)){
                 if(mouseX >= 100 && mouseX <= 200 && mouseY >= 150 && mouseY <= 170){
-                    cout << "ok" << endl;
                     _menu->setGame(true);
                     _menu->setLevel(true);
                     _menu->setMenu(false);

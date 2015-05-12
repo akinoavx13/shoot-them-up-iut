@@ -142,7 +142,7 @@ void Level::checkCollisions(){
         int bulletWidth = _tabBullets[i]->getWidth();
         int bulletHeight = _tabBullets[i]->getHeight();
         
-        if(bulletX < 0 || bulletX + bulletWidth > SCREEN_WIDTH || bulletY < 0 || bulletY + bulletHeight > SCREEN_HEIGHT){
+        if(bulletX <= 3 || bulletX + bulletWidth + 3 >= SCREEN_WIDTH || bulletY <= 3 || bulletY + bulletHeight + 3 >= SCREEN_HEIGHT){
             delete _tabBullets[i];
             _tabBullets.erase(_tabBullets.begin() + i);
         }
@@ -150,6 +150,7 @@ void Level::checkCollisions(){
     
     for (int i = 0; i < _tabEnemies.size(); i++) {
         if(_tabEnemies[i]->isDead()){
+            _ally->setScore(_ally->getScore() + _levelNumber * 2);
             delete _tabEnemies[i];
             _tabEnemies.erase(_tabEnemies.begin() + i);
         }
@@ -158,6 +159,7 @@ void Level::checkCollisions(){
     if(_boss != 0 && _boss->isDead()){
         _boss->move(_boss->getX(), -200);
         _boss = 0;
+        _ally->setScore(_ally->getScore() + 100);
     }
     
 }
