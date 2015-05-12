@@ -352,7 +352,7 @@ bool GameViewSFML::treatEvent(){
         }
         else if(_menu->getScore())
         {
-            
+
         }
         else if(_menu->getSaveScore())
         {
@@ -366,7 +366,7 @@ bool GameViewSFML::treatEvent(){
         {
             if(input.IsMouseButtonDown(Mouse::Left)){
                 if(mouseX >= 100 && mouseX <= 200 && mouseY >= 150 && mouseY <= 170){
-                    cout << "Let's go" << endl;
+                    cout << "ok" << endl;
                     _menu->setGame(true);
                     _menu->setLevel(true);
                     _menu->setMenu(false);

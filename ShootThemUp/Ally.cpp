@@ -27,9 +27,6 @@ Ally::Ally() : Ship(SCREEN_WIDTH/2, SCREEN_HEIGHT-ALLY_PICTURE_HEIGHT-10, ALLY_L
  * info : virtual
  */
 Ally::~Ally(){
-
-    cout << "Player delete" << endl;
-
 }
 
 //----------METHODS----------

@@ -20,9 +20,9 @@ Enemy::Enemy(){}
  * constructor
  * params : x, y ans health of enemy
  */
-Enemy::Enemy(const float x, const float y, const int health, const int type, const int width, const int height):Ship(x, y, health, width, height, ENEMY_FIRERATE, ENEMY_SPEEDX, ENEMY_SPEEDY), _type(type) {cout << "Enemy" << endl;}
+Enemy::Enemy(const float x, const float y, const int health, const int type, const int width, const int height):Ship(x, y, health, width, height, ENEMY_FIRERATE, ENEMY_SPEEDX, ENEMY_SPEEDY), _type(type) {}
 
-Enemy::Enemy(const float x, const float y, const int health, const int type, const int width, const int height, const float firerate):Ship(x, y, health, width, height, firerate, ENEMY_SPEEDX, ENEMY_SPEEDY), _type(type) {cout << "Enemy" << endl;}
+Enemy::Enemy(const float x, const float y, const int health, const int type, const int width, const int height, const float firerate):Ship(x, y, health, width, height, firerate, ENEMY_SPEEDX, ENEMY_SPEEDY), _type(type) {}
 
 Enemy* Enemy::Tiny(const float x, const float y){
     Enemy* enemy = new Enemy(x, y, TINY_LIFE, 1, TINY_PICTURE_WIDTH/3, TINY_PICTURE_HEIGHT);
@@ -47,8 +47,6 @@ Enemy* Enemy::Mighty(const float x, const float y){
  * info : virtual
  */
 Enemy::~Enemy(){
-
-    cout << "Enemy delete" << endl;
 
 }
 

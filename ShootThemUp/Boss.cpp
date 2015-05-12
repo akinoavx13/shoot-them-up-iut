@@ -12,11 +12,9 @@ using namespace std;
 
 Boss::Boss() {}
 
-Boss::Boss(const float x, const float y, const int health, const float firerate):Enemy(x, y, health, 0, BOSS_PICTURE_WIDTH/3, BOSS_PICTURE_HEIGHT, firerate) {cout << "Boss" << endl;}
+Boss::Boss(const float x, const float y, const int health, const float firerate):Enemy(x, y, health, 0, BOSS_PICTURE_WIDTH/3, BOSS_PICTURE_HEIGHT, firerate) {}
 
 Boss::~Boss(){
-
-    cout << "Boss delete" << endl;
 
 }
 
