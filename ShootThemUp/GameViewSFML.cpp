@@ -350,18 +350,6 @@ bool GameViewSFML::treatEvent(){
         {
             
         }
-        else if(_menu->getScore())
-        {
-
-        }
-        else if(_menu->getSaveScore())
-        {
-            _menu->setMenu(true);
-        }
-        else if(_menu->getEnding())
-        {
-            
-        }
         else if(_menu->getMenu())
         {
             if(input.IsMouseButtonDown(Mouse::Left)){
@@ -379,7 +367,6 @@ bool GameViewSFML::treatEvent(){
                 }
             }
         }
-        
         else if(_menu->getGame())
         {
             if(_menu->getLevel())
@@ -431,6 +418,20 @@ bool GameViewSFML::treatEvent(){
                 }
             }
         }
+
+        else if(_menu->getSaveScore())
+        {
+            //_menu->setMenu(true);
+        }
+        else if(_menu->getEnding())
+        {
+            
+        }
+        else if(_menu->getScore())
+        {
+            
+        }
+        
     }
     return result;
 }
