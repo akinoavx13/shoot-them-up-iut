@@ -21,6 +21,7 @@ private:
     int _damage;
     int _type;
 
+    int _state;
 public:
     //CONSTRUCTOR
     Bullet();
@@ -35,6 +36,7 @@ public:
 
     //METHODS
     virtual std::string toString() const override;
+    void improve();
 
     //GETTERS
     int getDamage() const;

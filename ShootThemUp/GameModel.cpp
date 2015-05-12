@@ -47,7 +47,6 @@ void GameModel::updateCore(){
         }
 #else
         if(_level == 0){
-            cout << "cour" << endl;
             _level = new Level();
         }
 #endif
@@ -122,6 +121,8 @@ void GameModel::updateCore(){
                     
                     _menu->setShop(true); //go to shop because level is finish
                     _menu->setLevel(false);
+                    
+                    _level->getAlly()->changeBonus(4);
                 }
                     
                 #ifdef __linux__

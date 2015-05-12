@@ -40,12 +40,16 @@ public:
     //METHODS
     bool isOver() const;
     std::string toString() const override;
+    
+    void changeBonus(int type);
 
     //GETTERS
     int getNumberOfLife() const;
     int getScore() const;
     int getNumberShootBonus() const;
     int getNumberShootBonusMax() const;
+    
+    int getBulletBonusType() const;
 
     //SETTERS
     void setNumberOfLife(int numberOfLive);

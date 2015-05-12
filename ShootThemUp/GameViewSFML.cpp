@@ -317,6 +317,37 @@ void GameViewSFML::draw(){
             textBonusShoot.SetColor(Color(255, 255, 255));
             _window->Draw(textBonusShoot);
             
+            if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == 0)
+            {
+                Picture v1(_graphicLibrary->getImage(12), SCREEN_WIDTH-100,70,STANDARD_PICTURE_WIDTH,STANDARD_PICTURE_HEIGHT);
+                _window->Draw(v1.getSprite());
+            }
+            else if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == 1)
+            {
+                Picture v2(_graphicLibrary->getImage(5), SCREEN_WIDTH-100,70,FIREBALL_PICTURE_WIDTH,FIREBALL_PICTURE_HEIGHT);
+                _window->Draw(v2.getSprite());
+                
+            }
+            else if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == 2)
+            {
+                Picture v3(_graphicLibrary->getImage(18), SCREEN_WIDTH-100,70,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT);
+                _window->Draw(v3.getSprite());
+                
+            }
+            else if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == 3)
+            {
+                Picture v4(_graphicLibrary->getImage(23), SCREEN_WIDTH-100,70,LASER_PICTURE_WIDTH,LASER_PICTURE_HEIGHT);
+                _window->Draw(v4.getSprite());
+            }
+            else if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == 4)
+            {
+                Picture v5(_graphicLibrary->getImage(4), SCREEN_WIDTH-100,70,DOUBLE_TINY_LASER_PICTURE_WIDTH,DOUBLE_TINY_LASER_PICTURE_HEIGHT);
+                _window->Draw(v5.getSprite());
+            }
+            
+
+            
+            
             #ifdef __linux__
             if(_gameModel->getLevel()->getAlly() != nullptr){
             #else
@@ -337,38 +368,77 @@ void GameViewSFML::draw(){
         
         if(_menu->getShop())
         {
-            Picture standard(_graphicLibrary->getImage((12)), 75 , 65, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT);
+            sf::Shape Line0 = sf::Shape::Line(150, 50, 150, 100*6+50 , 1, Color(255, 255, 255));
+            _window->Draw(Line0);
+            
+            Picture standard(_graphicLibrary->getImage((12)), 75 , 100*1, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT);
             _window->Draw(standard.getSprite());
             
-            sf::Shape Line1 = sf::Shape::Line(0, 100, SCREEN_WIDTH, 100 , 1, Color(255, 255, 255));
+            String st("Standard ball", font , 15);
+            st.SetX(25);
+            st.SetY(100*1+30);
+            st.SetColor(Color(255, 255, 255));
+            _window->Draw(st);
+            
+            sf::Shape Line1 = sf::Shape::Line(10, 100*1+50, SCREEN_WIDTH-10, 100*1+50 , 1, Color(255, 255, 255));
             _window->Draw(Line1);
             
-            Picture fireBall(_graphicLibrary->getImage((5)), 70, 140, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT);
+            Picture fireBall(_graphicLibrary->getImage((5)), 70, 100*2, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT);
             _window->Draw(fireBall.getSprite());
             
-            sf::Shape Line2 = sf::Shape::Line(0, 180, SCREEN_WIDTH, 180 , 1, Color(255, 255, 255));
+            String fr("Fire ball", font , 15);
+            fr.SetX(40);
+            fr.SetY(100*2+30);
+            fr.SetColor(Color(255, 255, 255));
+            _window->Draw(fr);
+            
+            sf::Shape Line2 = sf::Shape::Line(10, 100*2+50, SCREEN_WIDTH-10, 100*2+50 , 1, Color(255, 255, 255));
             _window->Draw(Line2);
             
-            Picture littleLaser(_graphicLibrary->getImage((18)), 75, 205, 9, 20);
+            Picture littleLaser(_graphicLibrary->getImage((18)), 75, 100*3, 9, 20);
             _window->Draw(littleLaser.getSprite());
             
-            sf::Shape Line3 = sf::Shape::Line(0, 260, SCREEN_WIDTH, 260 , 1, Color(255, 255, 255));
+            String ll("Little laser", font , 15);
+            ll.SetX(30);
+            ll.SetY(100*3+30);
+            ll.SetColor(Color(255, 255, 255));
+            _window->Draw(ll);
+            
+            sf::Shape Line3 = sf::Shape::Line(10, 100*3+50, SCREEN_WIDTH-10, 100*3+50 , 1, Color(255, 255, 255));
             _window->Draw(Line3);
             
-            Picture doubleLaser(_graphicLibrary->getImage((4)), 72, 290, 17, 16);
+            Picture doubleLaser(_graphicLibrary->getImage((4)), 72, 100*4, 17, 16);
             _window->Draw(doubleLaser.getSprite());
             
-            sf::Shape Line4 = sf::Shape::Line(0, 340, SCREEN_WIDTH, 340 , 1, Color(255, 255, 255));
+            String dl("Double laser", font , 15);
+            dl.SetX(30);
+            dl.SetY(100*4+30);
+            dl.SetColor(Color(255, 255, 255));
+            _window->Draw(dl);
+            
+            sf::Shape Line4 = sf::Shape::Line(10, 100*4+50, SCREEN_WIDTH-10, 100*4+50 , 1, Color(255, 255, 255));
             _window->Draw(Line4);
             
-            Picture bigLaser(_graphicLibrary->getImage((23)), 75, 365, 9, 30);
+            Picture bigLaser(_graphicLibrary->getImage((23)), 75, 100*5, 9, 30);
             _window->Draw(bigLaser.getSprite());
             
-            sf::Shape Line5 = sf::Shape::Line(0, 420, SCREEN_WIDTH, 420 , 1, Color(255, 255, 255));
+            String bl("Big laser", font , 15);
+            bl.SetX(38);
+            bl.SetY(100*5+30);
+            bl.SetColor(Color(255, 255, 255));
+            _window->Draw(bl);
+            
+            sf::Shape Line5 = sf::Shape::Line(10, 100*5+50, SCREEN_WIDTH-10, 100*5+50 , 1, Color(255, 255, 255));
             _window->Draw(Line5);
             
-            Picture life(_graphicLibrary->getImage((25)), 70, 440, 20, 20);
+            Picture life(_graphicLibrary->getImage((25)), 70, 100*6, 20, 20);
             _window->Draw(life.getSprite());
+            
+            String li("New life", font , 15);
+            li.SetX(45);
+            li.SetY(100*6+30);
+            li.SetColor(Color(255, 255, 255));
+            _window->Draw(li);
             
 
             

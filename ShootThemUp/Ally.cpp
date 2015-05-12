@@ -47,7 +47,7 @@ void Ally::bonusShoot(){
         int y = _y - height - 5;
     
     
-        Bullet * copieBonus = new Bullet(x, y, _bonusShoot->getDamage(), width, height, _bonusShoot->getSpeedX(), _bonusShoot->getSpeedY(), 0);
+        Bullet * copieBonus = new Bullet(x, y, _bonusShoot->getDamage(), width, height, _bonusShoot->getSpeedX(), _bonusShoot->getSpeedY(), _bonusShoot->getType());
         _level->addBullet(copieBonus);
     
         _numberShootWithBonus++;
@@ -85,6 +85,11 @@ Ally::~Ally(){
  */
 bool Ally::isOver() const{
     return _numbersOfLife <= 0;
+}
+
+void Ally::changeBonus(int type){
+    if(type<_othersBullets.size())
+        _bonusShoot = _othersBullets[type];
 }
 
 /*
@@ -173,6 +178,10 @@ int Ally::getNumberShootBonus() const{
 
 int Ally::getNumberShootBonusMax() const{
     return _numberShootWithBonusMax;
+}
+
+int Ally::getBulletBonusType() const{
+    return _bonusShoot->getType();
 }
 
 //----------SETTERS----------

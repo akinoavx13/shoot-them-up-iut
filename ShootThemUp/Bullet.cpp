@@ -19,7 +19,7 @@ Bullet::Bullet():_damage(STANDARD_DAMAGE){}
  * constructor
  * params : x, y and damage of a bullet
  */
-Bullet::Bullet(const float x, const float y, const int damage, const int width, const int height, const float speedX, const float speedY, const int type) : GraphicElement(x, y, width, height, speedX, speedY), _damage(damage), _type(type){}
+Bullet::Bullet(const float x, const float y, const int damage, const int width, const int height, const float speedX, const float speedY, const int type) : GraphicElement(x, y, width, height, speedX, speedY), _damage(damage), _type(type), _state(0){}
 
 Bullet* Bullet::FireBall(const float x, const float y, const float speedX, const float speedY, const float damage){
     Bullet* bullet = new Bullet(x, y, damage, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT,speedX,speedY, 1);
@@ -64,6 +64,13 @@ string Bullet::toString() const{
     str += "\n";
 
     return str;
+}
+
+void Bullet::improve(){
+    if(_state<5){
+        _state++;
+        _damage+=_state*10;
+    }
 }
 
 //----------GETTERS----------
