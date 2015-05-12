@@ -16,9 +16,17 @@
 /*
  * SCREEN
  */
-const int SCREEN_WIDTH = 400;
-const int SCREEN_HEIGHT = 600;
+const int SCREEN_WIDTH = 600;
+const int SCREEN_HEIGHT = 800;
 const int SCREEN_FPS = 50;
+
+//##############################################################################################
+
+/*
+ * MODEL
+ */
+const int MODEL_WIDTH = 400;
+const int MODEL_HEIGHT = SCREEN_HEIGHT;
 
 //##############################################################################################
 

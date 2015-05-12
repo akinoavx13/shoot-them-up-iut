@@ -60,7 +60,6 @@ Ship::Ship(const float x, const float y, const int health, const int width, cons
  * info : virtual, abstract
  */
 Ship::~Ship(){
-
     //la destruction des balles se fait dans le level quand il y a une collisions
 }
 
@@ -107,13 +106,13 @@ string Ship::toString() const{
 }
 
 void Ship::move(const float x, const float y){
-    if (x >= 0 && x+_width < SCREEN_WIDTH) {
+    if (x >= 0 && x+_width < MODEL_WIDTH) {
         _x = x;
     }else{
         //cout << "X n'est pas compris entre 0 et " << MODEL_WIDTH << ". X vaut : " << x << endl;
     }
 
-    if (y >= 0 && y+_height < SCREEN_HEIGHT) {
+    if (y >= 0 && y+_height < MODEL_HEIGHT) {
         _y = y;
     }else{
         //cout << "Y n'est pas compris entre 0 et " << MODEL_HEIGHT << ". Y vaut : " << y << endl;

@@ -112,13 +112,13 @@ void Enemy::shoot(const float x, const float y, const float speedX, const float 
     }
 }
 void Enemy::move(const float x, const float y){
-    if (x >= 0 && x+_width < SCREEN_WIDTH - _width) {
+    if (x >= 0 && x+_width < MODEL_WIDTH - _width) {
         _x = x;
     }else{
         //cout << "X n'est pas compris entre 0 et " << MODEL_WIDTH << ". X vaut : " << x << endl;
     }
 
-    if (y+_height < SCREEN_HEIGHT) {
+    if (y+_height < MODEL_HEIGHT) {
         _y = y;
     }else{
         //cout << "Y n'est pas compris entre 0 et " << MODEL_HEIGHT << ". Y vaut : " << y << endl;

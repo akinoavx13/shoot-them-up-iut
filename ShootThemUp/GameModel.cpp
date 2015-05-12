@@ -117,7 +117,8 @@ void GameModel::updateCore(){
                         }
                     }
                     
-                    _level->getAlly()->move(SCREEN_WIDTH/2, SCREEN_HEIGHT-ALLY_PICTURE_HEIGHT-10);
+                    _level->getAlly()->move(MODEL_WIDTH/2, MODEL_HEIGHT-ALLY_PICTURE_HEIGHT-10);
+                    _level->getAlly()->resetBonus();
                     
                     _menu->setShop(true); //go to shop because level is finish
                     _menu->setLevel(false);
@@ -147,8 +148,8 @@ void GameModel::updateCore(){
                     }
                             
                     _bossMoveIncrement++;
-                    float xBoss = 50 * cos((float)_bossMoveIncrement * (3.14/180)) + SCREEN_WIDTH / 2 - BOSS_PICTURE_WIDTH / 6;
-                    float yBoss = 50 * sin((float)_bossMoveIncrement * (3.14/180)) + SCREEN_HEIGHT / 2 - BOSS_PICTURE_HEIGHT / 2 - 100;
+                    float xBoss = 50 * cos((float)_bossMoveIncrement * (3.14/180)) + MODEL_WIDTH / 2 - BOSS_PICTURE_WIDTH / 6;
+                    float yBoss = 50 * sin((float)_bossMoveIncrement * (3.14/180)) + MODEL_HEIGHT / 2 - BOSS_PICTURE_HEIGHT / 2 - 100;
                     _level->getBoss()->move(xBoss, yBoss);
                 }
             }

@@ -142,7 +142,7 @@ void Level::checkCollisions(){
         int bulletWidth = _tabBullets[i]->getWidth();
         int bulletHeight = _tabBullets[i]->getHeight();
         
-        if(bulletX <= 3 || bulletX + bulletWidth + 3 >= SCREEN_WIDTH || bulletY <= 3 || bulletY + bulletHeight + 3 >= SCREEN_HEIGHT){
+        if(bulletX <= 3 || bulletX + bulletWidth + 3 >= MODEL_WIDTH || bulletY <= 3 || bulletY + bulletHeight + 3 >= MODEL_HEIGHT){
             delete _tabBullets[i];
             _tabBullets.erase(_tabBullets.begin() + i);
         }
@@ -193,14 +193,14 @@ void Level::EnemiesShoot() const{
         float enemyY = enemy->getY();
         int enemyWidth = enemy->getWidth();
         int enemyHeight = enemy->getHeight();
-        if(enemyX > 0 && enemyX + enemyWidth < SCREEN_WIDTH && enemyY + enemyHeight > 0 && enemyY + enemyHeight < SCREEN_HEIGHT)
+        if(enemyX > 0 && enemyX + enemyWidth < MODEL_WIDTH && enemyY + enemyHeight > 0 && enemyY + enemyHeight < MODEL_HEIGHT)
         enemy->shoot();
     }
 
 }
 
 void Level::addBoss(){
-    _boss = new Boss(SCREEN_WIDTH / 2 - BOSS_PICTURE_WIDTH / 2 * 3, -200, BOSS_LIFE, BOSS_FIRERATE);
+    _boss = new Boss(MODEL_WIDTH / 2 - BOSS_PICTURE_WIDTH / 2 * 3, -200, BOSS_LIFE, BOSS_FIRERATE);
     _boss->setLevel(this);
 }
 
@@ -213,7 +213,7 @@ void Level::addEnemies(){
         int type = rand()%3;
 
         if(type == 0){
-            int x = rand()%(SCREEN_WIDTH - MIGHTY_PICTURE_WIDTH);
+            int x = rand()%(MODEL_WIDTH - MIGHTY_PICTURE_WIDTH);
             int y = i * - 100;
             
             Enemy* enemy = Enemy::Mighty(x, y);
@@ -222,7 +222,7 @@ void Level::addEnemies(){
 
         }
         else if (type == 1){
-            int x = rand()%(SCREEN_WIDTH - SUBMARINE_PICTURE_WIDTH);
+            int x = rand()%(MODEL_WIDTH - SUBMARINE_PICTURE_WIDTH);
             int y = i * - 200;
             
             Enemy* enemy = Enemy::Submarine(x, y);
@@ -231,7 +231,7 @@ void Level::addEnemies(){
 
         }
         else if (type == 2){
-            int x = rand() % (SCREEN_WIDTH - TINY_PICTURE_WIDTH);
+            int x = rand() % (MODEL_WIDTH - TINY_PICTURE_WIDTH);
             int y = i * - 100;
             
             Enemy* enemy = Enemy::Tiny(x, y);
@@ -322,7 +322,7 @@ void Level::moveBullets(){
         int bulletSpeedX = bullet->getSpeedX();
         int bulletSpeedY = bullet->getSpeedY();
         
-        if(bulletX > 0 && bulletX + bulletWidth < SCREEN_WIDTH && bulletY + bulletHeight > 0 && bulletY + bulletHeight < SCREEN_HEIGHT){
+        if(bulletX > 0 && bulletX + bulletWidth < MODEL_WIDTH && bulletY + bulletHeight > 0 && bulletY + bulletHeight < MODEL_HEIGHT){
             bullet->move(bulletX + bulletSpeedX, bulletY + bulletSpeedY);
         }
     }

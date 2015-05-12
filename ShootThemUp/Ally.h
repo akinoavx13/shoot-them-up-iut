@@ -13,6 +13,8 @@
 #include <string>
 #include <iostream>
 
+#include <vector>
+
 #include "Ship.h"
 
 class Ally : public Ship{
@@ -20,7 +22,12 @@ private:
 
     int _numbersOfLife;
     int _score;
-
+    
+    std::vector<Bullet * > _othersBullets;
+    Bullet * _bonusShoot;
+    int _numberShootWithBonus;
+    int _numberShootWithBonusMax;
+    
 public:
 
     //CONSTRUCTOR
@@ -37,11 +44,20 @@ public:
     //GETTERS
     int getNumberOfLife() const;
     int getScore() const;
+    int getNumberShootBonus() const;
+    int getNumberShootBonusMax() const;
 
     //SETTERS
     void setNumberOfLife(int numberOfLive);
 
     void setScore(int expPoint);
+    
+    //void shoot() override;
+    
+    void bonusShoot();
+    
+    void resetBonus();
+    
 
 };
 

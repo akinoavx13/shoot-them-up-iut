@@ -80,18 +80,18 @@ void GameViewSFML::draw(){
     {
         if(_menu->getLevel())
         {
-            Picture bg(_graphicLibrary->getImage(0), 0,_yBackground,SCREEN_WIDTH,SCREEN_HEIGHT);
-            Picture bg2(_graphicLibrary->getImage(0), 0,_yBackground2,SCREEN_WIDTH,SCREEN_HEIGHT);
+            Picture bg(_graphicLibrary->getImage(0), 0,_yBackground,MODEL_WIDTH,MODEL_HEIGHT);
+            Picture bg2(_graphicLibrary->getImage(0), 0,_yBackground2,MODEL_WIDTH,MODEL_HEIGHT);
 
             _window->Draw(bg.getSprite());
             _window->Draw(bg2.getSprite());
 
-            if(_yBackground > SCREEN_HEIGHT - 5){
-                _yBackground = -SCREEN_HEIGHT + 2;
+            if(_yBackground > MODEL_HEIGHT - 5){
+                _yBackground = -MODEL_HEIGHT + 2;
             }
             
-            if(_yBackground2 > SCREEN_HEIGHT - 5){
-                _yBackground2 = -SCREEN_HEIGHT + 2;
+            if(_yBackground2 > MODEL_HEIGHT - 5){
+                _yBackground2 = -MODEL_HEIGHT + 2;
             }
 
             _yBackground += 0.5;
@@ -263,6 +263,7 @@ void GameViewSFML::draw(){
             
             _window->Draw(vie);
             
+            //
             String textScore("SCORE : ", font , 15);
             textScore.SetX(SCREEN_WIDTH - 150);
             textScore.SetY(5);
@@ -280,6 +281,7 @@ void GameViewSFML::draw(){
             valeurScore.SetColor(Color(255, 255, 255));
             _window->Draw(valeurScore);
             
+            //
             String textLevel("NIVEAU : ", font , 15);
             textLevel.SetX(SCREEN_WIDTH - 150);
             textLevel.SetY(20);
@@ -296,6 +298,24 @@ void GameViewSFML::draw(){
             valeurLevel.SetY(20);
             valeurLevel.SetColor(Color(255, 255, 255));
             _window->Draw(valeurLevel);
+            
+            //
+            String textBonus("TIRS BONUS : ", font , 15);
+            textBonus.SetX(SCREEN_WIDTH - 150);
+            textBonus.SetY(35);
+            textBonus.SetColor(Color(255, 255, 255));
+            _window->Draw(textBonus);
+            
+            std::string valeurBonusShoot;
+            std::stringstream out3;
+            out3 << _gameModel->getLevel()->getAlly()->getNumberShootBonusMax()-_gameModel->getLevel()->getAlly()->getNumberShootBonus();
+            valeurBonusShoot = out3.str();
+            
+            String textBonusShoot(valeurBonusShoot, font , 15);
+            textBonusShoot.SetX(SCREEN_WIDTH - 20);
+            textBonusShoot.SetY(35);
+            textBonusShoot.SetColor(Color(255, 255, 255));
+            _window->Draw(textBonusShoot);
             
             #ifdef __linux__
             if(_gameModel->getLevel()->getAlly() != nullptr){
@@ -317,22 +337,37 @@ void GameViewSFML::draw(){
         
         if(_menu->getShop())
         {
-            Picture standard(_graphicLibrary->getImage((12)), 50 , 50, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT);
+            Picture standard(_graphicLibrary->getImage((12)), 75 , 65, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT);
             _window->Draw(standard.getSprite());
             
-            Picture fireBall(_graphicLibrary->getImage((5)), 50, 100, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT);
+            sf::Shape Line1 = sf::Shape::Line(0, 100, SCREEN_WIDTH, 100 , 1, Color(255, 255, 255));
+            _window->Draw(Line1);
+            
+            Picture fireBall(_graphicLibrary->getImage((5)), 70, 140, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT);
             _window->Draw(fireBall.getSprite());
             
-            Picture littleLaser(_graphicLibrary->getImage((18)), 50, 150, 9, 20);
+            sf::Shape Line2 = sf::Shape::Line(0, 180, SCREEN_WIDTH, 180 , 1, Color(255, 255, 255));
+            _window->Draw(Line2);
+            
+            Picture littleLaser(_graphicLibrary->getImage((18)), 75, 205, 9, 20);
             _window->Draw(littleLaser.getSprite());
             
-            Picture doubleLaser(_graphicLibrary->getImage((4)), 50, 200, 17, 16);
+            sf::Shape Line3 = sf::Shape::Line(0, 260, SCREEN_WIDTH, 260 , 1, Color(255, 255, 255));
+            _window->Draw(Line3);
+            
+            Picture doubleLaser(_graphicLibrary->getImage((4)), 72, 290, 17, 16);
             _window->Draw(doubleLaser.getSprite());
             
-            Picture bigLaser(_graphicLibrary->getImage((23)), 50, 250, 9, 30);
+            sf::Shape Line4 = sf::Shape::Line(0, 340, SCREEN_WIDTH, 340 , 1, Color(255, 255, 255));
+            _window->Draw(Line4);
+            
+            Picture bigLaser(_graphicLibrary->getImage((23)), 75, 365, 9, 30);
             _window->Draw(bigLaser.getSprite());
             
-            Picture life(_graphicLibrary->getImage((25)), 50, 300, 20, 20);
+            sf::Shape Line5 = sf::Shape::Line(0, 420, SCREEN_WIDTH, 420 , 1, Color(255, 255, 255));
+            _window->Draw(Line5);
+            
+            Picture life(_graphicLibrary->getImage((25)), 70, 440, 20, 20);
             _window->Draw(life.getSprite());
             
 
@@ -455,6 +490,13 @@ bool GameViewSFML::treatEvent(){
                 {
                     if(shoot.GetElapsedTime() >= _gameModel->getLevel()->getAlly()->getFireRate()){
                         _gameModel->getLevel()->getAlly()->shoot();
+                        shoot.Reset();
+                    }
+                }
+                if(input.IsKeyDown(Key::A))
+                {
+                    if(shoot.GetElapsedTime() >= _gameModel->getLevel()->getAlly()->getFireRate()){
+                        _gameModel->getLevel()->getAlly()->bonusShoot();
                         shoot.Reset();
                     }
                 }
