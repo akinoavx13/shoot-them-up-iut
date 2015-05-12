@@ -101,7 +101,17 @@ void GameModel::updateCore(){
                     {
                         //ici on peut ajouter de la vie au ennemis
                         enemy->setHealth(enemy->getHealth() + (_level->getLevelNumber() - 1) * 10);
-                        enemy->setDamage(enemy->getDamage() + getLevel()->getLevelNumber());
+                        enemy->setDamage(enemy->getDamage() + _level->getLevelNumber() * 2);
+                        
+                        if(_level->getLevelNumber() >= 2){
+                            enemy->setBulletType(1);
+                        }
+                        if(_level->getLevelNumber() >= 3){
+                            enemy->setBulletType(2);
+                        }
+                        if(_level->getLevelNumber() >= 4){
+                            enemy->setBulletType(3);
+                        }
                     }
                     
                     _level->getAlly()->move(SCREEN_WIDTH/2, SCREEN_HEIGHT-ALLY_PICTURE_HEIGHT-10);

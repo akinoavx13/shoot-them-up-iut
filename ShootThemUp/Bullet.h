@@ -25,9 +25,9 @@ public:
     //CONSTRUCTOR
     Bullet();
     Bullet(const float x, const float y, const int damage, const int width, const int height, const float speedX, const float speedY, const int type);
-    static Bullet* FireBall(const float x, const float y);
-    static Bullet* TinyLaser(const float x, const float y);
-    static Bullet* Laser(const float x, const float y);
+    static Bullet* FireBall(const float x, const float y, const float speedX, const float speedY, const float damage);
+    static Bullet* TinyLaser(const float x, const float y, const float speedX, const float speedY, const float damage);
+    static Bullet* Laser(const float x, const float y, const float speedX, const float speedY, const float damage);
 
     //DESTRUCTOR
     virtual ~Bullet();
