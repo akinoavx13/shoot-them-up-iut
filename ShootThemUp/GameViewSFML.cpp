@@ -526,14 +526,25 @@ void GameViewSFML::showItems(int rang, int numPicture, string name, int width, i
     buy.EnableFill(false);
     buy.EnableOutline(true);
     buy.SetOutlineWidth(1);
-    
     _window->Draw(buy);
+    
+    String buyText("Buy", font , 15);
+    buyText.SetX(490);
+    buyText.SetY(100*rang+12);
+    buyText.SetColor(Color(255, 255, 255));
+    _window->Draw(buyText);
     
     Shape arm;
     arm.AddPoint(450, 100*rang+50, Color(255, 255, 255), Color(255,255,255));
     arm.AddPoint(550, 100*rang+50, Color(255, 255, 255), Color(255,255,255));
     arm.AddPoint(550, 100*rang+70, Color(255, 255, 255), Color(255,255,255));
     arm.AddPoint(450, 100*rang+70, Color(255, 255, 255), Color(255,255,255));
+    
+    String armText("Arm", font , 15);
+    armText.SetX(490);
+    armText.SetY(100*rang+52);
+    armText.SetColor(Color(255, 255, 255));
+    _window->Draw(armText);
     
     arm.EnableFill(false);
     arm.EnableOutline(true);
