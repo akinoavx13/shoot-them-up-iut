@@ -85,7 +85,6 @@ void Level::checkCollisions(){
     for (int i = 0; i < _tabBullets.size(); i++) {
         for (int j = 0; j < _tabBullets.size(); j++) {
             if(_tabBullets[i]->collisions(_tabBullets[j]) && i!=j){
-                cout << "collsion" << endl;
                 delete _tabBullets[i];
                 delete _tabBullets[j];
                 _tabBullets.erase(_tabBullets.begin() + i);
@@ -97,6 +96,7 @@ void Level::checkCollisions(){
             }
         }
     }
+    
     
     for (int i = 0; i < _tabBullets.size(); i++) {
         if(_ally->collisions(_tabBullets[i])){
@@ -157,9 +157,10 @@ void Level::checkCollisions(){
         int bulletWidth = _tabBullets[i]->getWidth();
         int bulletHeight = _tabBullets[i]->getHeight();
         
-        if(bulletX <= 3 || bulletX + bulletWidth + 3 >= MODEL_WIDTH || bulletY <= 3 || bulletY + bulletHeight + 3 >= MODEL_HEIGHT){
+        if((bulletX <= 3) || (bulletX + bulletWidth + 3 >= MODEL_WIDTH) || (bulletY <= 3) || (bulletY + bulletHeight + 3 >= MODEL_HEIGHT)){
             delete _tabBullets[i];
             _tabBullets.erase(_tabBullets.begin() + i);
+            i--;
         }
     }
     

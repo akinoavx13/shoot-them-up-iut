@@ -13,31 +13,31 @@ using namespace std;
 /*
  * default constructor
  */
-Bullet::Bullet():_damage(STANDARD_DAMAGE), _state(0){}
+Bullet::Bullet():_damage(STANDARD_DAMAGE), _state(0), _price(0){}
 
 /*
  * constructor
  * params : x, y and damage of a bullet
  */
-Bullet::Bullet(const float x, const float y, const int damage, const int width, const int height, const float speedX, const float speedY, const int type) : GraphicElement(x, y, width, height, speedX, speedY), _damage(damage), _type(type), _state(0){}
+Bullet::Bullet(const float x, const float y, const int damage, const int width, const int height, const float speedX, const float speedY, const int type, const int price) : GraphicElement(x, y, width, height, speedX, speedY), _damage(damage), _type(type), _state(0), _price(price){}
 
 Bullet* Bullet::FireBall(const float x, const float y, const float speedX, const float speedY, const float damage){
-    Bullet* bullet = new Bullet(x, y, damage, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT,speedX,speedY, 1);
+    Bullet* bullet = new Bullet(x, y, damage, FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT,speedX,speedY, 1, FIREBALL_PRICE);
     return bullet;
 }
 
 Bullet* Bullet::TinyLaser(const float x, const float y, const float speedX, const float speedY, const float damage){
-    Bullet* bullet = new Bullet(x, y, damage, TINYLASER_PICTURE_WIDTH, TINYLASER_PICTURE_HEIGHT,speedX,speedY, 2);
+    Bullet* bullet = new Bullet(x, y, damage, TINYLASER_PICTURE_WIDTH, TINYLASER_PICTURE_HEIGHT,speedX,speedY, 2, TINYLASER_PRICE);
     return bullet;
 }
 
 Bullet* Bullet::Laser(const float x, const float y, const float speedX, const float speedY, const float damage){
-    Bullet* bullet = new Bullet(x, y, damage, LASER_PICTURE_WIDTH, LASER_PICTURE_HEIGHT,speedX,speedY, 3);
+    Bullet* bullet = new Bullet(x, y, damage, LASER_PICTURE_WIDTH, LASER_PICTURE_HEIGHT,speedX,speedY, 3, LASER_PRICE);
     return bullet;
 }
 
 Bullet* Bullet::DoubleTinyLaser(const float x, const float y, const float speedX, const float speedY, const float damage){
-    Bullet* bullet = new Bullet(x, y, damage, DOUBLE_TINY_LASER_PICTURE_WIDTH, DOUBLE_TINY_LASER_PICTURE_HEIGHT,speedX,speedY, 4);
+    Bullet* bullet = new Bullet(x, y, damage, DOUBLE_TINY_LASER_PICTURE_WIDTH, DOUBLE_TINY_LASER_PICTURE_HEIGHT,speedX,speedY, 4, DOUBLE_TINY_LASER_PRICE);
     return bullet;
 }
 
@@ -66,11 +66,14 @@ string Bullet::toString() const{
     return str;
 }
 
-void Bullet::improve(){
+bool Bullet::improve(){
     if(_state<5){
         _state++;
         _damage+=_state*10;
+        _price+=100;
+        return true;
     }
+    return false;
 }
 
 //----------GETTERS----------
@@ -93,4 +96,12 @@ int Bullet::getType() const{
 
 int Bullet::getState() const{
     return _state;
+}
+
+int Bullet::getPrice() const{
+    return _price;
+}
+
+void Bullet::setPrice(int price){
+    _price=price;
 }

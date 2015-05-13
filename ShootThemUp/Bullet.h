@@ -22,10 +22,11 @@ private:
     int _type;
 
     int _state;
+    int _price;
 public:
     //CONSTRUCTOR
     Bullet();
-    Bullet(const float x, const float y, const int damage, const int width, const int height, const float speedX, const float speedY, const int type);
+    Bullet(const float x, const float y, const int damage, const int width, const int height, const float speedX, const float speedY, const int type, const int price);
     static Bullet* FireBall(const float x, const float y, const float speedX, const float speedY, const float damage);
     static Bullet* TinyLaser(const float x, const float y, const float speedX, const float speedY, const float damage);
     static Bullet* Laser(const float x, const float y, const float speedX, const float speedY, const float damage);
@@ -36,8 +37,11 @@ public:
 
     //METHODS
     virtual std::string toString() const override;
-    void improve();
+    bool improve();
 
+    //SETTERS
+    void setPrice(int price);
+    
     //GETTERS
     int getDamage() const;
 
@@ -45,7 +49,8 @@ public:
     int getType() const;
     
     int getState() const;
-
+    int getPrice() const;
+    
 };
 
 #endif // BULLET_H_INCLUDED

@@ -16,7 +16,7 @@ using namespace std;
  */
 Ally::Ally() : Ship(MODEL_WIDTH/2, MODEL_HEIGHT-ALLY_PICTURE_HEIGHT-10, ALLY_LIFE,ALLY_PICTURE_WIDTH/3, ALLY_PICTURE_HEIGHT, ALLY_FIRERATE, ALLY_SPEEDX, ALLY_SPEEDY), _numbersOfLife(ALLY_NUMBER_OF_LIFE), _score(DEFAULT_SCORE), _numberShootWithBonus(0), _numberShootWithBonusMax(4)
 {
-    Bullet * newBullet1 = new Bullet(_x + _width / 2 - STANDARD_PICTURE_WIDTH / 2, _y - STANDARD_PICTURE_HEIGHT - 5, STANDARD_DAMAGE, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, 0);
+    Bullet * newBullet1 = new Bullet(_x + _width / 2 - STANDARD_PICTURE_WIDTH / 2, _y - STANDARD_PICTURE_HEIGHT - 5, STANDARD_DAMAGE, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, 0, STANDARD_PRICE);
     _othersBullets.push_back(newBullet1);
     
     Bullet * newBullet2 = Bullet::FireBall(_x + _width / 2 - FIREBALL_PICTURE_WIDTH / 2, _y - FIREBALL_PICTURE_HEIGHT - 5, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, FIREBALL_DAMAGE);
@@ -47,7 +47,7 @@ void Ally::bonusShoot(){
         int y = _y - height - 5;
     
     
-        Bullet * copieBonus = new Bullet(x, y, _bonusShoot->getDamage(), width, height, _bonusShoot->getSpeedX(), _bonusShoot->getSpeedY(), _bonusShoot->getType());
+        Bullet * copieBonus = new Bullet(x, y, _bonusShoot->getDamage(), width, height, _bonusShoot->getSpeedX(), _bonusShoot->getSpeedY(), _bonusShoot->getType(), 0);
         _level->addBullet(copieBonus);
     
         _numberShootWithBonus++;
@@ -83,6 +83,11 @@ Ally::~Ally(){
  * returns : true if the player has more life
  * info : constant
  */
+
+bool Ally::canBuyItem(int type) const{
+    return _score>=_othersBullets[type]->getPrice();
+}
+
 bool Ally::isOver() const{
     return _numbersOfLife <= 0;
 }
@@ -159,10 +164,13 @@ string Ally::toString() const{
     return str;
 }
 
-void Ally::improveOneBulletBonus(int type){
+bool Ally::improveOneBulletBonus(int type){
     if(_othersBullets.size() > type){
-        _othersBullets[type]->improve();
+        if(_othersBullets[type]->improve()){
+            return true;
+        }
     }
+    return false;
 }
 
 //----------GETTERS----------

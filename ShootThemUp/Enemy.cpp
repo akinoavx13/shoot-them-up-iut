@@ -68,7 +68,7 @@ string Enemy::toString() const{
 void Enemy::shoot(){
     
     if(_bulletType == 0){
-        _mainShoot = new Bullet(_x + _width / 2 - STANDARD_PICTURE_WIDTH / 2, _y + STANDARD_PICTURE_HEIGHT + 5 + _height, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, 0);
+        _mainShoot = new Bullet(_x + _width / 2 - STANDARD_PICTURE_WIDTH / 2, _y + STANDARD_PICTURE_HEIGHT + 5 + _height, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, 0, STANDARD_PRICE);
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 1){
@@ -91,7 +91,7 @@ void Enemy::shoot(){
 
 void Enemy::shoot(const float x, const float y, const float speedX, const float speedY){
     if(_bulletType == 0){
-        _mainShoot = new Bullet(x, y, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, speedX, speedY, 0);
+        _mainShoot = new Bullet(x, y, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, speedX, speedY, 0, STANDARD_PRICE);
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 1){

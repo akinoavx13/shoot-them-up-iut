@@ -45,7 +45,8 @@ public:
     void changeBonus(int type);
     Bullet * getBulletBonus() const;
     
-    void improveOneBulletBonus(int type);
+    bool improveOneBulletBonus(int type);
+    bool canBuyItem(int type) const;
 
     //GETTERS
     int getNumberOfLife() const;

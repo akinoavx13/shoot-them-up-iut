@@ -139,6 +139,7 @@ const float ENEMY_BULLET_SPEEDY = 8;
 const int STANDARD_DAMAGE = 20;
 const int STANDARD_PICTURE_WIDTH = 9;
 const int STANDARD_PICTURE_HEIGHT = 9;
+const int STANDARD_PRICE = 100;
 
 //##############################################################################################
 

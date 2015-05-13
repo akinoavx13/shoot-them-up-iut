@@ -426,31 +426,31 @@ void GameViewSFML::draw(){
             sf::Shape Line0 = sf::Shape::Line(150, 90, 150, 100*6+90 , 1, Color(255, 255, 255));
             _window->Draw(Line0);
             
-            showItems(rang, 12, "Standard ball", STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, 100 , STANDARD_DAMAGE+_gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getState()*10);
+            showItems(rang, 12, "Standard ball", STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getPrice(), _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getDamage());
             
             sf::Shape Line1 = sf::Shape::Line(10, 100*1+90, SCREEN_WIDTH-10, 100*1+90 , 1, Color(255, 255, 255));
             _window->Draw(Line1);
             
             rang++;
-            showItems(rang, 5, "Fire ball", FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT, FIREBALL_PRICE, FIREBALL_DAMAGE+_gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getState()*10);
+            showItems(rang, 5, "Fire ball", FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT, _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getPrice(), _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getDamage());
             
             sf::Shape Line2 = sf::Shape::Line(10, 100*2+90, SCREEN_WIDTH-10, 100*2+90 , 1, Color(255, 255, 255));
             _window->Draw(Line2);
             
             rang++;
-            showItems(rang, 18, "Little laser", 9, 20, TINYLASER_PRICE, TINYLASER_DAMAGE+_gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getState()*10);
+            showItems(rang, 18, "Little laser", 9, 20, _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getPrice(), _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getDamage());
             
             sf::Shape Line3 = sf::Shape::Line(10, 100*3+90, SCREEN_WIDTH-10, 100*3+90 , 1, Color(255, 255, 255));
             _window->Draw(Line3);
             
             rang++;
-            showItems(rang, 4, "Double laser", 17, 16, DOUBLE_TINY_LASER_PRICE, DOUBLE_TINY_LASER_DAMAGE+_gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getState()*10);
+            showItems(rang, 4, "Double laser", 17, 16, _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getPrice(), _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getDamage());
             
             sf::Shape Line4 = sf::Shape::Line(10, 100*4+90, SCREEN_WIDTH-10, 100*4+90 , 1, Color(255, 255, 255));
             _window->Draw(Line4);
             
             rang++;
-            showItems(rang, 23, "Big laser", 8, 30, LASER_PRICE, LASER_DAMAGE+_gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getState()*10);
+            showItems(rang, 23, "Big laser", 8, 30, _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getPrice(), _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getDamage());
             
             sf::Shape Line5 = sf::Shape::Line(10, 100*5+90, SCREEN_WIDTH-10, 100*5+90 , 1, Color(255, 255, 255));
             _window->Draw(Line5);
@@ -758,29 +758,53 @@ bool GameViewSFML::treatEvent(){
             {
                 if(input.IsMouseButtonDown(Mouse::Left) || input.IsKeyDown(Key::Return)){
                     if((mouseX > 450) && (mouseX < 550)){
+                        int rang = 0;
                         if((mouseY>110) && (mouseY<130)){
-                            _gameModel->getLevel()->getAlly()->improveOneBulletBonus(0);
+                            if(_gameModel->getLevel()->getAlly()->canBuyItem(rang)){
+                                if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(rang)){
+                                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore()-_gameModel->getLevel()->getAlly()->getOneBulletBonus(rang)->getPrice());
+                                }
+                            }
                         }
+                        rang++;
                         if((mouseY>210) && (mouseY<230)){
-                            _gameModel->getLevel()->getAlly()->improveOneBulletBonus(1);
+                            if(_gameModel->getLevel()->getAlly()->canBuyItem(rang)){
+                                if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(rang)){
+                                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore()-_gameModel->getLevel()->getAlly()->getOneBulletBonus(rang)->getPrice());
+                                }
+                            }
                         }
+                        rang++;
                         if((mouseY>310) && (mouseY<330)){
-                            _gameModel->getLevel()->getAlly()->improveOneBulletBonus(2);
+                            if(_gameModel->getLevel()->getAlly()->canBuyItem(rang)){
+                                if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(rang)){
+                                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore()-_gameModel->getLevel()->getAlly()->getOneBulletBonus(rang)->getPrice());
+                                }
+                            }
                         }
+                        rang++;
                         if((mouseY>410) && (mouseY<430)){
-                            _gameModel->getLevel()->getAlly()->improveOneBulletBonus(3);
+                            if(_gameModel->getLevel()->getAlly()->canBuyItem(rang)){
+                                if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(rang)){
+                                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore()-_gameModel->getLevel()->getAlly()->getOneBulletBonus(rang)->getPrice());
+                                }
+                            }
                         }
+                        rang++;
                         if((mouseY>510) && (mouseY<530)){
-                            _gameModel->getLevel()->getAlly()->improveOneBulletBonus(4);
+                            if(_gameModel->getLevel()->getAlly()->canBuyItem(rang)){
+                                if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(rang)){
+                                    _gameModel->getLevel()->getAlly()->setScore(_gameModel->getLevel()->getAlly()->getScore()-_gameModel->getLevel()->getAlly()->getOneBulletBonus(rang)->getPrice());
+                                }
+                            }
                         }
                         if((mouseY>610) && (mouseY<630)){
-                            _gameModel->getLevel()->getAlly()->setNumberOfLife(_gameModel->getLevel()->getAlly()->getNumberOfLife() + 1);
+                            if(_gameModel->getLevel()->getAlly()->getScore()>200 && _gameModel->getLevel()->getAlly()->getNumberOfLife()<30){
+                                _gameModel->getLevel()->getAlly()->setNumberOfLife(_gameModel->getLevel()->getAlly()->getNumberOfLife() + 1);
+                            }
                         }
                         
                         
-                        if((mouseY>150) && (mouseY<170)){
-                            _gameModel->getLevel()->getAlly()->improveOneBulletBonus(0);
-                        }
                         if((mouseY>150) && (mouseY<170)){
                             _gameModel->getLevel()->getAlly()->changeBonus(0);
                         }
