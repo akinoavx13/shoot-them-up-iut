@@ -375,11 +375,25 @@ void GameViewSFML::draw(){
                 Picture ally(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,0+(ALLY_PICTURE_WIDTH/3)*k3,0,(ALLY_PICTURE_WIDTH/3)+(ALLY_PICTURE_WIDTH/3)*k3,ALLY_PICTURE_HEIGHT);
                 _window->Draw(ally.getSprite());
                 
-                for(int i = 0; i<_gameModel->getLevel()->getAlly()->getNumberOfLife(); i++)
-                {
-                    Picture life(_graphicLibrary->getImage(25), i*25,5,20,20);
-                    _window->Draw(life.getSprite());
-                }
+                Picture life(_graphicLibrary->getImage(25), 15,5,20,20);
+                _window->Draw(life.getSprite());
+                
+                String p2("x", font , 15);
+                p2.SetX(40);
+                p2.SetY(5);
+                p2.SetColor(Color(255, 255, 255));
+                _window->Draw(p2);
+                
+                std::string valeurPrice;
+                std::stringstream out1;
+                out1 << _gameModel->getLevel()->getAlly()->getNumberOfLife();
+                valeurPrice = out1.str();
+                
+                String textPrixe(valeurPrice, font , 15);
+                textPrixe.SetX(50);
+                textPrixe.SetY(5);
+                textPrixe.SetColor(Color(255, 255, 255));
+                _window->Draw(textPrixe);
             }
         }
         
@@ -387,6 +401,25 @@ void GameViewSFML::draw(){
         {//
             Picture bg(_graphicLibrary->getImage(26), 0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
             _window->Draw(bg.getSprite());
+            
+            
+            String money("Money :", font , 20);
+            money.SetX(40);
+            money.SetY(30);
+            money.SetColor(Color(255, 255, 255));
+            _window->Draw(money);
+            
+            std::string valeurMoney;
+            std::stringstream out1;
+            out1 << _gameModel->getLevel()->getAlly()->getScore();
+            valeurMoney = out1.str();
+            
+            String textMoney(valeurMoney, font , 20);
+            textMoney.SetX(135);
+            textMoney.SetY(30);
+            textMoney.SetColor(Color(255, 255, 255));
+            _window->Draw(textMoney);
+            
             
             int rang = 1;
             
@@ -430,6 +463,42 @@ void GameViewSFML::draw(){
             li.SetY(100*6+60);
             li.SetColor(Color(255, 255, 255));
             _window->Draw(li);
+            
+            rang++;
+            Shape c;
+            c.AddPoint(450, 100*rang+10, Color(255, 255, 255), Color(255,255,255));
+            c.AddPoint(550, 100*rang+10, Color(255, 255, 255), Color(255,255,255));
+            c.AddPoint(550, 100*rang+30, Color(255, 255, 255), Color(255,255,255));
+            c.AddPoint(450, 100*rang+30, Color(255, 255, 255), Color(255,255,255));
+            
+            c.EnableFill(false);
+            c.EnableOutline(true);
+            c.SetOutlineWidth(1);
+            
+            _window->Draw(c);
+
+            String buyText("Buy", font , 15);
+            buyText.SetX(490);
+            buyText.SetY(100*rang+12);
+            buyText.SetColor(Color(255, 255, 255));
+            _window->Draw(buyText);
+            
+            String s2("Life : ", font , 15);
+            s2.SetX(175);
+            s2.SetY(100*rang+20);
+            s2.SetColor(Color(255, 255, 255));
+            _window->Draw(s2);
+            
+            std::string valeurLife;
+            std::stringstream out2;
+            out2 << _gameModel->getLevel()->getAlly()->getNumberOfLife();
+            valeurLife = out2.str();
+            
+            String textPrixe(valeurLife, font , 15);
+            textPrixe.SetX(270);
+            textPrixe.SetY(100*rang+20);
+            textPrixe.SetColor(Color(255, 255, 255));
+            _window->Draw(textPrixe);
             
             Shape cadreFinLevel;
             cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
@@ -552,7 +621,7 @@ void GameViewSFML::showItems(int rang, int numPicture, string name, int width, i
     
     _window->Draw(arm);
     
-    for(int i = 0; i<6; i++){
+    for(int i = 0; i<5; i++){
         Shape t;
         t.AddPoint(250+25*i, rang*100+25, Color(255, 255, 255), Color(255,255,255));
         t.AddPoint(260+25*i, rang*100+25, Color(255, 255, 255), Color(255,255,255));
@@ -599,7 +668,6 @@ bool GameViewSFML::treatEvent(){
     
     int mouseX = input.GetMouseX();
     int mouseY = input.GetMouseY();
-    
     
     if (_window->IsOpened())
     {
@@ -689,6 +757,49 @@ bool GameViewSFML::treatEvent(){
             else if(_menu->getShop())
             {
                 if(input.IsMouseButtonDown(Mouse::Left) || input.IsKeyDown(Key::Return)){
+                    if((mouseX > 450) && (mouseX < 550)){
+                        if((mouseY>110) && (mouseY<130)){
+                            _gameModel->getLevel()->getAlly()->improveOneBulletBonus(0);
+                        }
+                        if((mouseY>210) && (mouseY<230)){
+                            _gameModel->getLevel()->getAlly()->improveOneBulletBonus(1);
+                        }
+                        if((mouseY>310) && (mouseY<330)){
+                            _gameModel->getLevel()->getAlly()->improveOneBulletBonus(2);
+                        }
+                        if((mouseY>410) && (mouseY<430)){
+                            _gameModel->getLevel()->getAlly()->improveOneBulletBonus(3);
+                        }
+                        if((mouseY>510) && (mouseY<530)){
+                            _gameModel->getLevel()->getAlly()->improveOneBulletBonus(4);
+                        }
+                        if((mouseY>610) && (mouseY<630)){
+                            _gameModel->getLevel()->getAlly()->setNumberOfLife(_gameModel->getLevel()->getAlly()->getNumberOfLife() + 1);
+                        }
+                        
+                        
+                        if((mouseY>150) && (mouseY<170)){
+                            _gameModel->getLevel()->getAlly()->improveOneBulletBonus(0);
+                        }
+                        if((mouseY>150) && (mouseY<170)){
+                            _gameModel->getLevel()->getAlly()->changeBonus(0);
+                        }
+                        if((mouseY>250) && (mouseY<270)){
+                            _gameModel->getLevel()->getAlly()->changeBonus(1);
+                        }
+                        if((mouseY>350) && (mouseY<370)){
+                            _gameModel->getLevel()->getAlly()->changeBonus(2);
+                        }
+                        if((mouseY>450) && (mouseY<470)){
+                            _gameModel->getLevel()->getAlly()->changeBonus(3);
+                        }
+                        if((mouseY>550) && (mouseY<570)){
+                            _gameModel->getLevel()->getAlly()->changeBonus(4);
+                        }
+
+                        
+                    }
+
                     if(((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
                     {
                         _menu->setLevel(true);

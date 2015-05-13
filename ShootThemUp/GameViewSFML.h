@@ -45,7 +45,7 @@ public:
     //SETTERS
     void setModel(GameModel* gameModel);
     void setModelMenu();
-
+    
     bool treatEvent();
 
 };

@@ -27,11 +27,10 @@ Ally::Ally() : Ship(MODEL_WIDTH/2, MODEL_HEIGHT-ALLY_PICTURE_HEIGHT-10, ALLY_LIF
     
     _othersBullets.push_back(newBullet3);
     
-    Bullet * newBullet4 = Bullet::Laser(_x + _width / 2 - LASER_PICTURE_WIDTH / 2, _y - LASER_PICTURE_HEIGHT - 5, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, LASER_DAMAGE);
-    
+    Bullet * newBullet4 = Bullet::DoubleTinyLaser(_x + _width / 2 - DOUBLE_TINY_LASER_PICTURE_WIDTH / 2, _y - DOUBLE_TINY_LASER_PICTURE_HEIGHT - 5, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, DOUBLE_TINY_LASER_DAMAGE);
     _othersBullets.push_back(newBullet4);
-    
-    Bullet * newBullet5 = Bullet::DoubleTinyLaser(_x + _width / 2 - DOUBLE_TINY_LASER_PICTURE_WIDTH / 2, _y - DOUBLE_TINY_LASER_PICTURE_HEIGHT - 5, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, DOUBLE_TINY_LASER_DAMAGE);
+
+    Bullet * newBullet5 = Bullet::Laser(_x + _width / 2 - LASER_PICTURE_WIDTH / 2, _y - LASER_PICTURE_HEIGHT - 5, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, LASER_DAMAGE);
     
     _othersBullets.push_back(newBullet5);
     
@@ -174,10 +173,8 @@ void Ally::improveOneBulletBonus(int type){
 
 Bullet * Ally::getOneBulletBonus(int type) const{
     if(_othersBullets.size() > type){
-        cout << "ok" << type << endl;
         return _othersBullets[type];
     }
-    cout << "pb" << endl;
     return _othersBullets[0];
 }
 

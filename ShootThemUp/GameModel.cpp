@@ -121,9 +121,6 @@ void GameModel::updateCore(){
                     
                     _menu->setShop(true); //go to shop because level is finish
                     _menu->setLevel(false);
-                    
-                    _level->getAlly()->changeBonus(3);
-                    _level->getAlly()->improveOneBulletBonus(2);
                 }
                     
                 #ifdef __linux__
