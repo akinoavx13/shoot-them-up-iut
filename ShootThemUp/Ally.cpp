@@ -16,7 +16,8 @@ using namespace std;
  */
 Ally::Ally() : Ship(MODEL_WIDTH/2, MODEL_HEIGHT-ALLY_PICTURE_HEIGHT-10, ALLY_LIFE,ALLY_PICTURE_WIDTH/3, ALLY_PICTURE_HEIGHT, ALLY_FIRERATE, ALLY_SPEEDX, ALLY_SPEEDY), _numbersOfLife(ALLY_NUMBER_OF_LIFE), _score(DEFAULT_SCORE), _numberShootWithBonus(0), _numberShootWithBonusMax(4)
 {
-    _othersBullets.push_back(_mainShoot);
+    Bullet * newBullet1 = new Bullet(_x + _width / 2 - STANDARD_PICTURE_WIDTH / 2, _y - STANDARD_PICTURE_HEIGHT - 5, STANDARD_DAMAGE, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, 0);
+    _othersBullets.push_back(newBullet1);
     
     Bullet * newBullet2 = Bullet::FireBall(_x + _width / 2 - FIREBALL_PICTURE_WIDTH / 2, _y - FIREBALL_PICTURE_HEIGHT - 5, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, FIREBALL_DAMAGE);
     
@@ -159,11 +160,27 @@ string Ally::toString() const{
     return str;
 }
 
+void Ally::improveOneBulletBonus(int type){
+    if(_othersBullets.size() > type){
+        _othersBullets[type]->improve();
+    }
+}
+
 //----------GETTERS----------
 /*
  * returns : number of life
  * info : constant
  */
+
+Bullet * Ally::getOneBulletBonus(int type) const{
+    if(_othersBullets.size() > type){
+        cout << "ok" << type << endl;
+        return _othersBullets[type];
+    }
+    cout << "pb" << endl;
+    return _othersBullets[0];
+}
+
 int Ally::getNumberOfLife() const{
     return _numbersOfLife;
 }
@@ -182,6 +199,10 @@ int Ally::getNumberShootBonusMax() const{
 
 int Ally::getBulletBonusType() const{
     return _bonusShoot->getType();
+}
+
+Bullet * Ally::getBulletBonus() const{
+    return _bonusShoot;
 }
 
 //----------SETTERS----------

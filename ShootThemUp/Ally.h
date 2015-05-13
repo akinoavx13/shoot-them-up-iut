@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "Ship.h"
+#include "Bullet.h"
 
 class Ally : public Ship{
 private:
@@ -42,6 +43,9 @@ public:
     std::string toString() const override;
     
     void changeBonus(int type);
+    Bullet * getBulletBonus() const;
+    
+    void improveOneBulletBonus(int type);
 
     //GETTERS
     int getNumberOfLife() const;
@@ -50,14 +54,14 @@ public:
     int getNumberShootBonusMax() const;
     
     int getBulletBonusType() const;
+    
+    Bullet * getOneBulletBonus(int type) const;
 
     //SETTERS
     void setNumberOfLife(int numberOfLive);
 
     void setScore(int expPoint);
-    
-    //void shoot() override;
-    
+        
     void bonusShoot();
     
     void resetBonus();

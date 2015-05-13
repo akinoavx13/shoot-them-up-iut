@@ -43,6 +43,8 @@ public:
 
     void move(const float x, const float y) override;
     int getType() const;
+    
+    int getState() const;
 
 };
 

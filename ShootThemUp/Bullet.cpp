@@ -13,7 +13,7 @@ using namespace std;
 /*
  * default constructor
  */
-Bullet::Bullet():_damage(STANDARD_DAMAGE){}
+Bullet::Bullet():_damage(STANDARD_DAMAGE), _state(0){}
 
 /*
  * constructor
@@ -89,4 +89,8 @@ void Bullet::move(const float x, const float y){
 
 int Bullet::getType() const{
     return _type;
+}
+
+int Bullet::getState() const{
+    return _state;
 }

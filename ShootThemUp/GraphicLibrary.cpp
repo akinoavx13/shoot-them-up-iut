@@ -256,6 +256,14 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img25);
     }
+    Image * img26 = new Image();
+    #ifdef __linux__
+    if(img26->LoadFromFile("ShootThemUp/sprites/backgroundShop.png")){
+    #else
+    if(img26->LoadFromFile("backgroundShop.png")){
+    #endif
+        _imagesList.push_back(img26);
+    }
 }
 
 Image * GraphicLibrary::getImage(int i) const{

@@ -30,6 +30,8 @@ private:
     float _yBackground;
     float _yBackground2;
 
+    
+    void showItems(int rang, int numPicture, std::string name, int width, int height, int price, int damage) const;
 public:
     //CONSTRUCTOR
     GameViewSFML();
