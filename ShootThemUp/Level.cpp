@@ -84,15 +84,17 @@ string Level::toString() const{
 void Level::checkCollisions(){
     for (int i = 0; i < _tabBullets.size(); i++) {
         for (int j = 0; j < _tabBullets.size(); j++) {
-            if(_tabBullets[i]->collisions(_tabBullets[j]) && i!=j){
-                delete _tabBullets[i];
-                delete _tabBullets[j];
-                _tabBullets.erase(_tabBullets.begin() + i);
-                if(i>j)
-                    _tabBullets.erase(_tabBullets.begin() + j);
-                else
-                    _tabBullets.erase(_tabBullets.begin() + j-1);
-                break;
+            if(i!=j){
+                if(_tabBullets[i]->collisions(_tabBullets[j])){
+                    delete _tabBullets[i];
+                    delete _tabBullets[j];
+                    _tabBullets.erase(_tabBullets.begin() + i);
+                    if(i>j)
+                        _tabBullets.erase(_tabBullets.begin() + j);
+                    else
+                        _tabBullets.erase(_tabBullets.begin() + j-1);
+                    break;
+                }
             }
         }
     }
@@ -152,15 +154,13 @@ void Level::checkCollisions(){
     }
 
     for (int i = 0; i < _tabBullets.size(); i++) {
-        float bulletX = _tabBullets[i]->getX();
-        float bulletY = _tabBullets[i]->getY();
-        int bulletWidth = _tabBullets[i]->getWidth();
-        int bulletHeight = _tabBullets[i]->getHeight();
-        
-        if((bulletX <= 3) || (bulletX + bulletWidth + 3 >= MODEL_WIDTH) || (bulletY <= 3) || (bulletY + bulletHeight + 3 >= MODEL_HEIGHT)){
+        if((_tabBullets[i]->getX() <= 0) ||
+           (_tabBullets[i]->getX() + _tabBullets[i]->getWidth() >= MODEL_WIDTH) ||
+           (_tabBullets[i]->getY() <= 0) ||
+           (_tabBullets[i]->getY() + _tabBullets[i]->getHeight() >= MODEL_HEIGHT))
+        {
             delete _tabBullets[i];
             _tabBullets.erase(_tabBullets.begin() + i);
-            i--;
         }
     }
     
