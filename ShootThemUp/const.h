@@ -17,7 +17,7 @@
  * SCREEN
  */
 const int SCREEN_WIDTH = 600;
-const int SCREEN_HEIGHT = 700;
+const int SCREEN_HEIGHT = 800;
 const int SCREEN_FPS = 50;
 
 //##############################################################################################
@@ -55,7 +55,7 @@ const int GRAPHIC_ELEMENT_HEIGHT = 10;
 /*
  * ALLY
  */
-const int ALLY_LIFE = 1000;
+const int ALLY_LIFE = 500;
 const float ALLY_FIRERATE = 0.3;
 const int ALLY_PICTURE_HEIGHT = 49;
 const int ALLY_PICTURE_WIDTH = 183;
@@ -113,7 +113,7 @@ const int BOSS_PICTURE_HEIGHT = 74;
 const int BOSS_PICTURE_WIDTH = 279;
 const float BOSS_DEFAULT_SPEEDX = 3;
 const float BOSS_DEFAULT_SPEEDY = 3;
-const float BOSS_FIRERATE = 1;
+const float BOSS_FIRERATE = 0.7;
 
 //##############################################################################################
 

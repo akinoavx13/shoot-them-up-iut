@@ -58,7 +58,6 @@ void GameModel::updateCore(){
     else if(_menu->getGame())
     {
         _numberTour++;
-        //clearScreen();
         
         if(_menu->getLevel() && !_menu->getReady())
         {
@@ -90,9 +89,6 @@ void GameModel::updateCore(){
                 if(_level->getBoss() == 0)
                 #endif
                 {
-                    _level->deleteAllEnemy();
-                    _level->deleteAllBullets();
-                    
                     
                     _level->setLevelNumber(_level->getLevelNumber() + 1);
                     _level->setNbEnemies(_level->getNbEnemies() + 2);
@@ -140,7 +136,7 @@ void GameModel::updateCore(){
                             float xb = max * cos((float)i * (3.14/180)) + _level->getBoss()->getX() + _level->getBoss()->getWidth() / 2;
                             float yb = max * sin((float)i * (3.14/180)) + _level->getBoss()->getY() + _level->getBoss()->getHeight() / 2;
                             
-                            _level->getBoss()->shoot(xb, yb, 10*cos((float)i * (3.14/180)), 10*sin((float)i * (3.14/180)));
+                            _level->getBoss()->shoot(xb, yb, 13*cos((float)i * (3.14/180)), 13*sin((float)i * (3.14/180)));
                             
                         }
                         
@@ -148,8 +144,8 @@ void GameModel::updateCore(){
                     }
                             
                     _bossMoveIncrement++;
-                    float xBoss = 50 * cos((float)_bossMoveIncrement * (3.14/180)) + MODEL_WIDTH / 2 - BOSS_PICTURE_WIDTH / 6;
-                    float yBoss = 50 * sin((float)_bossMoveIncrement * (3.14/180)) + MODEL_HEIGHT / 2 - BOSS_PICTURE_HEIGHT / 2 - 100;
+                    float xBoss = 200 * cos((float)_bossMoveIncrement * (3.14/180)) + MODEL_WIDTH / 2 - BOSS_PICTURE_WIDTH / 6;
+                    float yBoss = 200 * sin((float)_bossMoveIncrement * (3.14/180)) + MODEL_HEIGHT / 2 - BOSS_PICTURE_HEIGHT / 2 - 100;
                     _level->getBoss()->move(xBoss, yBoss);
                 }
             }
@@ -160,8 +156,8 @@ void GameModel::updateCore(){
                 {
                     _level->addBoss();
                     //ici on peut ajouter de la vie au boss
-                    _level->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + (_level->getLevelNumber() - 1) * 30 );
-                    _level->getBoss()->setDamage(_level->getBoss()->getDamage() + _level->getLevelNumber() * 2);
+                    _level->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + (_level->getLevelNumber() - 1) * 50 );
+                    _level->getBoss()->setDamage(_level->getBoss()->getDamage() + _level->getLevelNumber() * 10);
                     if(_level->getLevelNumber() >= 2){
                         _level->getBoss()->setBulletType(1);
                     }
@@ -184,16 +180,13 @@ void GameModel::updateCore(){
                 }
             }
             _level->moveEnemies(_enemyMoveIncrement);
-            _enemyMoveIncrement += 0.00175;
-            if(_enemyMoveIncrement >= 1){
-                _enemyMoveIncrement = 0;
-            }
+            _enemyMoveIncrement += 0.1;
         }
         
         else if (_menu->getShop())
         {
             _level->deleteAllBullets();
-            _level->deleteAllEnemy();
+            //_level->deleteAllEnemy();
             _enemyMoveIncrement = 0;
         }
     }

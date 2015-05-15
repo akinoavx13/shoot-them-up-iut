@@ -198,20 +198,28 @@ void Level::addBullet(Bullet* bullet){
  */
 void Level::moveEnemies(float t){
     for (int i = 0; i < _tabEnemies.size(); i++) {
-        if(_tabEnemies[i]->getY() > SCREEN_HEIGHT || _tabEnemies[i]->getX() + _tabEnemies[i]->getWidth() <= 0 || _tabEnemies[i]->getX() >= SCREEN_WIDTH){
+        if(_tabEnemies[i]->getY() > MODEL_HEIGHT || _tabEnemies[i]->getX() + _tabEnemies[i]->getWidth() <= 0 || _tabEnemies[i]->getX() >= MODEL_WIDTH){
             delete _tabEnemies[i];
             _tabEnemies.erase(_tabEnemies.begin() + i);
         }else{
             
-            
-            float xM = _tabEnemies[i]->getXEntree() + t * (_tabEnemies[i]->getXSortie() - _tabEnemies[i]->getXEntree());
-            float yM = _tabEnemies[i]->getYEntree() + t * (MODEL_HEIGHT - _tabEnemies[i]->getYEntree());
-            
-            cout << "xM : " << xM << endl;
-            cout << "yM : " << yM << endl;
-            cout << "t : " << t << endl;
-            cout << "-------------"<< endl;
-            _tabEnemies[i]->move(xM, yM);
+            if(_tabEnemies[i]->getType() == 1){
+                float x = sin(t) * 5 + _tabEnemies[i]->getX();
+                float y = _tabEnemies[i]->getY();
+                _tabEnemies[i]->move(x, y + _tabEnemies[i]->getSpeedY());
+                
+            }
+            else if (_tabEnemies[i]->getType() == 2){
+                float x = _tabEnemies[i]->getX();
+                float y = _tabEnemies[i]->getY();
+                _tabEnemies[i]->move(x, y + _tabEnemies[i]->getSpeedY());
+                
+            }else if(_tabEnemies[i]->getType() == 3){
+                float x = _tabEnemies[i]->getXEntree() + t / 37 * (_tabEnemies[i]->getXSortie() + _tabEnemies[i]->getXEntree());
+                float y = _tabEnemies[i]->getYEntree() + t / 37 * (_tabEnemies[i]->getYSortie() + _tabEnemies[i]->getYEntree());
+                _tabEnemies[i]->move(x, y);
+                
+            }
         }
     }
 }
@@ -254,7 +262,7 @@ void Level::addEnemies(){
             
             enemy->setXEntree(x);
             enemy->setYEntree(y);
-            enemy->setXSortie(rand()%(MODEL_WIDTH - MIGHTY_PICTURE_WIDTH));
+            enemy->setXSortie(rand()%(MODEL_WIDTH) - 100);
             enemy->setYSortie(MODEL_HEIGHT);
             
             enemy->setLevel(this);
@@ -267,11 +275,6 @@ void Level::addEnemies(){
             
             Enemy* enemy = Enemy::Submarine(x, y);
             
-            enemy->setXEntree(x);
-            enemy->setYEntree(y);
-            enemy->setXSortie(rand()%(MODEL_WIDTH - SUBMARINE_PICTURE_WIDTH));
-            enemy->setYSortie(MODEL_HEIGHT);
-            
             enemy->setLevel(this);
             _tabEnemies.push_back(enemy);
 
@@ -281,11 +284,6 @@ void Level::addEnemies(){
             float y = i * - 100;
             
             Enemy* enemy = Enemy::Tiny(x, y);
-            
-            enemy->setXEntree(x);
-            enemy->setYEntree(y);
-            enemy->setXSortie(rand()%(MODEL_WIDTH - TINY_PICTURE_WIDTH));
-            enemy->setYSortie(MODEL_HEIGHT);
             
             enemy->setLevel(this);
             _tabEnemies.push_back(enemy);

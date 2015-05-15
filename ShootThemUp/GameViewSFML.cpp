@@ -241,9 +241,8 @@ void GameViewSFML::draw(){
                             
                         Shape vieBoss;
                         vieBoss.AddPoint(xb, yb-15, Color(240, 76, 36), Color(240, 76, 36));
-                        //std::cout << (float)_gameModel->getLevel()->getBoss()->getHealth() << std::endl;
-                        vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / ((float)BOSS_LIFE + (_gameModel->getLevel()->getLevelNumber()-1) *30)) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb-15, Color(240, 76, 36), Color(240, 76, 36));
-                        vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / ((float)BOSS_LIFE + (_gameModel->getLevel()->getLevelNumber()-1) *30)) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb-10, Color(240, 76, 36), Color(240, 76, 36));
+                        vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / ((float)BOSS_LIFE + (_gameModel->getLevel()->getLevelNumber()-1) *50)) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb-15, Color(240, 76, 36), Color(240, 76, 36));
+                        vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / ((float)BOSS_LIFE + (_gameModel->getLevel()->getLevelNumber()-1) *50)) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb-10, Color(240, 76, 36), Color(240, 76, 36));
                         vieBoss.AddPoint(xb, yb-10, Color(240, 76, 36), Color(240, 76, 36));
                         vieBoss.EnableFill(true);
                         vieBoss.EnableOutline(false);
@@ -342,6 +341,15 @@ void GameViewSFML::draw(){
                 _window->Draw(textPrixe);
             }
             
+            Shape cadreNoir;
+            cadreNoir.AddPoint(MODEL_WIDTH, 0,  Color(0, 0, 0), Color(0, 0, 0));
+            cadreNoir.AddPoint(SCREEN_WIDTH, 0, Color(0, 0, 0), Color(0, 0, 0));
+            cadreNoir.AddPoint(SCREEN_WIDTH, SCREEN_HEIGHT, Color(0, 0, 0), Color(0, 0, 0));
+            cadreNoir.AddPoint(MODEL_WIDTH, SCREEN_HEIGHT, Color(0, 0, 0), Color(0, 0, 0));
+                
+            cadreNoir.EnableFill(true);
+            _window->Draw(cadreNoir);
+                
             //
             String textScore("SCORE : ", font , 15);
             textScore.SetX(SCREEN_WIDTH - 150);
@@ -553,7 +561,7 @@ void GameViewSFML::draw(){
             
             std::string valeurLifePrice;
             std::stringstream out3;
-            out3 << 200;
+            out3 << ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100;
             valeurLifePrice = out3.str();
             
             String textLifePrice(valeurLifePrice, font , 15);
@@ -825,7 +833,7 @@ bool GameViewSFML::treatEvent(){
                         shoot.Reset();
                     }
                 }
-                if(input.IsKeyDown(Key::A))
+                if(input.IsKeyDown(Key::LAlt))
                 {
                     if(shoot.GetElapsedTime() >= _gameModel->getLevel()->getAlly()->getFireRate()){
                         _gameModel->getLevel()->getAlly()->bonusShoot();
@@ -878,9 +886,10 @@ bool GameViewSFML::treatEvent(){
                             }
                         }
                         if((mouseY>610) && (mouseY<630)){
-                            if(_gameModel->getLevel()->getAlly()->getScore()>200 && _gameModel->getLevel()->getAlly()->getNumberOfLife()<30){
+                            if(_gameModel->getLevel()->getAlly()->getScore() > ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100 && _gameModel->getLevel()->getAlly()->getNumberOfLife()<5){
                                 _gameModel->getLevel()->getAlly()->setNumberOfLife(_gameModel->getLevel()->getAlly()->getNumberOfLife() + 1);
-                                _gameModel->getLevel()->getAlly()->reduceScore(200);
+                                _gameModel->getLevel()->getAlly()->reduceScore(ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100);
+                                _gameModel->getLevel()->getAlly()->setNumberLifeBuy(_gameModel->getLevel()->getAlly()->getNumberLifeBuy() + 1);
                             }
                         }
                         

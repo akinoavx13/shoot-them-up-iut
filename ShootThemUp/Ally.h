@@ -28,6 +28,7 @@ private:
     Bullet * _bonusShoot;
     int _numberShootWithBonus;
     int _numberShootWithBonusMax;
+    int _numberLifeBuy;
     
 public:
 
@@ -68,6 +69,9 @@ public:
     void resetBonus();
     
     void reduceScore(int less);
+    
+    void setNumberLifeBuy(int i);
+    int getNumberLifeBuy() const;
     
 
 };
