@@ -49,6 +49,9 @@ bool Menu::getEnding() const{
     return _ending;
 }
 
+bool Menu::getReady() const{
+    return _readyToPlay;
+}
 //SETTERS
 void Menu::setIntro(bool intro){
     _intro = intro;
@@ -80,6 +83,10 @@ void Menu::setSaveScore(bool saveScore){
 
 void Menu::setEnding(bool ending){
     _ending = ending;
+}
+
+void Menu::setReady(bool ready){
+    _readyToPlay = ready;
 }
 
 void Menu::showIntroTerminal() const{

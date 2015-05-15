@@ -59,7 +59,7 @@ void GameModel::updateCore(){
         _numberTour++;
         //clearScreen();
         
-        if(_menu->getLevel())
+        if(_menu->getLevel() && !_menu->getReady())
         {
             _level->moveBullets();
             _level->checkCollisions();
@@ -116,7 +116,7 @@ void GameModel::updateCore(){
                         }
                     }
                     
-                    _level->getAlly()->move(MODEL_WIDTH/2, MODEL_HEIGHT-ALLY_PICTURE_HEIGHT-10);
+                    _level->getAlly()->move(MODEL_WIDTH/2-_level->getAlly()->getWidth()/2, MODEL_HEIGHT-_level->getAlly()->getHeight()-15);
                     _level->getAlly()->resetBonus();
                     
                     _menu->setShop(true); //go to shop because level is finish
