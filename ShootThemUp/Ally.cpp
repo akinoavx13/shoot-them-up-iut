@@ -85,7 +85,7 @@ Ally::~Ally(){
  */
 
 bool Ally::canBuyItem(int type) const{
-    return _score>=_othersBullets[type]->getPrice();
+    return _score-_othersBullets[type]->getPrice()>=0;
 }
 
 bool Ally::isOver() const{
@@ -224,4 +224,8 @@ void Ally::setNumberOfLife(int numberOfLive){
 
 void Ally::setScore(int expPoint){
     _score += DEFAULT_POINT + expPoint;
+}
+
+void Ally::reduceScore(int less){
+    _score-=less;
 }

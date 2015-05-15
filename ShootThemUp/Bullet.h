@@ -38,6 +38,7 @@ public:
     //METHODS
     virtual std::string toString() const override;
     bool improve();
+    void growPrice();
 
     //SETTERS
     void setPrice(int price);

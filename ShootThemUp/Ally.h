@@ -67,6 +67,8 @@ public:
     
     void resetBonus();
     
+    void reduceScore(int less);
+    
 
 };
 
