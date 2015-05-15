@@ -57,6 +57,8 @@ public:
     
     int getBulletBonusType() const;
     
+    int getMainBulletType() const;
+    
     Bullet * getOneBulletBonus(int type) const;
 
     //SETTERS
@@ -72,6 +74,7 @@ public:
     
     void setNumberLifeBuy(int i);
     int getNumberLifeBuy() const;
+    
     
 
 };

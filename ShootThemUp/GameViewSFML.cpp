@@ -352,7 +352,7 @@ void GameViewSFML::draw(){
 
             //
             String textScore("SCORE : ", font , 15);
-            textScore.SetX(SCREEN_WIDTH - 150);
+            textScore.SetX(SCREEN_WIDTH - 180);
             textScore.SetY(5);
             textScore.SetColor(Color(255, 255, 255));
             _window->Draw(textScore);
@@ -369,9 +369,9 @@ void GameViewSFML::draw(){
             _window->Draw(valeurScore);
                 
             //
-            String textLevel("NIVEAU : ", font , 15);
-            textLevel.SetX(SCREEN_WIDTH - 150);
-            textLevel.SetY(20);
+            String textLevel("WAVE : ", font , 15);
+            textLevel.SetX(SCREEN_WIDTH - 180);
+            textLevel.SetY(25);
             textLevel.SetColor(Color(255, 255, 255));
             _window->Draw(textLevel);
                 
@@ -382,74 +382,169 @@ void GameViewSFML::draw(){
                 
             String valeurLevel(valeurNiveau, font , 15);
             valeurLevel.SetX(SCREEN_WIDTH - 70);
-            valeurLevel.SetY(20);
+            valeurLevel.SetY(25);
             valeurLevel.SetColor(Color(255, 255, 255));
             _window->Draw(valeurLevel);
                 
             //
-            String textBonus("TIRS BONUS : ", font , 15);
-            textBonus.SetX(SCREEN_WIDTH - 150);
-            textBonus.SetY(55);
+            String textEnemies("ENNEMIES : ", font , 15);
+            textEnemies.SetX(SCREEN_WIDTH - 180);
+            textEnemies.SetY(45);
+            textEnemies.SetColor(Color(255, 255, 255));
+            _window->Draw(textEnemies);
+                
+            std::string valeurEnemies;
+            std::stringstream out3;
+            out3 << _gameModel->getLevel()->getNumberOfEnemies();
+            valeurEnemies = out3.str();
+        
+            String valeurTextEnemies(valeurEnemies, font , 15);
+            valeurTextEnemies.SetX(SCREEN_WIDTH - 70);
+            valeurTextEnemies.SetY(45);
+            valeurTextEnemies.SetColor(Color(255, 255, 255));
+            _window->Draw(valeurTextEnemies);
+                
+            //
+            String textMain("MAIN SHOOT", font , 15);
+            textMain.SetX(SCREEN_WIDTH - 135);
+            textMain.SetY(100);
+            textMain.SetColor(Color(255, 255, 255));
+            _window->Draw(textMain);
+                
+            String textPowerMain("POWER : ", font , 15);
+            textPowerMain.SetX(SCREEN_WIDTH - 180);
+            textPowerMain.SetY(130);
+            textPowerMain.SetColor(Color(255, 255, 255));
+            _window->Draw(textPowerMain);
+                
+            std::string valeurPoweMain;
+            std::stringstream out5;
+            out5 << _gameModel->getLevel()->getAlly()->getOneBulletBonus(_gameModel->getLevel()->getAlly()->getMainBulletType())->getDamage();
+            valeurPoweMain = out5.str();
+                
+            String textValeurPowerMain(valeurPoweMain, font , 15);
+            textValeurPowerMain.SetX(SCREEN_WIDTH - 70);
+            textValeurPowerMain.SetY(130);
+            textValeurPowerMain.SetColor(Color(255, 255, 255));
+            _window->Draw(textValeurPowerMain);
+                
+                if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 0)
+                {
+                    Picture v1(_graphicLibrary->getImage(12), SCREEN_WIDTH-100,170,STANDARD_PICTURE_WIDTH,STANDARD_PICTURE_HEIGHT);
+                    _window->Draw(v1.getSprite());
+                }
+                else if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 1)
+                {
+                    Picture v2(_graphicLibrary->getImage(5), SCREEN_WIDTH-100,170,FIREBALL_PICTURE_WIDTH,FIREBALL_PICTURE_HEIGHT);
+                    _window->Draw(v2.getSprite());
+                    
+                }
+                else if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 2)
+                {
+                    Picture v3(_graphicLibrary->getImage(18), SCREEN_WIDTH-100,170,TINYLASER_PICTURE_WIDTH,TINYLASER_PICTURE_HEIGHT);
+                    _window->Draw(v3.getSprite());
+                    
+                }
+                else if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 3)
+                {
+                    Picture v4(_graphicLibrary->getImage(23), SCREEN_WIDTH-100,170,LASER_PICTURE_WIDTH,LASER_PICTURE_HEIGHT);
+                    _window->Draw(v4.getSprite());
+                }
+                else if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 4)
+                {
+                    Picture v5(_graphicLibrary->getImage(4), SCREEN_WIDTH-100,170,DOUBLE_TINY_LASER_PICTURE_WIDTH,DOUBLE_TINY_LASER_PICTURE_HEIGHT);
+                    _window->Draw(v5.getSprite());
+                }
+                
+                
+            String textBonus("BONUS SHOOT", font , 15);
+            textBonus.SetX(SCREEN_WIDTH - 135);
+            textBonus.SetY(220);
             textBonus.SetColor(Color(255, 255, 255));
             _window->Draw(textBonus);
                 
-            std::string valeurBonusShoot;
-            std::stringstream out3;
-            out3 << _gameModel->getLevel()->getAlly()->getNumberShootBonusMax()-_gameModel->getLevel()->getAlly()->getNumberShootBonus();
-            valeurBonusShoot = out3.str();
-                
-            String textBonusShoot(valeurBonusShoot, font , 15);
-            textBonusShoot.SetX(SCREEN_WIDTH - 35);
-            textBonusShoot.SetY(55);
-            textBonusShoot.SetColor(Color(255, 255, 255));
-            _window->Draw(textBonusShoot);
-                
             String textPower("POWER : ", font , 15);
-            textPower.SetX(SCREEN_WIDTH - 150);
-            textPower.SetY(70);
+            textPower.SetX(SCREEN_WIDTH - 180);
+            textPower.SetY(245);
             textPower.SetColor(Color(255, 255, 255));
             _window->Draw(textPower);
                 
             std::string valeurPower;
-            std::stringstream out4;
-            out4 << _gameModel->getLevel()->getAlly()->getBulletBonus()->getDamage();
-            valeurBonusShoot = out4.str();
+            std::stringstream out6;
+            out6 << _gameModel->getLevel()->getAlly()->getBulletBonus()->getDamage();
+            valeurPower = out6.str();
                 
-            String textValeurPower(valeurBonusShoot, font , 15);
-            textValeurPower.SetX(SCREEN_WIDTH - 35);
-            textValeurPower.SetY(70);
+            String textValeurPower(valeurPower, font , 15);
+            textValeurPower.SetX(SCREEN_WIDTH - 70);
+            textValeurPower.SetY(245);
             textValeurPower.SetColor(Color(255, 255, 255));
             _window->Draw(textValeurPower);
                 
+            String textNumberBonus("NUMBER : ", font , 15);
+            textNumberBonus.SetX(SCREEN_WIDTH - 180);
+            textNumberBonus.SetY(265);
+            textNumberBonus.SetColor(Color(255, 255, 255));
+            _window->Draw(textNumberBonus);
+                
+            std::string valeurNumberBonusShoot;
+            std::stringstream out4;
+            out4 << _gameModel->getLevel()->getAlly()->getNumberShootBonusMax()-_gameModel->getLevel()->getAlly()->getNumberShootBonus();
+            valeurNumberBonusShoot = out4.str();
+                
+            String textNumberBonusShoot(valeurNumberBonusShoot, font , 15);
+            textNumberBonusShoot.SetX(SCREEN_WIDTH - 70);
+            textNumberBonusShoot.SetY(265);
+            textNumberBonusShoot.SetColor(Color(255, 255, 255));
+            _window->Draw(textNumberBonusShoot);
+                
+            
             if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == 0)
             {
-                Picture v1(_graphicLibrary->getImage(12), SCREEN_WIDTH-100,90,STANDARD_PICTURE_WIDTH,STANDARD_PICTURE_HEIGHT);
+                Picture v1(_graphicLibrary->getImage(12), SCREEN_WIDTH-100,305,STANDARD_PICTURE_WIDTH,STANDARD_PICTURE_HEIGHT);
                 _window->Draw(v1.getSprite());
             }
             else if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == 1)
             {
-                Picture v2(_graphicLibrary->getImage(5), SCREEN_WIDTH-100,90,FIREBALL_PICTURE_WIDTH,FIREBALL_PICTURE_HEIGHT);
+                Picture v2(_graphicLibrary->getImage(5), SCREEN_WIDTH-100,305,FIREBALL_PICTURE_WIDTH,FIREBALL_PICTURE_HEIGHT);
                 _window->Draw(v2.getSprite());
                     
             }
             else if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == 2)
             {
-                Picture v3(_graphicLibrary->getImage(18), SCREEN_WIDTH-100,90,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT);
+                Picture v3(_graphicLibrary->getImage(18), SCREEN_WIDTH-100,305,TINYLASER_PICTURE_WIDTH,TINYLASER_PICTURE_HEIGHT);
                 _window->Draw(v3.getSprite());
                 
             }
             else if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == 3)
             {
-                Picture v4(_graphicLibrary->getImage(23), SCREEN_WIDTH-100,90,LASER_PICTURE_WIDTH,LASER_PICTURE_HEIGHT);
+                Picture v4(_graphicLibrary->getImage(23), SCREEN_WIDTH-100,305,LASER_PICTURE_WIDTH,LASER_PICTURE_HEIGHT);
                 _window->Draw(v4.getSprite());
             }
             else if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == 4)
             {
-                Picture v5(_graphicLibrary->getImage(4), SCREEN_WIDTH-100,90,DOUBLE_TINY_LASER_PICTURE_WIDTH,DOUBLE_TINY_LASER_PICTURE_HEIGHT);
+                Picture v5(_graphicLibrary->getImage(4), SCREEN_WIDTH-100,305,DOUBLE_TINY_LASER_PICTURE_WIDTH,DOUBLE_TINY_LASER_PICTURE_HEIGHT);
                 _window->Draw(v5.getSprite());
+            }
+            
+            sf::Shape Line1 = sf::Shape::Line(MODEL_WIDTH, 0, MODEL_WIDTH, MODEL_HEIGHT , 1, Color(255, 255, 255));
+            _window->Draw(Line1);
+                
+            for(int i = 0; i<10; i++){
+                if(i%2==0){
+                    sf::Shape Line1 = sf::Shape::Line(MODEL_WIDTH+20*i+10, 85, MODEL_WIDTH+20*i+20+10, 85 , 1, Color(255, 255, 255));
+                    _window->Draw(Line1);
+                        
+                    sf::Shape Line2 = sf::Shape::Line(MODEL_WIDTH+20*i+10, 205, MODEL_WIDTH+20*i+20+10, 205 , 1, Color(255, 255, 255));
+                    _window->Draw(Line2);
+                    
+                    sf::Shape Line3 = sf::Shape::Line(MODEL_WIDTH+20*i+10, 355, MODEL_WIDTH+20*i+20+10, 355 , 1, Color(255, 255, 255));
+                    _window->Draw(Line3);
+                }
             }
         }
         
+            
+            
         if(_menu->getShop())
         {//
             Picture bg(_graphicLibrary->getImage(26), 0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
@@ -457,7 +552,7 @@ void GameViewSFML::draw(){
             
             
             String money("Money :", font , 20);
-            money.SetX(40);
+            money.SetX(15);
             money.SetY(30);
             money.SetColor(Color(255, 255, 255));
             _window->Draw(money);
@@ -468,7 +563,7 @@ void GameViewSFML::draw(){
             valeurMoney = out1.str();
             
             String textMoney(valeurMoney, font , 20);
-            textMoney.SetX(135);
+            textMoney.SetX(115);
             textMoney.SetY(30);
             textMoney.SetColor(Color(255, 255, 255));
             _window->Draw(textMoney);

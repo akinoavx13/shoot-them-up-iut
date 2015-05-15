@@ -17,7 +17,7 @@
  * SCREEN
  */
 const int SCREEN_WIDTH = 600;
-const int SCREEN_HEIGHT = 700;
+const int SCREEN_HEIGHT = 750;
 const int SCREEN_FPS = 50;
 
 //##############################################################################################
@@ -191,7 +191,7 @@ const int SHIP_OFFSET_SHOOT = 20;
 const int RESTRAURE_LIFE_PRICE = 300;
 const int ADD_LIFE_PRICE = 300;
 const int DEFAULT_SCORE = 0;
-const int DEFAULT_POINT = 10;
+const int DEFAULT_POINT = 20;
 const int LEVEL_NUMBER = 1;
 const int LEVEL_ENEMY_NUMBER = 3;
 const int LEVEL_INITIAL_ENEMY_OFFSET = 50;

@@ -20,7 +20,6 @@ Level::Level() : _levelNumber(LEVEL_NUMBER), _nbEnemies(LEVEL_ENEMY_NUMBER){
 
     _ally = new Ally();
     _ally->setLevel(this);
-    _ally->move(MODEL_WIDTH/2-_ally->getWidth()/2, MODEL_HEIGHT-_ally->getHeight()-15);
 
     #ifdef __linux__
     _boss = nullptr;
@@ -101,7 +100,6 @@ void Level::checkCollisions(){
         }
     }
     
-    
     for (int i = 0; i < _tabBullets.size(); i++) {
         if(_ally->collisions(_tabBullets[i])){
             int allyLife = _ally->getHealth();
@@ -181,7 +179,6 @@ void Level::checkCollisions(){
         _boss = 0;
         _ally->setScore(_ally->getScore() + 50);
     }
-    
 }
 
 /*
