@@ -82,6 +82,7 @@ string Level::toString() const{
  * check for all graphic element in the level if there are collision between them
  */
 void Level::checkCollisions(){
+    
     for (int i = 0; i < _tabBullets.size(); i++) {
         for (int j = 0; j < _tabBullets.size(); j++) {
             if(i!=j){
