@@ -69,14 +69,14 @@ string Bullet::toString() const{
 bool Bullet::improve(){
     if(_state<5){
         _state++;
-        _damage+=_state*10;
+        _damage += _state * 10;
         return true;
     }
     return false;
 }
 
 void Bullet::growPrice(){
-    _price+=100;
+    _price += 70;
 }
 
 //----------GETTERS----------

@@ -17,7 +17,7 @@
  * SCREEN
  */
 const int SCREEN_WIDTH = 600;
-const int SCREEN_HEIGHT = 800;
+const int SCREEN_HEIGHT = 700;
 const int SCREEN_FPS = 50;
 
 //##############################################################################################
@@ -149,7 +149,7 @@ const int STANDARD_PRICE = 100;
 const int FIREBALL_DAMAGE = 30;
 const int FIREBALL_PICTURE_HEIGHT = 18;
 const int FIREBALL_PICTURE_WIDTH = 18;
-const int FIREBALL_PRICE = 200;
+const int FIREBALL_PRICE = 150;
 
 
 //##############################################################################################
@@ -170,7 +170,7 @@ const int TINYLASER_PRICE = 200;
 const int LASER_DAMAGE = 60;
 const int LASER_PICTURE_HEIGHT = 30;
 const int LASER_PICTURE_WIDTH = 9;
-const int LASER_PRICE = 700;
+const int LASER_PRICE = 300;
 
 //##############################################################################################
 
@@ -180,7 +180,7 @@ const int LASER_PRICE = 700;
 const int DOUBLE_TINY_LASER_DAMAGE = 50;
 const int DOUBLE_TINY_LASER_PICTURE_HEIGHT = 16;
 const int DOUBLE_TINY_LASER_PICTURE_WIDTH = 17;
-const int DOUBLE_TINY_LASER_PRICE = 500;
+const int DOUBLE_TINY_LASER_PRICE = 250;
 
 //##############################################################################################
 
@@ -189,11 +189,11 @@ const int DOUBLE_TINY_LASER_PRICE = 500;
  */
 const int SHIP_OFFSET_SHOOT = 20;
 const int RESTRAURE_LIFE_PRICE = 300;
-const int ADD_LIFE_PRICE = 400;
+const int ADD_LIFE_PRICE = 300;
 const int DEFAULT_SCORE = 0;
 const int DEFAULT_POINT = 10;
 const int LEVEL_NUMBER = 1;
-const int LEVEL_ENEMY_NUMBER = 1;
+const int LEVEL_ENEMY_NUMBER = 3;
 const int LEVEL_INITIAL_ENEMY_OFFSET = 50;
 
 //##############################################################################################
