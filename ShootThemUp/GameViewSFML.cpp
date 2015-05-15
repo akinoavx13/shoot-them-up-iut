@@ -349,7 +349,7 @@ void GameViewSFML::draw(){
                 
             cadreNoir.EnableFill(true);
             _window->Draw(cadreNoir);
-                
+
             //
             String textScore("SCORE : ", font , 15);
             textScore.SetX(SCREEN_WIDTH - 150);
