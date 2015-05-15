@@ -34,6 +34,15 @@ GameViewSFML::GameViewSFML():_yBackground(0), _yBackground2(-SCREEN_HEIGHT + 2){
         cout << "The font can't be load" << endl;
     }
     
+    if (!Buffer.LoadFromFile("tirJoueur.wav"))
+    {
+        cout << "The sound can't be load" << endl;
+    }else{
+        Sound.SetBuffer(Buffer);
+        Sound.SetPitch(1.5f);
+        Sound.SetVolume(75.f);
+    }
+    
 }
 
 GameViewSFML::~GameViewSFML(){
@@ -760,6 +769,7 @@ bool GameViewSFML::treatEvent(){
                 {
                     if(shoot.GetElapsedTime() >= _gameModel->getLevel()->getAlly()->getFireRate()){
                         _gameModel->getLevel()->getAlly()->shoot();
+                        Sound.Play();
                         shoot.Reset();
                     }
                 }

@@ -44,7 +44,7 @@ public:
     std::string toString() const;
     void checkCollisions();
     void addBullet(Bullet* bullet);
-    void moveEnemies() const;
+    void moveEnemies(float i);
     void EnemiesShoot() const;
     void addBoss();
     void addEnemies();

@@ -17,7 +17,7 @@
  * SCREEN
  */
 const int SCREEN_WIDTH = 600;
-const int SCREEN_HEIGHT = 800;
+const int SCREEN_HEIGHT = 700;
 const int SCREEN_FPS = 50;
 
 //##############################################################################################
@@ -55,7 +55,7 @@ const int GRAPHIC_ELEMENT_HEIGHT = 10;
 /*
  * ALLY
  */
-const int ALLY_LIFE = 100;
+const int ALLY_LIFE = 1000;
 const float ALLY_FIRERATE = 0.3;
 const int ALLY_PICTURE_HEIGHT = 49;
 const int ALLY_PICTURE_WIDTH = 183;
@@ -191,7 +191,7 @@ const int SHIP_OFFSET_SHOOT = 20;
 const int RESTRAURE_LIFE_PRICE = 300;
 const int ADD_LIFE_PRICE = 400;
 const int DEFAULT_SCORE = 0;
-const int DEFAULT_POINT = 20;
+const int DEFAULT_POINT = 10;
 const int LEVEL_NUMBER = 1;
 const int LEVEL_ENEMY_NUMBER = 1;
 const int LEVEL_INITIAL_ENEMY_OFFSET = 50;

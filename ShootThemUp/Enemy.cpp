@@ -68,63 +68,87 @@ string Enemy::toString() const{
 void Enemy::shoot(){
     
     if(_bulletType == 0){
-        _mainShoot = new Bullet(_x + _width / 2 - STANDARD_PICTURE_WIDTH / 2, _y + STANDARD_PICTURE_HEIGHT + 5 + _height, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, 0, STANDARD_PRICE);
+        _mainShoot = new Bullet(_x + _width / 2 - STANDARD_PICTURE_WIDTH / 2, _y + STANDARD_PICTURE_HEIGHT + 5 + _height, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, 0, STANDARD_PRICE, "enemy");
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 1){
-        _mainShoot = Bullet::FireBall(_x + _width / 2 - FIREBALL_PICTURE_WIDTH / 2, _y + FIREBALL_PICTURE_HEIGHT + 5 + _height, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, _damage);
+        _mainShoot = Bullet::FireBall(_x + _width / 2 - FIREBALL_PICTURE_WIDTH / 2, _y + FIREBALL_PICTURE_HEIGHT + 5 + _height, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, _damage, "enemy");
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 2){
-        _mainShoot = Bullet::TinyLaser(_x + _width / 2 - TINYLASER_PICTURE_WIDTH / 2, _y + TINYLASER_PICTURE_HEIGHT + 5 + _height, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, _damage);
+        _mainShoot = Bullet::TinyLaser(_x + _width / 2 - TINYLASER_PICTURE_WIDTH / 2, _y + TINYLASER_PICTURE_HEIGHT + 5 + _height, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, _damage, "enemy");
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 3){
-        _mainShoot = Bullet::Laser(_x + _width / 2 - LASER_PICTURE_WIDTH / 2, _y + LASER_PICTURE_HEIGHT + 5 + _height, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, _damage);
+        _mainShoot = Bullet::Laser(_x + _width / 2 - LASER_PICTURE_WIDTH / 2, _y + LASER_PICTURE_HEIGHT + 5 + _height, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, _damage, "enemy");
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 4){
-        _mainShoot = Bullet::DoubleTinyLaser(_x + _width / 2 - DOUBLE_TINY_LASER_PICTURE_WIDTH / 2, _y + DOUBLE_TINY_LASER_PICTURE_HEIGHT + 5 + _height, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, _damage);
+        _mainShoot = Bullet::DoubleTinyLaser(_x + _width / 2 - DOUBLE_TINY_LASER_PICTURE_WIDTH / 2, _y + DOUBLE_TINY_LASER_PICTURE_HEIGHT + 5 + _height, ENEMY_BULLET_SPEEDX, ENEMY_BULLET_SPEEDY, _damage, "enemy");
         _level->addBullet(_mainShoot);
     }
 }
 
 void Enemy::shoot(const float x, const float y, const float speedX, const float speedY){
     if(_bulletType == 0){
-        _mainShoot = new Bullet(x, y, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, speedX, speedY, 0, STANDARD_PRICE);
+        _mainShoot = new Bullet(x, y, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, speedX, speedY, 0, STANDARD_PRICE, "enemy");
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 1){
-        _mainShoot = Bullet::FireBall(x, y, speedX, speedY, _damage);
+        _mainShoot = Bullet::FireBall(x, y, speedX, speedY, _damage, "enemy");
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 2){
-        _mainShoot = Bullet::TinyLaser(x, y, speedX, speedY, _damage);
+        _mainShoot = Bullet::TinyLaser(x, y, speedX, speedY, _damage, "enemy");
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 3){
-        _mainShoot = Bullet::Laser(x, y, speedX, speedY, _damage);
+        _mainShoot = Bullet::Laser(x, y, speedX, speedY, _damage, "enemy");
         _level->addBullet(_mainShoot);
     }
     else if(_bulletType == 4){
-        _mainShoot = Bullet::DoubleTinyLaser(x, y, speedX, speedY, _damage);
+        _mainShoot = Bullet::DoubleTinyLaser(x, y, speedX, speedY, _damage, "enemy");
         _level->addBullet(_mainShoot);
     }
 }
 void Enemy::move(const float x, const float y){
-    if (x >= 0 && x+_width < MODEL_WIDTH - _width) {
-        _x = x;
-    }else{
-        //cout << "X n'est pas compris entre 0 et " << MODEL_WIDTH << ". X vaut : " << x << endl;
-    }
-
-    if (y+_height < MODEL_HEIGHT) {
-        _y = y;
-    }else{
-        //cout << "Y n'est pas compris entre 0 et " << MODEL_HEIGHT << ". Y vaut : " << y << endl;
-    }
+    _x = x;
+    _y = y;
 }
 
 int Enemy::getType() const{
     return _type;
 }
+
+float Enemy::getXEntree() const{
+    return _xEntree;
+}
+
+float Enemy::getXSortie() const{
+    return _xSortie;
+}
+
+float Enemy::getYEntree() const{
+    return _yEntree;
+}
+
+float Enemy::getYSortie() const{
+    return _ySortie;
+}
+
+void Enemy::setXEntree(float x){
+    _xEntree = x;
+}
+
+void Enemy::setXSortie(float x){
+    _xSortie = x;
+}
+
+void Enemy::setYEntree(float y){
+    _yEntree = y;
+}
+
+void Enemy::setYSortie(float y){
+    _ySortie = y;
+}
+

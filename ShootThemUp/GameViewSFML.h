@@ -13,6 +13,7 @@
 #include "GameModel.h"
 #include "Menu.h"
 #include "GraphicLibrary.h"
+#include <SFML/Audio.hpp>
 
 class GameViewSFML{
 private:
@@ -25,11 +26,14 @@ private:
     sf::Clock shoot;
     
     sf::Font font;
+    
+    sf::SoundBuffer Buffer;
+    sf::Sound Sound;
+
 
     GraphicLibrary* _graphicLibrary;
     float _yBackground;
     float _yBackground2;
-
     
     void showItems(int rang, int numPicture, std::string name, int width, int height, int price, int damage) const;
 public:

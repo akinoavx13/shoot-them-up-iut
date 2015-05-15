@@ -16,7 +16,7 @@ using namespace std;
  * default constructor
  * params : Model width, Model height, number tour
  */
-GameModel::GameModel():_numberTour(1), _bossMoveIncrement(0){
+GameModel::GameModel():_numberTour(1), _bossMoveIncrement(0), _enemyMoveIncrement(0){
     #ifdef __linux__
         _level = nullptr;
     #else
@@ -52,6 +52,7 @@ void GameModel::updateCore(){
 #endif
         _numberTour=0;
          _bossMoveIncrement = 0;
+        _enemyMoveIncrement = 0;
         
     }
     else if(_menu->getGame())
@@ -182,13 +183,18 @@ void GameModel::updateCore(){
                     shoot.Reset();
                 }
             }
-            _level->moveEnemies();
-            
+            _level->moveEnemies(_enemyMoveIncrement);
+            _enemyMoveIncrement += 0.00175;
+            if(_enemyMoveIncrement >= 1){
+                _enemyMoveIncrement = 0;
+            }
         }
         
         else if (_menu->getShop())
         {
-
+            _level->deleteAllBullets();
+            _level->deleteAllEnemy();
+            _enemyMoveIncrement = 0;
         }
     }
     

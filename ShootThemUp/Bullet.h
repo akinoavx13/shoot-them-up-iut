@@ -23,14 +23,17 @@ private:
 
     int _state;
     int _price;
+    
+    std::string _owner;
+    
 public:
     //CONSTRUCTOR
     Bullet();
-    Bullet(const float x, const float y, const int damage, const int width, const int height, const float speedX, const float speedY, const int type, const int price);
-    static Bullet* FireBall(const float x, const float y, const float speedX, const float speedY, const float damage);
-    static Bullet* TinyLaser(const float x, const float y, const float speedX, const float speedY, const float damage);
-    static Bullet* Laser(const float x, const float y, const float speedX, const float speedY, const float damage);
-    static Bullet* DoubleTinyLaser(const float x, const float y, const float speedX, const float speedY, const float damage);
+    Bullet(const float x, const float y, const int damage, const int width, const int height, const float speedX, const float speedY, const int type, const int price, std::string owner);
+    static Bullet* FireBall(const float x, const float y, const float speedX, const float speedY, const float damage, std::string owner);
+    static Bullet* TinyLaser(const float x, const float y, const float speedX, const float speedY, const float damage, std::string owner);
+    static Bullet* Laser(const float x, const float y, const float speedX, const float speedY, const float damage, std::string owner);
+    static Bullet* DoubleTinyLaser(const float x, const float y, const float speedX, const float speedY, const float damage, std::string owner);
 
     //DESTRUCTOR
     virtual ~Bullet();
@@ -51,6 +54,8 @@ public:
     
     int getState() const;
     int getPrice() const;
+    
+    std::string getOwner() const;
     
 };
 
