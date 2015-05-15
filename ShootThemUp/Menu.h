@@ -26,6 +26,7 @@ private:
     bool _score;
     bool _saveScore;
     bool _ending;
+    bool _readyToPlay;
 
 public:
     Menu();
@@ -54,6 +55,9 @@ public:
 
     bool getEnding() const;
     void setEnding(bool ending);
+    
+    bool getReady() const;
+    void setReady(bool ready);
 
     void showIntroTerminal() const;
     void saveScore(int value, std::string player, std::string file);
