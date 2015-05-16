@@ -705,7 +705,82 @@ void GameViewSFML::draw(){
     }
 
     else if(_menu->getScore()){
+        String nextLevel("BACK TO MENU", font , 20);
+        nextLevel.SetX(SCREEN_WIDTH/2-70);
+        nextLevel.SetY(SCREEN_HEIGHT-45);
+        nextLevel.SetColor(Color(255, 255, 255));
+        _window->Draw(nextLevel);
+        
+        
+        Shape cadreFinLevel;
+        cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
+        cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
+        cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-20, Color(255, 255, 255), Color(255,255,255));
+        cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-20, Color(255, 255, 255), Color(255,255,255));
+        
+        cadreFinLevel.EnableFill(false);
+        cadreFinLevel.EnableOutline(true);
+        cadreFinLevel.SetOutlineWidth(2);
+        
+        _window->Draw(cadreFinLevel);
+        
+        String p2("HIGHT SCORES", font , 25);
+        p2.SetX(SCREEN_WIDTH/2-75);
+        p2.SetY(5);
+        p2.SetColor(Color(255, 255, 255));
+        _window->Draw(p2);
 
+        
+        std::vector<Player*> players = _menu->showScores(YOU_FILE);
+        if(players.size()>0)
+        {
+            for(int i = 0; i<10 ; i++)
+            {
+                if(i<players.size()){
+                    std::string valeurPlace;
+                    std::stringstream out1;
+                    out1 << i+1;
+                    valeurPlace = out1.str();
+                
+                    String textPlace(valeurPlace, font , 15);
+                    textPlace.SetX(100);
+                    textPlace.SetY(40*i+100);
+                    textPlace.SetColor(Color(255, 255, 255));
+                    _window->Draw(textPlace);
+                
+                    String sep(")", font , 15);
+                    sep.SetX(120);
+                    sep.SetY(40*i+100);
+                    sep.SetColor(Color(255, 255, 255));
+                    _window->Draw(sep);
+                    
+                    String p2(players[i]->getName(), font , 15);
+                    p2.SetX(145);
+                    p2.SetY(40*i+100);
+                    p2.SetColor(Color(255, 255, 255));
+                    _window->Draw(p2);
+                    
+                    std::string valeurScore;
+                    std::stringstream out2;
+                    out2 << players[i]->getScore();
+                    valeurScore = out2.str();
+                    
+                    String textScore(valeurScore, font , 15);
+                    textScore.SetX(400);
+                    textScore.SetY(40*i+100);
+                    textScore.SetColor(Color(255, 255, 255));
+                    _window->Draw(textScore);
+                }
+            }
+        }
+        else
+        {
+            String p2("The file is empty !", font , 15);
+            p2.SetX(175);
+            p2.SetY(140);
+            p2.SetColor(Color(255, 255, 255));
+            _window->Draw(p2);
+        }
     }
     else if(_menu->getEnding())
     {
@@ -884,7 +959,8 @@ bool GameViewSFML::treatEvent(){
                     result=false;
                 }
                 else if(mouseX >= 100 && mouseX <= 200 && mouseY >= 300 && mouseY <= 320){
-                    
+                    _menu->setScore(true);
+                    _menu->setMenu(false);
                 }
             }
         }
@@ -1021,7 +1097,6 @@ bool GameViewSFML::treatEvent(){
         else if(_menu->getSaveScore())
         {
             if(input.IsMouseButtonDown(Mouse::Left) || input.IsKeyDown(Key::Return)){
-                //if((mouseX > 450) && (mouseX < 550)){
                 if(((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
                 {
                     _menu->setMenu(true);
@@ -1032,11 +1107,16 @@ bool GameViewSFML::treatEvent(){
                 }
             }
         }
-        else if(_menu->getEnding())
-        {
-            
+        else if(_menu->getScore()){
+            if(input.IsMouseButtonDown(Mouse::Left) || input.IsKeyDown(Key::Return)){
+                if(((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+                {
+                    _menu->setMenu(true);
+                    _menu->setScore(false);
+                }
+            }
         }
-        else if(_menu->getScore())
+        else if(_menu->getEnding())
         {
             
         }

@@ -43,15 +43,13 @@ void GameModel::updateCore(){
     {
 #ifdef __linux__
         if(_level==nullptr){
-            _level = new Level();
-        }
 #else
         if(_level == 0){
+#endif
             _level = new Level();
         }
-#endif
         _numberTour=0;
-         _bossMoveIncrement = 0;
+        _bossMoveIncrement = 0;
         _enemyMoveIncrement = 0;
         
     }
@@ -201,7 +199,6 @@ void GameModel::updateCore(){
         _menu->setMenu(true);
         _menu->setSaveScore(false);
     }
-    
     else if(_menu->getEnding())
     {
         _menu->setIntro(false);
