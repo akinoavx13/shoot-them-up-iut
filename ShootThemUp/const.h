@@ -34,9 +34,8 @@ const int MODEL_HEIGHT = SCREEN_HEIGHT;
  * SCORE FILE
  */
 const std::string LINUX_SCORE_FILE = "ShootThemUp/score.txt" ;
-const std::string MAC_SCORE_FILE_NICOLAS = "/Users/nicolas/Desktop/ShootThemUp/ShootThemUp/score.txt";
-const std::string MAC_SCORE_FILE_MAXIME = "/Users/Maxime/Desktop/Shump/ShootThemUp/ShootThemUp/score.txt";
-const std::string YOU_FILE = MAC_SCORE_FILE_NICOLAS; //please, change hear the constancy to execute the code
+const std::string SCORE_FILE = "score.txt";
+const std::string YOU_FILE = SCORE_FILE; //please, change hear the constancy to execute the code
 
 //##############################################################################################
 
@@ -55,7 +54,7 @@ const int GRAPHIC_ELEMENT_HEIGHT = 10;
 /*
  * ALLY
  */
-const int ALLY_LIFE = 500;
+const int ALLY_LIFE = 300;
 const float ALLY_FIRERATE = 0.3;
 const int ALLY_PICTURE_HEIGHT = 49;
 const int ALLY_PICTURE_WIDTH = 183;
@@ -113,7 +112,7 @@ const int BOSS_PICTURE_HEIGHT = 74;
 const int BOSS_PICTURE_WIDTH = 279;
 const float BOSS_DEFAULT_SPEEDX = 3;
 const float BOSS_DEFAULT_SPEEDY = 3;
-const float BOSS_FIRERATE = 0.7;
+const float BOSS_FIRERATE = 0.9;
 
 //##############################################################################################
 

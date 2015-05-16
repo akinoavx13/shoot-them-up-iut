@@ -1059,7 +1059,6 @@ bool GameViewSFML::treatEvent(){
                             if(_gameModel->getLevel()->getAlly()->getScore() > ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100 && _gameModel->getLevel()->getAlly()->getNumberOfLife()<5){
                                 _gameModel->getLevel()->getAlly()->setNumberOfLife(_gameModel->getLevel()->getAlly()->getNumberOfLife() + 1);
                                 _gameModel->getLevel()->getAlly()->reduceScore(ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100);
-                                _gameModel->getLevel()->getAlly()->setNumberLifeBuy(_gameModel->getLevel()->getAlly()->getNumberLifeBuy() + 1);
                             }
                         }
                         
