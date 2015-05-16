@@ -428,33 +428,33 @@ void GameViewSFML::draw(){
             textValeurPowerMain.SetColor(Color(255, 255, 255));
             _window->Draw(textValeurPowerMain);
                 
-                if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 0)
-                {
-                    Picture v1(_graphicLibrary->getImage(12), SCREEN_WIDTH-100,170,STANDARD_PICTURE_WIDTH,STANDARD_PICTURE_HEIGHT);
-                    _window->Draw(v1.getSprite());
-                }
-                else if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 1)
-                {
-                    Picture v2(_graphicLibrary->getImage(5), SCREEN_WIDTH-100,170,FIREBALL_PICTURE_WIDTH,FIREBALL_PICTURE_HEIGHT);
-                    _window->Draw(v2.getSprite());
-                    
-                }
-                else if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 2)
-                {
-                    Picture v3(_graphicLibrary->getImage(18), SCREEN_WIDTH-100,170,TINYLASER_PICTURE_WIDTH,TINYLASER_PICTURE_HEIGHT);
-                    _window->Draw(v3.getSprite());
-                    
-                }
-                else if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 3)
-                {
-                    Picture v4(_graphicLibrary->getImage(23), SCREEN_WIDTH-100,170,LASER_PICTURE_WIDTH,LASER_PICTURE_HEIGHT);
-                    _window->Draw(v4.getSprite());
-                }
-                else if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 4)
-                {
-                    Picture v5(_graphicLibrary->getImage(4), SCREEN_WIDTH-100,170,DOUBLE_TINY_LASER_PICTURE_WIDTH,DOUBLE_TINY_LASER_PICTURE_HEIGHT);
-                    _window->Draw(v5.getSprite());
-                }
+            if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 0)
+            {
+                Picture v1(_graphicLibrary->getImage(12), SCREEN_WIDTH-100,170,STANDARD_PICTURE_WIDTH,STANDARD_PICTURE_HEIGHT);
+                _window->Draw(v1.getSprite());
+            }
+            else if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 1)
+            {
+                Picture v2(_graphicLibrary->getImage(5), SCREEN_WIDTH-100,170,FIREBALL_PICTURE_WIDTH,FIREBALL_PICTURE_HEIGHT);
+                _window->Draw(v2.getSprite());
+                
+            }
+            else if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 2)
+            {
+                Picture v3(_graphicLibrary->getImage(18), SCREEN_WIDTH-100,170,TINYLASER_PICTURE_WIDTH,TINYLASER_PICTURE_HEIGHT);
+                _window->Draw(v3.getSprite());
+                
+            }
+            else if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 3)
+            {
+                Picture v4(_graphicLibrary->getImage(23), SCREEN_WIDTH-100,170,LASER_PICTURE_WIDTH,LASER_PICTURE_HEIGHT);
+                _window->Draw(v4.getSprite());
+            }
+            else if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 4)
+            {
+                Picture v5(_graphicLibrary->getImage(4), SCREEN_WIDTH-100,170,DOUBLE_TINY_LASER_PICTURE_WIDTH,DOUBLE_TINY_LASER_PICTURE_HEIGHT);
+                _window->Draw(v5.getSprite());
+            }
                 
                 
             String textBonus("BONUS SHOOT", font , 15);
@@ -928,8 +928,7 @@ bool GameViewSFML::treatEvent(){
                         shoot.Reset();
                     }
                 }
-                if(input.IsKeyDown(Key::LAlt))
-                {
+                if(input.IsKeyDown(Key::V)){
                     if(shoot.GetElapsedTime() >= _gameModel->getLevel()->getAlly()->getFireRate()){
                         _gameModel->getLevel()->getAlly()->bonusShoot();
                         shoot.Reset();

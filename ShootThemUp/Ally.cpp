@@ -48,7 +48,6 @@ void Ally::bonusShoot(){
     
         Bullet * copieBonus = new Bullet(x, y, _bonusShoot->getDamage(), width, height, _bonusShoot->getSpeedX(), _bonusShoot->getSpeedY(), _bonusShoot->getType(), 0, "ally");
         _level->addBullet(copieBonus);
-    
         _numberShootWithBonus++;
     }
 }
@@ -75,6 +74,7 @@ Ally::~Ally(){
         delete _othersBullets[i];
     }
     _othersBullets.clear();
+    //delete _bonusShoot;
 }
 
 //----------METHODS----------
