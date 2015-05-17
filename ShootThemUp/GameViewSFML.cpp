@@ -690,7 +690,7 @@ void GameViewSFML::draw(){
             _window->Clear(Color(1,67,171));
 
             int tmp = (int)time.GetElapsedTime();
-            if(tmp%2 == 0){
+            if(tmp%3 == 0){
                 Picture gameOver(_graphicLibrary->getImage(6), SCREEN_WIDTH/2-97,100, 388,26, 0, 0, 97, 13);
                 _window->Draw(gameOver.getSprite());
             }
@@ -705,6 +705,21 @@ void GameViewSFML::draw(){
             textName.SetY(270);
             textName.SetColor(Color(255, 255, 255));
             _window->Draw(textName);
+            
+            String valeurName(_gameModel->getLevel()->getAlly()->getName(), font , 20);
+            valeurName.SetX(280);
+            valeurName.SetY(270);
+            valeurName.SetColor(Color(255, 255, 255));
+            _window->Draw(valeurName);
+            
+            if(tmp%2 == 0){
+                unsigned int pos = _gameModel->getLevel()->getAlly()->getName().size();
+                String underScore("_", font , 20);
+                underScore.SetX(280+11.5*pos);
+                underScore.SetY(270);
+                underScore.SetColor(Color(255, 255, 255));
+                _window->Draw(underScore);
+            }
             
             String textScore("Score :", font , 20);
             textScore.SetX(150);
@@ -1148,6 +1163,93 @@ bool GameViewSFML::treatEvent(){
                     if(((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
                     {
                         _menu->setSaveScore(false);
+                    }
+                }
+                if(Event.Type == Event::KeyPressed){
+                    switch (Event.Key.Code) {
+                        case Key::A:
+                            _gameModel->getLevel()->getAlly()->addLetter("a");
+                            break;
+                        case Key::B:
+                            _gameModel->getLevel()->getAlly()->addLetter("b");
+                            break;
+                        case Key::C:
+                            _gameModel->getLevel()->getAlly()->addLetter("c");
+                            break;
+                        case Key::D:
+                            _gameModel->getLevel()->getAlly()->addLetter("d");
+                            break;
+                        case Key::E:
+                            _gameModel->getLevel()->getAlly()->addLetter("e");
+                            break;
+                        case Key::F:
+                            _gameModel->getLevel()->getAlly()->addLetter("f");
+                            break;
+                        case Key::G:
+                            _gameModel->getLevel()->getAlly()->addLetter("g");
+                            break;
+                        case Key::H:
+                            _gameModel->getLevel()->getAlly()->addLetter("h");
+                            break;
+                        case Key::I:
+                            _gameModel->getLevel()->getAlly()->addLetter("i");
+                            break;
+                        case Key::J:
+                            _gameModel->getLevel()->getAlly()->addLetter("j");
+                            break;
+                        case Key::K:
+                            _gameModel->getLevel()->getAlly()->addLetter("k");
+                            break;
+                        case Key::L:
+                            _gameModel->getLevel()->getAlly()->addLetter("l");
+                            break;
+                        case Key::M:
+                            _gameModel->getLevel()->getAlly()->addLetter("m");
+                            break;
+                        case Key::N:
+                            _gameModel->getLevel()->getAlly()->addLetter("n");
+                            break;
+                        case Key::O:
+                            _gameModel->getLevel()->getAlly()->addLetter("o");
+                            break;
+                        case Key::P:
+                            _gameModel->getLevel()->getAlly()->addLetter("p");
+                            break;
+                        case Key::Q:
+                            _gameModel->getLevel()->getAlly()->addLetter("q");
+                            break;
+                        case Key::R:
+                            _gameModel->getLevel()->getAlly()->addLetter("r");
+                            break;
+                        case Key::S:
+                            _gameModel->getLevel()->getAlly()->addLetter("s");
+                            break;
+                        case Key::T:
+                            _gameModel->getLevel()->getAlly()->addLetter("t");
+                            break;
+                        case Key::U:
+                            _gameModel->getLevel()->getAlly()->addLetter("u");
+                            break;
+                        case Key::V:
+                            _gameModel->getLevel()->getAlly()->addLetter("v");
+                            break;
+                        case Key::W:
+                            _gameModel->getLevel()->getAlly()->addLetter("w");
+                            break;
+                        case Key::X:
+                            _gameModel->getLevel()->getAlly()->addLetter("x");
+                            break;
+                        case Key::Y:
+                            _gameModel->getLevel()->getAlly()->addLetter("y");
+                            break;
+                        case Key::Z:
+                            _gameModel->getLevel()->getAlly()->addLetter("z");
+                            break;
+                        case Key::Down:
+                            _gameModel->getLevel()->getAlly()->deleteOneLetter();
+                            break;
+                        default:
+                            break;
                     }
                 }
             }

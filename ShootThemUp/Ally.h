@@ -30,6 +30,8 @@ private:
     int _numberShootWithBonusMax;
     int _numberLifeBuy;
     
+    std::string _name;
+    
 public:
 
     //CONSTRUCTOR
@@ -60,6 +62,9 @@ public:
     int getMainBulletType() const;
     
     Bullet * getOneBulletBonus(int type) const;
+    
+    void deleteOneLetter();
+    void addLetter(std::string letter);
 
     //SETTERS
     void setNumberOfLife(int numberOfLive);
@@ -74,6 +79,8 @@ public:
     
     void setNumberLifeBuy(int i);
     int getNumberLifeBuy() const;
+    
+    std::string getName() const;
     
     
 
