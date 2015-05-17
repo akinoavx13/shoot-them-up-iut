@@ -63,10 +63,13 @@ void GameViewSFML::draw(){
     _window->Clear();
     if(_menu->getIntro())
     {
-        Picture bg(_graphicLibrary->getImage(22), 0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
+        //R = 58; G = 99; N = 197
+        _window->Clear(Color(0,99,191));
+        
+        Picture bg(_graphicLibrary->getImage(22), 0,SCREEN_HEIGHT/3,SCREEN_WIDTH,SCREEN_HEIGHT/3);
         _window->Draw(bg.getSprite());
         
-        if(time.GetElapsedTime()>=1)
+        if(time.GetElapsedTime()>=3)
         {
             _menu->setIntro(false);
             _menu->setMenu(true);
@@ -684,6 +687,42 @@ void GameViewSFML::draw(){
             _window->Draw(nextLevel);
         }
         else if(_menu->getSaveScore()){
+            _window->Clear(Color(1,67,171));
+
+            int tmp = (int)time.GetElapsedTime();
+            if(tmp%2 == 0){
+                Picture gameOver(_graphicLibrary->getImage(6), SCREEN_WIDTH/2-97,100, 388,26, 0, 0, 97, 13);
+                _window->Draw(gameOver.getSprite());
+            }
+            else{
+                Picture gameOver(_graphicLibrary->getImage(6), SCREEN_WIDTH/2-97,100, 388,26, 97, 0, 194, 13);
+                _window->Draw(gameOver.getSprite());
+            }
+            
+            
+            String textName("Your name :", font , 20);
+            textName.SetX(150);
+            textName.SetY(270);
+            textName.SetColor(Color(255, 255, 255));
+            _window->Draw(textName);
+            
+            String textScore("Score :", font , 20);
+            textScore.SetX(150);
+            textScore.SetY(300);
+            textScore.SetColor(Color(255, 255, 255));
+            _window->Draw(textScore);
+            
+            std::string valeurScore;
+            std::stringstream out1;
+            out1 << _gameModel->getLevel()->getAlly()->getScore();
+            valeurScore = out1.str();
+            
+            String textValeurScore(valeurScore, font , 20);
+            textValeurScore.SetX(250);
+            textValeurScore.SetY(300);
+            textValeurScore.SetColor(Color(255, 255, 255));
+            _window->Draw(textValeurScore);
+            
             Shape cadreFinLevel;
             cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
             cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
@@ -724,12 +763,15 @@ void GameViewSFML::draw(){
         
         _window->Draw(cadreFinLevel);
         
-        String p2("HIGHT SCORES", font , 25);
-        p2.SetX(SCREEN_WIDTH/2-75);
-        p2.SetY(5);
-        p2.SetColor(Color(255, 255, 255));
-        _window->Draw(p2);
-
+        int tmp = (int)time.GetElapsedTime();
+        if(tmp%2 == 0){
+            Picture hightScore(_graphicLibrary->getImage(24), SCREEN_WIDTH/2-114,10, 456,26, 0, 0, 114, 13);
+            _window->Draw(hightScore.getSprite());
+        }
+        else{
+            Picture hightScore(_graphicLibrary->getImage(24), SCREEN_WIDTH/2+114,10, 456,26, 228, 0, 114, 13);
+            _window->Draw(hightScore.getSprite());
+        }
         
         std::vector<Player*> players = _menu->showScores(YOU_FILE);
         if(players.size()>0)
