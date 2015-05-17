@@ -793,6 +793,14 @@ void GameViewSFML::showItems(int rang, int numPicture, string name, int width, i
     Picture fireBall(_graphicLibrary->getImage((numPicture)), 60, 30+rang*100, width, height);
     _window->Draw(fireBall.getSprite());
     
+    if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getType()){
+        String bonus("(bonus shoot)", font , 15);
+        bonus.SetX(248);
+        bonus.SetY(100*rang);
+        bonus.SetColor(Color(255, 255, 255));
+        _window->Draw(bonus);
+    }
+    
     String fr(name, font , 15);
     fr.SetX(25);
     fr.SetY(100*rang+60);
@@ -815,7 +823,6 @@ void GameViewSFML::showItems(int rang, int numPicture, string name, int width, i
     textPrixe.SetY(100*rang+40);
     textPrixe.SetColor(Color(255, 255, 255));
     _window->Draw(textPrixe);
-    
     
     String d2("Dommage : ", font , 15);
     d2.SetX(175);
@@ -1091,18 +1098,15 @@ bool GameViewSFML::treatEvent(){
                     }
                 }
             }
-        }
-
-        else if(_menu->getSaveScore())
-        {
-            if(input.IsMouseButtonDown(Mouse::Left) || input.IsKeyDown(Key::Return)){
-                if(((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
-                {
-                    _menu->setMenu(true);
-                    _menu->setSaveScore(false);
-                    _menu->setReady(true);
-                    _menu->setLevel(true);
-                    _menu->setShop(false);
+            else if(_menu->getReady()){
+                
+            }
+            else if (_menu->getSaveScore()){
+                if(input.IsMouseButtonDown(Mouse::Left) || input.IsKeyDown(Key::Return)){
+                    if(((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+                    {
+                        _menu->setSaveScore(false);
+                    }
                 }
             }
         }

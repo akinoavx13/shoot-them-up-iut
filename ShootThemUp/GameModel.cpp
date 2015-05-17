@@ -72,9 +72,8 @@ void GameModel::updateCore(){
                     _level->getAlly()->setNumberOfLife(getLevel()->getAlly()->getNumberOfLife() - 1);
                 }
                 else{
-                    _menu->setGame(false);
                     _menu->setLevel(false);
-                     _menu->setShop(false);
+                    _menu->setShop(false);
                     _menu->setSaveScore(true); //go to save score because ally is dead
                 }
             }
@@ -187,17 +186,22 @@ void GameModel::updateCore(){
             //_level->deleteAllEnemy();
             _enemyMoveIncrement = 0;
         }
-    }
-    
-    else if(_menu->getSaveScore()){
+        else if(_menu->getReady()){
+            
+        }
+        else if(_menu->getSaveScore()){
+
+        }
+        else{
 #ifdef __linux__
-        _level=nullptr;
+            _level=nullptr;
 #else
-        _level=0;
+            _level=0;
 #endif
-        
-        _menu->setMenu(true);
-        _menu->setSaveScore(false);
+            
+            _menu->setMenu(true);
+            _menu->setGame(false);
+        }
     }
     else if(_menu->getEnding())
     {
