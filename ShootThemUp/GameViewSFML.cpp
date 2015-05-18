@@ -23,8 +23,24 @@ GameViewSFML::GameViewSFML():_yBackground(0), _yBackground2(-SCREEN_HEIGHT + 2){
     _window->SetFramerateLimit(SCREEN_FPS);
     #ifdef __linux__
     _gameModel = nullptr;
+    if (!Buffer.LoadFromFile("ShootThemUp/tirJoueur.wav"))
+    {
+        cout << "The sound can't be load" << endl;
+    }else{
+        Sound.SetBuffer(Buffer);
+        Sound.SetPitch(1.5f);
+        Sound.SetVolume(75.f);
+    }
     #else
     _gameModel = 0;
+    if (!Buffer.LoadFromFile("tirJoueur.wav"))
+    {
+        cout << "The sound can't be load" << endl;
+    }else{
+        Sound.SetBuffer(Buffer);
+        Sound.SetPitch(1.5f);
+        Sound.SetVolume(75.f);
+    }
     #endif
     _graphicLibrary = new GraphicLibrary();
     _graphicLibrary->loadLibrary();
@@ -34,14 +50,7 @@ GameViewSFML::GameViewSFML():_yBackground(0), _yBackground2(-SCREEN_HEIGHT + 2){
         cout << "The font can't be load" << endl;
     }
     
-    if (!Buffer.LoadFromFile("tirJoueur.wav"))
-    {
-        cout << "The sound can't be load" << endl;
-    }else{
-        Sound.SetBuffer(Buffer);
-        Sound.SetPitch(1.5f);
-        Sound.SetVolume(75.f);
-    }
+
     
 }
 
@@ -100,36 +109,42 @@ void GameViewSFML::draw(){
             _window->Draw(bg2.getSprite());
             
             if(_menu->getReady()){
-                String ready("Are you ready?", font , 35);
-                ready.SetX(MODEL_WIDTH/2-130);
-                ready.SetY(MODEL_HEIGHT/2-100);
-                ready.SetColor(Color(255, 255, 255));
-                _window->Draw(ready);
+                
+                int tmp = (int)time.GetElapsedTime();
+                if(tmp%2 == 0){
+                    Picture getReady(_graphicLibrary->getImage(7), MODEL_WIDTH/2-50,MODEL_HEIGHT/2-100, 203, 20, 0, 0, 196/2, 13);
+                    _window->Draw(getReady.getSprite());
+                }
+                else{
+                    Picture getReady(_graphicLibrary->getImage(7), MODEL_WIDTH/2-50,MODEL_HEIGHT/2-100, 203, 20, 196/2, 0, 196, 13);
+                    _window->Draw(getReady.getSprite());
+                }
+                
                 if(time.GetElapsedTime()<=1){
-                    String three("3", font , 70);
-                    three.SetX(MODEL_WIDTH/2-18);
+                    String three("3", font , 30);
+                    three.SetX(MODEL_WIDTH/2-7);
                     three.SetY(MODEL_HEIGHT/2-35);
                     three.SetColor(Color(255, 255, 255));
                     _window->Draw(three);
 
                 }
                 else if(time.GetElapsedTime()<=2){
-                    String two("2", font , 70);
-                    two.SetX(MODEL_WIDTH/2-18);
+                    String two("2", font , 30);
+                    two.SetX(MODEL_WIDTH/2-7);
                     two.SetY(MODEL_HEIGHT/2-35);
                     two.SetColor(Color(255, 255, 255));
                     _window->Draw(two);
                 }
                 else if(time.GetElapsedTime()<=3){
-                    String one("1", font , 70);
-                    one.SetX(MODEL_WIDTH/2-18);
+                    String one("1", font , 30);
+                    one.SetX(MODEL_WIDTH/2-7);
                     one.SetY(MODEL_HEIGHT/2-35);
                     one.SetColor(Color(255, 255, 255));
                     _window->Draw(one);
                 }
                 else if (time.GetElapsedTime()<=4){
-                    String go("Go!", font , 70);
-                    go.SetX(MODEL_WIDTH/2-50);
+                    String go("Go!", font , 30);
+                    go.SetX(MODEL_WIDTH/2-10);
                     go.SetY(MODEL_HEIGHT/2-35);
                     go.SetColor(Color(255, 255, 255));
                     _window->Draw(go);

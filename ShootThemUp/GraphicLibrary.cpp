@@ -92,6 +92,7 @@ void GraphicLibrary::loadLibrary(){
     #else
     if(img7->LoadFromFile("getReady.png")){
     #endif
+        img7->CreateMaskFromColor(Color(0, 0, 0));
         _imagesList.push_back(img7);
     }
 
