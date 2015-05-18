@@ -50,7 +50,7 @@ GameViewSFML::GameViewSFML():_yBackground(0), _yBackground2(-SCREEN_HEIGHT + 2){
         cout << "The font can't be load" << endl;
     }
     
-
+    _letterPut = true;
     
 }
 
@@ -1180,88 +1180,121 @@ bool GameViewSFML::treatEvent(){
                         _menu->setSaveScore(false);
                     }
                 }
-                if(Event.Type == Event::KeyPressed){
+                
+                if(Event.Type == Event::KeyReleased){
+                    _letterPut = true;
+                }
+                
+                
+                if(Event.Type == Event::KeyPressed && _letterPut){
                     switch (Event.Key.Code) {
                         case Key::A:
                             _gameModel->getLevel()->getAlly()->addLetter("a");
+                            _letterPut = false;
                             break;
                         case Key::B:
                             _gameModel->getLevel()->getAlly()->addLetter("b");
+                            _letterPut = false;
                             break;
                         case Key::C:
                             _gameModel->getLevel()->getAlly()->addLetter("c");
+                            _letterPut = false;
                             break;
                         case Key::D:
                             _gameModel->getLevel()->getAlly()->addLetter("d");
+                            _letterPut = false;
                             break;
                         case Key::E:
                             _gameModel->getLevel()->getAlly()->addLetter("e");
+                            _letterPut = false;
                             break;
                         case Key::F:
                             _gameModel->getLevel()->getAlly()->addLetter("f");
+                            _letterPut = false;
                             break;
                         case Key::G:
                             _gameModel->getLevel()->getAlly()->addLetter("g");
+                            _letterPut = false;
                             break;
                         case Key::H:
                             _gameModel->getLevel()->getAlly()->addLetter("h");
+                            _letterPut = false;
                             break;
                         case Key::I:
                             _gameModel->getLevel()->getAlly()->addLetter("i");
+                            _letterPut = false;
                             break;
                         case Key::J:
                             _gameModel->getLevel()->getAlly()->addLetter("j");
+                            _letterPut = false;
                             break;
                         case Key::K:
                             _gameModel->getLevel()->getAlly()->addLetter("k");
+                            _letterPut = false;
                             break;
                         case Key::L:
                             _gameModel->getLevel()->getAlly()->addLetter("l");
+                            _letterPut = false;
                             break;
                         case Key::M:
                             _gameModel->getLevel()->getAlly()->addLetter("m");
+                            _letterPut = false;
                             break;
                         case Key::N:
                             _gameModel->getLevel()->getAlly()->addLetter("n");
+                            _letterPut = false;
                             break;
                         case Key::O:
                             _gameModel->getLevel()->getAlly()->addLetter("o");
+                            _letterPut = false;
                             break;
                         case Key::P:
                             _gameModel->getLevel()->getAlly()->addLetter("p");
+                            _letterPut = false;
                             break;
                         case Key::Q:
                             _gameModel->getLevel()->getAlly()->addLetter("q");
+                            _letterPut = false;
                             break;
                         case Key::R:
                             _gameModel->getLevel()->getAlly()->addLetter("r");
+                            _letterPut = false;
                             break;
                         case Key::S:
                             _gameModel->getLevel()->getAlly()->addLetter("s");
+                            _letterPut = false;
                             break;
                         case Key::T:
                             _gameModel->getLevel()->getAlly()->addLetter("t");
+                            _letterPut = false;
                             break;
                         case Key::U:
                             _gameModel->getLevel()->getAlly()->addLetter("u");
+                            _letterPut = false;
                             break;
                         case Key::V:
                             _gameModel->getLevel()->getAlly()->addLetter("v");
+                            _letterPut = false;
                             break;
                         case Key::W:
                             _gameModel->getLevel()->getAlly()->addLetter("w");
+                            _letterPut = false;
                             break;
                         case Key::X:
                             _gameModel->getLevel()->getAlly()->addLetter("x");
+                            _letterPut = false;
                             break;
                         case Key::Y:
                             _gameModel->getLevel()->getAlly()->addLetter("y");
+                            _letterPut = false;
                             break;
                         case Key::Z:
                             _gameModel->getLevel()->getAlly()->addLetter("z");
+                            _letterPut = false;
                             break;
-                        case Key::Down:
+                        case Key::Back:
                             _gameModel->getLevel()->getAlly()->deleteOneLetter();
+                            _letterPut = false;
                             break;
                         default:
                             break;
