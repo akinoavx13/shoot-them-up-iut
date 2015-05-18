@@ -120,35 +120,3 @@ int Enemy::getType() const{
     return _type;
 }
 
-float Enemy::getXEntree() const{
-    return _xEntree;
-}
-
-float Enemy::getXSortie() const{
-    return _xSortie;
-}
-
-float Enemy::getYEntree() const{
-    return _yEntree;
-}
-
-float Enemy::getYSortie() const{
-    return _ySortie;
-}
-
-void Enemy::setXEntree(float x){
-    _xEntree = x;
-}
-
-void Enemy::setXSortie(float x){
-    _xSortie = x;
-}
-
-void Enemy::setYEntree(float y){
-    _yEntree = y;
-}
-
-void Enemy::setYSortie(float y){
-    _ySortie = y;
-}
-

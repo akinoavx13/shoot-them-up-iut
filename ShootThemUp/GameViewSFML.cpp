@@ -69,7 +69,7 @@ void GameViewSFML::draw(){
         Picture bg(_graphicLibrary->getImage(22), 0,SCREEN_HEIGHT/3,SCREEN_WIDTH,SCREEN_HEIGHT/3);
         _window->Draw(bg.getSprite());
         
-        if(time.GetElapsedTime()>=3)
+        if(time.GetElapsedTime()>=1)
         {
             _menu->setIntro(false);
             _menu->setMenu(true);
@@ -713,7 +713,7 @@ void GameViewSFML::draw(){
             _window->Draw(valeurName);
             
             if(tmp%2 == 0){
-                unsigned int pos = _gameModel->getLevel()->getAlly()->getName().size();
+                unsigned int pos = (int)_gameModel->getLevel()->getAlly()->getName().size();
                 String underScore("_", font , 20);
                 underScore.SetX(280+11.5*pos);
                 underScore.SetY(270);

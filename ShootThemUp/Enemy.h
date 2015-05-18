@@ -18,10 +18,6 @@ class Enemy : public Ship{
 
 private:
     int _type;
-    float _xEntree;
-    float _xSortie;
-    float _yEntree;
-    float _ySortie;
 
 public:
 
@@ -45,16 +41,6 @@ public:
 
     //GETTER
     int getType() const;
-    
-    float getXEntree() const;
-    float getXSortie() const;
-    float getYEntree() const;
-    float getYSortie() const;
-    
-    void setXEntree(float x);
-    void setXSortie(float x);
-    void setYEntree(float y);
-    void setYSortie(float y);
 
 };
 

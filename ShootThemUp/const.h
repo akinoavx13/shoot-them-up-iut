@@ -54,7 +54,7 @@ const int GRAPHIC_ELEMENT_HEIGHT = 10;
 /*
  * ALLY
  */
-const int ALLY_LIFE = 300;
+const int ALLY_LIFE = 3000;
 const float ALLY_FIRERATE = 0.3;
 const int ALLY_PICTURE_HEIGHT = 49;
 const int ALLY_PICTURE_WIDTH = 183;
