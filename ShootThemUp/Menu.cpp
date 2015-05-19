@@ -194,6 +194,7 @@ vector<Player*> Menu::showScores(string file){
                 }
             }
         }
+        f.close();
     }
     else {
         cout << "Oups, the file can't be opened ..." << endl;

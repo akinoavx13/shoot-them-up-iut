@@ -1177,6 +1177,7 @@ bool GameViewSFML::treatEvent(){
                 if(input.IsMouseButtonDown(Mouse::Left) || input.IsKeyDown(Key::Return)){
                     if(((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
                     {
+                        _menu->saveScore(_gameModel->getLevel()->getAlly()->getScore(), _gameModel->getLevel()->getAlly()->getName(), YOU_FILE);
                         _menu->setSaveScore(false);
                     }
                 }
