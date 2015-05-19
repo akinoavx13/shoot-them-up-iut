@@ -27,6 +27,10 @@ private:
     bool _saveScore;
     bool _ending;
     bool _readyToPlay;
+    bool _options;
+    bool _credits;
+    
+    std::string _language;
 
 public:
     Menu();
@@ -59,6 +63,15 @@ public:
     bool getReady() const;
     void setReady(bool ready);
 
+    bool getOptions() const;
+    void setOption(bool options);
+    
+    bool getCredits() const;
+    void setCredits(bool credits);
+    
+    std::string getLanguage() const;
+    void setLanguage(std::string language);
+    
     void showIntroTerminal() const;
     void saveScore(int value, std::string player, std::string file);
 

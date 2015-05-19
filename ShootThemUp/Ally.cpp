@@ -74,7 +74,6 @@ Ally::~Ally(){
         delete _othersBullets[i];
     }
     _othersBullets.clear();
-    //delete _bonusShoot;
 }
 
 //----------METHODS----------

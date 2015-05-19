@@ -12,7 +12,7 @@
 
 using namespace std;
 
-Menu::Menu() : _intro(true), _game(false), _level(false), _shop(false), _menu(false), _score(false), _saveScore(false), _ending(false) {}
+Menu::Menu() : _intro(true), _game(false), _level(false), _shop(false), _menu(false), _score(false), _saveScore(false), _ending(false), _readyToPlay(false), _options(false), _credits(false), _language("francais") {}
 
 Menu::~Menu(){}
 
@@ -52,6 +52,19 @@ bool Menu::getEnding() const{
 bool Menu::getReady() const{
     return _readyToPlay;
 }
+
+bool Menu::getOptions() const{
+    return _options;
+}
+
+bool Menu::getCredits() const{
+    return _credits;
+}
+
+std::string Menu::getLanguage() const{
+    return _language;
+}
+
 //SETTERS
 void Menu::setIntro(bool intro){
     _intro = intro;
@@ -87,6 +100,18 @@ void Menu::setEnding(bool ending){
 
 void Menu::setReady(bool ready){
     _readyToPlay = ready;
+}
+
+void Menu::setOption(bool options){
+    _options = options;
+}
+
+void Menu::setCredits(bool credits){
+    _credits = credits;
+}
+
+void Menu::setLanguage(std::string language){
+    _language = language;
 }
 
 void Menu::showIntroTerminal() const{
