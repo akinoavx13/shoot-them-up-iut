@@ -38,6 +38,9 @@ private:
     bool _letterPut;
     
     void showItems(int rang, int numPicture, std::string name, int width, int height, int price, int damage) const;
+    
+    void addText(std::string text, int x, int y, int size) const;
+    void addTextWithValue(int value, int xV, int yV, int sizeV ,std::string text, int xT, int yT, int sizeT) const;
 public:
     //CONSTRUCTOR
     GameViewSFML();

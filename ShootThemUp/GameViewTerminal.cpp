@@ -278,7 +278,7 @@ void GameViewTerminal::draw() const
     else if(_menu->getScore())
     {
         cout << "Liste des scores" << endl;
-        std::vector<Player*> players = _menu->showScores(YOU_FILE);
+        std::vector<Player*> players = _menu->showScores(YOUR_FILE);
         if(players.size()>0)
         {
             int i = 1;
@@ -311,7 +311,7 @@ void GameViewTerminal::draw() const
         string name ;
         cin >> name;
 
-        _menu->saveScore(score, name+" ", YOU_FILE);
+        _menu->saveScore(score, name+" ", YOUR_FILE);
         _menu->setSaveScore(false);
         _menu->setMenu(true); //back to menu after haver save the score
     }

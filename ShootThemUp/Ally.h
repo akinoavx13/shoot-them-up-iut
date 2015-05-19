@@ -50,6 +50,8 @@ public:
     
     bool improveOneBulletBonus(int type);
     bool canBuyItem(int type) const;
+    
+    virtual void move(const float x, const float y) override;
 
     //GETTERS
     int getNumberOfLife() const;

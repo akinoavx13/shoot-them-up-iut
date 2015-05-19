@@ -106,6 +106,20 @@ void Ally::addLetter(string letter){
     _name+=letter;
 }
 
+void Ally::move(const float x, const float y){
+    if (x >= 0 && x+_width < MODEL_WIDTH) {
+        _x = x;
+    }else{
+        //cout << "X n'est pas compris entre 0 et " << MODEL_WIDTH << ". X vaut : " << x << endl;
+    }
+    
+    if (y >= 30 && y+_height < MODEL_HEIGHT) {
+        _y = y;
+    }else{
+        //cout << "Y n'est pas compris entre 0 et " << MODEL_HEIGHT << ". Y vaut : " << y << endl;
+    }
+}
+
 /*
  * returns : string of number life and ship toString
  * info : constant, override

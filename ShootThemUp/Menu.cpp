@@ -133,13 +133,14 @@ void Menu::saveScore(int value, string player, string file){
     fstream f;
     
     #ifdef __linux__
-        f.open(file,ios::out|ios::app);
+    f.open(file,ios::out|ios::app);
     #else
-        f.open(file.c_str(),ios::out|ios::app);
+    f.open(file.c_str(),ios::out|ios::app);
     #endif
 
     if(!f.fail()) {
         f << player;
+        f << " ";
         f << value;
         f << "\n" ;
 
@@ -154,12 +155,13 @@ vector<Player*> Menu::showScores(string file){
     fstream f;
 
     vector<Player*> players;
-
+    
     #ifdef __linux__
-        f.open(file, ios::in);
+    f.open(file, ios::in);
     #else
-        f.open(file.c_str(), ios::in);
+    f.open(file.c_str(), ios::in);
     #endif
+    
     if(!f.fail()){
         while(!f.eof()){
             string name;
@@ -169,7 +171,7 @@ vector<Player*> Menu::showScores(string file){
             f >> name;
             f >> score;
 
-            Player* p = new Player(name, score);
+            Player * p = new Player(name, score);
 
             bool exist = false;
 
@@ -188,7 +190,7 @@ vector<Player*> Menu::showScores(string file){
         for(int i = 0; i <players.size(); i++){
             for(int j = i; j <players.size(); j ++){
                 if(players[i]->getScore() < players[j]->getScore()){
-                    Player* temp = new Player(players[i]);
+                    Player * temp = new Player(players[i]);
                     players[i] = players[j];
                     players[j] = temp;
                 }

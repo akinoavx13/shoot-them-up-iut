@@ -121,33 +121,16 @@ void GameViewSFML::draw(){
                 }
                 
                 if(time.GetElapsedTime()<=1){
-                    String three("3", font , 30);
-                    three.SetX(MODEL_WIDTH/2-7);
-                    three.SetY(MODEL_HEIGHT/2-35);
-                    three.SetColor(Color(255, 255, 255));
-                    _window->Draw(three);
-
+                    addText("3", MODEL_WIDTH/2-7, MODEL_HEIGHT/2-35, 30);
                 }
                 else if(time.GetElapsedTime()<=2){
-                    String two("2", font , 30);
-                    two.SetX(MODEL_WIDTH/2-7);
-                    two.SetY(MODEL_HEIGHT/2-35);
-                    two.SetColor(Color(255, 255, 255));
-                    _window->Draw(two);
+                    addText("2", MODEL_WIDTH/2-7, MODEL_HEIGHT/2-35, 30);
                 }
                 else if(time.GetElapsedTime()<=3){
-                    String one("1", font , 30);
-                    one.SetX(MODEL_WIDTH/2-7);
-                    one.SetY(MODEL_HEIGHT/2-35);
-                    one.SetColor(Color(255, 255, 255));
-                    _window->Draw(one);
+                    addText("1", MODEL_WIDTH/2-7, MODEL_HEIGHT/2-35, 30);
                 }
                 else if (time.GetElapsedTime()<=4){
-                    String go("Go!", font , 30);
-                    go.SetX(MODEL_WIDTH/2-10);
-                    go.SetY(MODEL_HEIGHT/2-35);
-                    go.SetColor(Color(255, 255, 255));
-                    _window->Draw(go);
+                    addText("Go!", MODEL_WIDTH/2-15, MODEL_HEIGHT/2-35, 30);
                 }
                 else{
                     _menu->setReady(false);
@@ -340,23 +323,8 @@ void GameViewSFML::draw(){
                     
                 Picture life(_graphicLibrary->getImage(25), 15,5,20,20);
                     _window->Draw(life.getSprite());
-                    
-                String p2("x", font , 15);
-                p2.SetX(40);
-                p2.SetY(5);
-                p2.SetColor(Color(255, 255, 255));
-                _window->Draw(p2);
-                    
-                std::string valeurPrice;
-                std::stringstream out1;
-                out1 << _gameModel->getLevel()->getAlly()->getNumberOfLife();
-                valeurPrice = out1.str();
-                    
-                String textPrixe(valeurPrice, font , 15);
-                textPrixe.SetX(50);
-                textPrixe.SetY(5);
-                textPrixe.SetColor(Color(255, 255, 255));
-                _window->Draw(textPrixe);
+                
+                addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 50, 5, 15, "x", 40, 5, 15);
             }
             
             Shape cadreNoir;
@@ -368,83 +336,12 @@ void GameViewSFML::draw(){
             cadreNoir.EnableFill(true);
             _window->Draw(cadreNoir);
 
-            //
-            String textScore("SCORE : ", font , 15);
-            textScore.SetX(SCREEN_WIDTH - 180);
-            textScore.SetY(5);
-            textScore.SetColor(Color(255, 255, 255));
-            _window->Draw(textScore);
+            addTextWithValue(_gameModel->getLevel()->getAlly()->getScore(), SCREEN_WIDTH-70, 5, 15, "SCORE :", SCREEN_WIDTH-180, 5, 15);
+            addTextWithValue(_gameModel->getLevel()->getLevelNumber(), SCREEN_WIDTH - 70, 25, 15, "WAVE :", SCREEN_WIDTH-180, 25, 15);
+            addTextWithValue(_gameModel->getLevel()->getNumberOfEnemies(), SCREEN_WIDTH - 70, 45, 15, "ENNEMIES : ", SCREEN_WIDTH - 180, 45, 15);
             
-            std::string valeur;
-            std::stringstream out;
-            out << _gameModel->getLevel()->getAlly()->getScore();
-            valeur = out.str();
-                
-            String valeurScore(valeur, font , 15);
-            valeurScore.SetX(SCREEN_WIDTH - 70);
-            valeurScore.SetY(5);
-            valeurScore.SetColor(Color(255, 255, 255));
-            _window->Draw(valeurScore);
-                
-            //
-            String textLevel("WAVE : ", font , 15);
-            textLevel.SetX(SCREEN_WIDTH - 180);
-            textLevel.SetY(25);
-            textLevel.SetColor(Color(255, 255, 255));
-            _window->Draw(textLevel);
-                
-            std::string valeurNiveau;
-            std::stringstream out2;
-            out2 << _gameModel->getLevel()->getLevelNumber();
-            valeurNiveau = out2.str();
-                
-            String valeurLevel(valeurNiveau, font , 15);
-            valeurLevel.SetX(SCREEN_WIDTH - 70);
-            valeurLevel.SetY(25);
-            valeurLevel.SetColor(Color(255, 255, 255));
-            _window->Draw(valeurLevel);
-                
-            //
-            String textEnemies("ENNEMIES : ", font , 15);
-            textEnemies.SetX(SCREEN_WIDTH - 180);
-            textEnemies.SetY(45);
-            textEnemies.SetColor(Color(255, 255, 255));
-            _window->Draw(textEnemies);
-                
-            std::string valeurEnemies;
-            std::stringstream out3;
-            out3 << _gameModel->getLevel()->getNumberOfEnemies();
-            valeurEnemies = out3.str();
-        
-            String valeurTextEnemies(valeurEnemies, font , 15);
-            valeurTextEnemies.SetX(SCREEN_WIDTH - 70);
-            valeurTextEnemies.SetY(45);
-            valeurTextEnemies.SetColor(Color(255, 255, 255));
-            _window->Draw(valeurTextEnemies);
-                
-            //
-            String textMain("MAIN SHOOT", font , 15);
-            textMain.SetX(SCREEN_WIDTH - 135);
-            textMain.SetY(100);
-            textMain.SetColor(Color(255, 255, 255));
-            _window->Draw(textMain);
-                
-            String textPowerMain("POWER : ", font , 15);
-            textPowerMain.SetX(SCREEN_WIDTH - 180);
-            textPowerMain.SetY(130);
-            textPowerMain.SetColor(Color(255, 255, 255));
-            _window->Draw(textPowerMain);
-                
-            std::string valeurPoweMain;
-            std::stringstream out5;
-            out5 << _gameModel->getLevel()->getAlly()->getOneBulletBonus(_gameModel->getLevel()->getAlly()->getMainBulletType())->getDamage();
-            valeurPoweMain = out5.str();
-                
-            String textValeurPowerMain(valeurPoweMain, font , 15);
-            textValeurPowerMain.SetX(SCREEN_WIDTH - 70);
-            textValeurPowerMain.SetY(130);
-            textValeurPowerMain.SetColor(Color(255, 255, 255));
-            _window->Draw(textValeurPowerMain);
+            addText("MAIN SHOOT", SCREEN_WIDTH - 135, 100, 15);
+            addTextWithValue(_gameModel->getLevel()->getAlly()->getOneBulletBonus(_gameModel->getLevel()->getAlly()->getMainBulletType())->getDamage(), SCREEN_WIDTH - 70, 130, 15, "POWER : ", SCREEN_WIDTH - 180, 130, 15);
                 
             if(_gameModel->getLevel()->getAlly()->getMainBulletType() == 0)
             {
@@ -474,47 +371,9 @@ void GameViewSFML::draw(){
                 _window->Draw(v5.getSprite());
             }
                 
-                
-            String textBonus("BONUS SHOOT", font , 15);
-            textBonus.SetX(SCREEN_WIDTH - 135);
-            textBonus.SetY(220);
-            textBonus.SetColor(Color(255, 255, 255));
-            _window->Draw(textBonus);
-                
-            String textPower("POWER : ", font , 15);
-            textPower.SetX(SCREEN_WIDTH - 180);
-            textPower.SetY(245);
-            textPower.SetColor(Color(255, 255, 255));
-            _window->Draw(textPower);
-                
-            std::string valeurPower;
-            std::stringstream out6;
-            out6 << _gameModel->getLevel()->getAlly()->getBulletBonus()->getDamage();
-            valeurPower = out6.str();
-                
-            String textValeurPower(valeurPower, font , 15);
-            textValeurPower.SetX(SCREEN_WIDTH - 70);
-            textValeurPower.SetY(245);
-            textValeurPower.SetColor(Color(255, 255, 255));
-            _window->Draw(textValeurPower);
-                
-            String textNumberBonus("NUMBER : ", font , 15);
-            textNumberBonus.SetX(SCREEN_WIDTH - 180);
-            textNumberBonus.SetY(265);
-            textNumberBonus.SetColor(Color(255, 255, 255));
-            _window->Draw(textNumberBonus);
-                
-            std::string valeurNumberBonusShoot;
-            std::stringstream out4;
-            out4 << _gameModel->getLevel()->getAlly()->getNumberShootBonusMax()-_gameModel->getLevel()->getAlly()->getNumberShootBonus();
-            valeurNumberBonusShoot = out4.str();
-                
-            String textNumberBonusShoot(valeurNumberBonusShoot, font , 15);
-            textNumberBonusShoot.SetX(SCREEN_WIDTH - 70);
-            textNumberBonusShoot.SetY(265);
-            textNumberBonusShoot.SetColor(Color(255, 255, 255));
-            _window->Draw(textNumberBonusShoot);
-                
+            addText("MAIN SHOOT", SCREEN_WIDTH-135, 220, 15);
+            addTextWithValue(_gameModel->getLevel()->getAlly()->getBulletBonus()->getDamage(), SCREEN_WIDTH - 70, 245, 15, "POWER :", SCREEN_WIDTH - 180, 245, 15);
+            addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberShootBonusMax()-_gameModel->getLevel()->getAlly()->getNumberShootBonus(), SCREEN_WIDTH - 70, 265, 15, "NUMBER :", SCREEN_WIDTH - 180, 265, 15);
             
             if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == 0)
             {
@@ -568,24 +427,7 @@ void GameViewSFML::draw(){
             Picture bg(_graphicLibrary->getImage(26), 0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
             _window->Draw(bg.getSprite());
             
-            
-            String money("Money :", font , 20);
-            money.SetX(15);
-            money.SetY(30);
-            money.SetColor(Color(255, 255, 255));
-            _window->Draw(money);
-            
-            std::string valeurMoney;
-            std::stringstream out1;
-            out1 << _gameModel->getLevel()->getAlly()->getScore();
-            valeurMoney = out1.str();
-            
-            String textMoney(valeurMoney, font , 20);
-            textMoney.SetX(115);
-            textMoney.SetY(30);
-            textMoney.SetColor(Color(255, 255, 255));
-            _window->Draw(textMoney);
-            
+            addTextWithValue(_gameModel->getLevel()->getAlly()->getScore(), 115, 30, 15, "Money", 15, 30, 15);
             
             int rang = 1;
             
@@ -624,11 +466,7 @@ void GameViewSFML::draw(){
             Picture life(_graphicLibrary->getImage((25)), 70, 620, 20, 20);
             _window->Draw(life.getSprite());
             
-            String li("New life", font , 15);
-            li.SetX(45);
-            li.SetY(100*6+60);
-            li.SetColor(Color(255, 255, 255));
-            _window->Draw(li);
+            addText("New life", 25, 660, 15);
             
             rang++;
             Shape c;
@@ -643,46 +481,10 @@ void GameViewSFML::draw(){
             
             _window->Draw(c);
 
-            String buyText("Buy", font , 15);
-            buyText.SetX(490);
-            buyText.SetY(100*rang+12);
-            buyText.SetColor(Color(255, 255, 255));
-            _window->Draw(buyText);
-            
-            String s2("Life : ", font , 15);
-            s2.SetX(175);
-            s2.SetY(100*rang+20);
-            s2.SetColor(Color(255, 255, 255));
-            _window->Draw(s2);
-            
-            std::string valeurLife;
-            std::stringstream out2;
-            out2 << _gameModel->getLevel()->getAlly()->getNumberOfLife();
-            valeurLife = out2.str();
-            
-            String textPrixe(valeurLife, font , 15);
-            textPrixe.SetX(270);
-            textPrixe.SetY(100*rang+20);
-            textPrixe.SetColor(Color(255, 255, 255));
-            _window->Draw(textPrixe);
-            
-            String p2("Price : ", font , 15);
-            p2.SetX(175);
-            p2.SetY(100*rang+40);
-            p2.SetColor(Color(255, 255, 255));
-            _window->Draw(p2);
-            
-            std::string valeurLifePrice;
-            std::stringstream out3;
-            out3 << ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100;
-            valeurLifePrice = out3.str();
-            
-            String textLifePrice(valeurLifePrice, font , 15);
-            textLifePrice.SetX(270);
-            textLifePrice.SetY(640);
-            textLifePrice.SetColor(Color(255, 255, 255));
-            _window->Draw(textLifePrice);
-            
+            addText("Buy", 490, 100*rang+12, 15);
+            addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 270, 100*rang+20, 15, "Life :", 175, 100*rang+20, 15);
+            addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberLifeBuy()*50, 270, 640, 15, "Price :", 175, 640, 15);
+
             Shape cadreFinLevel;
             cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
             cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
@@ -695,11 +497,7 @@ void GameViewSFML::draw(){
             
             _window->Draw(cadreFinLevel);
             
-            String nextLevel("NEXT LEVEL", font , 20);
-            nextLevel.SetX(SCREEN_WIDTH/2-60);
-            nextLevel.SetY(SCREEN_HEIGHT-45);
-            nextLevel.SetColor(Color(255, 255, 255));
-            _window->Draw(nextLevel);
+            addText("NEXT LEVEL", SCREEN_WIDTH/2-60, SCREEN_HEIGHT-45, 20);
         }
         else if(_menu->getSaveScore()){
             _window->Clear(Color(1,67,171));
@@ -714,45 +512,17 @@ void GameViewSFML::draw(){
                 _window->Draw(gameOver.getSprite());
             }
             
+            addText("Your name :", 150, 270, 20);
+            addText(_gameModel->getLevel()->getAlly()->getName(), 280, 280, 20);
             
-            String textName("Your name :", font , 20);
-            textName.SetX(150);
-            textName.SetY(270);
-            textName.SetColor(Color(255, 255, 255));
-            _window->Draw(textName);
-            
-            String valeurName(_gameModel->getLevel()->getAlly()->getName(), font , 20);
-            valeurName.SetX(280);
-            valeurName.SetY(270);
-            valeurName.SetColor(Color(255, 255, 255));
-            _window->Draw(valeurName);
             
             if(tmp%2 == 0){
                 unsigned int pos = (int)_gameModel->getLevel()->getAlly()->getName().size();
-                String underScore("_", font , 20);
-                underScore.SetX(280+11.5*pos);
-                underScore.SetY(270);
-                underScore.SetColor(Color(255, 255, 255));
-                _window->Draw(underScore);
+                addText("|", 280+11.5*pos, 270, 20);
             }
             
-            String textScore("Score :", font , 20);
-            textScore.SetX(150);
-            textScore.SetY(300);
-            textScore.SetColor(Color(255, 255, 255));
-            _window->Draw(textScore);
-            
-            std::string valeurScore;
-            std::stringstream out1;
-            out1 << _gameModel->getLevel()->getAlly()->getScore();
-            valeurScore = out1.str();
-            
-            String textValeurScore(valeurScore, font , 20);
-            textValeurScore.SetX(250);
-            textValeurScore.SetY(300);
-            textValeurScore.SetColor(Color(255, 255, 255));
-            _window->Draw(textValeurScore);
-            
+            addTextWithValue(_gameModel->getLevel()->getAlly()->getScore(), 250, 300, 20, "Score :", 150, 300, 20);
+
             Shape cadreFinLevel;
             cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
             cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
@@ -765,21 +535,12 @@ void GameViewSFML::draw(){
             
             _window->Draw(cadreFinLevel);
             
-            String nextLevel("Confirm", font , 20);
-            nextLevel.SetX(SCREEN_WIDTH/2-60);
-            nextLevel.SetY(SCREEN_HEIGHT-45);
-            nextLevel.SetColor(Color(255, 255, 255));
-            _window->Draw(nextLevel);
+            addText("Confirm", SCREEN_WIDTH/2-60, SCREEN_HEIGHT-45, 20);
         }
     }
 
     else if(_menu->getScore()){
-        String nextLevel("BACK TO MENU", font , 20);
-        nextLevel.SetX(SCREEN_WIDTH/2-70);
-        nextLevel.SetY(SCREEN_HEIGHT-45);
-        nextLevel.SetColor(Color(255, 255, 255));
-        _window->Draw(nextLevel);
-        
+        addText("BACK TO MENU", SCREEN_WIDTH/2-70, SCREEN_HEIGHT-45, 20);
         
         Shape cadreFinLevel;
         cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
@@ -802,56 +563,21 @@ void GameViewSFML::draw(){
             Picture hightScore(_graphicLibrary->getImage(24), SCREEN_WIDTH/2+114,10, 456,26, 228, 0, 114, 13);
             _window->Draw(hightScore.getSprite());
         }
-        
-        std::vector<Player*> players = _menu->showScores(YOU_FILE);
-        if(players.size()>0)
+
+        if(_menu->showScores(YOUR_FILE).size()>0)
         {
+            std::vector<Player*> players = _menu->showScores(YOUR_FILE);
             for(int i = 0; i<10 ; i++)
             {
                 if(i<players.size()){
-                    std::string valeurPlace;
-                    std::stringstream out1;
-                    out1 << i+1;
-                    valeurPlace = out1.str();
-                
-                    String textPlace(valeurPlace, font , 15);
-                    textPlace.SetX(100);
-                    textPlace.SetY(40*i+100);
-                    textPlace.SetColor(Color(255, 255, 255));
-                    _window->Draw(textPlace);
-                
-                    String sep(")", font , 15);
-                    sep.SetX(120);
-                    sep.SetY(40*i+100);
-                    sep.SetColor(Color(255, 255, 255));
-                    _window->Draw(sep);
-                    
-                    String p2(players[i]->getName(), font , 15);
-                    p2.SetX(145);
-                    p2.SetY(40*i+100);
-                    p2.SetColor(Color(255, 255, 255));
-                    _window->Draw(p2);
-                    
-                    std::string valeurScore;
-                    std::stringstream out2;
-                    out2 << players[i]->getScore();
-                    valeurScore = out2.str();
-                    
-                    String textScore(valeurScore, font , 15);
-                    textScore.SetX(400);
-                    textScore.SetY(40*i+100);
-                    textScore.SetColor(Color(255, 255, 255));
-                    _window->Draw(textScore);
+                    addTextWithValue(i+1, 100, 40*i+100, 15, ")", 120, 40*i+100, 15);
+                    addTextWithValue(players[i]->getScore(), 400, 40*i+100, 15, players[i]->getName(), 145, 40*i+100, 15);
                 }
             }
         }
         else
         {
-            String p2("The file is empty !", font , 15);
-            p2.SetX(175);
-            p2.SetY(140);
-            p2.SetColor(Color(255, 255, 255));
-            _window->Draw(p2);
+            addText("The file is emplty !", SCREEN_WIDTH/2-70, 140, 15);
         }
     }
     else if(_menu->getEnding())
@@ -866,58 +592,15 @@ void GameViewSFML::showItems(int rang, int numPicture, string name, int width, i
     _window->Draw(fireBall.getSprite());
     
     if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getType()){
-        String bonus("(bonus shoot)", font , 15);
-        bonus.SetX(248);
-        bonus.SetY(100*rang);
-        bonus.SetColor(Color(255, 255, 255));
-        _window->Draw(bonus);
+        addText("(bonus shoot)", 248, 100*rang, 15);
     }
     
-    String fr(name, font , 15);
-    fr.SetX(25);
-    fr.SetY(100*rang+60);
-    fr.SetColor(Color(255, 255, 255));
-    _window->Draw(fr);
-    
-    String p2("Price : ", font , 15);
-    p2.SetX(175);
-    p2.SetY(100*rang+40);
-    p2.SetColor(Color(255, 255, 255));
-    _window->Draw(p2);
-    
-    std::string valeurPrice;
-    std::stringstream out1;
-    out1 << price;
-    valeurPrice = out1.str();
-    
-    String textPrixe(valeurPrice, font , 15);
-    textPrixe.SetX(270);
-    textPrixe.SetY(100*rang+40);
-    textPrixe.SetColor(Color(255, 255, 255));
-    _window->Draw(textPrixe);
-    
-    String d2("Dommage : ", font , 15);
-    d2.SetX(175);
-    d2.SetY(100*rang+60);
-    d2.SetColor(Color(255, 255, 255));
-    _window->Draw(d2);
-    
-    std::string valeurDamage;
-    std::stringstream out2;
-    out2 << damage;
-    valeurDamage = out2.str();
-    
-    String textDamage(valeurDamage, font , 15);
-    textDamage.SetX(270);
-    textDamage.SetY(100*rang+60);
-    textDamage.SetColor(Color(255, 255, 255));
-    _window->Draw(textDamage);
-    
-    String s2("State : ", font , 15);
-    s2.SetX(175);
-    s2.SetY(100*rang+20);
-    s2.SetColor(Color(255, 255, 255));
-    _window->Draw(s2);
+    addText(name, 25, 100*rang+60, 15);
+    addTextWithValue(price, 270, 100*rang+40, 15, "Price : ", 175, 100*rang+40, 15);
+    addTextWithValue(damage, 270, 100*rang+60, 15, "Damages : ", 175, 100*rang+60, 15);
+    addText("State : ", 175, 100*rang+20, 15);
+    addText("Improve", 470, 100*rang+13, 15);
+    addText("Arm", 485, 100*rang+52, 15);
     
     Shape buy;
     buy.AddPoint(450, 100*rang+10, Color(255, 255, 255), Color(255,255,255));
@@ -930,23 +613,11 @@ void GameViewSFML::showItems(int rang, int numPicture, string name, int width, i
     buy.SetOutlineWidth(1);
     _window->Draw(buy);
     
-    String buyText("Improve", font , 15);
-    buyText.SetX(470);
-    buyText.SetY(100*rang+12);
-    buyText.SetColor(Color(255, 255, 255));
-    _window->Draw(buyText);
-    
     Shape arm;
     arm.AddPoint(450, 100*rang+50, Color(255, 255, 255), Color(255,255,255));
     arm.AddPoint(550, 100*rang+50, Color(255, 255, 255), Color(255,255,255));
     arm.AddPoint(550, 100*rang+70, Color(255, 255, 255), Color(255,255,255));
     arm.AddPoint(450, 100*rang+70, Color(255, 255, 255), Color(255,255,255));
-    
-    String armText("Arm", font , 15);
-    armText.SetX(488);
-    armText.SetY(100*rang+52);
-    armText.SetColor(Color(255, 255, 255));
-    _window->Draw(armText);
     
     arm.EnableFill(false);
     arm.EnableOutline(true);
@@ -994,6 +665,34 @@ void GameViewSFML::showItems(int rang, int numPicture, string name, int width, i
     }
 }
     
+    
+void GameViewSFML::addText(std::string text, int x, int y, int size) const{
+    String newText(text, font , size);
+    newText.SetX(x);
+    newText.SetY(y);
+    newText.SetColor(Color(255, 255, 255));
+    _window->Draw(newText);
+}
+    
+void GameViewSFML::addTextWithValue(int value, int xV, int yV, int sizeV, std::string text, int xT, int yT, int sizeT) const{
+    String newText(text, font , sizeT);
+    newText.SetX(xT);
+    newText.SetY(yT);
+    newText.SetColor(Color(255, 255, 255));
+    _window->Draw(newText);
+    
+    std::string newValue;
+    std::stringstream out;
+    out << value;
+    newValue = out.str();
+    
+    String textValue(newValue, font , sizeV);
+    textValue.SetX(xV);
+    textValue.SetY(yV);
+    textValue.SetColor(Color(255, 255, 255));
+    _window->Draw(textValue);
+}
+
 bool GameViewSFML::treatEvent(){
     
     bool result = true;
@@ -1177,7 +876,7 @@ bool GameViewSFML::treatEvent(){
                 if(input.IsMouseButtonDown(Mouse::Left) || input.IsKeyDown(Key::Return)){
                     if(((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
                     {
-                        _menu->saveScore(_gameModel->getLevel()->getAlly()->getScore(), _gameModel->getLevel()->getAlly()->getName(), YOU_FILE);
+                        _menu->saveScore(_gameModel->getLevel()->getAlly()->getScore(), _gameModel->getLevel()->getAlly()->getName(), YOUR_FILE);
                         _menu->setSaveScore(false);
                     }
                 }
