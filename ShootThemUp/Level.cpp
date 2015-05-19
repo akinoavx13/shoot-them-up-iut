@@ -168,7 +168,7 @@ void Level::checkCollisions(){
     
     for (int i = 0; i < _tabEnemies.size(); i++) {
         if(_tabEnemies[i]->isDead()){
-            _ally->setScore(_ally->getScore() + _levelNumber * 2);
+            _ally->setScore(_ally->getScore() + _levelNumber * 10);
             delete _tabEnemies[i];
             _tabEnemies.erase(_tabEnemies.begin() + i);
         }
@@ -177,7 +177,7 @@ void Level::checkCollisions(){
     if(_boss != 0 && _boss->isDead()){
         _boss->move(_boss->getX(), -200);
         _boss = 0;
-        _ally->setScore(_ally->getScore() + 50);
+        _ally->setScore(_ally->getScore() + _levelNumber * 20);
     }
 }
 

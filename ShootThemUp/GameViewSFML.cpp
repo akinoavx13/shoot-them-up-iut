@@ -91,9 +91,9 @@ void GameViewSFML::draw(){
 
     else if(_menu->getMenu())
     {
-        addShape(100, 150, 250, 150, 250, 180, 100, 180, false, true, 2, 1);
-        if(mouseX > 100 && mouseX < 250 && mouseY > 150 && mouseY < 180){
-            addShape(100, 150, 250, 150, 250, 180, 100, 180, true, false, 0, 3);
+        addShape(100, 150, 295, 150, 295, 180, 100, 180, false, true, 2, 1);
+        if(mouseX > 100 && mouseX < 295 && mouseY > 150 && mouseY < 180){
+            addShape(100, 150, 295, 150, 295, 180, 100, 180, true, false, 0, 3);
         }
         
         
@@ -109,15 +109,15 @@ void GameViewSFML::draw(){
         }
         
         
-        addShape(100, 350, 280, 350, 280, 380, 100, 380, false, true, 2, 1);
-        if(mouseX > 100 && mouseX < 280 && mouseY > 350 && mouseY < 380){
-            addShape(100, 350, 280, 350, 280, 380, 100, 380, true, false, 0, 3);
+        addShape(100, 350, 295, 350, 295, 380, 100, 380, false, true, 2, 1);
+        if(mouseX > 100 && mouseX < 295 && mouseY > 350 && mouseY < 380){
+            addShape(100, 350, 295, 350, 295, 380, 100, 380, true, false, 0, 3);
         }
         
         
-        addShape(100, 550, 175, 550, 175, 580, 100, 580, false, true, 2, 1);
-        if(mouseX > 100 && mouseX < 175 && mouseY > 550 && mouseY < 580){
-            addShape(100, 550, 175, 550, 175, 580, 100, 580, true, false, 0, 4);
+        addShape(100, 550, 200, 550, 200, 580, 100, 580, false, true, 2, 1);
+        if(mouseX > 100 && mouseX < 200 && mouseY > 550 && mouseY < 580){
+            addShape(100, 550, 200, 550, 200, 580, 100, 580, true, false, 0, 4);
         }
         
         if(_menu->getLanguage() == "english"){
@@ -131,7 +131,7 @@ void GameViewSFML::draw(){
             addText("LANCER LE JEUX", 115, 155, 20);
             addText("OPTIONS", 110, 205, 20);
             addText("CREDITS", 108, 305, 20);
-            addText("MEILLEUR SCORES", 115, 355, 20);
+            addText("MEILLEUR SCORES", 110, 355, 20);
             addText("QUITTER", 110, 555, 20);
         }
 
@@ -532,14 +532,27 @@ void GameViewSFML::draw(){
     }
 
     else if(_menu->getScore()){
-        addShape(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+75, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-75, SCREEN_HEIGHT-20, false, true, 2, 1);
-        if(((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
-        {
-            addShape(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+75, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-75, SCREEN_HEIGHT-20, true, false, 0, 4);
+        if(_menu->getLanguage() == "english"){
+            addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, false, true, 2, 1);
+            
+            if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+            {
+                addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, true, false, 0, 4);
+            }
+            addText("BACK TO MENU", SCREEN_WIDTH/2-70, SCREEN_HEIGHT-45, 20);
+            
         }
-        
-        addText("BACK TO MENU", SCREEN_WIDTH/2-70, SCREEN_HEIGHT-45, 20);
-
+        else if (_menu->getLanguage() == "francais"){
+            
+            addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, false, true, 2, 1);
+            
+            if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+            {
+                addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, true, false, 0, 4);
+            }
+            
+            addText("RETOUR AU MENU", SCREEN_WIDTH/2-80, SCREEN_HEIGHT-45, 20);
+        }
         
         int tmp = (int)time.GetElapsedTime();
         if(tmp%2 == 0){
@@ -565,6 +578,82 @@ void GameViewSFML::draw(){
         else
         {
             addText("The file is emplty !", SCREEN_WIDTH/2-70, 140, 15);
+        }
+    }
+    else if(_menu->getOptions()){
+        if(_menu->getLanguage() == "english"){
+            addText("Langage : ", 100, 135, 15);
+            addText("English", 180, 135, 15);
+            addText("French", 180, 155, 15);
+            addText("Dutch", 180, 155, 15);
+            
+            addShape(280, 160, 290, 160, 290, 170, 280, 170, true, false, 0, 4);
+            addShape(280, 160, 290, 160, 290, 170, 280, 170, false, true, 1, 1);
+            
+            addShape(280, 140, 290, 140, 290, 150, 280, 150, true, false, 0, 3);
+            addShape(280, 140, 290, 140, 290, 150, 280, 150, false, true, 1, 1);
+            
+            addShape(280, 180, 290, 180, 290, 190, 280, 190, true, false, 0, 4);
+            addShape(280, 180, 290, 180, 290, 190, 280, 190, false, true, 1, 1);
+            
+            
+            addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, false, true, 2, 1);
+
+            if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+            {
+                addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, true, false, 0, 4);
+            }
+            addText("BACK TO MENU", SCREEN_WIDTH/2-70, SCREEN_HEIGHT-45, 20);
+
+        }
+        else if (_menu->getLanguage() == "francais"){
+            addText("Langue : ", 100, 135, 15);
+            addText("Anglais", 180, 135, 15);
+            addText("Francais", 180, 155, 15);
+            addText("Allemand", 180, 175, 15);
+            
+            addShape(280, 160, 290, 160, 290, 170, 280, 170, true, false, 0, 3);
+            addShape(280, 160, 290, 160, 290, 170, 280, 170, false, true, 1, 1);
+            
+            addShape(280, 140, 290, 140, 290, 150, 280, 150, true, false, 0, 4);
+            addShape(280, 140, 290, 140, 290, 150, 280, 150, false, true, 1, 1);
+            
+            addShape(280, 180, 290, 180, 290, 190, 280, 190, true, false, 0, 4);
+            addShape(280, 180, 290, 180, 290, 190, 280, 190, false, true, 1, 1);
+            
+            addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, false, true, 2, 1);
+
+            if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+            {
+                addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, true, false, 0, 4);
+            }
+            
+            addText("RETOUR AU MENU", SCREEN_WIDTH/2-80, SCREEN_HEIGHT-45, 20);
+
+
+        }
+    }
+    else if (_menu->getCredits()){
+        if(_menu->getLanguage() == "english"){
+            addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, false, true, 2, 1);
+            
+            if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+            {
+                addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, true, false, 0, 4);
+            }
+            addText("BACK TO MENU", SCREEN_WIDTH/2-70, SCREEN_HEIGHT-45, 20);
+            
+        }
+        else if (_menu->getLanguage() == "francais"){
+            
+            addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, false, true, 2, 1);
+            
+            if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+            {
+                addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, true, false, 0, 4);
+            }
+            
+            addText("RETOUR AU MENU", SCREEN_WIDTH/2-80, SCREEN_HEIGHT-45, 20);
         }
     }
     else if(_menu->getEnding())
@@ -713,7 +802,7 @@ bool GameViewSFML::treatEvent(){
         {
             if(input.IsMouseButtonDown(Mouse::Left)){
                 
-                if(mouseX > 100 && mouseX < 250 && mouseY > 150 && mouseY < 180){
+                if(mouseX > 100 && mouseX < 295 && mouseY > 150 && mouseY < 180){
                     _menu->setGame(true);
                     _menu->setReady(true);
                     _menu->setLevel(true);
@@ -728,11 +817,11 @@ bool GameViewSFML::treatEvent(){
                     _menu->setCredits(true);
                     _menu->setMenu(false);
                 }
-                else if(mouseX > 100 && mouseX < 280 && mouseY > 350 && mouseY < 380){
+                else if(mouseX > 100 && mouseX < 295 && mouseY > 350 && mouseY < 380){
                     _menu->setScore(true);
                     _menu->setMenu(false);
                 }
-                else if(mouseX > 100 && mouseX < 175 && mouseY > 550 && mouseY < 580){
+                else if(mouseX > 100 && mouseX < 200 && mouseY > 550 && mouseY < 580){
                     result = false;
                 }
             }
@@ -997,12 +1086,14 @@ bool GameViewSFML::treatEvent(){
                 }
             }
         }
-        else if(_menu->getScore()){
+        else if(_menu->getScore() || _menu->getOptions() || _menu->getCredits()){
             if(input.IsMouseButtonDown(Mouse::Left) || input.IsKeyDown(Key::Return)){
-                if(((mouseX > SCREEN_WIDTH/2-75) && (mouseX < SCREEN_WIDTH/2+75) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+                if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
                 {
                     _menu->setMenu(true);
                     _menu->setScore(false);
+                    _menu->setOption(false);
+                    _menu->setCredits(false);
                 }
             }
         }
