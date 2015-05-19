@@ -174,19 +174,8 @@ void GameViewSFML::draw(){
                             _window->Draw(en.getSprite());
                         }
                         
-                        Shape cadreVieEnemy;
-                        cadreVieEnemy.AddPoint(xe, ye-15, Color(255, 255, 255), Color(255,255,255));
-                        cadreVieEnemy.AddPoint(xe+e->getWidth(), ye-15, Color(255, 255, 255), Color(255,255,255));
-                        cadreVieEnemy.AddPoint(xe+e->getWidth(), ye-10, Color(255, 255, 255), Color(255,255,255));
-                        cadreVieEnemy.AddPoint(xe, ye-10, Color(255, 255, 255), Color(255,255,255));
-                        cadreVieEnemy.EnableFill(false);
-                        cadreVieEnemy.EnableOutline(true);
-                        cadreVieEnemy.SetOutlineWidth(1);
-                        
-                        _window->Draw(cadreVieEnemy);
-                        
-                        
-                        
+                        addShape(xe, ye-15, xe+e->getWidth(), ye-15, xe+e->getWidth(), ye-10, xe, ye-10, false, true, 1, 1);
+
                         Shape vieEnemy;
                         vieEnemy.AddPoint(xe, ye-15, Color(240, 76, 36), Color(240, 76, 36));
                         
@@ -228,28 +217,11 @@ void GameViewSFML::draw(){
                         int yb = _gameModel->getLevel()->getBoss()->getY();
                         Picture b(_graphicLibrary->getImage(1), xb,yb,BOSS_PICTURE_WIDTH, BOSS_PICTURE_HEIGHT, 0+(BOSS_PICTURE_WIDTH/3)*k3,0,(BOSS_PICTURE_WIDTH/3)+(BOSS_PICTURE_WIDTH/3)*k3,BOSS_PICTURE_HEIGHT);
                         _window->Draw(b.getSprite());
-                            
-                        Shape cadreVieBoss;
-                        cadreVieBoss.AddPoint(xb, yb-15, Color(255, 255, 255), Color(255,255,255));
-                        cadreVieBoss.AddPoint(xb+_gameModel->getLevel()->getBoss()->getWidth(), yb-15, Color(255, 255, 255), Color(255,255,255));
-                        cadreVieBoss.AddPoint(xb+_gameModel->getLevel()->getBoss()->getWidth(), yb-10, Color(255, 255, 255), Color(255,255,255));
-                        cadreVieBoss.AddPoint(xb, yb-10, Color(255, 255, 255), Color(255,255,255));
-                        cadreVieBoss.EnableFill(false);
-                        cadreVieBoss.EnableOutline(true);
-                        cadreVieBoss.SetOutlineWidth(1);
-                            
-                        _window->Draw(cadreVieBoss);
-                            
-                        Shape vieBoss;
-                        vieBoss.AddPoint(xb, yb-15, Color(240, 76, 36), Color(240, 76, 36));
-                        vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / ((float)BOSS_LIFE + (_gameModel->getLevel()->getLevelNumber()-1) *50)) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb-15, Color(240, 76, 36), Color(240, 76, 36));
-                        vieBoss.AddPoint(xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / ((float)BOSS_LIFE + (_gameModel->getLevel()->getLevelNumber()-1) *50)) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb-10, Color(240, 76, 36), Color(240, 76, 36));
-                        vieBoss.AddPoint(xb, yb-10, Color(240, 76, 36), Color(240, 76, 36));
-                        vieBoss.EnableFill(true);
-                        vieBoss.EnableOutline(false);
-                            
-                        _window->Draw(vieBoss);
-                            
+                        
+                        addShape(xb, yb-15,xb+_gameModel->getLevel()->getBoss()->getWidth(), yb-15, xb+_gameModel->getLevel()->getBoss()->getWidth(), yb-10, xb, yb-10, false, true, 1, 1);
+                        
+                        addShape(xb, yb-15, xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / ((float)BOSS_LIFE + (_gameModel->getLevel()->getLevelNumber()-1) *50)) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb-15, xb + (((float)_gameModel->getLevel()->getBoss()->getHealth() / ((float)BOSS_LIFE + (_gameModel->getLevel()->getLevelNumber()-1) *50)) * (float)_gameModel->getLevel()->getBoss()->getWidth()), yb-10, xb, yb-10, true, false, 0, 4);
+
                     }
                 }
                 if(_gameModel->getLevel()->getNumberOfBullets() > 0)
@@ -289,27 +261,9 @@ void GameViewSFML::draw(){
                     }
                 }
             }
-            Shape cadreVie;
-            cadreVie.AddPoint(100, 10, Color(255, 255, 255), Color(255,255,255));
-            cadreVie.AddPoint(200, 10, Color(255, 255, 255), Color(255,255,255));
-            cadreVie.AddPoint(200, 20, Color(255, 255, 255), Color(255,255,255));
-            cadreVie.AddPoint(100, 20, Color(255, 255, 255), Color(255,255,255));
-            cadreVie.EnableFill(false);
-            cadreVie.EnableOutline(true);
-            cadreVie.SetOutlineWidth(2);
             
-            _window->Draw(cadreVie);
-            
-            Shape vie;
-            vie.AddPoint(100, 10, Color(240, 76, 36), Color(240, 76, 36));
-            vie.AddPoint(100 + (((float)_gameModel->getLevel()->getAlly()->getHealth() / (float)ALLY_LIFE) * (float)100), 10, Color(240, 76, 36), Color(240, 76, 36));
-            vie.AddPoint(100 + (((float)_gameModel->getLevel()->getAlly()->getHealth() / (float)ALLY_LIFE) * (float)100), 20, Color(240, 76, 36), Color(240, 76, 36));
-            vie.AddPoint(100, 20, Color(240, 76, 36), Color(240, 76, 36));
-            vie.EnableFill(true);
-            vie.EnableOutline(false);
-            vie.SetOutlineWidth(0);
-            
-            _window->Draw(vie);
+            addShape(100, 10, 200, 10, 200, 20, 100, 20, false, true, 2, 1);
+            addShape(100, 10, 100 + (((float)_gameModel->getLevel()->getAlly()->getHealth() / (float)ALLY_LIFE) * (float)100), 10, 100 + (((float)_gameModel->getLevel()->getAlly()->getHealth() / (float)ALLY_LIFE) * (float)100), 20, 100, 20, true, false, 0, 4);
             
 #ifdef __linux__
             if(_gameModel->getLevel()->getAlly() != nullptr){
@@ -327,14 +281,7 @@ void GameViewSFML::draw(){
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 50, 5, 15, "x", 40, 5, 15);
             }
             
-            Shape cadreNoir;
-            cadreNoir.AddPoint(MODEL_WIDTH, 0,  Color(0, 0, 0), Color(0, 0, 0));
-            cadreNoir.AddPoint(SCREEN_WIDTH, 0, Color(0, 0, 0), Color(0, 0, 0));
-            cadreNoir.AddPoint(SCREEN_WIDTH, SCREEN_HEIGHT, Color(0, 0, 0), Color(0, 0, 0));
-            cadreNoir.AddPoint(MODEL_WIDTH, SCREEN_HEIGHT, Color(0, 0, 0), Color(0, 0, 0));
-                
-            cadreNoir.EnableFill(true);
-            _window->Draw(cadreNoir);
+            addShape(MODEL_WIDTH, 0, SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MODEL_WIDTH, SCREEN_HEIGHT, true, false, 0, 2);
 
             addTextWithValue(_gameModel->getLevel()->getAlly()->getScore(), SCREEN_WIDTH-70, 5, 15, "SCORE :", SCREEN_WIDTH-180, 5, 15);
             addTextWithValue(_gameModel->getLevel()->getLevelNumber(), SCREEN_WIDTH - 70, 25, 15, "WAVE :", SCREEN_WIDTH-180, 25, 15);
@@ -469,34 +416,14 @@ void GameViewSFML::draw(){
             addText("New life", 25, 660, 15);
             
             rang++;
-            Shape c;
-            c.AddPoint(450, 100*rang+10, Color(255, 255, 255), Color(255,255,255));
-            c.AddPoint(550, 100*rang+10, Color(255, 255, 255), Color(255,255,255));
-            c.AddPoint(550, 100*rang+30, Color(255, 255, 255), Color(255,255,255));
-            c.AddPoint(450, 100*rang+30, Color(255, 255, 255), Color(255,255,255));
-            
-            c.EnableFill(false);
-            c.EnableOutline(true);
-            c.SetOutlineWidth(1);
-            
-            _window->Draw(c);
+            addShape(450, 100*rang+10, 550, 100*rang+10, 550, 100*rang+30, 450, 100*rang+30, false, true, 1, 1);
 
             addText("Buy", 490, 100*rang+12, 15);
             addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 270, 100*rang+20, 15, "Life :", 175, 100*rang+20, 15);
             addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberLifeBuy()*50, 270, 640, 15, "Price :", 175, 640, 15);
 
-            Shape cadreFinLevel;
-            cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
-            cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
-            cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-20, Color(255, 255, 255), Color(255,255,255));
-            cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-20, Color(255, 255, 255), Color(255,255,255));
-            
-            cadreFinLevel.EnableFill(false);
-            cadreFinLevel.EnableOutline(true);
-            cadreFinLevel.SetOutlineWidth(2);
-            
-            _window->Draw(cadreFinLevel);
-            
+            addShape(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+75, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-75, SCREEN_HEIGHT-20, false, true, 2, 1);
+
             addText("NEXT LEVEL", SCREEN_WIDTH/2-60, SCREEN_HEIGHT-45, 20);
         }
         else if(_menu->getSaveScore()){
@@ -513,7 +440,7 @@ void GameViewSFML::draw(){
             }
             
             addText("Your name :", 150, 270, 20);
-            addText(_gameModel->getLevel()->getAlly()->getName(), 280, 280, 20);
+            addText(_gameModel->getLevel()->getAlly()->getName(), 280, 270, 20);
             
             
             if(tmp%2 == 0){
@@ -522,18 +449,8 @@ void GameViewSFML::draw(){
             }
             
             addTextWithValue(_gameModel->getLevel()->getAlly()->getScore(), 250, 300, 20, "Score :", 150, 300, 20);
-
-            Shape cadreFinLevel;
-            cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
-            cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
-            cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-20, Color(255, 255, 255), Color(255,255,255));
-            cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-20, Color(255, 255, 255), Color(255,255,255));
             
-            cadreFinLevel.EnableFill(false);
-            cadreFinLevel.EnableOutline(true);
-            cadreFinLevel.SetOutlineWidth(2);
-            
-            _window->Draw(cadreFinLevel);
+            addShape(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+75, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-75, SCREEN_HEIGHT-20, false, true, 2, 1);
             
             addText("Confirm", SCREEN_WIDTH/2-60, SCREEN_HEIGHT-45, 20);
         }
@@ -542,17 +459,7 @@ void GameViewSFML::draw(){
     else if(_menu->getScore()){
         addText("BACK TO MENU", SCREEN_WIDTH/2-70, SCREEN_HEIGHT-45, 20);
         
-        Shape cadreFinLevel;
-        cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
-        cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, Color(255, 255, 255), Color(255,255,255));
-        cadreFinLevel.AddPoint(SCREEN_WIDTH/2+75, SCREEN_HEIGHT-20, Color(255, 255, 255), Color(255,255,255));
-        cadreFinLevel.AddPoint(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-20, Color(255, 255, 255), Color(255,255,255));
-        
-        cadreFinLevel.EnableFill(false);
-        cadreFinLevel.EnableOutline(true);
-        cadreFinLevel.SetOutlineWidth(2);
-        
-        _window->Draw(cadreFinLevel);
+        addShape(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+75, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-75, SCREEN_HEIGHT-20, false, true, 2, 1);
         
         int tmp = (int)time.GetElapsedTime();
         if(tmp%2 == 0){
@@ -602,65 +509,19 @@ void GameViewSFML::showItems(int rang, int numPicture, string name, int width, i
     addText("Improve", 470, 100*rang+13, 15);
     addText("Arm", 485, 100*rang+52, 15);
     
-    Shape buy;
-    buy.AddPoint(450, 100*rang+10, Color(255, 255, 255), Color(255,255,255));
-    buy.AddPoint(550, 100*rang+10, Color(255, 255, 255), Color(255,255,255));
-    buy.AddPoint(550, 100*rang+30, Color(255, 255, 255), Color(255,255,255));
-    buy.AddPoint(450, 100*rang+30, Color(255, 255, 255), Color(255,255,255));
-    
-    buy.EnableFill(false);
-    buy.EnableOutline(true);
-    buy.SetOutlineWidth(1);
-    _window->Draw(buy);
-    
-    Shape arm;
-    arm.AddPoint(450, 100*rang+50, Color(255, 255, 255), Color(255,255,255));
-    arm.AddPoint(550, 100*rang+50, Color(255, 255, 255), Color(255,255,255));
-    arm.AddPoint(550, 100*rang+70, Color(255, 255, 255), Color(255,255,255));
-    arm.AddPoint(450, 100*rang+70, Color(255, 255, 255), Color(255,255,255));
-    
-    arm.EnableFill(false);
-    arm.EnableOutline(true);
-    arm.SetOutlineWidth(1);
-    
-    _window->Draw(arm);
+    addShape(450, 100*rang+10, 550, 100*rang+10, 550, 100*rang+30, 450, 100*rang+30, false, true, 1, 1);
+    addShape(450, 100*rang+50, 550, 100*rang+50, 550, 100*rang+70, 450, 100*rang+70, false, true, 1, 1);
     
     for(int i = 0; i<5; i++){
-        Shape t;
-        t.AddPoint(250+25*i, rang*100+25, Color(255, 255, 255), Color(255,255,255));
-        t.AddPoint(260+25*i, rang*100+25, Color(255, 255, 255), Color(255,255,255));
-        t.AddPoint(260+25*i, rang*100+35, Color(255, 255, 255), Color(255,255,255));
-        t.AddPoint(250+25*i, rang*100+35, Color(255, 255, 255), Color(255,255,255));
-        
-        t.EnableFill(false);
-        t.EnableOutline(true);
-        t.SetOutlineWidth(1);
-        
-        _window->Draw(t);
+        addShape(250+25*i, rang*100+25, 260+25*i, rang*100+25, 260+25*i, rang*100+35, 250+25*i, rang*100+35, false, true, 1, 1);
+
         
         if(_gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getState()>i){
-            t.AddPoint(250+25*i, rang*100+25, Color(0, 255, 0), Color(0,255,0));
-            t.AddPoint(260+25*i, rang*100+25, Color(0, 255, 0), Color(0,255,0));
-            t.AddPoint(260+25*i, rang*100+35, Color(0, 255, 0), Color(0,255,0));
-            t.AddPoint(250+25*i, rang*100+35, Color(0, 255, 0), Color(0,255,0));
-            
-            t.EnableFill(true);
-            t.EnableOutline(false);
-            t.SetOutlineWidth(1);
-            
-            _window->Draw(t);
+            addShape(250+25*i, rang*100+25, 260+25*i, rang*100+25, 260+25*i, rang*100+35, 250+25*i, rang*100+35, true, false, 1, 3);
+
         }
         else{
-            t.AddPoint(250+25*i, rang*100+25, Color(255, 0, 0), Color(255,0,0));
-            t.AddPoint(260+25*i, rang*100+25, Color(255, 0, 0), Color(255,0,0));
-            t.AddPoint(260+25*i, rang*100+35, Color(255, 0, 0), Color(255,0,0));
-            t.AddPoint(250+25*i, rang*100+35, Color(255, 0, 0), Color(255,0,0));
-            
-            t.EnableFill(true);
-            t.EnableOutline(false);
-            t.SetOutlineWidth(1);
-            
-            _window->Draw(t);
+            addShape(250+25*i, rang*100+25, 260+25*i, rang*100+25, 260+25*i, rang*100+35, 250+25*i, rang*100+35, true, false, 1, 4);
         }
     }
 }
@@ -693,6 +554,37 @@ void GameViewSFML::addTextWithValue(int value, int xV, int yV, int sizeV, std::s
     _window->Draw(textValue);
 }
 
+void GameViewSFML::addShape(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, bool fill, bool outLine, int width, int color) const{
+    Color c;
+    switch (color) {
+        case 1:
+            c = Color::White;
+            break;
+        case 2:
+            c = Color::Black;
+            break;
+        case 3:
+            c = Color::Green;
+            break;
+        case 4:
+            c = Color::Red;
+            break;
+        default:
+            break;
+    }
+    
+    Shape s;
+    s.AddPoint(x1, y1, c, c);
+    s.AddPoint(x2, y2, c, c);
+    s.AddPoint(x3, y3, c, c);
+    s.AddPoint(x4, y4, c, c);
+    s.EnableFill(fill);
+    s.EnableOutline(outLine);
+    s.SetOutlineWidth(width);
+    
+    _window->Draw(s);
+}
+    
 bool GameViewSFML::treatEvent(){
     
     bool result = true;

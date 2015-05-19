@@ -41,6 +41,8 @@ private:
     
     void addText(std::string text, int x, int y, int size) const;
     void addTextWithValue(int value, int xV, int yV, int sizeV ,std::string text, int xT, int yT, int sizeT) const;
+    void addShape(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, bool fill, bool outLine, int width, int color) const;
+    
 public:
     //CONSTRUCTOR
     GameViewSFML();
