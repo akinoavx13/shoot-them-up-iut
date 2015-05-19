@@ -168,12 +168,11 @@ void Menu::saveScore(int value, string player, string file){
         f << " ";
         f << value;
         f << "\n" ;
-
-        f.close();
     }
     else {
         cout << "Oups, the file can't be opened ..." << endl;
     }
+    f.close();
 }
 
 vector<Player*> Menu::showScores(string file){
@@ -221,11 +220,12 @@ vector<Player*> Menu::showScores(string file){
                 }
             }
         }
-        f.close();
     }
     else {
         cout << "Oups, the file can't be opened ..." << endl;
     }
+    
+    f.close();
     return players;
 
 }
