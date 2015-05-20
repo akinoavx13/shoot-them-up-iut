@@ -110,7 +110,11 @@ void Level::checkCollisions(){
         }
     }
     
+#ifdef __linux__
+    if(_boss != nullptr){
+#else
     if(_boss != 0){
+#endif
         if(_ally->collisions(_boss)){
             int allyLife = _ally->getHealth();
             int bossLife = _boss->getHealth();
@@ -142,8 +146,11 @@ void Level::checkCollisions(){
             }
         }
     }
-    
+#ifdef __linux__
+    if(_boss != nullptr){
+#else
     if(_boss != 0){
+#endif
         for (int i = 0; i < _tabBullets.size(); i++) {
             if(_boss->collisions(_tabBullets[i])){
                 int bossLife = _boss->getHealth();
@@ -173,10 +180,17 @@ void Level::checkCollisions(){
             _tabEnemies.erase(_tabEnemies.begin() + i);
         }
     }
-
+#ifdef __linux__
+    if(_boss != nullptr && _boss->isDead()){
+#else
     if(_boss != 0 && _boss->isDead()){
+#endif
         _boss->move(_boss->getX(), -200);
+#ifdef __linux__
+        _boss = nullptr;
+#else
         _boss = 0;
+#endif
         _ally->setScore(_ally->getScore() + _levelNumber * 20);
     }
 }
