@@ -183,11 +183,20 @@ void GameViewSFML::draw(){
     {
         if(_menu->getLevel())
         {
-            Picture bg(_graphicLibrary->getImage(0), 0,_yBackground,MODEL_WIDTH,MODEL_HEIGHT);
-            Picture bg2(_graphicLibrary->getImage(0), 0,_yBackground2,MODEL_WIDTH,MODEL_HEIGHT);
-
-            _window->Draw(bg.getSprite());
-            _window->Draw(bg2.getSprite());
+            if(_menu->getTheme()==0){
+                Picture bg(_graphicLibrary->getImage(0), 0,_yBackground,MODEL_WIDTH,MODEL_HEIGHT);
+                Picture bg2(_graphicLibrary->getImage(0), 0,_yBackground2,MODEL_WIDTH,MODEL_HEIGHT);
+                
+                _window->Draw(bg.getSprite());
+                _window->Draw(bg2.getSprite());
+            }
+            else if(_menu->getTheme()==1){
+                Picture bg(_graphicLibrary->getImage(33), 0,_yBackground,MODEL_WIDTH,MODEL_HEIGHT);
+                Picture bg2(_graphicLibrary->getImage(33), 0,_yBackground2,MODEL_WIDTH,MODEL_HEIGHT);
+                
+                _window->Draw(bg.getSprite());
+                _window->Draw(bg2.getSprite());
+            }
 
             if(_menu->getReady()){
 
@@ -226,7 +235,7 @@ void GameViewSFML::draw(){
                     _yBackground2 = -MODEL_HEIGHT + 2;
                 }
 
-                int value = 0.5;
+                int value = 1;
 
                 if(value + _gameModel->getLevel()->getLevelNumber()*0.5 <4){
                     value += _gameModel->getLevel()->getLevelNumber()*0.5;
@@ -281,8 +290,15 @@ void GameViewSFML::draw(){
                             }
 
                         }
+                        if(_menu->getTheme() == 0){
+                            addShape(xe, ye-15, xe+e->getWidth(), ye-15, xe+e->getWidth(), ye-10, xe, ye-10, false, true, 1, 1);
 
-                        addShape(xe, ye-15, xe+e->getWidth(), ye-15, xe+e->getWidth(), ye-10, xe, ye-10, false, true, 1, 1);
+                        }
+                        
+                        else if(_menu->getTheme() == 1){
+                            addShape(xe, ye-15, xe+e->getWidth(), ye-15, xe+e->getWidth(), ye-10, xe, ye-10, false, true, 1, 0);
+
+                        }
 
                         Shape vieEnemy;
                         vieEnemy.AddPoint(xe, ye-15, Color(240, 76, 36), Color(240, 76, 36));
@@ -370,9 +386,6 @@ void GameViewSFML::draw(){
                 }
             }
 
-            addShape(100, 10, 200, 10, 200, 20, 100, 20, false, true, 2, 1);
-            addShape(100, 10, 100 + (((float)_gameModel->getLevel()->getAlly()->getHealth() / (float)ALLY_LIFE) * (float)100), 10, 100 + (((float)_gameModel->getLevel()->getAlly()->getHealth() / (float)ALLY_LIFE) * (float)100), 20, 100, 20, true, false, 0, 4);
-
 #ifdef __linux__
             if(_gameModel->getLevel()->getAlly() != nullptr){
 #else
@@ -386,6 +399,10 @@ void GameViewSFML::draw(){
                 if(_menu->getTheme() == 0){
                     Picture ally(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,w*(_gameModel->getNumberTour()%3),0,w+w*(_gameModel->getNumberTour()%3),h);
                     _window->Draw(ally.getSprite());
+                    addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 50, 5, 15, "x", 40, 5, 15);
+                    
+                    addShape(100, 10, 200, 10, 200, 20, 100, 20, false, true, 2, 1);
+
                 }
                 else if(_menu->getTheme() == 1){
                     int w = _gameModel->getLevel()->getAlly()->getWidth();
@@ -402,12 +419,17 @@ void GameViewSFML::draw(){
                         Picture ally(_graphicLibrary->getImage(30), xp,yp,SECOND_ALLY_WIDTH,SECOND_ALLY_HEIGHT,0,2*h,w,3*h);
                         _window->Draw(ally.getSprite());
                     }
+                    
+                    addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 50, 5, 15, "x", 40, 5, 15);
+                    
+                    addShape(100, 10, 200, 10, 200, 20, 100, 20, false, true, 2, 0);
+    
                 }
-
+                addShape(100, 10, 100 + (((float)_gameModel->getLevel()->getAlly()->getHealth() / (float)ALLY_LIFE) * (float)100), 10, 100 + (((float)_gameModel->getLevel()->getAlly()->getHealth() / (float)ALLY_LIFE) * (float)100), 20, 100, 20, true, false, 0, 4);
+                
                 Picture life(_graphicLibrary->getImage(25), 15,5,20,20);
                     _window->Draw(life.getSprite());
 
-                addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 50, 5, 15, "x", 40, 5, 15);
             }
 
             addShape(MODEL_WIDTH, 0, SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MODEL_WIDTH, SCREEN_HEIGHT, true, false, 0, 2);

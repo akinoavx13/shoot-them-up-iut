@@ -319,6 +319,15 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img32);
     }
+        
+    Image * img33 = new Image();
+    #ifdef __linux__
+    if(img33->LoadFromFile("ShootThemUp/sprites/planet.png")){
+    #else
+    if(img33->LoadFromFile("planet.png")){
+    #endif
+        _imagesList.push_back(img33);
+    }
 }
 
 Image * GraphicLibrary::getImage(int i) const{
