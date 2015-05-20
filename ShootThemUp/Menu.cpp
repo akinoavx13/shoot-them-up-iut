@@ -12,7 +12,7 @@
 
 using namespace std;
 
-Menu::Menu() : _intro(true), _game(false), _level(false), _shop(false), _menu(false), _score(false), _saveScore(false), _ending(false), _readyToPlay(false), _options(false), _credits(false), _language("francais") {}
+Menu::Menu() : _theme(0), _intro(true), _game(false), _level(false), _shop(false), _menu(false), _score(false), _saveScore(false), _ending(false), _readyToPlay(false), _options(false), _credits(false), _language("francais") {}
 
 Menu::~Menu(){}
 
@@ -59,6 +59,10 @@ bool Menu::getOptions() const{
 
 bool Menu::getCredits() const{
     return _credits;
+}
+
+int Menu::getTheme() const{
+    return _theme;
 }
 
 std::string Menu::getLanguage() const{
@@ -110,6 +114,10 @@ void Menu::setCredits(bool credits){
     _credits = credits;
 }
 
+void Menu::setTheme(int theme){
+    _theme = theme;
+}
+
 void Menu::setLanguage(std::string language){
     _language = language;
 }
@@ -156,7 +164,7 @@ void Menu::showIntroTerminal() const{
 
 void Menu::saveScore(int value, string player, string file){
     fstream f;
-    
+
     #ifdef __linux__
     f.open(file,ios::out|ios::app);
     #else
@@ -179,13 +187,13 @@ vector<Player*> Menu::showScores(string file){
     fstream f;
 
     vector<Player*> players;
-    
+
     #ifdef __linux__
     f.open(file, ios::in);
     #else
     f.open(file.c_str(), ios::in);
     #endif
-    
+
     if(!f.fail()){
         while(!f.eof()){
             string name;
@@ -224,7 +232,7 @@ vector<Player*> Menu::showScores(string file){
     else {
         cout << "Oups, the file can't be opened ..." << endl;
     }
-    
+
     f.close();
     return players;
 

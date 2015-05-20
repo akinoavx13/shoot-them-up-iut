@@ -248,7 +248,7 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img24);
     }
-    
+
     Image * img25 = new Image();
     #ifdef __linux__
     if(img25->LoadFromFile("ShootThemUp/sprites/coeur.png")){
@@ -257,6 +257,7 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img25);
     }
+
     Image * img26 = new Image();
     #ifdef __linux__
     if(img26->LoadFromFile("ShootThemUp/sprites/backgroundShop.png")){
@@ -264,6 +265,59 @@ void GraphicLibrary::loadLibrary(){
     if(img26->LoadFromFile("backgroundShop.png")){
     #endif
         _imagesList.push_back(img26);
+    }
+
+    Image * img27 = new Image();
+    #ifdef __linux__
+    if(img27->LoadFromFile("ShootThemUp/sprites/ennemy_0.png")){
+    #else
+    if(img27->LoadFromFile("ennemy_0.png")){
+    #endif
+        _imagesList.push_back(img27);
+    }
+
+    Image * img28 = new Image();
+    #ifdef __linux__
+    if(img28->LoadFromFile("ShootThemUp/sprites/ennemy_1.png")){
+    #else
+    if(img28->LoadFromFile("ennemy_1.png")){
+    #endif
+        _imagesList.push_back(img28);
+    }
+    Image * img29 = new Image();
+    #ifdef __linux__
+    if(img29->LoadFromFile("ShootThemUp/sprites/ennemy_2.png")){
+    #else
+    if(img29->LoadFromFile("ennemy_2.png")){
+    #endif
+        _imagesList.push_back(img29);
+    }
+
+    Image * img30 = new Image();
+    #ifdef __linux__
+    if(img30->LoadFromFile("ShootThemUp/sprites/ship_all.png")){
+    #else
+    if(img30->LoadFromFile("ship_all.png")){
+    #endif
+        _imagesList.push_back(img30);
+    }
+
+    Image * img31 = new Image();
+    #ifdef __linux__
+    if(img31->LoadFromFile("ShootThemUp/sprites/shot.png")){
+    #else
+    if(img31->LoadFromFile("shot.png")){
+    #endif
+        _imagesList.push_back(img31);
+    }
+
+    Image * img32 = new Image();
+    #ifdef __linux__
+    if(img32->LoadFromFile("ShootThemUp/sprites/logo.jpeg")){
+    #else
+    if(img32->LoadFromFile("logo.png")){
+    #endif
+        _imagesList.push_back(img32);
     }
 }
 

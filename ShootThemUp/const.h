@@ -197,5 +197,27 @@ const int LEVEL_INITIAL_ENEMY_OFFSET = 50;
 
 //##############################################################################################
 
+/*
+ * SECOND THEME
+ */
+
+
+const int SECOND_ALLY_HEIGHT = 900;
+const int SECOND_ALLY_WIDTH = 186;
+
+const int SECOND_TINY_HEIGHT = 142;
+const int SECOND_TINY_WIDTH = 115;
+
+const int SECOND_MIGHTY_HEIGHT = 201;
+const int SECOND_MIGHTY_WIDTH = 178;
+
+const int SECOND_SUBMARINE_HEIGHT = 278;
+const int SECOND_SUBMARINE_WIDTH = 155;
+
+const int SECOND_BULLET_HEIGHT = 20;
+const int SECOND_BULLET_WIDTH = 92;
+
+//##############################################################################################
+
 
 #endif

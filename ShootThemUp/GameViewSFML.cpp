@@ -226,8 +226,14 @@ void GameViewSFML::draw(){
                     _yBackground2 = -MODEL_HEIGHT + 2;
                 }
 
-                _yBackground += 0.5;
-                _yBackground2 += 0.5;
+                int value = 0.5;
+
+                if(value + _gameModel->getLevel()->getLevelNumber()*0.5 <4){
+                    value += _gameModel->getLevel()->getLevelNumber()*0.5;
+                }
+
+                _yBackground += value;
+                _yBackground2 += value;
 
                 int k3 = _gameModel->getNumberTour()%3;
                 int k2 = _gameModel->getNumberTour()%2;
@@ -241,18 +247,39 @@ void GameViewSFML::draw(){
 
                         if(e->getType()==1)
                         {
-                            Picture en(_graphicLibrary->getImage(10), xe,ye,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT,0+(TINY_PICTURE_WIDTH/3)*k3,0,(TINY_PICTURE_WIDTH/3)+(TINY_PICTURE_WIDTH/3)*k3,TINY_PICTURE_HEIGHT);
-                            _window->Draw(en.getSprite());
+                            if(_menu->getTheme() == 0){
+                                Picture en(_graphicLibrary->getImage(10), xe,ye,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT,0+(TINY_PICTURE_WIDTH/3)*k3,0,(TINY_PICTURE_WIDTH/3)+(TINY_PICTURE_WIDTH/3)*k3,TINY_PICTURE_HEIGHT);
+                                _window->Draw(en.getSprite());
+                            }
+                            else if(_menu->getTheme() == 1){
+                                Picture en(_graphicLibrary->getImage(27), xe,ye,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT);
+                                _window->Draw(en.getSprite());
+                            }
                         }
                         else if(e->getType()==2)
                         {
-                            Picture en(_graphicLibrary->getImage(11), xe,ye,SUBMARINE_PICTURE_WIDTH,SUBMARINE_PICTURE_HEIGHT,0+(SUBMARINE_PICTURE_WIDTH/2)*k2,0,(SUBMARINE_PICTURE_WIDTH/2)+(SUBMARINE_PICTURE_WIDTH/2)*k2,SUBMARINE_PICTURE_HEIGHT);
-                            _window->Draw(en.getSprite());
+                            if(_menu->getTheme() == 0){
+                                Picture en(_graphicLibrary->getImage(11), xe,ye,SUBMARINE_PICTURE_WIDTH,SUBMARINE_PICTURE_HEIGHT,0+(SUBMARINE_PICTURE_WIDTH/2)*k2,0,(SUBMARINE_PICTURE_WIDTH/2)+(SUBMARINE_PICTURE_WIDTH/2)*k2,SUBMARINE_PICTURE_HEIGHT);
+                                _window->Draw(en.getSprite());
+                            }
+                            else if(_menu->getTheme() == 1){
+                                Picture en(_graphicLibrary->getImage(28), xe,ye,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT);
+                                _window->Draw(en.getSprite());
+                            }
+
                         }
                         else if(e->getType()==3)
                         {
-                            Picture en(_graphicLibrary->getImage(21), xe,ye,MIGHTY_PICTURE_WIDTH,MIGHTY_PICTURE_HEIGHT,0+(MIGHTY_PICTURE_WIDTH/3)*k3,0,(MIGHTY_PICTURE_WIDTH/3)+(MIGHTY_PICTURE_WIDTH/3)*k3,MIGHTY_PICTURE_HEIGHT);
-                            _window->Draw(en.getSprite());
+                            if(_menu->getTheme() == 0){
+                                Picture en(_graphicLibrary->getImage(21), xe,ye,MIGHTY_PICTURE_WIDTH,MIGHTY_PICTURE_HEIGHT,0+(MIGHTY_PICTURE_WIDTH/3)*k3,0,(MIGHTY_PICTURE_WIDTH/3)+(MIGHTY_PICTURE_WIDTH/3)*k3,MIGHTY_PICTURE_HEIGHT);
+                                _window->Draw(en.getSprite());
+                            }
+
+                            else if(_menu->getTheme() == 1){
+                                Picture en(_graphicLibrary->getImage(29), xe,ye,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT);
+                                _window->Draw(en.getSprite());
+                            }
+
                         }
 
                         addShape(xe, ye-15, xe+e->getWidth(), ye-15, xe+e->getWidth(), ye-10, xe, ye-10, false, true, 1, 1);
@@ -353,8 +380,22 @@ void GameViewSFML::draw(){
 #endif
                 int xp = _gameModel->getLevel()->getAlly()->getX();
                 int yp = _gameModel->getLevel()->getAlly()->getY();
-                Picture ally(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,0+(ALLY_PICTURE_WIDTH/3)*(_gameModel->getNumberTour()%3),0,(ALLY_PICTURE_WIDTH/3)+(ALLY_PICTURE_WIDTH/3)*(_gameModel->getNumberTour()%3),ALLY_PICTURE_HEIGHT);
+
+                if(_menu->getTheme() == 0){
+                    Picture ally(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,0+(ALLY_PICTURE_WIDTH/3)*(_gameModel->getNumberTour()%3),0,(ALLY_PICTURE_WIDTH/3)+(ALLY_PICTURE_WIDTH/3)*(_gameModel->getNumberTour()%3),ALLY_PICTURE_HEIGHT);
                     _window->Draw(ally.getSprite());
+                }
+                else if(_menu->getTheme() == 1){
+                    int w = _gameModel->getLevel()->getAlly()->getWidth();
+                    int h = _gameModel->getLevel()->getAlly()->getHeight();
+
+
+                    Picture ally(_graphicLibrary->getImage(30), xp,yp,86,900/3,0,0,86,300);
+                    _window->Draw(ally.getSprite());
+                    addShape(xp, yp, xp+w, yp, xp+w, yp+h, xp, yp+h, false, true, 1, 0);
+                }
+
+
 
                 Picture life(_graphicLibrary->getImage(25), 15,5,20,20);
                     _window->Draw(life.getSprite());
@@ -678,7 +719,36 @@ void GameViewSFML::draw(){
         addShape(280, 180, 290, 180, 290, 190, 280, 190, false, true, 1, 1);
 
 
+
+        switch(_menu->getTheme()){
+        case 0:
+            addShape(180, 250, 350, 250, 350, 310, 180, 310, false, true, 4, 3);
+            addShape(180, 340, 280, 340, 280, 430, 180, 430, false, true, 4, 4);
+            break;
+        case 1:
+            addShape(180, 250, 350, 250, 350, 310, 180, 310, false, true, 4, 4);
+            addShape(180, 340, 280, 340, 280, 430, 180, 430, false, true, 4, 3);
+            break;
+        }
+
+        if(mouseX> 180 && mouseX<350 && mouseY>250 && mouseY<310){
+            addShape(180, 250, 350, 250, 350, 310, 180, 310, false, true, 4, 5);
+        }
+        if(mouseX> 180 && mouseX<280 && mouseY>340 && mouseY<430){
+            addShape(180, 340, 280, 340, 280, 430, 180, 430, false, true, 4, 5);
+        }
+        Picture theme1(_graphicLibrary->getImage(22), 180,250,170,60);
+        _window->Draw(theme1.getSprite());
+
+        Picture theme2(_graphicLibrary->getImage(32), 180,340,100,90);
+        _window->Draw(theme2.getSprite());
+
+
+
+
         addShape(SCREEN_WIDTH/2-90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-90, SCREEN_HEIGHT-20, false, true, 2, 1);
+
+
 
         if(((mouseX > SCREEN_WIDTH/2-90) && (mouseX < SCREEN_WIDTH/2+90) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
         {
@@ -698,6 +768,8 @@ void GameViewSFML::draw(){
             addText("Anglais", 180, 135, 15);
             addText("Francais", 180, 155, 15);
             addText("Allemand", 180, 175, 15);
+
+            addText("Theme : ", 100, 250, 15);
 
             addText("RETOUR AU MENU", SCREEN_WIDTH/2-80, SCREEN_HEIGHT-45, 20);
         }
@@ -1239,6 +1311,12 @@ bool GameViewSFML::treatEvent(){
                     else if (mouseY>180 && mouseY<190){
                         _menu->setLanguage("deutsch");
                     }
+                }
+                if(mouseX> 180 && mouseX<350 && mouseY>250 && mouseY<310){
+                    _menu->setTheme(0);
+                }
+                if(mouseX> 180 && mouseX<280 && mouseY>340 && mouseY<430){
+                    _menu->setTheme(1);
                 }
                 else if(((mouseX > SCREEN_WIDTH/2-90) && (mouseX < SCREEN_WIDTH/2+90) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
                 {

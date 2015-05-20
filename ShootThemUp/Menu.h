@@ -29,8 +29,9 @@ private:
     bool _readyToPlay;
     bool _options;
     bool _credits;
-    
+
     std::string _language;
+    int _theme;
 
 public:
     Menu();
@@ -59,19 +60,22 @@ public:
 
     bool getEnding() const;
     void setEnding(bool ending);
-    
+
     bool getReady() const;
     void setReady(bool ready);
 
     bool getOptions() const;
     void setOption(bool options);
-    
+
     bool getCredits() const;
     void setCredits(bool credits);
-    
+
+    int getTheme() const;
+    void setTheme(int theme);
+
     std::string getLanguage() const;
     void setLanguage(std::string language);
-    
+
     void showIntroTerminal() const;
     void saveScore(int value, std::string player, std::string file);
 
