@@ -35,7 +35,7 @@ const int MODEL_HEIGHT = SCREEN_HEIGHT;
  */
 const std::string LINUX_SCORE_FILE = "ShootThemUp/score.txt" ;
 const std::string SCORE_FILE = "score.txt";
-const std::string YOUR_FILE = SCORE_FILE; //please, change hear the constancy to execute the code
+const std::string YOUR_FILE = LINUX_SCORE_FILE; //please, change hear the constancy to execute the code
 
 //##############################################################################################
 
