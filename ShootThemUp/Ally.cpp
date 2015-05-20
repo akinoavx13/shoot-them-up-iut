@@ -14,7 +14,7 @@ using namespace std;
 /*
  * default constructor
  */
-Ally::Ally() : Ship(MODEL_WIDTH/2-ALLY_PICTURE_WIDTH/6, MODEL_HEIGHT-ALLY_PICTURE_HEIGHT-15, ALLY_LIFE,ALLY_PICTURE_WIDTH/3, ALLY_PICTURE_HEIGHT, ALLY_FIRERATE, ALLY_SPEEDX, ALLY_SPEEDY), _numbersOfLife(ALLY_NUMBER_OF_LIFE), _score(DEFAULT_SCORE), _numberShootWithBonus(0), _numberShootWithBonusMax(4), _numberLifeBuy(0), _name("")
+Ally::Ally() : Ship(MODEL_WIDTH/2-ALLY_PICTURE_WIDTH/6, MODEL_HEIGHT-ALLY_PICTURE_HEIGHT-25, ALLY_LIFE,ALLY_PICTURE_WIDTH/3, ALLY_PICTURE_HEIGHT, ALLY_FIRERATE, ALLY_SPEEDX, ALLY_SPEEDY), _numbersOfLife(ALLY_NUMBER_OF_LIFE), _score(DEFAULT_SCORE), _numberShootWithBonus(0), _numberShootWithBonusMax(4), _numberLifeBuy(0), _name("")
 {
     Bullet * newBullet1 = new Bullet(_x + _width / 2 - STANDARD_PICTURE_WIDTH / 2, _y - STANDARD_PICTURE_HEIGHT - 5, STANDARD_DAMAGE, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, 0, STANDARD_PRICE, "ally");
     _othersBullets.push_back(newBullet1);

@@ -50,6 +50,9 @@ public:
     float getSpeedY() const;
     int getWidth() const;
     int getHeight() const;
+    
+    //SETTERS
+    void changeSize(int width, int height);
 
 };
 

@@ -57,7 +57,46 @@ void GameModel::updateCore(){
     {
         _numberTour++;
         
-        if(_menu->getLevel() && !_menu->getReady())
+        if(_menu->getReady()){
+            if(_menu->getTheme()==0){
+                _level->getAlly()->changeSize(ALLY_PICTURE_WIDTH/3, ALLY_PICTURE_HEIGHT);
+                for(auto e : _level->getEnemies())
+                {
+                    if(e->getType()==1)
+                    {
+                        e->changeSize(TINY_PICTURE_WIDTH/3, TINY_PICTURE_HEIGHT);
+                    }
+                    else if(e->getType()==2)
+                    {
+                        e->changeSize(SUBMARINE_PICTURE_WIDTH/2, SUBMARINE_PICTURE_HEIGHT);
+                    }
+                    else if(e->getType()==3)
+                    {
+                        e->changeSize(MIGHTY_PICTURE_WIDTH/3, MIGHTY_PICTURE_HEIGHT);
+                    }
+                }
+                
+            }
+            else if (_menu->getTheme()==1){
+                _level->getAlly()->changeSize(SECOND_ALLY_WIDTH, SECOND_ALLY_HEIGHT/3);
+                for(auto e : _level->getEnemies())
+                {
+                    if(e->getType()==1)
+                    {
+                        e->changeSize(SECOND_TINY_WIDTH, SECOND_TINY_HEIGHT);
+                    }
+                    else if(e->getType()==2)
+                    {
+                        e->changeSize(SECOND_SUBMARINE_WIDTH, SECOND_SUBMARINE_HEIGHT);
+                    }
+                    else if(e->getType()==3)
+                    {
+                        e->changeSize(SECOND_MIGHTY_WIDTH, SECOND_MIGHTY_HEIGHT);
+                    }
+                }
+            }
+        }
+        else if(_menu->getLevel())
         {
             _level->moveBullets();
             _level->checkCollisions();
@@ -110,7 +149,7 @@ void GameModel::updateCore(){
                         }
                     }
                     
-                    _level->getAlly()->move(MODEL_WIDTH/2-_level->getAlly()->getWidth()/2, MODEL_HEIGHT-_level->getAlly()->getHeight()-15);
+                    _level->getAlly()->move(MODEL_WIDTH/2-_level->getAlly()->getWidth()/2, MODEL_HEIGHT-_level->getAlly()->getHeight()-25);
                     _level->getAlly()->resetBonus();
                     
                     _menu->setShop(true); //go to shop because level is finish

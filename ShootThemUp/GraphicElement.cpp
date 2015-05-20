@@ -136,3 +136,9 @@ int GraphicElement::getWidth() const{
 int GraphicElement::getHeight() const{
     return _height;
 }
+
+//----------GETTERS----------
+void GraphicElement::changeSize(int width, int height){
+    _height=height;
+    _width=width;
+}

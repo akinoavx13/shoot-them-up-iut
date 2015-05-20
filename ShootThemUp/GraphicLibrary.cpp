@@ -315,7 +315,7 @@ void GraphicLibrary::loadLibrary(){
     #ifdef __linux__
     if(img32->LoadFromFile("ShootThemUp/sprites/logo.jpeg")){
     #else
-    if(img32->LoadFromFile("logo.png")){
+    if(img32->LoadFromFile("logo.jpeg")){
     #endif
         _imagesList.push_back(img32);
     }

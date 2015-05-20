@@ -54,29 +54,29 @@ GameViewSFML::GameViewSFML():_yBackground(0), _yBackground2(-SCREEN_HEIGHT + 2){
     }
     #else
     _gameModel = 0;
-    if (!Buffer.LoadFromFile("tirJoueur.wav"))
+    if (!buffer1.LoadFromFile("shoot.wav"))
     {
         cout << "The sound can't be load" << endl;
     }else{
-        sound_shoot.SetBuffer(Buffer);
+        sound_shoot.SetBuffer(buffer1);
         sound_shoot.SetPitch(1.5f);
         sound_shoot.SetVolume(75.f);
     }
 
-    if (!Buffer.LoadFromFile("tirJoueur.wav"))
+    if (!buffer2.LoadFromFile("bonusShoot.wav"))
     {
         cout << "The sound can't be load" << endl;
     }else{
-        sound_bonusShoot.SetBuffer(Buffer);
+        sound_bonusShoot.SetBuffer(buffer2);
         sound_bonusShoot.SetPitch(1.5f);
         sound_bonusShoot.SetVolume(75.f);
     }
 
-    if (!Buffer.LoadFromFile("tirJoueur.wav"))
+    if (!buffer3.LoadFromFile("pieces.wav"))
     {
         cout << "The sound can't be load" << endl;
     }else{
-        sound_iziMoney.SetBuffer(Buffer);
+        sound_iziMoney.SetBuffer(buffer3);
         sound_iziMoney.SetPitch(1.5f);
         sound_iziMoney.SetVolume(75.f);
     }
@@ -252,7 +252,7 @@ void GameViewSFML::draw(){
                                 _window->Draw(en.getSprite());
                             }
                             else if(_menu->getTheme() == 1){
-                                Picture en(_graphicLibrary->getImage(27), xe,ye,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT);
+                                Picture en(_graphicLibrary->getImage(27), xe,ye,SECOND_TINY_WIDTH,SECOND_TINY_HEIGHT);
                                 _window->Draw(en.getSprite());
                             }
                         }
@@ -263,7 +263,7 @@ void GameViewSFML::draw(){
                                 _window->Draw(en.getSprite());
                             }
                             else if(_menu->getTheme() == 1){
-                                Picture en(_graphicLibrary->getImage(28), xe,ye,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT);
+                                Picture en(_graphicLibrary->getImage(28), xe,ye,SECOND_SUBMARINE_WIDTH,SECOND_SUBMARINE_HEIGHT);
                                 _window->Draw(en.getSprite());
                             }
 
@@ -276,7 +276,7 @@ void GameViewSFML::draw(){
                             }
 
                             else if(_menu->getTheme() == 1){
-                                Picture en(_graphicLibrary->getImage(29), xe,ye,TINY_PICTURE_WIDTH,TINY_PICTURE_HEIGHT);
+                                Picture en(_graphicLibrary->getImage(29), xe,ye,SECOND_MIGHTY_WIDTH,SECOND_MIGHTY_HEIGHT);
                                 _window->Draw(en.getSprite());
                             }
 
@@ -380,22 +380,29 @@ void GameViewSFML::draw(){
 #endif
                 int xp = _gameModel->getLevel()->getAlly()->getX();
                 int yp = _gameModel->getLevel()->getAlly()->getY();
+                int w = _gameModel->getLevel()->getAlly()->getWidth();
+                int h = _gameModel->getLevel()->getAlly()->getHeight();
 
                 if(_menu->getTheme() == 0){
-                    Picture ally(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,0+(ALLY_PICTURE_WIDTH/3)*(_gameModel->getNumberTour()%3),0,(ALLY_PICTURE_WIDTH/3)+(ALLY_PICTURE_WIDTH/3)*(_gameModel->getNumberTour()%3),ALLY_PICTURE_HEIGHT);
+                    Picture ally(_graphicLibrary->getImage(17), xp,yp,ALLY_PICTURE_WIDTH,ALLY_PICTURE_HEIGHT,w*(_gameModel->getNumberTour()%3),0,w+w*(_gameModel->getNumberTour()%3),h);
                     _window->Draw(ally.getSprite());
                 }
                 else if(_menu->getTheme() == 1){
                     int w = _gameModel->getLevel()->getAlly()->getWidth();
                     int h = _gameModel->getLevel()->getAlly()->getHeight();
-
-
-                    Picture ally(_graphicLibrary->getImage(30), xp,yp,86,900/3,0,0,86,300);
-                    _window->Draw(ally.getSprite());
-                    addShape(xp, yp, xp+w, yp, xp+w, yp+h, xp, yp+h, false, true, 1, 0);
+                    if(input.IsKeyDown(Key::Right)){
+                        Picture ally(_graphicLibrary->getImage(30), xp,yp,SECOND_ALLY_WIDTH,SECOND_ALLY_HEIGHT,0,0,w,h);
+                        _window->Draw(ally.getSprite());
+                    }
+                    else if (input.IsKeyDown(Key::Left)){
+                        Picture ally(_graphicLibrary->getImage(30), xp,yp,SECOND_ALLY_WIDTH,SECOND_ALLY_HEIGHT,0,h,w,2*h);
+                        _window->Draw(ally.getSprite());
+                    }
+                    else{
+                        Picture ally(_graphicLibrary->getImage(30), xp,yp,SECOND_ALLY_WIDTH,SECOND_ALLY_HEIGHT,0,2*h,w,3*h);
+                        _window->Draw(ally.getSprite());
+                    }
                 }
-
-
 
                 Picture life(_graphicLibrary->getImage(25), 15,5,20,20);
                     _window->Draw(life.getSprite());
@@ -712,7 +719,7 @@ void GameViewSFML::draw(){
         addShape(280, 160, 290, 160, 290, 170, 280, 170, true, false, 0, 4);
         addShape(280, 160, 290, 160, 290, 170, 280, 170, false, true, 1, 1);
 
-        addShape(280, 140, 290, 140, 290, 150, 280, 150, true, false, 0, 3);
+        addShape(280, 140, 290, 140, 290, 150, 280, 150, true, false, 0, 4);
         addShape(280, 140, 290, 140, 290, 150, 280, 150, false, true, 1, 1);
 
         addShape(280, 180, 290, 180, 290, 190, 280, 190, true, false, 0, 4);
@@ -756,6 +763,8 @@ void GameViewSFML::draw(){
         }
 
         if(_menu->getLanguage() == "english"){
+            addShape(280, 140, 290, 140, 290, 150, 280, 150, true, false, 0, 3);
+
             addText("Langage : ", 100, 135, 15);
             addText("English", 180, 135, 15);
             addText("French", 180, 155, 15);
@@ -764,6 +773,8 @@ void GameViewSFML::draw(){
             addText("BACK TO MENU", SCREEN_WIDTH/2-70, SCREEN_HEIGHT-45, 20);
         }
         else if (_menu->getLanguage() == "francais"){
+            addShape(280, 160, 290, 160, 290, 170, 280, 170, true, false, 0, 3);
+            
             addText("Langue : ", 100, 135, 15);
             addText("Anglais", 180, 135, 15);
             addText("Francais", 180, 155, 15);
@@ -774,6 +785,8 @@ void GameViewSFML::draw(){
             addText("RETOUR AU MENU", SCREEN_WIDTH/2-80, SCREEN_HEIGHT-45, 20);
         }
         else if (_menu->getLanguage() == "deutsch"){
+            addShape(280, 180, 290, 180, 290, 190, 280, 190, true, false, 0, 3);
+
             addText("Sprache : ", 100, 135, 15);
             addText("Englisch", 180, 135, 15);
             addText("Franzosisch", 180, 155, 15);
@@ -1189,7 +1202,7 @@ bool GameViewSFML::treatEvent(){
                                 if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(0)){
                                     _gameModel->getLevel()->getAlly()->reduceScore(_gameModel->getLevel()->getAlly()->getOneBulletBonus(0)->getPrice());
                                     _gameModel->getLevel()->getAlly()->getOneBulletBonus(0)->growPrice();
-                    play = true;
+                                    play = true;
                                 }
                             }
                         }
@@ -1198,8 +1211,8 @@ bool GameViewSFML::treatEvent(){
                                 if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(1)){
                                     _gameModel->getLevel()->getAlly()->reduceScore(_gameModel->getLevel()->getAlly()->getOneBulletBonus(1)->getPrice());
                                     _gameModel->getLevel()->getAlly()->getOneBulletBonus(1)->growPrice();
-                                                        play = true;
-
+                                    play = true;
+                                    
                                 }
                             }
                         }
@@ -1208,7 +1221,7 @@ bool GameViewSFML::treatEvent(){
                                 if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(2)){
                                     _gameModel->getLevel()->getAlly()->reduceScore(_gameModel->getLevel()->getAlly()->getOneBulletBonus(2)->getPrice());
                                     _gameModel->getLevel()->getAlly()->getOneBulletBonus(2)->growPrice();
-                                                        play = true;
+                                    play = true;
 
                                 }
                             }
@@ -1218,7 +1231,7 @@ bool GameViewSFML::treatEvent(){
                                 if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(3)){
                                     _gameModel->getLevel()->getAlly()->reduceScore(_gameModel->getLevel()->getAlly()->getOneBulletBonus(3)->getPrice());
                                     _gameModel->getLevel()->getAlly()->getOneBulletBonus(3)->growPrice();
-                                                        play = true;
+                                    play = true;
 
                                 }
                             }
@@ -1228,7 +1241,7 @@ bool GameViewSFML::treatEvent(){
                                 if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(4)){
                                     _gameModel->getLevel()->getAlly()->reduceScore(_gameModel->getLevel()->getAlly()->getOneBulletBonus(4)->getPrice());
                                     _gameModel->getLevel()->getAlly()->getOneBulletBonus(4)->growPrice();
-                                                        play = true;
+                                    play = true;
 
                                 }
                             }
@@ -1237,8 +1250,7 @@ bool GameViewSFML::treatEvent(){
                             if(_gameModel->getLevel()->getAlly()->getScore() > ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100 && _gameModel->getLevel()->getAlly()->getNumberOfLife()<5){
                                 _gameModel->getLevel()->getAlly()->setNumberOfLife(_gameModel->getLevel()->getAlly()->getNumberOfLife() + 1);
                                 _gameModel->getLevel()->getAlly()->reduceScore(ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100);
-                                                    play = true;
-
+                                play = true;
                             }
                         }
 
