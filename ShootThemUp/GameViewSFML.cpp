@@ -255,11 +255,7 @@ void GameViewSFML::draw(){
                     _yBackground2 = -MODEL_HEIGHT + 2;
                 }
 
-                int value = 1;
-
-                if(value + _gameModel->getLevel()->getLevelNumber()*0.5 < 4){
-                    value += _gameModel->getLevel()->getLevelNumber()*0.5;
-                }
+                float value = 0.8;
 
                 _yBackground += value;
                 _yBackground2 += value;
@@ -627,7 +623,7 @@ void GameViewSFML::draw(){
                 addText("New life", 25, 660, 15, 0);
                 addText("Buy", 490, 612, 15, 0);
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 270, 620, 15, "Life :", 175, 620, 15, 0);
-                addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberLifeBuy()*50, 270, 640, 15, "Price :", 175, 640, 15, 0);
+                addTextWithValue(ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100, 270, 640, 15, "Price :", 175, 640, 15, 0);
 
                  addText("NEXT LEVEL", SCREEN_WIDTH/2-60, SCREEN_HEIGHT-45, 20, 0);
 
@@ -647,7 +643,7 @@ void GameViewSFML::draw(){
                 addText("Nouvelle vie", 25, 660, 15, 0);
                 addText("Acheter", 470, 612, 15, 0);
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 270, 620, 15, "Vies :", 175, 620, 15, 0);
-                addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberLifeBuy()*50, 270, 640, 15, "Prix :", 175, 640, 15, 0);
+                addTextWithValue(ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100, 270, 640, 15, "Prix :", 175, 640, 15, 0);
 
                  addText("SUIVANT", SCREEN_WIDTH/2-45, SCREEN_HEIGHT-45, 20, 0);
             }
@@ -666,7 +662,7 @@ void GameViewSFML::draw(){
                 addText("Neues leben", 25, 660, 15, 0);
                 addText("Kaufen", 470, 612, 15, 0);
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 270, 620, 15, "Leben :", 175, 620, 15, 0);
-                addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberLifeBuy()*50, 270, 640, 15, "Preis :", 175, 640, 15, 0);
+                addTextWithValue(ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100, 270, 640, 15, "Preis :", 175, 640, 15, 0);
 
                 addText("NACHSTER", SCREEN_WIDTH/2-45, SCREEN_HEIGHT-45, 20, 0);
             }
@@ -1319,6 +1315,7 @@ bool GameViewSFML::treatEvent(){
                         if((mouseY>610) && (mouseY<630)){
                             if(_gameModel->getLevel()->getAlly()->getScore() > ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100 && _gameModel->getLevel()->getAlly()->getNumberOfLife()<5){
                                 _gameModel->getLevel()->getAlly()->setNumberOfLife(_gameModel->getLevel()->getAlly()->getNumberOfLife() + 1);
+                                _gameModel->getLevel()->getAlly()->setNumberLifeBuy(_gameModel->getLevel()->getAlly()->getNumberLifeBuy() + 1);
                                 _gameModel->getLevel()->getAlly()->reduceScore(ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100);
                                 play = true;
                             }

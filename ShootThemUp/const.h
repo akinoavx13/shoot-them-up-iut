@@ -188,7 +188,7 @@ const int DOUBLE_TINY_LASER_PRICE = 250;
  */
 const int SHIP_OFFSET_SHOOT = 20;
 const int RESTRAURE_LIFE_PRICE = 300;
-const int ADD_LIFE_PRICE = 300;
+const int ADD_LIFE_PRICE = 100;
 const int DEFAULT_SCORE = 0;
 const int DEFAULT_POINT = 20;
 const int LEVEL_NUMBER = 1;
