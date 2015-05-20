@@ -18,38 +18,40 @@ Ally::Ally() : Ship(MODEL_WIDTH/2-ALLY_PICTURE_WIDTH/6, MODEL_HEIGHT-ALLY_PICTUR
 {
     Bullet * newBullet1 = new Bullet(_x + _width / 2 - STANDARD_PICTURE_WIDTH / 2, _y - STANDARD_PICTURE_HEIGHT - 5, STANDARD_DAMAGE, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, 0, STANDARD_PRICE, "ally");
     _othersBullets.push_back(newBullet1);
-    
+
     Bullet * newBullet2 = Bullet::FireBall(_x + _width / 2 - FIREBALL_PICTURE_WIDTH / 2, _y - FIREBALL_PICTURE_HEIGHT - 5, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, FIREBALL_DAMAGE, "ally");
-    
+
     _othersBullets.push_back(newBullet2);
-    
+
     Bullet * newBullet3 = Bullet::TinyLaser(_x + _width / 2 - TINYLASER_PICTURE_WIDTH / 2, _y - TINYLASER_PICTURE_HEIGHT - 5, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, TINY_DAMAGE, "ally");
-    
+
     _othersBullets.push_back(newBullet3);
-    
+
     Bullet * newBullet4 = Bullet::DoubleTinyLaser(_x + _width / 2 - DOUBLE_TINY_LASER_PICTURE_WIDTH / 2, _y - DOUBLE_TINY_LASER_PICTURE_HEIGHT - 5, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, DOUBLE_TINY_LASER_DAMAGE, "ally");
     _othersBullets.push_back(newBullet4);
 
     Bullet * newBullet5 = Bullet::Laser(_x + _width / 2 - LASER_PICTURE_WIDTH / 2, _y - LASER_PICTURE_HEIGHT - 5, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, LASER_DAMAGE, "ally");
-    
+
     _othersBullets.push_back(newBullet5);
-    
+
     _bonusShoot = newBullet2;
 }
 
-void Ally::bonusShoot(){
+bool Ally::bonusShoot(){
     if(_numberShootWithBonus<_numberShootWithBonusMax)
     {
         int width = _bonusShoot->getWidth();
         int height = _bonusShoot->getHeight();
-    
+
         int x = _x + _width/2 - width/2;
         int y = _y - height - 5;
-    
+
         Bullet * copieBonus = new Bullet(x, y, _bonusShoot->getDamage(), width, height, _bonusShoot->getSpeedX(), _bonusShoot->getSpeedY(), _bonusShoot->getType(), 0, "ally");
         _level->addBullet(copieBonus);
         _numberShootWithBonus++;
+        return true;
     }
+    return false;
 }
 
 void Ally::resetBonus(){
@@ -111,7 +113,7 @@ void Ally::move(const float x, const float y){
     }else{
         //cout << "X n'est pas compris entre 0 et " << MODEL_WIDTH << ". X vaut : " << x << endl;
     }
-    
+
     if (y >= 30 && y+_height < MODEL_HEIGHT) {
         _y = y;
     }else{

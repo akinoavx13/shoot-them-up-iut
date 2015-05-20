@@ -23,13 +23,31 @@ GameViewSFML::GameViewSFML():_yBackground(0), _yBackground2(-SCREEN_HEIGHT + 2){
     _window->SetFramerateLimit(SCREEN_FPS);
     #ifdef __linux__
     _gameModel = nullptr;
-    if (!Buffer.LoadFromFile("ShootThemUp/tirJoueur.wav"))
+    if (!buffer1.LoadFromFile("ShootThemUp/shoot.wav"))
     {
         cout << "The sound can't be load" << endl;
     }else{
-        Sound.SetBuffer(Buffer);
-        Sound.SetPitch(1.5f);
-        Sound.SetVolume(75.f);
+        sound_shoot.SetBuffer(buffer1);
+        sound_shoot.SetPitch(1.5f);
+        sound_shoot.SetVolume(75.f);
+    }
+
+    if (!buffer2.LoadFromFile("ShootThemUp/bonusShoot.wav"))
+    {
+        cout << "The sound can't be load" << endl;
+    }else{
+        sound_bonusShoot.SetBuffer(buffer2);
+        sound_bonusShoot.SetPitch(1.5f);
+        sound_bonusShoot.SetVolume(75.f);
+    }
+
+    if (!buffer3.LoadFromFile("ShootThemUp/pieces.wav"))
+    {
+        cout << "The sound can't be load" << endl;
+    }else{
+        sound_iziMoney.SetBuffer(buffer3);
+        sound_iziMoney.SetPitch(1.5f);
+        sound_iziMoney.SetVolume(75.f);
     }
     if(!font.LoadFromFile("ShootThemUp/police.ttf")){
         cout << "The font can't be load" << endl;
@@ -40,9 +58,27 @@ GameViewSFML::GameViewSFML():_yBackground(0), _yBackground2(-SCREEN_HEIGHT + 2){
     {
         cout << "The sound can't be load" << endl;
     }else{
-        Sound.SetBuffer(Buffer);
-        Sound.SetPitch(1.5f);
-        Sound.SetVolume(75.f);
+        sound_shoot.SetBuffer(Buffer);
+        sound_shoot.SetPitch(1.5f);
+        sound_shoot.SetVolume(75.f);
+    }
+
+    if (!Buffer.LoadFromFile("tirJoueur.wav"))
+    {
+        cout << "The sound can't be load" << endl;
+    }else{
+        sound_bonusShoot.SetBuffer(Buffer);
+        sound_bonusShoot.SetPitch(1.5f);
+        sound_bonusShoot.SetVolume(75.f);
+    }
+
+    if (!Buffer.LoadFromFile("tirJoueur.wav"))
+    {
+        cout << "The sound can't be load" << endl;
+    }else{
+        sound_iziMoney.SetBuffer(Buffer);
+        sound_iziMoney.SetPitch(1.5f);
+        sound_iziMoney.SetVolume(75.f);
     }
     if(!font.LoadFromFile("police.ttf")){
         cout << "The font can't be load" << endl;
@@ -114,9 +150,9 @@ void GameViewSFML::draw(){
         }
 
 
-        addShape(100, 550, 200, 550, 200, 580, 100, 580, false, true, 2, 1);
-        if(mouseX > 100 && mouseX < 200 && mouseY > 550 && mouseY < 580){
-            addShape(100, 550, 200, 550, 200, 580, 100, 580, true, false, 0, 4);
+        addShape(100, 550, 220, 550, 220, 580, 100, 580, false, true, 2, 1);
+        if(mouseX > 100 && mouseX < 220 && mouseY > 550 && mouseY < 580){
+            addShape(100, 550, 220, 550, 220, 580, 100, 580, true, false, 0, 4);
         }
 
         if(_menu->getLanguage() == "english"){
@@ -133,7 +169,13 @@ void GameViewSFML::draw(){
             addText("MEILLEUR SCORES", 110, 355, 20);
             addText("QUITTER", 110, 555, 20);
         }
-
+        else if(_menu->getLanguage() == "deutsch"){
+            addText("SPIEL SPIELEN", 110, 155, 20);
+            addText("OPTIONEN", 110, 205, 20);
+            addText("CREDITS", 110, 305, 20);
+            addText("HIGHSCORES", 110, 355, 20);
+            addText("VERLASSEN", 110, 555, 20);
+        }
         time.Reset();
     }
 
@@ -405,7 +447,7 @@ void GameViewSFML::draw(){
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getOneBulletBonus(_gameModel->getLevel()->getAlly()->getMainBulletType())->getDamage(), SCREEN_WIDTH - 70, 130, 15, "POWER : ", SCREEN_WIDTH - 180, 130, 15);
 
 
-                addText("MAIN SHOOT", SCREEN_WIDTH-135, 220, 15);
+                addText("BONUS SHOOT", SCREEN_WIDTH-135, 220, 15);
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getBulletBonus()->getDamage(), SCREEN_WIDTH - 70, 245, 15, "POWER :", SCREEN_WIDTH - 180, 245, 15);
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberShootBonusMax()-_gameModel->getLevel()->getAlly()->getNumberShootBonus(), SCREEN_WIDTH - 70, 265, 15, "NUMBER :", SCREEN_WIDTH - 180, 265, 15);
             }
@@ -421,6 +463,19 @@ void GameViewSFML::draw(){
                 addText("TIR BONUS", SCREEN_WIDTH-135, 220, 15);
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getBulletBonus()->getDamage(), SCREEN_WIDTH - 70, 245, 15, "PUISSANCE :", SCREEN_WIDTH - 180, 245, 15);
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberShootBonusMax()-_gameModel->getLevel()->getAlly()->getNumberShootBonus(), SCREEN_WIDTH - 70, 265, 15, "NOMBRE :", SCREEN_WIDTH - 180, 265, 15);
+            }
+            else if(_menu->getLanguage() == "deutsch"){
+                addTextWithValue(_gameModel->getLevel()->getAlly()->getScore(), SCREEN_WIDTH-70, 5, 15, "ERGEBNIS :", SCREEN_WIDTH-180, 5, 15);
+                addTextWithValue(_gameModel->getLevel()->getLevelNumber(), SCREEN_WIDTH - 70, 25, 15, "XELLE :", SCREEN_WIDTH-180, 25, 15);
+                addTextWithValue(_gameModel->getLevel()->getNumberOfEnemies(), SCREEN_WIDTH - 70, 45, 15, "FEIND : ", SCREEN_WIDTH - 180, 45, 15);
+
+                addText("HAUPT BRENNEN", SCREEN_WIDTH - 155, 100, 15);
+                addTextWithValue(_gameModel->getLevel()->getAlly()->getOneBulletBonus(_gameModel->getLevel()->getAlly()->getMainBulletType())->getDamage(), SCREEN_WIDTH - 70, 130, 15, "LEISTUNG : ", SCREEN_WIDTH - 180, 130, 15);
+
+
+                addText("BONUS BRENNEN", SCREEN_WIDTH-155, 220, 15);
+                addTextWithValue(_gameModel->getLevel()->getAlly()->getBulletBonus()->getDamage(), SCREEN_WIDTH - 70, 245, 15, "LEISTUNG :", SCREEN_WIDTH - 180, 245, 15);
+                addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberShootBonusMax()-_gameModel->getLevel()->getAlly()->getNumberShootBonus(), SCREEN_WIDTH - 70, 265, 15, "ANZAHL :", SCREEN_WIDTH - 180, 265, 15);
             }
         }
 
@@ -461,7 +516,7 @@ void GameViewSFML::draw(){
                 addShape(SCREEN_WIDTH/2-75, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+75, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+75, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-75, SCREEN_HEIGHT-20, true, false, 0, 3);
             }
 
-            addText("NEXT LEVEL", SCREEN_WIDTH/2-60, SCREEN_HEIGHT-45, 20);
+
 
             if(_menu->getLanguage() == "english"){
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getScore(), 115, 30, 15, "Money : ", 15, 30, 15);
@@ -480,6 +535,8 @@ void GameViewSFML::draw(){
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 270, 620, 15, "Life :", 175, 620, 15);
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberLifeBuy()*50, 270, 640, 15, "Price :", 175, 640, 15);
 
+                 addText("NEXT LEVEL", SCREEN_WIDTH/2-60, SCREEN_HEIGHT-45, 20);
+
             }
             else if (_menu->getLanguage() == "francais"){
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getScore(), 115, 30, 15, "Argent : ", 15, 30, 15);
@@ -497,7 +554,29 @@ void GameViewSFML::draw(){
                 addText("Acheter", 470, 612, 15);
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 270, 620, 15, "Vies :", 175, 620, 15);
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberLifeBuy()*50, 270, 640, 15, "Prix :", 175, 640, 15);
+
+                 addText("SUIVANT", SCREEN_WIDTH/2-45, SCREEN_HEIGHT-45, 20);
             }
+            else if(_menu->getLanguage() == "deutsch"){
+                addTextWithValue(_gameModel->getLevel()->getAlly()->getScore(), 115, 30, 15, "Gelt : ", 15, 30, 15);
+                int rang = 1;
+                showItems(rang, 12, "Ball standard", STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getPrice(), _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getDamage());
+                rang++;
+                showItems(rang, 5, "Ball feuer", FIREBALL_PICTURE_WIDTH, FIREBALL_PICTURE_HEIGHT, _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getPrice(), _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getDamage());
+                rang++;
+                showItems(rang, 18, "Wenig laser", 9, 20, _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getPrice(), _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getDamage());
+                rang++;
+                showItems(rang, 4, "Doppelt laser", 17, 16, _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getPrice(), _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getDamage());
+                rang++;
+                showItems(rang, 23, "Grob laser", 8, 30, _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getPrice(), _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getDamage());
+                addText("Neues leben", 25, 660, 15);
+                addText("Kaufen", 470, 612, 15);
+                addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 270, 620, 15, "Leben :", 175, 620, 15);
+                addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberLifeBuy()*50, 270, 640, 15, "Preis :", 175, 640, 15);
+
+                addText("NACHSTER", SCREEN_WIDTH/2-45, SCREEN_HEIGHT-45, 20);
+            }
+
         }
         else if(_menu->getSaveScore()){
             _window->Clear(Color(1,67,171));
@@ -536,31 +615,30 @@ void GameViewSFML::draw(){
                 addText("Votre nom :", 150, 270, 20);
                 addText("Confirmer", SCREEN_WIDTH/2-55, SCREEN_HEIGHT-45, 20);
             }
+            else if(_menu->getLanguage() == "deutsch"){
+                addText("Ihren namen :", 140, 270, 20);
+                addText("Bestatigen", SCREEN_WIDTH/2-55, SCREEN_HEIGHT-45, 20);
+            }
         }
     }
 
     else if(_menu->getScore()){
+
+        addShape(SCREEN_WIDTH/2-90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-90, SCREEN_HEIGHT-20, false, true, 2, 1);
+        if(((mouseX > SCREEN_WIDTH/2-90) && (mouseX < SCREEN_WIDTH/2+90) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+        {
+            addShape(SCREEN_WIDTH/2-90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-90, SCREEN_HEIGHT-20, true, false, 0, 4);
+        }
         if(_menu->getLanguage() == "english"){
-            addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, false, true, 2, 1);
-
-            if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
-            {
-                addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, true, false, 0, 4);
-            }
             addText("BACK TO MENU", SCREEN_WIDTH/2-70, SCREEN_HEIGHT-45, 20);
-
         }
         else if (_menu->getLanguage() == "francais"){
-
-            addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, false, true, 2, 1);
-
-            if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
-            {
-                addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, true, false, 0, 4);
-            }
-
             addText("RETOUR AU MENU", SCREEN_WIDTH/2-80, SCREEN_HEIGHT-45, 20);
         }
+        else if (_menu->getLanguage() == "deutsch"){
+            addText("ZURUCK ZUM MENU", SCREEN_WIDTH/2-85, SCREEN_HEIGHT-45, 20);
+        }
+
 
         int tmp = (int)time.GetElapsedTime();
         if(tmp%2 == 0){
@@ -589,28 +667,30 @@ void GameViewSFML::draw(){
         }
     }
     else if(_menu->getOptions()){
+
+        addShape(280, 160, 290, 160, 290, 170, 280, 170, true, false, 0, 4);
+        addShape(280, 160, 290, 160, 290, 170, 280, 170, false, true, 1, 1);
+
+        addShape(280, 140, 290, 140, 290, 150, 280, 150, true, false, 0, 3);
+        addShape(280, 140, 290, 140, 290, 150, 280, 150, false, true, 1, 1);
+
+        addShape(280, 180, 290, 180, 290, 190, 280, 190, true, false, 0, 4);
+        addShape(280, 180, 290, 180, 290, 190, 280, 190, false, true, 1, 1);
+
+
+        addShape(SCREEN_WIDTH/2-90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-90, SCREEN_HEIGHT-20, false, true, 2, 1);
+
+        if(((mouseX > SCREEN_WIDTH/2-90) && (mouseX < SCREEN_WIDTH/2+90) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+        {
+            addShape(SCREEN_WIDTH/2-90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-90, SCREEN_HEIGHT-20, true, false, 0, 4);
+        }
+
         if(_menu->getLanguage() == "english"){
             addText("Langage : ", 100, 135, 15);
             addText("English", 180, 135, 15);
             addText("French", 180, 155, 15);
             addText("Dutch", 180, 175, 15);
 
-            addShape(280, 160, 290, 160, 290, 170, 280, 170, true, false, 0, 4);
-            addShape(280, 160, 290, 160, 290, 170, 280, 170, false, true, 1, 1);
-
-            addShape(280, 140, 290, 140, 290, 150, 280, 150, true, false, 0, 3);
-            addShape(280, 140, 290, 140, 290, 150, 280, 150, false, true, 1, 1);
-
-            addShape(280, 180, 290, 180, 290, 190, 280, 190, true, false, 0, 4);
-            addShape(280, 180, 290, 180, 290, 190, 280, 190, false, true, 1, 1);
-
-
-            addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, false, true, 2, 1);
-
-            if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
-            {
-                addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, true, false, 0, 4);
-            }
             addText("BACK TO MENU", SCREEN_WIDTH/2-70, SCREEN_HEIGHT-45, 20);
         }
         else if (_menu->getLanguage() == "francais"){
@@ -619,25 +699,15 @@ void GameViewSFML::draw(){
             addText("Francais", 180, 155, 15);
             addText("Allemand", 180, 175, 15);
 
-            addShape(280, 160, 290, 160, 290, 170, 280, 170, true, false, 0, 3);
-            addShape(280, 160, 290, 160, 290, 170, 280, 170, false, true, 1, 1);
-
-            addShape(280, 140, 290, 140, 290, 150, 280, 150, true, false, 0, 4);
-            addShape(280, 140, 290, 140, 290, 150, 280, 150, false, true, 1, 1);
-
-            addShape(280, 180, 290, 180, 290, 190, 280, 190, true, false, 0, 4);
-            addShape(280, 180, 290, 180, 290, 190, 280, 190, false, true, 1, 1);
-
-            addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, false, true, 2, 1);
-
-            if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
-            {
-                addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, true, false, 0, 4);
-            }
-
             addText("RETOUR AU MENU", SCREEN_WIDTH/2-80, SCREEN_HEIGHT-45, 20);
+        }
+        else if (_menu->getLanguage() == "deutsch"){
+            addText("Sprache : ", 100, 135, 15);
+            addText("Englisch", 180, 135, 15);
+            addText("Franzosisch", 180, 155, 15);
+            addText("Deutsch", 180, 175, 15);
 
-
+            addText("ZURUCK ZUM MENU", SCREEN_WIDTH/2-85, SCREEN_HEIGHT-45, 20);
         }
         if(mouseX>280 && mouseX<290){
             if(mouseY>160 && mouseY<170){
@@ -673,6 +743,17 @@ void GameViewSFML::draw(){
 
             addText("RETOUR AU MENU", SCREEN_WIDTH/2-80, SCREEN_HEIGHT-45, 20);
         }
+        else if (_menu->getLanguage() == "deutsch"){
+
+            addShape(SCREEN_WIDTH/2-90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-90, SCREEN_HEIGHT-20, false, true, 2, 1);
+
+            if(((mouseX > SCREEN_WIDTH/2-90) && (mouseX < SCREEN_WIDTH/2+90) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+            {
+                addShape(SCREEN_WIDTH/2-90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+90, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-90, SCREEN_HEIGHT-20, true, false, 0, 4);
+            }
+
+            addText("ZURUCK ZUM MENU", SCREEN_WIDTH/2-85, SCREEN_HEIGHT-45, 20);
+        }
     }
     else if(_menu->getEnding())
     {
@@ -684,8 +765,6 @@ void GameViewSFML::draw(){
 void GameViewSFML::showItems(int rang, int numPicture, string name, int width, int height, int price, int damage) const{
     Picture fireBall(_graphicLibrary->getImage((numPicture)), 60, 30+rang*100, width, height);
     _window->Draw(fireBall.getSprite());
-
-
 
     addText(name, 25, 100*rang+60, 15);
 
@@ -710,6 +789,16 @@ void GameViewSFML::showItems(int rang, int numPicture, string name, int width, i
         addText("Armer", 480, 100*rang+52, 15);
         if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getType()){
             addText("(tir bonus)", 248, 100*rang, 15);
+        }
+    }
+    else if (_menu->getLanguage() == "deutsch"){
+        addTextWithValue(price, 270, 100*rang+40, 15, "Preis : ", 175, 100*rang+40, 15);
+        addTextWithValue(damage, 270, 100*rang+60, 15, "Schaden : ", 175, 100*rang+60, 15);
+        addText("Zustand : ", 175, 100*rang+20, 15);
+        addText("Verbessern", 455, 100*rang+13, 15);
+        addText("Arm", 490, 100*rang+52, 15);
+        if(_gameModel->getLevel()->getAlly()->getBulletBonusType() == _gameModel->getLevel()->getAlly()->getOneBulletBonus(rang-1)->getType()){
+            addText("(bonus brennen)", 243, 100*rang, 15);
         }
     }
 
@@ -1006,13 +1095,14 @@ bool GameViewSFML::treatEvent(){
                 {
                     if(shoot.GetElapsedTime() >= _gameModel->getLevel()->getAlly()->getFireRate()){
                         _gameModel->getLevel()->getAlly()->shoot();
-                        Sound.Play();
+                        sound_shoot.Play();
                         shoot.Reset();
                     }
                 }
                 if(input.IsKeyDown(Key::V)){
                     if(shoot.GetElapsedTime() >= _gameModel->getLevel()->getAlly()->getFireRate()){
-                        _gameModel->getLevel()->getAlly()->bonusShoot();
+                        if(_gameModel->getLevel()->getAlly()->bonusShoot())
+                            sound_bonusShoot.Play();
                         shoot.Reset();
                     }
                 }
@@ -1021,11 +1111,13 @@ bool GameViewSFML::treatEvent(){
             {
                 if(input.IsMouseButtonDown(Mouse::Left) || input.IsKeyDown(Key::Return)){
                     if((mouseX > 450) && (mouseX < 550)){
+                        bool play = false;
                         if((mouseY>110) && (mouseY<130)){
                             if(_gameModel->getLevel()->getAlly()->canBuyItem(0)){
                                 if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(0)){
                                     _gameModel->getLevel()->getAlly()->reduceScore(_gameModel->getLevel()->getAlly()->getOneBulletBonus(0)->getPrice());
                                     _gameModel->getLevel()->getAlly()->getOneBulletBonus(0)->growPrice();
+                    play = true;
                                 }
                             }
                         }
@@ -1034,6 +1126,8 @@ bool GameViewSFML::treatEvent(){
                                 if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(1)){
                                     _gameModel->getLevel()->getAlly()->reduceScore(_gameModel->getLevel()->getAlly()->getOneBulletBonus(1)->getPrice());
                                     _gameModel->getLevel()->getAlly()->getOneBulletBonus(1)->growPrice();
+                                                        play = true;
+
                                 }
                             }
                         }
@@ -1042,6 +1136,8 @@ bool GameViewSFML::treatEvent(){
                                 if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(2)){
                                     _gameModel->getLevel()->getAlly()->reduceScore(_gameModel->getLevel()->getAlly()->getOneBulletBonus(2)->getPrice());
                                     _gameModel->getLevel()->getAlly()->getOneBulletBonus(2)->growPrice();
+                                                        play = true;
+
                                 }
                             }
                         }
@@ -1050,6 +1146,8 @@ bool GameViewSFML::treatEvent(){
                                 if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(3)){
                                     _gameModel->getLevel()->getAlly()->reduceScore(_gameModel->getLevel()->getAlly()->getOneBulletBonus(3)->getPrice());
                                     _gameModel->getLevel()->getAlly()->getOneBulletBonus(3)->growPrice();
+                                                        play = true;
+
                                 }
                             }
                         }
@@ -1058,6 +1156,8 @@ bool GameViewSFML::treatEvent(){
                                 if(_gameModel->getLevel()->getAlly()->improveOneBulletBonus(4)){
                                     _gameModel->getLevel()->getAlly()->reduceScore(_gameModel->getLevel()->getAlly()->getOneBulletBonus(4)->getPrice());
                                     _gameModel->getLevel()->getAlly()->getOneBulletBonus(4)->growPrice();
+                                                        play = true;
+
                                 }
                             }
                         }
@@ -1065,9 +1165,14 @@ bool GameViewSFML::treatEvent(){
                             if(_gameModel->getLevel()->getAlly()->getScore() > ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100 && _gameModel->getLevel()->getAlly()->getNumberOfLife()<5){
                                 _gameModel->getLevel()->getAlly()->setNumberOfLife(_gameModel->getLevel()->getAlly()->getNumberOfLife() + 1);
                                 _gameModel->getLevel()->getAlly()->reduceScore(ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100);
+                                                    play = true;
+
                             }
                         }
 
+                        if(play){
+                            sound_iziMoney.Play();
+                        }
 
                         if((mouseY>150) && (mouseY<170)){
                             _gameModel->getLevel()->getAlly()->changeBonus(0);
@@ -1112,7 +1217,7 @@ bool GameViewSFML::treatEvent(){
         }
         else if(_menu->getScore() || _menu->getCredits()){
             if(input.IsMouseButtonDown(Mouse::Left) || input.IsKeyDown(Key::Return)){
-                if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+                if(((mouseX > SCREEN_WIDTH/2-90) && (mouseX < SCREEN_WIDTH/2+90) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
                 {
                     _menu->setMenu(true);
                     _menu->setScore(false);
@@ -1132,10 +1237,10 @@ bool GameViewSFML::treatEvent(){
                         _menu->setLanguage("english");
                     }
                     else if (mouseY>180 && mouseY<190){
-                        //_menu->setLanguage("dutch");
+                        _menu->setLanguage("deutsch");
                     }
                 }
-                else if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
+                else if(((mouseX > SCREEN_WIDTH/2-90) && (mouseX < SCREEN_WIDTH/2+90) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
                 {
                     _menu->setMenu(true);
                     _menu->setOption(false);

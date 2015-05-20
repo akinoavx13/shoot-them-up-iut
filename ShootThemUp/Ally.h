@@ -23,15 +23,15 @@ private:
 
     int _numbersOfLife;
     int _score;
-    
+
     std::vector<Bullet * > _othersBullets;
     Bullet * _bonusShoot;
     int _numberShootWithBonus;
     int _numberShootWithBonusMax;
     int _numberLifeBuy;
-    
+
     std::string _name;
-    
+
 public:
 
     //CONSTRUCTOR
@@ -44,13 +44,13 @@ public:
     //METHODS
     bool isOver() const;
     std::string toString() const override;
-    
+
     void changeBonus(int type);
     Bullet * getBulletBonus() const;
-    
+
     bool improveOneBulletBonus(int type);
     bool canBuyItem(int type) const;
-    
+
     virtual void move(const float x, const float y) override;
 
     //GETTERS
@@ -58,13 +58,13 @@ public:
     int getScore() const;
     int getNumberShootBonus() const;
     int getNumberShootBonusMax() const;
-    
+
     int getBulletBonusType() const;
-    
+
     int getMainBulletType() const;
-    
+
     Bullet * getOneBulletBonus(int type) const;
-    
+
     void deleteOneLetter();
     void addLetter(std::string letter);
 
@@ -72,19 +72,19 @@ public:
     void setNumberOfLife(int numberOfLive);
 
     void setScore(int expPoint);
-        
-    void bonusShoot();
-    
+
+    bool bonusShoot();
+
     void resetBonus();
-    
+
     void reduceScore(int less);
-    
+
     void setNumberLifeBuy(int i);
     int getNumberLifeBuy() const;
-    
+
     std::string getName() const;
-    
-    
+
+
 
 };
 

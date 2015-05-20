@@ -24,25 +24,30 @@ private:
 
     sf::Clock time;
     sf::Clock shoot;
-    
+
     sf::Font font;
-    
-    sf::SoundBuffer Buffer;
-    sf::Sound Sound;
+
+    sf::SoundBuffer buffer1;
+    sf::SoundBuffer buffer2;
+    sf::SoundBuffer buffer3;
+
+    sf::Sound sound_shoot;
+    sf::Sound sound_iziMoney;
+    sf::Sound sound_bonusShoot;
 
 
     GraphicLibrary* _graphicLibrary;
     float _yBackground;
     float _yBackground2;
-    
+
     bool _letterPut;
-    
+
     void showItems(int rang, int numPicture, std::string name, int width, int height, int price, int damage) const;
-    
+
     void addText(std::string text, int x, int y, int size) const;
     void addTextWithValue(int value, int xV, int yV, int sizeV ,std::string text, int xT, int yT, int sizeT) const;
     void addShape(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, bool fill, bool outLine, int width, int color) const;
-    
+
 public:
     //CONSTRUCTOR
     GameViewSFML();
@@ -56,7 +61,7 @@ public:
     //SETTERS
     void setModel(GameModel* gameModel);
     void setModelMenu();
-    
+
     bool treatEvent();
 
 };
