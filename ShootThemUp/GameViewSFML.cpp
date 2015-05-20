@@ -228,7 +228,7 @@ void GameViewSFML::draw(){
 
                 int value = 0.5;
 
-                if(value + _gameModel->getLevel()->getLevelNumber()*0.5 <4){
+                if(value + _gameModel->getLevel()->getLevelNumber()*0.5 < 4){
                     value += _gameModel->getLevel()->getLevelNumber()*0.5;
                 }
 
@@ -601,7 +601,7 @@ void GameViewSFML::draw(){
                 addText("Nouvelle vie", 25, 660, 15);
                 addText("Acheter", 470, 612, 15);
                 addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberOfLife(), 270, 620, 15, "Vies :", 175, 620, 15);
-                addTextWithValue(_gameModel->getLevel()->getAlly()->getNumberLifeBuy()*50, 270, 640, 15, "Prix :", 175, 640, 15);
+                addTextWithValue(ADD_LIFE_PRICE + _gameModel->getLevel()->getAlly()->getNumberLifeBuy() * 100, 270, 640, 15, "Prix :", 175, 640, 15);
 
                  addText("SUIVANT", SCREEN_WIDTH/2-45, SCREEN_HEIGHT-45, 20);
             }
