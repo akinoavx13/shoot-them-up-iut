@@ -30,6 +30,7 @@ private:
     sf::Clock shoot;
     float _bossMoveIncrement;
     float _enemyMoveIncrement;
+    int _difficulty;
 
 public:
 
@@ -46,9 +47,11 @@ public:
     //GETTERS
     Level* getLevel() const;
     int getNumberTour() const;
+    int getDifficulty() const;
 
     //SETTERS
     void setMenu(Menu* menu);
+    void setDifficulty(int difficulty);
 
 };
 

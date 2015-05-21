@@ -31,7 +31,7 @@ GraphicLibrary::~GraphicLibrary(){
 
 //load all images
 void GraphicLibrary::loadLibrary(){
-    
+
     //load background
     Image * img0 = new Image();
     #ifdef __linux__
@@ -183,7 +183,7 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img14);
     }
-        
+
     //load play
     Image * img15 = new Image();
     #ifdef __linux__
@@ -243,7 +243,7 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img20);
     }
-        
+
     //load mighty
     Image * img21 = new Image();
     #ifdef __linux__
@@ -323,7 +323,7 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img28);
     }
-        
+
     //load enemy
     Image * img29 = new Image();
     #ifdef __linux__
@@ -333,7 +333,7 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img29);
     }
-        
+
     //load enemy
     Image * img30 = new Image();
     #ifdef __linux__
@@ -343,7 +343,7 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img30);
     }
-        
+
     //load shot
     Image * img31 = new Image();
     #ifdef __linux__
@@ -363,7 +363,7 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img32);
     }
-    
+
     //load planet
     Image * img33 = new Image();
     #ifdef __linux__
@@ -373,7 +373,7 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img33);
     }
-     
+
     //load logo iut
     Image * img34 = new Image();
     #ifdef __linux__
@@ -382,6 +382,35 @@ void GraphicLibrary::loadLibrary(){
     if(img34->LoadFromFile("logo_info.png")){
     #endif
         _imagesList.push_back(img34);
+    }
+
+    //load second boss
+    Image * img35 = new Image();
+    #ifdef __linux__
+    if(img35->LoadFromFile("ShootThemUp/sprites/boss_2.png")){
+    #else
+    if(img35->LoadFromFile("boss_2.png")){
+    #endif
+        _imagesList.push_back(img35);
+    }
+
+    //load buttom
+    Image * img36 = new Image();
+    #ifdef __linux__
+    if(img36->LoadFromFile("ShootThemUp/sprites/buttons.png")){
+    #else
+    if(img36->LoadFromFile("buttoms.png")){
+    #endif
+        _imagesList.push_back(img36);
+    }
+     //load revive
+    Image * img37 = new Image();
+    #ifdef __linux__
+    if(img37->LoadFromFile("ShootThemUp/sprites/revive.png")){
+    #else
+    if(img37->LoadFromFile("revive.png")){
+    #endif
+        _imagesList.push_back(img37);
     }
 }
 
