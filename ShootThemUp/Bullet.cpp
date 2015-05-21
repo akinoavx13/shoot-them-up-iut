@@ -11,14 +11,10 @@
 using namespace std;
 
 /*
- * default constructor
+ * CONSTRUCTOR
  */
 Bullet::Bullet():_damage(STANDARD_DAMAGE), _state(0), _price(0), _owner("ally"){}
 
-/*
- * constructor
- * params : x, y and damage of a bullet
- */
 Bullet::Bullet(const float x, const float y, const int damage, const int width, const int height, const float speedX, const float speedY, const int type, const int price, std::string owner) : GraphicElement(x, y, width, height, speedX, speedY), _damage(damage), _type(type), _state(0), _price(price), _owner(owner){}
 
 Bullet* Bullet::FireBall(const float x, const float y, const float speedX, const float speedY, const float damage, std::string owner){
@@ -42,17 +38,16 @@ Bullet* Bullet::DoubleTinyLaser(const float x, const float y, const float speedX
 }
 
 /*
- * destructor
- * info : virtual
+ * DESTRUCTOR
  */
 Bullet::~Bullet(){
 
 }
 
-//----------METHODS----------
 /*
- * returns : string, graphic element toString and damage
+ * METHODS
  */
+//write some informations about bullet
 string Bullet::toString() const{
     string str = "Une balle";
 
@@ -66,6 +61,7 @@ string Bullet::toString() const{
     return str;
 }
 
+//upgrad the bullet
 bool Bullet::improve(){
     if(_state<5){
         _state++;
@@ -75,22 +71,22 @@ bool Bullet::improve(){
     return false;
 }
 
+//increase the price of one bullet
 void Bullet::growPrice(){
     _price += 70;
 }
 
-//----------GETTERS----------
-/*
- * get damage
- * info : constant
- */
-int Bullet::getDamage() const{
-    return _damage;
-}
-
+//move the bullet to x and y position
 void Bullet::move(const float x, const float y){
     _y = y;
     _x = x;
+}
+
+/*
+ * GETTERS
+ */
+int Bullet::getDamage() const{
+    return _damage;
 }
 
 int Bullet::getType() const{
@@ -105,10 +101,13 @@ int Bullet::getPrice() const{
     return _price;
 }
 
-void Bullet::setPrice(int price){
-    _price=price;
-}
-
 string Bullet::getOwner() const{
     return _owner;
+}
+
+/*
+ * SETTERS
+ */
+void Bullet::setPrice(int price){
+    _price=price;
 }

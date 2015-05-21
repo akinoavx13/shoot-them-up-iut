@@ -13,52 +13,56 @@
 using namespace std;
 
 /*
- * default constructor
- * params : Model width, Model height, number tour
+ * CONSTRUCTOR
  */
 GameModel::GameModel():_numberTour(1), _bossMoveIncrement(0), _enemyMoveIncrement(0){
-    #ifdef __linux__
-        _level = nullptr;
-    #else
-        _level = 0;
-    #endif
-
+#ifdef __linux__
+    _level = nullptr;
+#else
+    _level = 0;
+#endif
 }
 
 /*
- * destructor
+ * DESTRUCTOR
  */
 GameModel::~GameModel(){
     delete _level;
-
 }
 
-//----------METHODS----------
 /*
- * principal methods who is always called.
- * used to change value of variables
+ * METHODS
  */
+//the main function of the game. It's update all variables in the game
 void GameModel::updateCore(){
+    
+    //if we are in the menu state
     if(_menu->getMenu())
     {
 #ifdef __linux__
-        if(_level==nullptr){
+        if(_level == nullptr){
 #else
         if(_level == 0){
 #endif
             _level = new Level();
         }
-        _numberTour=0;
+            
+        _numberTour = 0;
         _bossMoveIncrement = 0;
         _enemyMoveIncrement = 0;
         
     }
+    
+    //if we are in the game
     else if(_menu->getGame())
     {
         _numberTour++;
         
+        //screen when it's write "get ready"
         if(_menu->getReady()){
-            if(_menu->getTheme()==0){
+            
+            //in function of the theme, we set the size of images
+            if(_menu->getTheme() == 0){
                 _level->getAlly()->changeSize(ALLY_PICTURE_WIDTH/3, ALLY_PICTURE_HEIGHT);
                 for(auto e : _level->getEnemies())
                 {
@@ -75,8 +79,9 @@ void GameModel::updateCore(){
                         e->changeSize(MIGHTY_PICTURE_WIDTH/3, MIGHTY_PICTURE_HEIGHT);
                     }
                 }
-                
             }
+            
+            //in function of the theme, we set the size of images
             else if (_menu->getTheme()==1){
                 _level->getAlly()->changeSize(SECOND_ALLY_WIDTH, SECOND_ALLY_HEIGHT/3);
                 for(auto e : _level->getEnemies())
@@ -96,42 +101,55 @@ void GameModel::updateCore(){
                 }
             }
         }
+        
+        //if we are playing
         else if(_menu->getLevel())
         {
+            //move bullets
             _level->moveBullets();
+            
+            //check all collisions
             _level->checkCollisions();
             
-            //check if ally is dead
+            //check if ally is dead (health points <= 0)
             if(_level->getAlly()->isDead() )
             {
-                //and game is not finished
+                //and player have life, we set his health points to maximum
                 if(!_level->getAlly()->isOver())
                 {
                     _level->getAlly()->setHealth(ALLY_LIFE);
                     _level->getAlly()->setNumberOfLife(getLevel()->getAlly()->getNumberOfLife() - 1);
                 }
+                
+                //else he's don't have any life, so it's finish. He can save his score
                 else{
                     _menu->setLevel(false);
                     _menu->setShop(false);
-                    _menu->setSaveScore(true); //go to save score because ally is dead
+                    _menu->setSaveScore(true);
                 }
             }
+            
+            //if they are no enemies on the field
             if(_level->getEnemiesNumber() == 0)
             {
-                
-                #ifdef __linux__
+                //and also no boss
+#ifdef __linux__
                 if(_level->getBoss() == nullptr)
-                #else
+#else
                 if(_level->getBoss() == 0)
-                #endif
+#endif
                 {
-                    
+                    //update level number
                     _level->setLevelNumber(_level->getLevelNumber() + 1);
+                    
+                    //add to enemies
                     _level->setNbEnemies(_level->getNbEnemies() + 2);
                     _level->addEnemies();
+                    
+                    //increase the life of enemies for the next level and increase the damage.
+                    //we put another bullet type for enemies in function of the level number
                     for (auto enemy : _level->getEnemies())
                     {
-                        //ici on peut ajouter de la vie au ennemis
                         enemy->setHealth(enemy->getHealth() + (_level->getLevelNumber() - 1) * 10);
                         enemy->setDamage(enemy->getDamage() + _level->getLevelNumber() * 2);
                         
@@ -149,24 +167,29 @@ void GameModel::updateCore(){
                         }
                     }
                     
-                    _level->getAlly()->move(MODEL_WIDTH/2-_level->getAlly()->getWidth()/2, MODEL_HEIGHT-_level->getAlly()->getHeight()-25);
+                    //set the position of the player in the middle
+                    _level->getAlly()->move(MODEL_WIDTH / 2 - _level->getAlly()->getWidth() / 2, MODEL_HEIGHT - _level->getAlly()->getHeight() - 25);
+                    
+                    //get all bonus shoot
                     _level->getAlly()->resetBonus();
                     
-                    _menu->setShop(true); //go to shop because level is finish
+                    //and go to the shop to buy some bonus !
+                    _menu->setShop(true);
                     _menu->setLevel(false);
                 }
-                    
-                #ifdef __linux__
+                
+                //if the boss is present
+#ifdef __linux__
                 else if(_level->getBoss() != nullptr &&  !_level->getBoss()->isDead())
-                #else
+#else
                 else if(_level->getBoss() != 0 &&  !_level->getBoss()->isDead())
-                #endif
+#endif
                 {
-                    //boss shoot every 2 turns
+                    //boss shoot
                     if(shoot.GetElapsedTime() >= _level->getBoss()->getFireRate())
                     {
-                        
-                        for (int i = 0; i < 360; i+=18) {
+                        //allow to shoot 20 bullet in circle
+                        for (int i = 0; i < 360; i += 18) {
                             int max = std::max(_level->getBoss()->getHeight(), _level->getBoss()->getWidth());
                             
                             float xb = max * cos((float)i * (3.14/180)) + _level->getBoss()->getX() + _level->getBoss()->getWidth() / 2;
@@ -178,7 +201,8 @@ void GameModel::updateCore(){
                         
                         shoot.Reset();
                     }
-                            
+                    
+                    //and move the boss in circle too
                     _bossMoveIncrement++;
                     float xBoss = 200 * cos((float)_bossMoveIncrement * (3.14/180)) + MODEL_WIDTH / 2 - BOSS_PICTURE_WIDTH / 6;
                     float yBoss = 200 * sin((float)_bossMoveIncrement * (3.14/180)) + MODEL_HEIGHT / 2 - BOSS_PICTURE_HEIGHT / 2 - 100;
@@ -188,12 +212,18 @@ void GameModel::updateCore(){
 
             else
             {
+                //we add the boss when the level have just 1 enemy
                 if(_level->getEnemiesNumber() == 1)
                 {
                     _level->addBoss();
-                    //ici on peut ajouter de la vie au boss
+                
+                    //increase his life
                     _level->getBoss()->setHealth(getLevel()->getBoss()->getHealth() + (_level->getLevelNumber() - 1) * 50 );
+                    
+                    //inscrease his damage
                     _level->getBoss()->setDamage(_level->getBoss()->getDamage() + _level->getLevelNumber() * 10);
+                    
+                    //set the bullet type
                     if(_level->getLevelNumber() >= 2){
                         _level->getBoss()->setBulletType(1);
                     }
@@ -208,13 +238,16 @@ void GameModel::updateCore(){
                     }
 
                 }
-                //enemies shoot every 2 turns
+                
+                //enemies shoot
                 if(shoot.GetElapsedTime() >= ENEMY_FIRERATE)
                 {
                     _level->EnemiesShoot();
                     shoot.Reset();
                 }
             }
+            
+            //enemies move
             _level->moveEnemies(_enemyMoveIncrement);
             _enemyMoveIncrement += 0.1;
         }
@@ -222,8 +255,6 @@ void GameModel::updateCore(){
         else if (_menu->getShop())
         {
             _level->deleteAllBullets();
-            //_level->deleteAllEnemy();
-            _enemyMoveIncrement = 0;
         }
         else if(_menu->getReady()){
             
@@ -237,11 +268,12 @@ void GameModel::updateCore(){
 #else
             _level=0;
 #endif
-            
             _menu->setMenu(true);
             _menu->setGame(false);
         }
     }
+    
+    //quit the game
     else if(_menu->getEnding())
     {
         _menu->setIntro(false);
@@ -251,13 +283,10 @@ void GameModel::updateCore(){
         _menu->setMenu(true);
         _menu->setScore(false);
         _menu->setSaveScore(false);
-    } //all is false and we quit the game
+    }
 }
 
-/*
- * clear the screen
- * info : constant
- */
+//clear the screen
 void GameModel::clearScreen() const{
     #ifdef __linux__
         system("clear");
@@ -269,23 +298,20 @@ void GameModel::clearScreen() const{
 
 }
 
-//----------GETTERS----------
 /*
- * returns : level
- * info : constant
+ * GETTERS
  */
 Level* GameModel::getLevel() const{
     return _level;
 }
 
-/*
- * returns : the number of turns
- * info : constant
- */
 int GameModel::getNumberTour() const{
     return _numberTour;
 }
 
+/*
+ * SETTERS
+ */
 void GameModel::setMenu(Menu* menu){
     _menu = menu;
 }

@@ -10,14 +10,22 @@
 
 using namespace std;
 
+/*
+ * CONSTRUCTOR
+ */
 Boss::Boss() {}
 
 Boss::Boss(const float x, const float y, const int health, const float firerate):Enemy(x, y, health, 0, BOSS_PICTURE_WIDTH/3, BOSS_PICTURE_HEIGHT, firerate) {}
 
-Boss::~Boss(){
+/*
+ * DESTRUCTOR
+ */
+Boss::~Boss(){}
 
-}
-
+/*
+ * METHODS
+ */
+//write some informations about boss
 string Boss::toString() const{
     string str = "Un boss";
 

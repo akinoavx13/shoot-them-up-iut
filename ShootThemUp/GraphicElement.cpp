@@ -12,46 +12,31 @@ using namespace std;
 using namespace sf;
 
 /*
- * default contructor
+ * CONSTRUCTOR
  */
 GraphicElement::GraphicElement():_x(GRAPHIC_ELEMENT_X), _y(GRAPHIC_ELEMENT_Y), _speedX(GRAPHIC_ELEMENT_SPEED_X), _speedY(GRAPHIC_ELEMENT_SPEED_Y), _width(GRAPHIC_ELEMENT_WIDTH), _height(GRAPHIC_ELEMENT_HEIGHT){}
 
-/*
- * constructor to created a graphic element with x and y value
- * params : position x of graphic element, position y of graphic element
- */
 GraphicElement::GraphicElement(const float x, const float y, const int width, const int height, const float speedX, const float speedY):_x(x), _y(y), _speedX(speedX), _speedY(speedY), _width(width), _height(height){}
 
 /*
- * destructor
- * info : abstract, virtual
+ * DESTRUCTOR
  */
 GraphicElement::~GraphicElement(){}
 
-//----------METHODS----------
 /*
- * move graphic element
- * params : new x and new y position of graphic element
+ * METHODS
  */
+//move a graphics element to x and y position
 void GraphicElement::move(const float x, const float y){
     if (x >= 0 && x+_width < MODEL_WIDTH) {
         _x = x;
-    }else{
-        //cout << "X n'est pas compris entre 0 et " << MODEL_WIDTH << ". X vaut : " << x << endl;
     }
-
     if (y >= 0 && y+_height < MODEL_HEIGHT) {
         _y = y;
-    }else{
-        //cout << "Y n'est pas compris entre 0 et " << MODEL_HEIGHT << ". Y vaut : " << y << endl;
     }
 }
 
-
-/*
- * returns : true if there is a collision between ship and a graphic element
- * info : constant
- */
+//return true if they is a collision beteween 2 graphics elements
 bool GraphicElement::collisions(GraphicElement* graphicElement)const{
     int aLeft = _x;
     int aTop = _y;
@@ -77,10 +62,7 @@ bool GraphicElement::collisions(GraphicElement* graphicElement)const{
 
 }
 
-/*
- * info : constant, virtual
- * returns : string, x and y position
- */
+//write some informations of the graphics element
 string GraphicElement::toString() const{
     string str;
 
@@ -94,51 +76,35 @@ string GraphicElement::toString() const{
     return str;
 }
 
-//----------GETTERS----------
+//change the size of a graphic element
+void GraphicElement::changeSize(int width, int height){
+    _height=height;
+    _width=width;
+}
+
 /*
- * returns : x position of graphic element
+ * GETTERS
  */
 float GraphicElement::getX() const{
     return _x;
 }
 
-/*
- * returns : y position of graphic element
- */
 float GraphicElement::getY() const{
     return _y;
 }
 
-/*
- * returns : x speed of graphic element
- */
 float GraphicElement::getSpeedX() const{
     return _speedX;
 }
 
-/*
- * returns : y speed of graphic element
- */
 float GraphicElement::getSpeedY() const{
     return _speedY;
 }
 
-/*
- * returns : width of graphic element
- */
 int GraphicElement::getWidth() const{
     return _width;
 }
 
-/*
- * returns : height of graphic element
- */
 int GraphicElement::getHeight() const{
     return _height;
-}
-
-//----------GETTERS----------
-void GraphicElement::changeSize(int width, int height){
-    _height=height;
-    _width=width;
 }

@@ -11,6 +11,9 @@
 
 using namespace sf;
 
+/*
+ * CONSTRUCTOR
+ */
 Picture::Picture(sf::Image * image){
     _x=0;
     _y=0;
@@ -22,6 +25,9 @@ Picture::Picture(sf::Image * image){
     _sprite->Resize(_width, _height);
 }
 
+/*
+ * CONSTRUCTOR
+ */
 Picture::Picture(sf::Image * image, float x, float y){
     _x=x;
     _y=y;
@@ -33,6 +39,9 @@ Picture::Picture(sf::Image * image, float x, float y){
     _sprite->Resize(_width, _height);
 }
 
+/*
+ * CONSTRUCTOR
+ */
 Picture::Picture(sf::Image * image, float x, float y, int width, int height){
     _x=x;
     _y=y;
@@ -45,6 +54,9 @@ Picture::Picture(sf::Image * image, float x, float y, int width, int height){
     _sprite->Resize(_width, _height);
 }
 
+/*
+ * CONSTRUCTOR
+ */
 Picture::Picture(sf::Image * image, float x, float y, int width, int height, int x1, int y1, int x2, int y2){
     _x=x;
     _y=y;
@@ -62,17 +74,19 @@ Picture::Picture(sf::Image * image, float x, float y, int width, int height, int
     subRect.Right = x2;
     subRect.Bottom = y2;
 
-
     _sprite->SetSubRect(subRect);
 }
 
-
+/*
+ * DESTRUCTOR
+ */
 Picture::~Picture(){
     delete _sprite;
 }
 
+/*
+ * GETTERS
+ */
 Sprite Picture::getSprite() const{
     return *_sprite;
 }
-
-

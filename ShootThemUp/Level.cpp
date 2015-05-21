@@ -12,7 +12,7 @@
 using namespace std;
 
 /*
- * default constructor
+ * CONWTRUCTOR
  */
 Level::Level() : _levelNumber(LEVEL_NUMBER), _nbEnemies(LEVEL_ENEMY_NUMBER){
 
@@ -21,19 +21,19 @@ Level::Level() : _levelNumber(LEVEL_NUMBER), _nbEnemies(LEVEL_ENEMY_NUMBER){
     _ally = new Ally();
     _ally->setLevel(this);
 
-    #ifdef __linux__
+#ifdef __linux__
     _boss = nullptr;
-    #else
+#else
     _boss = 0;
-    #endif
+#endif
 }
 
 /*
- * destructor
- * info : virtual
+ * DESTRUCTOR
  */
 Level::~Level(){
 
+    //delete all thing in the field
     for (int i = 0; i < _tabEnemies.size(); i++) {
         delete _tabEnemies[i];
     }
@@ -45,29 +45,24 @@ Level::~Level(){
     _tabBullets.clear();
 
     delete _ally;
-
     delete _boss;
 
 }
 
-//----------METHODS----------
 /*
- * returns : true if the level is finish.
- * info : constant
+ * METHODS
  */
+//return true if they are 0 enemy and no boss
 bool Level::isFinish() const{
 
-    #ifdef __linux__
+#ifdef __linux__
     return _tabEnemies.size() <= 0 && _boss == nullptr;
-    #else
+#else
     return _tabEnemies.size() <= 0 && _boss == 0;
-    #endif
+#endif
 }
 
-/*
- * returns : string of enemy's toString
- * info : constant
- */
+//write some informations about the level
 string Level::toString() const{
     string str;
 
@@ -78,14 +73,15 @@ string Level::toString() const{
     return str;
 }
 
-/*
- * check for all graphic element in the level if there are collision between them
- */
+//the main function to check all collision
 void Level::checkCollisions(){
     
+    //bullets and bullets
     for (int i = 0; i < _tabBullets.size(); i++) {
         for (int j = 0; j < _tabBullets.size(); j++) {
+            // don't select the same bullet
             if(i!=j){
+                //if they is a collision, we delete them and erase them from the vector
                 if(_tabBullets[i]->collisions(_tabBullets[j])){
                     delete _tabBullets[i];
                     delete _tabBullets[j];
@@ -100,30 +96,40 @@ void Level::checkCollisions(){
         }
     }
     
+    //bullets and player
     for (int i = 0; i < _tabBullets.size(); i++) {
+        //collision detected
         if(_ally->collisions(_tabBullets[i])){
             int allyLife = _ally->getHealth();
             int bulletDamage = _tabBullets[i]->getDamage();
+            
+            //set player life,  delete and erase bullet
             _ally->setHealth(allyLife - bulletDamage);
             delete _tabBullets[i];
             _tabBullets.erase(_tabBullets.begin() + i);
         }
     }
     
+    //the boss and the player
+    //we must check if the boss exist with nullptr or 0
 #ifdef __linux__
     if(_boss != nullptr){
 #else
     if(_boss != 0){
 #endif
+        //collision detected
         if(_ally->collisions(_boss)){
             int allyLife = _ally->getHealth();
             int bossLife = _boss->getHealth();
+            
+            //take off life from boss and player
             _ally->setHealth(allyLife - 10);
             _boss->setHealth(bossLife - 10);
             
         }
     }
     
+    //enemies and players is the same that boss and players
     for (auto enemy : _tabEnemies) {
         if (_ally->collisions(enemy)) {
             int allyLife = _ally->getHealth();
@@ -133,9 +139,12 @@ void Level::checkCollisions(){
         }
     }
     
+    //bullets and enemies
     for (int i = 0; i < _tabEnemies.size(); i++) {
         for (int j = 0; j < _tabBullets.size(); j++) {
+            //collision detected
             if(_tabEnemies[i]->collisions(_tabBullets[j])){
+                //we take off some health point to enemy only if the shooter is the player, else we do nothing
                 if(_tabBullets[j]->getOwner() == "ally"){
                     int enemyLife = _tabEnemies[i]->getHealth();
                     int bulletDamage = _tabBullets[j]->getDamage();
@@ -146,6 +155,8 @@ void Level::checkCollisions(){
             }
         }
     }
+    
+    //boss and bullets
 #ifdef __linux__
     if(_boss != nullptr){
 #else
@@ -162,6 +173,7 @@ void Level::checkCollisions(){
         }
     }
 
+    //if bullet are outside of the screen we delete and erase them
     for (int i = 0; i < _tabBullets.size(); i++) {
         if((_tabBullets[i]->getX() <= 0) ||
            (_tabBullets[i]->getX() + _tabBullets[i]->getWidth() >= MODEL_WIDTH) ||
@@ -173,6 +185,7 @@ void Level::checkCollisions(){
         }
     }
     
+    //if an enemy is dead we delete and erase it
     for (int i = 0; i < _tabEnemies.size(); i++) {
         if(_tabEnemies[i]->isDead()){
             _ally->setScore(_ally->getScore() + _levelNumber * 10);
@@ -180,6 +193,9 @@ void Level::checkCollisions(){
             _tabEnemies.erase(_tabEnemies.begin() + i);
         }
     }
+    
+    //if the boss is dead, we move it to y = -200.
+    //bullet can't touched it
 #ifdef __linux__
     if(_boss != nullptr && _boss->isDead()){
 #else
@@ -195,49 +211,43 @@ void Level::checkCollisions(){
     }
 }
 
-/*
- * add a bullet in the bullet's vector
- * params : bullet
- */
+//add bullet to the level
 void Level::addBullet(Bullet* bullet){
     _tabBullets.push_back(bullet);
 }
 
-/*
- * move enemies in the level
- * info : constant
- */
+//move all the enemies
 void Level::moveEnemies(float t){
     for (int i = 0; i < _tabEnemies.size(); i++) {
+        //if an enemy is outside of the screen, we delete and erase it
         if(_tabEnemies[i]->getY() > MODEL_HEIGHT || _tabEnemies[i]->getX() + _tabEnemies[i]->getWidth() <= 0 || _tabEnemies[i]->getX() >= MODEL_WIDTH){
             delete _tabEnemies[i];
             _tabEnemies.erase(_tabEnemies.begin() + i);
         }else{
-            
+            //else we mve it differently in function of his type
             if(_tabEnemies[i]->getType() == 1){
+                //small sinusoidale
                 float x = sin(t) * 5 + _tabEnemies[i]->getX();
                 float y = _tabEnemies[i]->getY();
                 _tabEnemies[i]->move(x, y + _tabEnemies[i]->getSpeedY());
             }
             else if (_tabEnemies[i]->getType() == 2){
+                //straight ahead
                 float x = _tabEnemies[i]->getX();
                 float y = _tabEnemies[i]->getY();
                 _tabEnemies[i]->move(x, y + _tabEnemies[i]->getSpeedY());
                 
             }else if(_tabEnemies[i]->getType() == 3){
+                //bigger sinusoidale
                 float x = sin(t/3)*2 + _tabEnemies[i]->getX();
                 float y = _tabEnemies[i]->getY();
                 _tabEnemies[i]->move(x, y + _tabEnemies[i]->getSpeedY());
-                
             }
         }
     }
 }
 
-/*
- * allows all enemies shoot
- * info : constant
- */
+//all enemy shoot
 void Level::EnemiesShoot() const{
     for (auto enemy : _tabEnemies) {
         float enemyX = enemy->getX();
@@ -249,18 +259,19 @@ void Level::EnemiesShoot() const{
     }
 }
 
+//add the boss to the level
 void Level::addBoss(){
     _boss = new Boss(MODEL_WIDTH / 2 - BOSS_PICTURE_WIDTH / 2 * 3, -200, BOSS_LIFE, BOSS_FIRERATE);
     _boss->setLevel(this);
 }
 
+//add enemies at the begening of a level
 void Level::addEnemies(){
 
     srand((unsigned int)time(NULL));
-
     
     for(int i = 0; i < _nbEnemies; i++){
-        int type = rand()%3;
+        int type = rand() % 3;
         if(type == 0){
             
             float x = rand()%(MODEL_WIDTH - MIGHTY_PICTURE_WIDTH);
@@ -294,6 +305,7 @@ void Level::addEnemies(){
     }
 }
 
+//delete all enemy of the level
 void Level::deleteAllEnemy(){
 
     for (int i = 0; i < _tabEnemies.size(); i++) {
@@ -304,6 +316,7 @@ void Level::deleteAllEnemy(){
 
 }
 
+//delete all the bullets of the level
 void Level::deleteAllBullets(){
     
     for (int i = 0; i < _tabBullets.size(); i++) {
@@ -314,10 +327,24 @@ void Level::deleteAllBullets(){
     
 }
 
-//----------GETTERS----------
+//move all the bullet
+void Level::moveBullets(){
+    for(auto bullet : _tabBullets){
+        float bulletX = bullet->getX();
+        float bulletY = bullet->getY();
+        int bulletWidth = bullet->getWidth();
+        int bulletHeight = bullet->getHeight();
+        int bulletSpeedX = bullet->getSpeedX();
+        int bulletSpeedY = bullet->getSpeedY();
+                
+        if(bulletX > 0 && bulletX + bulletWidth < MODEL_WIDTH && bulletY + bulletHeight > 0 && bulletY + bulletHeight < MODEL_HEIGHT){
+            bullet->move(bulletX + bulletSpeedX, bulletY + bulletSpeedY);
+        }
+    }
+}
+
 /*
- * returns : ally
- * info : constant
+ * GETTERS
  */
 Ally* Level::getAlly() const{
     return _ally;
@@ -334,10 +361,6 @@ vector<Bullet*> Level::getBullets() const{
     return _tabBullets;
 }
 
-/*
- * returns : enemies who are still in live
- * info : constant
- */
 int Level::getEnemiesNumber() const{
     return (int)_tabEnemies.size();
 }
@@ -349,15 +372,7 @@ int Level::getNbEnemies() const{
 int Level::getLevelNumber() const{
     return _levelNumber;
 }
-
-void Level::setNbEnemies(int nbEnemies){
-    _nbEnemies = nbEnemies;
-}
-
-void Level::setLevelNumber(int levelNumber){
-    _levelNumber = levelNumber;
-}
-
+        
 int Level::getNumberOfBullets() const{
     return (int)_tabBullets.size();
 }
@@ -366,28 +381,13 @@ int Level::getNumberOfEnemies() const{
     return (int)_tabEnemies.size();
 }
 
-void Level::moveBullets(){
-    for(auto bullet : _tabBullets){
-        float bulletX = bullet->getX();
-        float bulletY = bullet->getY();
-        int bulletWidth = bullet->getWidth();
-        int bulletHeight = bullet->getHeight();
-        int bulletSpeedX = bullet->getSpeedX();
-        int bulletSpeedY = bullet->getSpeedY();
-        
-        if(bulletX > 0 && bulletX + bulletWidth < MODEL_WIDTH && bulletY + bulletHeight > 0 && bulletY + bulletHeight < MODEL_HEIGHT){
-            bullet->move(bulletX + bulletSpeedX, bulletY + bulletSpeedY);
-        }
-    }
+/*
+ * SETTERS
+ */
+void Level::setNbEnemies(int nbEnemies){
+    _nbEnemies = nbEnemies;
 }
 
-
-
-
-
-
-
-
-
-
-
+void Level::setLevelNumber(int levelNumber){
+    _levelNumber = levelNumber;
+}

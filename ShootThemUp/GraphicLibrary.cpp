@@ -10,10 +10,14 @@
 
 using namespace sf;
 
-GraphicLibrary::GraphicLibrary(){
+/*
+ * CONSTRUCTOR
+ */
+GraphicLibrary::GraphicLibrary(){}
 
-}
-
+/*
+ * DESTRUCTOR
+ */
 GraphicLibrary::~GraphicLibrary(){
     for (int i = 0; i < _imagesList.size(); i++) {
         delete _imagesList[i];
@@ -21,7 +25,14 @@ GraphicLibrary::~GraphicLibrary(){
     _imagesList.clear();
 }
 
+/*
+ * METHODS
+ */
+
+//load all images
 void GraphicLibrary::loadLibrary(){
+    
+    //load background
     Image * img0 = new Image();
     #ifdef __linux__
     if(img0->LoadFromFile("ShootThemUp/sprites/background.png")){
@@ -31,6 +42,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img0);
     }
 
+    //load boss
     Image * img1 = new Image();
     #ifdef __linux__
     if(img1->LoadFromFile("ShootThemUp/sprites/boss.png")){
@@ -40,6 +52,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img1);
     }
 
+    //load credit
     Image * img2 = new Image();
     #ifdef __linux__
     if(img2->LoadFromFile("ShootThemUp/sprites/credits.png")){
@@ -49,6 +62,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img2);
     }
 
+    //load cursor
     Image * img3 = new Image();
     #ifdef __linux__
     if(img3->LoadFromFile("ShootThemUp/sprites/cursor.png")){
@@ -58,6 +72,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img3);
     }
 
+    //load doubleTinyLaser
     Image * img4 = new Image();
     #ifdef __linux__
     if(img4->LoadFromFile("ShootThemUp/sprites/doublePetitLaser.png")){
@@ -67,6 +82,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img4);
     }
 
+    //load fireball
     Image * img5 = new Image();
     #ifdef __linux__
     if(img5->LoadFromFile("ShootThemUp/sprites/fireBall.png")){
@@ -77,6 +93,7 @@ void GraphicLibrary::loadLibrary(){
 
     }
 
+    //load gameOver
     Image * img6 = new Image();
     #ifdef __linux__
     if(img6->LoadFromFile("ShootThemUp/sprites/gameOver.png")){
@@ -86,6 +103,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img6);
     }
 
+    //load getReady
     Image * img7 = new Image();
     #ifdef __linux__
     if(img7->LoadFromFile("ShootThemUp/sprites/getReady.png")){
@@ -96,6 +114,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img7);
     }
 
+    //load bigExplossion
     Image * img8 = new Image();
     #ifdef __linux__
     if(img8->LoadFromFile("ShootThemUp/sprites/grosseExplosion.png")){
@@ -105,6 +124,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img8);
     }
 
+    //load wave
     Image * img9 = new Image();
     #ifdef __linux__
     if(img9->LoadFromFile("ShootThemUp/sprites/wave.png")){
@@ -114,6 +134,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img9);
     }
 
+    //load tiny
     Image * img10 = new Image();
     #ifdef __linux__
     if(img10->LoadFromFile("ShootThemUp/sprites/tiny.png")){
@@ -123,6 +144,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img10);
     }
 
+    //load submarine
     Image * img11 = new Image();
     #ifdef __linux__
     if(img11->LoadFromFile("ShootThemUp/sprites/submarine.png")){
@@ -132,6 +154,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img11);
     }
 
+    //load standard bullet
     Image * img12 = new Image();
     #ifdef __linux__
     if(img12->LoadFromFile("ShootThemUp/sprites/standard.png")){
@@ -141,6 +164,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img12);
     }
 
+    //load scoring
     Image * img13 = new Image();
     #ifdef __linux__
     if(img13->LoadFromFile("ShootThemUp/sprites/scoring.png")){
@@ -150,6 +174,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img13);
     }
 
+    //load quit
     Image * img14 = new Image();
     #ifdef __linux__
     if(img14->LoadFromFile("ShootThemUp/sprites/quit.png")){
@@ -158,7 +183,8 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img14);
     }
-
+        
+    //load play
     Image * img15 = new Image();
     #ifdef __linux__
     if(img15->LoadFromFile("ShootThemUp/sprites/play.png")){
@@ -168,6 +194,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img15);
     }
 
+    //load score
     Image * img16 = new Image();
     #ifdef __linux__
     if(img16->LoadFromFile("ShootThemUp/sprites/score.png")){
@@ -177,6 +204,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img16);
     }
 
+    //load player
     Image * img17 = new Image();
     #ifdef __linux__
     if(img17->LoadFromFile("ShootThemUp/sprites/player.png")){
@@ -186,6 +214,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img17);
     }
 
+    //load tinyLaser
     Image * img18 = new Image();
     #ifdef __linux__
     if(img18->LoadFromFile("ShootThemUp/sprites/petitLaser.png")){
@@ -195,6 +224,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img18);
     }
 
+    //load smallExplosion
     Image * img19 = new Image();
     #ifdef __linux__
     if(img19->LoadFromFile("ShootThemUp/sprites/petiteExplosion.png")){
@@ -204,6 +234,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img19);
     }
 
+    //load option
     Image * img20 = new Image();
     #ifdef __linux__
     if(img20->LoadFromFile("ShootThemUp/sprites/options.png")){
@@ -212,7 +243,8 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img20);
     }
-
+        
+    //load mighty
     Image * img21 = new Image();
     #ifdef __linux__
     if(img21->LoadFromFile("ShootThemUp/sprites/mighty.png")){
@@ -222,6 +254,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img21);
     }
 
+    //load intro
     Image * img22 = new Image();
     #ifdef __linux__
     if(img22->LoadFromFile("ShootThemUp/sprites/menuIntro.png")){
@@ -231,6 +264,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img22);
     }
 
+    //load laser
     Image * img23 = new Image();
     #ifdef __linux__
     if(img23->LoadFromFile("ShootThemUp/sprites/laser.png")){
@@ -240,6 +274,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img23);
     }
 
+    //load hightScore
     Image * img24 = new Image();
     #ifdef __linux__
     if(img24->LoadFromFile("ShootThemUp/sprites/highScores.png")){
@@ -249,6 +284,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img24);
     }
 
+    //load life
     Image * img25 = new Image();
     #ifdef __linux__
     if(img25->LoadFromFile("ShootThemUp/sprites/coeur.png")){
@@ -258,6 +294,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img25);
     }
 
+    //load backgroundShop
     Image * img26 = new Image();
     #ifdef __linux__
     if(img26->LoadFromFile("ShootThemUp/sprites/backgroundShop.png")){
@@ -267,6 +304,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img26);
     }
 
+    //load enemy
     Image * img27 = new Image();
     #ifdef __linux__
     if(img27->LoadFromFile("ShootThemUp/sprites/ennemy_0.png")){
@@ -276,6 +314,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img27);
     }
 
+    //load enemy
     Image * img28 = new Image();
     #ifdef __linux__
     if(img28->LoadFromFile("ShootThemUp/sprites/ennemy_1.png")){
@@ -284,6 +323,8 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img28);
     }
+        
+    //load enemy
     Image * img29 = new Image();
     #ifdef __linux__
     if(img29->LoadFromFile("ShootThemUp/sprites/ennemy_2.png")){
@@ -292,7 +333,8 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img29);
     }
-
+        
+    //load enemy
     Image * img30 = new Image();
     #ifdef __linux__
     if(img30->LoadFromFile("ShootThemUp/sprites/ship_all.png")){
@@ -301,7 +343,8 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img30);
     }
-
+        
+    //load shot
     Image * img31 = new Image();
     #ifdef __linux__
     if(img31->LoadFromFile("ShootThemUp/sprites/shot.png")){
@@ -311,6 +354,7 @@ void GraphicLibrary::loadLibrary(){
         _imagesList.push_back(img31);
     }
 
+    //loaf logo
     Image * img32 = new Image();
     #ifdef __linux__
     if(img32->LoadFromFile("ShootThemUp/sprites/logo.jpeg")){
@@ -319,7 +363,8 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img32);
     }
-        
+    
+    //load planet
     Image * img33 = new Image();
     #ifdef __linux__
     if(img33->LoadFromFile("ShootThemUp/sprites/planet.png")){
@@ -328,7 +373,8 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img33);
     }
-        
+     
+    //load logo iut
     Image * img34 = new Image();
     #ifdef __linux__
     if(img34->LoadFromFile("ShootThemUp/sprites/logo_info.png")){
@@ -339,6 +385,9 @@ void GraphicLibrary::loadLibrary(){
     }
 }
 
+/*
+ * GETTERS
+ */
 Image * GraphicLibrary::getImage(int i) const{
     return _imagesList[i];
 }

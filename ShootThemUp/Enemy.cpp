@@ -12,14 +12,10 @@
 using namespace std;
 
 /*
- * default constructor
+ * CONSTRUCTOR
  */
 Enemy::Enemy(){}
 
-/*
- * constructor
- * params : x, y ans health of enemy
- */
 Enemy::Enemy(const float x, const float y, const int health, const int type, const int width, const int height):Ship(x, y, health, width, height, ENEMY_FIRERATE, ENEMY_SPEEDX, ENEMY_SPEEDY), _type(type) {}
 
 Enemy::Enemy(const float x, const float y, const int health, const int type, const int width, const int height, const float firerate):Ship(x, y, health, width, height, firerate, ENEMY_SPEEDX, ENEMY_SPEEDY), _type(type) {}
@@ -43,19 +39,17 @@ Enemy* Enemy::Mighty(const float x, const float y){
 }
 
 /*
- * destructor
- * info : virtual
+ * DESTRUCTOR
  */
 Enemy::~Enemy(){
 
 }
 
-//----------METHODS----------
 /*
- * returns : string, ship toString
- * info : constant, override
+ * METHODS
  */
 string Enemy::toString() const{
+    
     string str = "Un ennemi";
 
     str += "\n";
@@ -65,6 +59,7 @@ string Enemy::toString() const{
     return str;
 }
 
+//allow to shoot bullet in function of the enemy's bullet type
 void Enemy::shoot(){
     
     if(_bulletType == 0){
@@ -89,7 +84,9 @@ void Enemy::shoot(){
     }
 }
 
+//allow to shoot bullet in function of the enemy's bullet type
 void Enemy::shoot(const float x, const float y, const float speedX, const float speedY){
+    
     if(_bulletType == 0){
         _mainShoot = new Bullet(x, y, _damage, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, speedX, speedY, 0, STANDARD_PRICE, "enemy");
         _level->addBullet(_mainShoot);
@@ -111,11 +108,16 @@ void Enemy::shoot(const float x, const float y, const float speedX, const float 
         _level->addBullet(_mainShoot);
     }
 }
+
+//move enemy
 void Enemy::move(const float x, const float y){
     _x = x;
     _y = y;
 }
 
+/*
+ * GETTERS
+ */
 int Enemy::getType() const{
     return _type;
 }

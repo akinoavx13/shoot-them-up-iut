@@ -12,9 +12,9 @@
 using namespace std;
 
 /*
- * default constructor
+ * CONSTRUCTOR
  */
-Ally::Ally() : Ship(MODEL_WIDTH/2-ALLY_PICTURE_WIDTH/6, MODEL_HEIGHT-ALLY_PICTURE_HEIGHT-25, ALLY_LIFE,ALLY_PICTURE_WIDTH/3, ALLY_PICTURE_HEIGHT, ALLY_FIRERATE, ALLY_SPEEDX, ALLY_SPEEDY), _numbersOfLife(ALLY_NUMBER_OF_LIFE), _score(DEFAULT_SCORE), _numberShootWithBonus(0), _numberShootWithBonusMax(4), _numberLifeBuy(0), _name("")
+Ally::Ally() : Ship(MODEL_WIDTH / 2 - ALLY_PICTURE_WIDTH / 6, MODEL_HEIGHT - ALLY_PICTURE_HEIGHT - 25, ALLY_LIFE, ALLY_PICTURE_WIDTH / 3, ALLY_PICTURE_HEIGHT, ALLY_FIRERATE, ALLY_SPEEDX, ALLY_SPEEDY), _numbersOfLife(ALLY_NUMBER_OF_LIFE), _score(DEFAULT_SCORE), _numberShootWithBonus(0), _numberShootWithBonusMax(4), _numberLifeBuy(0), _name("")
 {
     Bullet * newBullet1 = new Bullet(_x + _width / 2 - STANDARD_PICTURE_WIDTH / 2, _y - STANDARD_PICTURE_HEIGHT - 5, STANDARD_DAMAGE, STANDARD_PICTURE_WIDTH, STANDARD_PICTURE_HEIGHT, ALLY_BULLET_SPEEDX, ALLY_BULLET_SPEEDY, 0, STANDARD_PRICE, "ally");
     _othersBullets.push_back(newBullet1);
@@ -37,94 +37,92 @@ Ally::Ally() : Ship(MODEL_WIDTH/2-ALLY_PICTURE_WIDTH/6, MODEL_HEIGHT-ALLY_PICTUR
     _bonusShoot = newBullet2;
 }
 
-bool Ally::bonusShoot(){
-    if(_numberShootWithBonus<_numberShootWithBonusMax)
-    {
-        int width = _bonusShoot->getWidth();
-        int height = _bonusShoot->getHeight();
-
-        int x = _x + _width/2 - width/2;
-        int y = _y - height - 5;
-
-        Bullet * copieBonus = new Bullet(x, y, _bonusShoot->getDamage(), width, height, _bonusShoot->getSpeedX(), _bonusShoot->getSpeedY(), _bonusShoot->getType(), 0, "ally");
-        _level->addBullet(copieBonus);
-        _numberShootWithBonus++;
-        return true;
-    }
-    return false;
-}
-
-void Ally::resetBonus(){
-    _numberShootWithBonus=0;
-    if(_numberShootWithBonusMax<100){
-        _numberShootWithBonusMax+=3;
-    }
-}
-
 /*
- * contructor
- * params : x, y and health of ally
- */
-//Ally::Ally(const float x, const float y, const int health):Ship(x, y, health,ALLY_PICTURE_HEIGHT, ALLY_PICTURE_WIDTH/3), _numbersOfLife(DEFAULT_NUMBER_OF_LIFE), _score(DEFAULT_SCORE) {}
-
-/*
- * destructor
- * info : virtual
+ * DESTRUCTOR
  */
 Ally::~Ally(){
-    for(int i = 0; i<_othersBullets.size(); i++){
+    for(int i = 0; i < _othersBullets.size(); i++){
         delete _othersBullets[i];
     }
     _othersBullets.clear();
 }
 
-//----------METHODS----------
 /*
- * returns : true if the player has more life
- * info : constant
+ * METHODS
  */
 
-bool Ally::canBuyItem(int type) const{
-    return _score-_othersBullets[type]->getPrice()>=0;
+//allow to shoot the bonus shoot
+bool Ally::bonusShoot(){
+    
+    if(_numberShootWithBonus<_numberShootWithBonusMax)
+    {
+        int width = _bonusShoot->getWidth();
+        int height = _bonusShoot->getHeight();
+        
+        int x = _x + _width / 2 - width / 2;
+        int y = _y - height - 5;
+        
+        Bullet * copieBonus = new Bullet(x, y, _bonusShoot->getDamage(), width, height, _bonusShoot->getSpeedX(), _bonusShoot->getSpeedY(), _bonusShoot->getType(), 0, "ally");
+        
+        _level->addBullet(copieBonus);
+        _numberShootWithBonus++;
+        
+        return true;
+    }
+    return false;
 }
 
+//reset all bonus shoot
+void Ally::resetBonus(){
+    
+    _numberShootWithBonus = 0;
+    
+    if(_numberShootWithBonusMax < 100){
+        _numberShootWithBonusMax += 3;
+    }
+}
+
+//return true if we have the money to buy this item
+bool Ally::canBuyItem(int item) const{
+    return _score - _othersBullets[item]->getPrice() >= 0;
+}
+
+//return true if the player didn't have life
 bool Ally::isOver() const{
     return _numbersOfLife <= 0;
 }
 
+//change the bonus of the player
 void Ally::changeBonus(int type){
-    if(type<_othersBullets.size())
+    if(type<_othersBullets.size()){
         _bonusShoot = _othersBullets[type];
+    }
 }
 
+//delete the last letter of player's name when he entrer his score
 void Ally::deleteOneLetter(){
-    if(_name.size()>0){
-        _name.erase(_name.size()-1);
+    if(_name.size() > 0){
+        _name.erase(_name.size() - 1);
     }
 }
 
+//add player's letter
 void Ally::addLetter(string letter){
-    _name+=letter;
+    _name += letter;
 }
 
+//move the player to x and y position
 void Ally::move(const float x, const float y){
-    if (x >= 0 && x+_width < MODEL_WIDTH) {
+    if (x >= 0 && x + _width < MODEL_WIDTH) {
         _x = x;
-    }else{
-        //cout << "X n'est pas compris entre 0 et " << MODEL_WIDTH << ". X vaut : " << x << endl;
     }
 
-    if (y >= 30 && y+_height < MODEL_HEIGHT) {
+    if (y >= 30 && y + _height < MODEL_HEIGHT) {
         _y = y;
-    }else{
-        //cout << "Y n'est pas compris entre 0 et " << MODEL_HEIGHT << ". Y vaut : " << y << endl;
     }
 }
 
-/*
- * returns : string of number life and ship toString
- * info : constant, override
- */
+//write some informations on the players
 string Ally::toString() const{
     string str = "Notre vaisseau";
     str += "\n";
@@ -188,6 +186,7 @@ string Ally::toString() const{
     return str;
 }
 
+//increase the performance of the bonus shoot. Return true is it's upgraded
 bool Ally::improveOneBulletBonus(int type){
     if(_othersBullets.size() > type){
         if(_othersBullets[type]->improve()){
@@ -197,10 +196,8 @@ bool Ally::improveOneBulletBonus(int type){
     return false;
 }
 
-//----------GETTERS----------
 /*
- * returns : number of life
- * info : constant
+ * GETTERS
  */
 
 Bullet * Ally::getOneBulletBonus(int type) const{
@@ -242,13 +239,8 @@ string Ally::getName() const{
     return _name;
 }
 
-//----------SETTERS----------
 /*
- * set the health of ally
- */
-
-/*
- * set number of life
+ * SETTERS
  */
 void Ally::setNumberOfLife(int numberOfLive){
     _numbersOfLife = numberOfLive;
