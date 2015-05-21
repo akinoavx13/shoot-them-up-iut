@@ -13,15 +13,23 @@
 #include <vector>
 
 class GraphicLibrary{
+    
 private:
+    
     std::vector<sf::Image *> _imagesList;
 
 public:
+    
+    //CONSTRUCTOR
     GraphicLibrary();
+    
+    //DESTRUCTOR
     ~GraphicLibrary();
 
+    //METHODS
     void loadLibrary();
 
+    //GETTERS
     sf::Image * getImage(int i) const;
 
 };

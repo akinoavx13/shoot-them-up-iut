@@ -13,23 +13,30 @@
 #include <string>
 
 class Player {
-    private :
-        std::string _name;
-        int _score;
+    
+private :
+    
+    std::string _name;
+    int _score;
 
-    public:
-        Player(std::string name, int score);
-        Player(Player* &p);
-        ~Player();
+public:
+    
+    //CONSTRUCTOR
+    Player(std::string name, int score);
+    Player(Player* &p);
+    
+    //DESTRUCTOR
+    ~Player();
+    
+    //METHODS
+    bool alreadyExist(Player* &test) const;
+    void bestScore(int test);
+    std::string toString() const;
+    
+    //GETTERS
+    int getScore() const;
+    std::string getName() const;
 
-        int getScore() const;
-        std::string getName() const;
-
-        bool alreadyExist(Player* &test) const;
-
-        void bestScore(int test);
-
-        std::string toString() const;
 };
 
 #endif /* defined(__ShootThemUp__Player__) */

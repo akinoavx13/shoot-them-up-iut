@@ -17,7 +17,9 @@
 #include "Player.h"
 
 class Menu {
+    
 private:
+    
     bool _intro;
     bool _game;
     bool _level;
@@ -31,55 +33,51 @@ private:
     bool _credits;
 
     std::string _language;
+    
     int _theme;
 
 public:
+    
+    //CONSTRUCTOR
     Menu();
+    
+    //DESTRUCTOR
     ~Menu();
-
-    bool getIntro() const;
-    void setIntro(bool intro);
-
-    bool getGame() const;
-    void setGame(bool shop);
-
-    bool getLevel() const;
-    void setLevel(bool level);
-
-    bool getShop() const;
-    void setShop(bool shop);
-
-    bool getMenu() const;
-    void setMenu(bool menu);
-
-    bool getScore() const;
-    void setScore(bool score);
-
-    bool getSaveScore() const;
-    void setSaveScore(bool saveScore);
-
-    bool getEnding() const;
-    void setEnding(bool ending);
-
-    bool getReady() const;
-    void setReady(bool ready);
-
-    bool getOptions() const;
-    void setOption(bool options);
-
-    bool getCredits() const;
-    void setCredits(bool credits);
-
-    int getTheme() const;
-    void setTheme(int theme);
-
-    std::string getLanguage() const;
-    void setLanguage(std::string language);
-
+    
+    //METHODS
     void showIntroTerminal() const;
     void saveScore(int value, std::string player, std::string file);
-
     std::vector<Player*> showScores(std::string file);
+
+    //GETTERS
+    bool getIntro() const;
+    bool getGame() const;
+    bool getLevel() const;
+    bool getShop() const;
+    bool getMenu() const;
+    bool getScore() const;
+    bool getSaveScore() const;
+    bool getEnding() const;
+    bool getReady() const;
+    bool getOptions() const;
+    bool getCredits() const;
+    int getTheme() const;
+    std::string getLanguage() const;
+
+    //SETTERS
+    void setIntro(bool intro);
+    void setGame(bool shop);
+    void setLevel(bool level);
+    void setShop(bool shop);
+    void setMenu(bool menu);
+    void setScore(bool score);
+    void setSaveScore(bool saveScore);
+    void setEnding(bool ending);
+    void setReady(bool ready);
+    void setOption(bool options);
+    void setCredits(bool credits);
+    void setTheme(int theme);
+    void setLanguage(std::string language);
 
 };
 

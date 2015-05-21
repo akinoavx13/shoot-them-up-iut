@@ -64,6 +64,7 @@ public:
     int getNumberOfBullets() const;
     int getNumberOfEnemies() const;
 
+    //SETTERS
     void setNbEnemies(int nbEnemies);
     void setLevelNumber(int levelNumber);
 

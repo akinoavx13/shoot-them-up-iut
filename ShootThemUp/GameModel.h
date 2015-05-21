@@ -47,6 +47,7 @@ public:
     Level* getLevel() const;
     int getNumberTour() const;
 
+    //SETTERS
     void setMenu(Menu* menu);
 
 };

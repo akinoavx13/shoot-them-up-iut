@@ -34,12 +34,12 @@ public:
     
     //METHODS
     void draw() const;
+    bool treatEvent();
     
     //SETTERS
     void setModel(GameModel* gameModel);
     void setModelMenu();
     
-    bool treatEvent();
     
 };
 

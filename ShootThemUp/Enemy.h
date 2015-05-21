@@ -17,6 +17,7 @@
 class Enemy : public Ship{
 
 private:
+    
     int _type;
 
 public:
@@ -37,7 +38,6 @@ public:
     void shoot() override;
     void shoot(const float x, const float y, const float speedX, const float speedY);
     void move(const float x, const float y) override;
-
 
     //GETTER
     int getType() const;

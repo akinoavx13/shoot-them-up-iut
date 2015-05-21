@@ -20,14 +20,17 @@
 class Level;
 
 class Ship : public GraphicElement{
+    
 protected:
 
     int _health;
-    Bullet* _mainShoot;
     int _bulletType;
-    Level* _level;
     int _damage;
+
     float _fireRate;
+    
+    Bullet* _mainShoot;
+    Level* _level;
 
 public:
 
@@ -42,7 +45,6 @@ public:
     virtual void shoot();
     virtual std::string toString() const override;
     virtual void move(const float x, const float y) override;
-
     bool isDead();
 
     //GETTERS

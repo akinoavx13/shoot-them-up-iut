@@ -16,7 +16,9 @@
 #include <SFML/Audio.hpp>
 
 class GameViewSFML{
+    
 private:
+    
     sf::RenderWindow * _window;
 
     GameModel* _gameModel;
@@ -35,20 +37,21 @@ private:
     sf::Sound sound_iziMoney;
     sf::Sound sound_bonusShoot;
 
-
     GraphicLibrary* _graphicLibrary;
+    
     float _yBackground;
     float _yBackground2;
 
     bool _letterPut;
 
+    //METHODS
     void showItems(int rang, int numPicture, std::string name, int width, int height, int price, int damage) const;
-
     void addText(std::string text, int x, int y, int size, int color) const;
     void addTextWithValue(int value, int xV, int yV, int sizeV ,std::string text, int xT, int yT, int sizeT, int color) const;
     void addShape(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, bool fill, bool outLine, int width, int color) const;
 
 public:
+    
     //CONSTRUCTOR
     GameViewSFML();
 
@@ -57,12 +60,11 @@ public:
 
     //METHODS
     void draw();
+    bool treatEvent();
 
     //SETTERS
     void setModel(GameModel* gameModel);
     void setModelMenu();
-
-    bool treatEvent();
 
 };
 

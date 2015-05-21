@@ -16,14 +16,17 @@
 #include "Ship.h"
 
 class Boss : public Enemy{
-private:
-
+    
 public:
+    
+    //CONSTRUCTOR
     Boss();
     Boss(const float x, const float y, const int health, const float firerate);
 
+    //DESTRUCTOR
     ~Boss();
 
+    //METHODS
     std::string toString() const override;
     
 };

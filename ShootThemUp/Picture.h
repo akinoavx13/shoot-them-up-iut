@@ -12,21 +12,29 @@
 #include <SFML/Graphics.hpp>
 
 class Picture{
+    
 private:
+    
     sf::Sprite * _sprite;
+    
     float _x;
     float _y;
+    
     int _width;
     int _height;
 
-
 public:
+    
+    //CONSTRUCTOR
     Picture(sf::Image * image);
     Picture(sf::Image * image, float x, float y);
     Picture(sf::Image * image, float x, float y, int width, int height);
     Picture(sf::Image * image, float x, float y, int width, int height, int x1, int y1, int x2, int y2);
+    
+    //DESTRUCTORE
     ~Picture();
 
+    //GETTERS
     sf::Sprite getSprite() const;
 };
 

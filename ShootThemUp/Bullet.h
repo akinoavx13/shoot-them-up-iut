@@ -18,9 +18,9 @@
 class Bullet : public GraphicElement {
 
 private:
+    
     int _damage;
     int _type;
-
     int _state;
     int _price;
     
@@ -42,19 +42,16 @@ public:
     virtual std::string toString() const override;
     bool improve();
     void growPrice();
+    void move(const float x, const float y) override;
 
     //SETTERS
     void setPrice(int price);
     
     //GETTERS
     int getDamage() const;
-
-    void move(const float x, const float y) override;
     int getType() const;
-    
     int getState() const;
     int getPrice() const;
-    
     std::string getOwner() const;
     
 };
