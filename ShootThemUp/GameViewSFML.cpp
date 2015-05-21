@@ -757,6 +757,8 @@ void GameViewSFML::draw(){
         }
     }
     else if(_menu->getOptions()){
+        Picture credits(_graphicLibrary->getImage(20), SCREEN_WIDTH/2-73,15,146,26);
+        _window->Draw(credits.getSprite());
 
         addShape(280, 160, 290, 160, 290, 170, 280, 170, true, false, 0, 4);
         addShape(280, 160, 290, 160, 290, 170, 280, 170, false, true, 1, 1);
@@ -849,7 +851,22 @@ void GameViewSFML::draw(){
         }
     }
     else if (_menu->getCredits()){
+        Picture credits(_graphicLibrary->getImage(2), SCREEN_WIDTH/2-73,15,146,26);
+        _window->Draw(credits.getSprite());
+        
+        
+        addText("(ari [arobas] arifeldman.com)", 15, 120, 15, 2);
+        
         if(_menu->getLanguage() == "english"){
+            addText("Game artwork created by Ari Feldman (theme 1),", 15, 100, 15, 0);
+            addText("and Romain Bourqui (theme 2).", 15, 140, 15, 0);
+            addText("Thank you to our teacher Olivier Guibert and Franck Ruby", 15, 180, 15, 0);
+            addText("for the conception and programming help.", 15, 200, 15, 0);
+            addText("Game designed by Maxime Maheo and Nicolas Valaise,", 15, 300, 15, 0);
+            addText("informatique IUT of Bordeaux.", 15, 320, 15, 0);
+            addText("Original game : Shoot Them Up", 15, 480, 15, 0);
+
+
             addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, false, true, 2, 1);
 
             if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
@@ -860,7 +877,16 @@ void GameViewSFML::draw(){
 
         }
         else if (_menu->getLanguage() == "francais"){
+            addText("Les images du jeu ont ete cree par Ari Feldman (theme 1),", 15, 100, 15, 0);
+            addText("et Romain Bourqui (theme 2).", 15, 140, 15, 0);
+            addText("Merci a nos professeurs Olivier Guibert et Franck Ruby", 15, 180, 15, 0);
+            addText("pour l'aide sur la conception et la programmation.", 15, 200, 15, 0);
+            addText("Jeu cree par Maxime Maheo et Nicolas Valaise,", 15, 300, 15, 0);
+            addText("etudiant a l'IUT Informatique de Bordeaux.", 15, 320, 15, 0);
+            addText("Jeu original : Shoot Them Up", 15, 480, 15, 0);
 
+
+            
             addShape(SCREEN_WIDTH/2-85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-50, SCREEN_WIDTH/2+85, SCREEN_HEIGHT-20, SCREEN_WIDTH/2-85, SCREEN_HEIGHT-20, false, true, 2, 1);
 
             if(((mouseX > SCREEN_WIDTH/2-85) && (mouseX < SCREEN_WIDTH/2+85) && (mouseY > SCREEN_HEIGHT-50 ) &&  (mouseY < SCREEN_HEIGHT+20)) || input.IsKeyDown(Key::Return))
@@ -956,6 +982,9 @@ void GameViewSFML::addText(std::string text, int x, int y, int size, int color) 
             break;
         case 1:
             c = Color::Black;
+            break;
+        case 2:
+            c = Color::Red;
             break;
     }
     
