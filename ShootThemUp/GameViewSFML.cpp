@@ -194,6 +194,14 @@ void GameViewSFML::draw(){
     {
         if(_menu->getLevel())
         {
+            int col = 0;
+            if(_menu->getTheme()==0){
+                col = white;
+            }
+            else if (_menu->getTheme()==1){
+                col = black;
+            }
+            
             if(_menu->getTheme()==0){
                 Picture bg(_graphicLibrary->getImage(0), 0,_yBackground,MODEL_WIDTH,MODEL_HEIGHT);
                 Picture bg2(_graphicLibrary->getImage(0), 0,_yBackground2,MODEL_WIDTH,MODEL_HEIGHT);
@@ -210,7 +218,7 @@ void GameViewSFML::draw(){
             }
 
             if(_menu->getReady()){
-
+                
                 int tmp = (int)time.GetElapsedTime();
                 if(tmp%2 == 0){
                     Picture getReady(_graphicLibrary->getImage(7), MODEL_WIDTH/2-50,MODEL_HEIGHT/2-100, 203, 20, 0, 0, 196/2, 13);
@@ -222,30 +230,22 @@ void GameViewSFML::draw(){
                 }
 
                 if(time.GetElapsedTime()<=1){
-                    addText("3", MODEL_WIDTH/2-7, MODEL_HEIGHT/2-35, 30, 0);
+                    addText("3", MODEL_WIDTH/2-7, MODEL_HEIGHT/2-35, 30, col);
                 }
                 else if(time.GetElapsedTime()<=2){
-                    addText("2", MODEL_WIDTH/2-7, MODEL_HEIGHT/2-35, 30, 0);
+                    addText("2", MODEL_WIDTH/2-7, MODEL_HEIGHT/2-35, 30, col);
                 }
                 else if(time.GetElapsedTime()<=3){
-                    addText("1", MODEL_WIDTH/2-7, MODEL_HEIGHT/2-35, 30, 0);
+                    addText("1", MODEL_WIDTH/2-7, MODEL_HEIGHT/2-35, 30, col);
                 }
                 else if (time.GetElapsedTime()<=4){
-                    addText("Go!", MODEL_WIDTH/2-15, MODEL_HEIGHT/2-35, 30, 0);
+                    addText("Go!", MODEL_WIDTH/2-18, MODEL_HEIGHT/2-35, 30, col);
                 }
                 else{
                     _menu->setReady(false);
                 }
             }
             else{
-                
-                int col = 0;
-                if(_menu->getTheme()==0){
-                    col = white;
-                }
-                else if (_menu->getTheme()==1){
-                    col = black;
-                }
                 
                 if(_yBackground > MODEL_HEIGHT - 5){
                     _yBackground = -MODEL_HEIGHT + 2;
@@ -307,12 +307,12 @@ void GameViewSFML::draw(){
 
                         }
                         if(_menu->getTheme() == 0){
-                            addShape(xe, ye-15, xe+e->getWidth(), ye-15, xe+e->getWidth(), ye-10, xe, ye-10, false, true, 1, 1);
+                            addShape(xe, ye-15, xe+e->getWidth(), ye-15, xe+e->getWidth(), ye-10, xe, ye-10, false, true, 1, col);
 
                         }
                         
                         else if(_menu->getTheme() == 1){
-                            addShape(xe, ye-15, xe+e->getWidth(), ye-15, xe+e->getWidth(), ye-10, xe, ye-10, false, true, 1, 0);
+                            addShape(xe, ye-15, xe+e->getWidth(), ye-15, xe+e->getWidth(), ye-10, xe, ye-10, false, true, 1, col);
 
                         }
 
@@ -854,6 +854,8 @@ void GameViewSFML::draw(){
         Picture credits(_graphicLibrary->getImage(2), SCREEN_WIDTH/2-73,15,146,26);
         _window->Draw(credits.getSprite());
         
+        Picture logo(_graphicLibrary->getImage(34), SCREEN_WIDTH/2-90,320,180,120);
+        _window->Draw(logo.getSprite());
         
         addText("(ari [arobas] arifeldman.com)", 15, 120, 15, 2);
         
@@ -862,8 +864,8 @@ void GameViewSFML::draw(){
             addText("and Romain Bourqui (theme 2).", 15, 140, 15, 0);
             addText("Thank you to our teacher Olivier Guibert and Franck Ruby", 15, 180, 15, 0);
             addText("for the conception and programming help.", 15, 200, 15, 0);
-            addText("Game designed by Maxime Maheo and Nicolas Valaise,", 15, 300, 15, 0);
-            addText("informatique IUT of Bordeaux.", 15, 320, 15, 0);
+            addText("Game designed by Maxime Maheo and Nicolas Valaise,", 15, 260, 15, 0);
+            addText("informatique IUT of Bordeaux.", 15, 280, 15, 0);
             addText("Original game : Shoot Them Up", 15, 480, 15, 0);
 
 
@@ -881,8 +883,8 @@ void GameViewSFML::draw(){
             addText("et Romain Bourqui (theme 2).", 15, 140, 15, 0);
             addText("Merci a nos professeurs Olivier Guibert et Franck Ruby", 15, 180, 15, 0);
             addText("pour l'aide sur la conception et la programmation.", 15, 200, 15, 0);
-            addText("Jeu cree par Maxime Maheo et Nicolas Valaise,", 15, 300, 15, 0);
-            addText("etudiant a l'IUT Informatique de Bordeaux.", 15, 320, 15, 0);
+            addText("Jeu cree par Maxime Maheo et Nicolas Valaise,", 15, 260, 15, 0);
+            addText("etudiant a l'IUT Informatique de Bordeaux.", 15, 280, 15, 0);
             addText("Jeu original : Shoot Them Up", 15, 480, 15, 0);
 
 

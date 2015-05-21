@@ -328,6 +328,15 @@ void GraphicLibrary::loadLibrary(){
     #endif
         _imagesList.push_back(img33);
     }
+        
+    Image * img34 = new Image();
+    #ifdef __linux__
+    if(img34->LoadFromFile("ShootThemUp/sprites/logo_info.png")){
+    #else
+    if(img34->LoadFromFile("logo_info.png")){
+    #endif
+        _imagesList.push_back(img34);
+    }
 }
 
 Image * GraphicLibrary::getImage(int i) const{
